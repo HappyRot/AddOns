@@ -1,0 +1,16 @@
+tag a3af3c8aa6d934230754d2138ccc43a115b3ae0f 9.1.0.06
+Author:	Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:	Sat Sep 11 20:54:08 2021 +0200
+
+commit 2cfc5c5286ea68e488a8a2d9ebfa5670d92ec21e
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Sat Sep 11 20:53:59 2021 +0200
+
+    build(TOC): 9.1.0.06 release
+
+commit 8abbee7534abf189af0a22cbac0d7f3d59a7a85b
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Sat Sep 11 20:53:15 2021 +0200
+
+    feat(TTD): Typo (Test CF pick up)
+

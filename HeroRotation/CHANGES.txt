@@ -1,0 +1,166 @@
+tag c9d170e56b41ee1ad5228d344405077ab1d037e3 9.1.0.05
+Author:	Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:	Fri Aug 27 19:26:53 2021 +0200
+
+commit 7c8584a0efa7037ca1962ed6a9867d8ec693564b
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Fri Aug 27 19:26:35 2021 +0200
+
+    build(TOC): 9.1.0.05 release
+
+commit 4d62e423710a29f620839a51fb642e44436e0cc9
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Mon Aug 23 21:30:35 2021 +0200
+
+    feat(Fire): update to latest APL
+
+commit d95fae73c0e9ce71c0edea215450e81ecd3d59e5
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Mon Aug 23 18:39:26 2021 +0200
+
+    feat(Arcane): update to latest APL
+
+commit 945702f50a94ad55357e352d250c756e192f762f
+Author: Cilraaz <cilraaz@gmail.com>
+Date:   Mon Aug 23 09:11:47 2021 -0400
+
+    fix(Brewmaster): Make Celestial Brew obey OffGCD setting
+    
+    - Fixes issue #781
+
+commit 081c59e46c4fb9d1be67d80f8c7dfbac0ba00175
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Sun Aug 22 22:08:09 2021 +0200
+
+    feat(Fire): update to latest APL
+    
+    + fix for precendent skb commits
+
+commit 8dbc1c2ba0063440df88ebc33febafc71038b919
+Author: Cilraaz <cilraaz@gmail.com>
+Date:   Fri Aug 20 14:50:01 2021 -0400
+
+    feat(Affliction): APL update (typo fix)
+
+commit 28984b96dbe9f64768de238d28d1098a12be30c0
+Author: Cilraaz <cilraaz@gmail.com>
+Date:   Fri Aug 20 13:43:04 2021 -0400
+
+    feat(Warlock): Updates for Shadowed Orb of Torment
+
+commit 4967091213264ec6eae2e6f9939303c297b63176
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Fri Aug 20 13:38:23 2021 +0200
+
+    feat(Arcane): update to latest APL
+
+commit f5bcfb2b343ba4d91a06f5b42f86aa0abfab231b
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Fri Aug 20 13:09:43 2021 +0200
+
+    feat(Fire): update to latest APL
+
+commit 695c5efb064d7bb7774daddda7ae20268dc7eece
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Mon Aug 16 16:05:26 2021 +0200
+
+    feat(Arcane): update to latest APL
+
+commit 0f954f559d6434b81ed47559a94ba723515cfa4b
+Author: Cilraaz <cilraaz@gmail.com>
+Date:   Tue Aug 10 23:18:50 2021 -0400
+
+    feat(Demonology): Decimating Bolt tweak
+
+commit 84a6c4ea98505f1be26cc40bc30381ead5af6675
+Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:   Fri Aug 6 13:44:09 2021 +0200
+
+    [Mage] Precombat TMC setup
+
+commit 0374898eed9a3c0982591a54ccd526a9e974e000
+Author: rbatche <68668249+rbatche@users.noreply.github.com>
+Date:   Sun Aug 1 19:37:55 2021 +0100
+
+    [Brewmaster] adding spinning crane kick usage with charred passions legendary equipped (#778)
+    
+    * [Brewmaster] add spinning crane kick with charred passions legendary
+    
+    added spinning crane kick for ST if charred passions legendary is equipped + charred passions buff up
+    
+    * [Brewmaster] more changes for charred passions legendary
+    
+    added some, 'logic'?, if using this legendary, it favours using BK on CD, with SCK and not weaving in KegSmash unless shuffle is down and enemy count is 1
+    
+    added something to prevent BK being used right before a breath of fire cast if using charred passions and shuffle is already up (using BK on CD with the legendary buff up really shines over just spamming SCK)
+    
+    now only displaying SCK when energy is available
+    
+    weapons of order is now only suggested after keg smash is on CD (usually this would be a single cast of KS on pull, WoD then KS again)
+    
+    * [Brewmaster] changes based on Cilraaz's comments
+    
+    ensuring KS is a priority cast without charred passions legendary
+    
+    ensuring KS is used during charred passions buff if BK has already been used
+    
+    ensuring KS is still used as a priority if the charred passions buff is not up but legendary is being used
+    
+    added usage of BK where the CD would be available again after a BoF cast
+    
+    added a CD check during charred passions buff to prevent too many casts of SCK when a BK is going to be available during that channel
+    
+    * [Brewmaster] fixing some indenting
+    
+    missed previous comment about indenting & fixed
+
+commit 95b548904a5076bc792291183b910cac8e632e81
+Author: Matt Redmond <mttrdmnd@gmail.com>
+Date:   Fri Jul 30 10:11:25 2021 -0700
+
+    [brew] Only purify when there is some stagger to purify.
+
+commit 11c879dbd654da4ddb2f4d50ca9365e20885370b
+Author: EvanMichaels <evan.michaels@gmail.com>
+Date:   Sat Jul 24 23:59:42 2021 -0400
+
+    [Rogue] Minor optimization to some common functions
+
+commit 03626fc9b8d2ef8ebf00b6b33cc5a41babdf3cf5
+Author: EvanMichaels <evan.michaels@gmail.com>
+Date:   Sat Jul 24 23:59:12 2021 -0400
+
+    [Subtlety] 9.1 APL Sync
+    
+    * Contains most major changes, minor follow-up sync to come
+
+commit 7bffd419ef05a652f0a5d83c4491ca829c2465fc
+Author: EvanMichaels <evan.michaels@gmail.com>
+Date:   Sat Jul 24 23:58:11 2021 -0400
+
+    [Assassination] Clean up energy saturation and SnD handling
+
+commit 572298c1d11b17acbfc39e134787443695c6f813
+Author: Cilraaz <cilraaz@gmail.com>
+Date:   Sat Jul 24 14:04:25 2021 -0400
+
+    feat(Havoc): Minor update for 9.1
+
+commit d299536033f5d169d0330614f7039db086990a09
+Author: Cilraaz <cilraaz@gmail.com>
+Date:   Sat Jul 24 13:56:16 2021 -0400
+
+    feat(Balance): Add OnInit note that Balance hasn't been updated for 9.1
+
+commit 1dbe776ef4979d387c160393cee1f33dc2a37262
+Author: Cilraaz <cilraaz@gmail.com>
+Date:   Sat Jul 24 13:54:18 2021 -0400
+
+    fix(Balance): Potentially fix a bug with Primordial Arcanic Pulsar
+
+commit 3bebb0463b73b3cfb875c669f1a69c434800dbc2
+Author: Cilraaz <cilraaz@gmail.com>
+Date:   Fri Jul 23 17:43:13 2021 -0400
+
+    fix(Workflow): Attempt to fix exclude for HeroRotation_ClassTemplate
+
