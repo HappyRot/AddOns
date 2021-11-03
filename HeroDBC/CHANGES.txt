@@ -1,46 +1,10 @@
-tag 6f2139dbb55a063eba4562bd96ec10fa32c2f150 9.1.0.03
-Author:	Cilraaz <cilraaz@gmail.com>
-Date:	Thu Jul 15 08:20:24 2021 -0400
+tag bf6e85d0de43d15ae2d5d527093261776ced5b10 9.1.5.01
+Author:	Julien Rechaussat <Kutikuti@users.noreply.github.com>
+Date:	Tue Nov 2 18:01:00 2021 +0100
 
-commit ff3e5f0c207e334f16e4364cf5dbb217f8c7aeaa
-Author: Cilraaz <cilraaz@gmail.com>
-Date:   Thu Jul 15 08:20:09 2021 -0400
-
-    build(TOC): 9.1.0.03 release
-
-commit e2bbb7d7097d4f0361fa10431a96c3201628d080
-Author: Cilraaz <cilraaz@gmail.com>
-Date:   Thu Jul 15 08:17:20 2021 -0400
-
-    feat(Workflow): Add auto-packaging workflow
-
-commit 4d55d1441104533d3d4f41565e547baa02bfcefb
+commit d67f6875124d53d3ab003fa6b7f28929ee3f5e80
 Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
-Date:   Thu Jul 15 12:34:57 2021 +0200
+Date:   Tue Nov 2 18:00:42 2021 +0100
 
-    feat(rep): prepare for workflow
-
-commit 6151bc246cf0c9e37de84264180e2e80180b9c6d
-Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
-Date:   Thu Jul 15 00:43:34 2021 +0200
-
-    chore(DBC): 9.1.0.39335 data
-
-commit a75d82a0e4c57516fb86c1a5577a33370ee1162d
-Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
-Date:   Wed Jul 7 17:11:02 2021 +0200
-
-    chore(DBC): 9.1.0.39318 data
-
-commit 57aadb65a8ff30156b7a9cb1ddf2ecd09e18822d
-Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
-Date:   Tue Jul 6 20:29:31 2021 +0200
-
-    fix(rep): fix curseforge link
-
-commit 3d74ec223fbdf779a29d4be8ef1cb3533875fbc3
-Author: Julien Rechaussat <Kutikuti@users.noreply.github.com>
-Date:   Tue Jul 6 18:59:55 2021 +0200
-
-    feat(rep): Update symlink
+    build(TOC): 9.1.5.01 release
 
