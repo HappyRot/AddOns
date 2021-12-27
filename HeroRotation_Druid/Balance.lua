@@ -25,8 +25,6 @@ local floor = math.floor
 local ceil = math.ceil
 local max = math.max
 
-
-
 local function OnInit()
   HR.Print("Balance Druid rotation is currently a work in progress, but has been updated for patch 9.1.")
 end

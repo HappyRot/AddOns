@@ -21,10 +21,6 @@ local CDsON       = HR.CDsON
 local Cast        = HR.Cast
 local CastPooling = HR.CastPooling
 
---- ============================ CONTENT ============================
---- ======= APL LOCALS =======
--- Commons
-
 local function OnInit()
   S.RipDebuff:RegisterAuraTracking()
 
