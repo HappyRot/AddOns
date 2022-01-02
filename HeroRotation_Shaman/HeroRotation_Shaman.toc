@@ -1,0 +1,17 @@
+## Interface: 90105
+
+## Title: Hero|cFFA330C9Rotation|r [|cFF0070DDShaman|r]
+## Author: HeroRotation Team
+## Notes: Hero Rotation - Shaman Module.
+
+## DefaultState: Enabled
+## LoadOnDemand: 1
+## Dependencies: HeroRotation
+
+Settings.lua
+Shaman.lua
+Events.lua
+Enhancement.lua
+Elemental.lua
+Restoration.lua
+Overrides.lua
