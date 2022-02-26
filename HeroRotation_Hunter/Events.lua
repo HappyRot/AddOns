@@ -33,34 +33,4 @@ do
   local DestGUID, SpellID;
   local PetGUIDs = {};
 
-  HL:RegisterForSelfCombatEvent(
-    function (...)
-      if SpellBM.AnimalCompanion:IsAvailable() then
-        DestGUID, _, _, _, SpellID = select(8, ...);
-        if (SpellID == SpellBM.BeastCleavePetBuff:ID() and Hunter.PetTable.LastPetSpellID == SpellBM.MultiShot:ID())
-        or (SpellID == SpellBM.FrenzyPetBuff:ID() and Hunter.PetTable.LastPetSpellID == SpellBM.BarbedShot:ID())
-        or (SpellID == SpellBM.BestialWrathPetBuff:ID() and Hunter.PetTable.LastPetSpellID == SpellBM.BestialWrath:ID()) then
-          if not PetGUIDs[DestGUID] then
-            PetGUIDs[DestGUID] = true
-            Hunter.PetTable.LastPetSpellCount = Hunter.PetTable.LastPetSpellCount + 1
-          end
-        end
-      end
-    end
-    , "SPELL_AURA_APPLIED", "SPELL_AURA_REFRESH", "SPELL_AURA_APPLIED_DOSE"
-  );
-
-  HL:RegisterForSelfCombatEvent(
-    function (...)
-      if SpellBM.AnimalCompanion:IsAvailable() then
-        SpellID = select(12, ...)
-        if SpellID == SpellBM.MultiShot:ID() or SpellID == SpellBM.BarbedShot:ID() or SpellID == SpellBM.BestialWrath:ID() then
-          PetGUIDs = {}
-          Hunter.PetTable.LastPetSpellID = SpellID
-          Hunter.PetTable.LastPetSpellCount = 0
-        end
-      end
-    end
-    , "SPELL_CAST_SUCCESS"
-  );
 end
