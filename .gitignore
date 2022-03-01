@@ -1,0 +1,13 @@
+# Project #
+###########
+
+
+# Project dependencies #
+########################
+
+
+# IDE #
+#######
+.idea/*
+.vscode/*
+/.vs
