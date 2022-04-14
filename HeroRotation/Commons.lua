@@ -1,1 +1,333 @@
-local a,b=...local c=HeroLib;local d,e=HeroCache,c.Utils;local f=c.Unit;local g=f.Player;local h=f.Target;local j=c.Spell;local k=c.Item;local pairs=pairs;b.Commons={}local l={}b.Commons.Everyone=l;local m=b.GUISettings.General;local n=b.GUISettings.Abilities;function l.TargetIsValid()return h:Exists()and g:CanAttack(h)and not h:IsDeadOrGhost()end;function l.UnitIsCycleValid(f,o,p)return not f:IsFacingBlacklisted()and not f:IsUserCycleBlacklisted()and(not o or f:FilteredTimeToDie(">",o,p))end;function l.CanDoTUnit(f,q)return f:Health()>=q or f:IsDummy()end;local r={Buff={j(191941),j(204151),j(239932)},Debuff={348074,358988,347607,351180,353929},Cast={197810,197418,198079,214003,235751,193668,227493,228852,193211,200732,241635,241636,236494,239932,254919,244899,245458,248499,258039,346985,350828,350202,350475,351066,350422,352538,350732,348071},Channel={}}local s={Buff={},Debuff={},Cast={350732,355352,353603},Channel={}}function l.ActiveMitigationNeeded()if not g:IsTanking(h)then return false end;if r.Cast[h:CastSpellID()]then return true end;for t,u in pairs(r.Buff)do if h:BuffUp(u,true)then return true end end;for t,v in pairs(r.Debuff)do local t,t,w,t,t,t,t,t,t,x,t,t,t,t,t,t=UnitDebuff("player",v)if x~=nil then if v==x then return true end end end;return false end;function l.BigActiveMitigationNeeded()if not g:IsTanking(h)then return false end;if s.Cast[h:CastSpellID()]then return true end;for t,u in pairs(s.Buff)do if h:BuffUp(u,true)then return true end end;for t,v in pairs(s.Debuff)do local t,t,w,t,t,t,t,t,t,x,t,t,t,t,t,t=UnitDebuff("player",i)if x~=nil then if v==x then return true end end end;return false end;do local y={Debuff={j(243961)}}function g:HealingAbsorbed()for t,v in pairs(y.Debuff)do if g:DebuffUp(v,true)then return true end end;return false end end;function l.Interrupt(z,j,A,B)if m.InterruptEnabled and h:IsInterruptible()and h:IsInRange(z)then if j:IsCastable()then if b.Cast(j,A)then return"Cast "..j:Name().." (Interrupt)"end elseif m.InterruptWithStun and h:CanBeStunned()then if B then for i=1,#B do if B[i][1]:IsCastable()and B[i][3]()then if b.Cast(B[i][1])then return B[i][2]end end end end end end end;function l.IsSoloMode()return m.SoloMode and not g:IsInRaidArea()and not g:IsInDungeonArea()end;function l.CastCycle(C,D,E,F,G,H)if E(h)then return b.Cast(C,G,H,F)end;if b.AoEON()then local I=h:GUID()for t,J in pairs(D)do if J:GUID()~=I and not J:IsFacingBlacklisted()and not J:IsUserCycleBlacklisted()and E(J)then b.CastLeftNameplate(J,C)break end end end end;function l.CastTargetIf(C,D,K,L,E,F,G,H)local M=not E or E and E(h)if not b.AoEON()and M then return b.Cast(C,G,H,F)end;if b.AoEON()then local N,O=nil,nil;for t,J in pairs(D)do if not J:IsFacingBlacklisted()and not J:IsUserCycleBlacklisted()and(J:AffectingCombat()or J:IsDummy())and(not O or e.CompareThis(K,L(J),O))then N,O=J,L(J)end end;if N then if M and(N:GUID()==h:GUID()or O==L(h))then return b.Cast(C,G,H,F)elseif E and E(N)or not E then b.CastLeftNameplate(N,C)end end end end;local P={Data={},Doubles={[3]="Holy + Physical",[5]="Fire + Physical",[9]="Nature + Physical",[17]="Frost + Physical",[33]="Shadow + Physical",[65]="Arcane + Physical",[127]="Arcane + Shadow + Frost + Nature + Fire + Holy + Physical"},SchoolDoubles={Holy={[2]="Holy",[3]="Holy + Physical",[6]="Fire + Holy",[10]="Nature + Holy",[18]="Frost + Holy",[34]="Shadow + Holy",[66]="Arcane + Holy",[126]="Arcane + Shadow + Frost + Nature + Fire + Holy",[127]="Arcane + Shadow + Frost + Nature + Fire + Holy + Physical"},Fire={[4]="Fire",[5]="Fire + Physical",[6]="Fire + Holy",[12]="Nature + Fire",[20]="Frost + Fire",[28]="Frost + Nature + Fire",[36]="Shadow + Fire",[68]="Arcane + Fire",[124]="Arcane + Shadow + Frost + Nature + Fire",[126]="Arcane + Shadow + Frost + Nature + Fire + Holy",[127]="Arcane + Shadow + Frost + Nature + Fire + Holy + Physical"},Nature={[8]="Nature",[9]="Nature + Physical",[10]="Nature + Holy",[12]="Nature + Fire",[24]="Frost + Nature",[28]="Frost + Nature + Fire",[40]="Shadow + Nature",[72]="Arcane + Nature",[124]="Arcane + Shadow + Frost + Nature + Fire",[126]="Arcane + Shadow + Frost + Nature + Fire + Holy",[127]="Arcane + Shadow + Frost + Nature + Fire + Holy + Physical"},Frost={[16]="Frost",[17]="Frost + Physical",[18]="Frost + Holy",[20]="Frost + Fire",[24]="Frost + Nature",[28]="Frost + Nature + Fire",[48]="Shadow + Frost",[80]="Arcane + Frost",[124]="Arcane + Shadow + Frost + Nature + Fire",[126]="Arcane + Shadow + Frost + Nature + Fire + Holy",[127]="Arcane + Shadow + Frost + Nature + Fire + Holy + Physical"},Shadow={[32]="Shadow",[33]="Shadow + Physical",[34]="Shadow + Holy",[36]="Shadow + Fire",[40]="Shadow + Nature",[48]="Shadow + Frost",[96]="Arcane + Shadow",[124]="Arcane + Shadow + Frost + Nature + Fire",[126]="Arcane + Shadow + Frost + Nature + Fire + Holy",[127]="Arcane + Shadow + Frost + Nature + Fire + Holy + Physical"},Arcane={[64]="Arcane",[65]="Arcane + Physical",[66]="Arcane + Holy",[68]="Arcane + Fire",[72]="Arcane + Nature",[80]="Arcane + Frost",[96]="Arcane + Shadow",[124]="Arcane + Shadow + Frost + Nature + Fire",[126]="Arcane + Shadow + Frost + Nature + Fire + Holy",[127]="Arcane + Shadow + Frost + Nature + Fire + Holy + Physical"}}}local Q=99999;function l.MagicDamageIncoming()local R,S,T,U,V,W,X,Y,Z,_,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,aa,ab,ac,ad=CombatLogGetCurrentEventInfo()if Y==UnitGUID("player")then print("destGUID")if string.match(S,"_DAMAGE")then print("_DAMAGE")if S~="SWING_DAMAGE"and a3~=1 then print("SWING_DAMAGE")Q=GetTime()end end end;if GetTime()-Q>=5000 then return a4 else return 0 end end
+--- ============================ HEADER ============================
+--- ======= LOCALIZE =======
+  -- Addon
+  local addonName, HR = ...;
+  -- HeroLib
+  local HL = HeroLib;
+  local Cache, Utils = HeroCache, HL.Utils;
+  local Unit = HL.Unit;
+  local Player = Unit.Player;
+  local Target = Unit.Target;
+  local Spell = HL.Spell;
+  local Item = HL.Item;
+  -- Lua
+  local pairs = pairs;
+  -- File Locals
+  HR.Commons = {};
+  local Commons = {};
+  HR.Commons.Everyone = Commons;
+  local Settings = HR.GUISettings.General;
+  local AbilitySettings = HR.GUISettings.Abilities;
+
+--- ============================ CONTENT ============================
+-- Is the current target valid?
+function Commons.TargetIsValid()
+  return Target:Exists() and Player:CanAttack(Target) and not Target:IsDeadOrGhost();
+end
+
+-- Is the current unit valid during cycle?
+function Commons.UnitIsCycleValid(Unit, BestUnitTTD, TimeToDieOffset)
+  return not Unit:IsFacingBlacklisted() and not Unit:IsUserCycleBlacklisted() and (not BestUnitTTD or Unit:FilteredTimeToDie(">", BestUnitTTD, TimeToDieOffset));
+end
+
+-- Is it worth to DoT the unit?
+function Commons.CanDoTUnit(Unit, HealthThreshold)
+  return Unit:Health() >= HealthThreshold or Unit:IsDummy();
+end
+
+  local ActiveMitigationSpells = {
+    Buff = {
+      -- PR Legion
+      Spell(191941), -- Darkstrikes (VotW - 1st)
+      Spell(204151), -- Darkstrikes (VotW - 1st)
+      -- T20 ToS
+      Spell(239932) -- Felclaws (KJ)
+    },
+    Debuff = {
+	  --T27 SoD
+	  348074, -- Assailing Lance (Eye)
+	  358988, -- Blackened Armor (Painsmith)
+	  347607, -- Banshee's Mark (Sylvanas)
+	  351180, -- Lashing Wound (Sylvanas)
+	  353929 -- Banshee's Bane (Sylvanas)
+	}, -- TODO ?
+    Cast = {
+      -- PR Legion
+      197810, -- Wicked Slam (ARC - 3rd)
+      197418, -- Vengeful Shear (BRH - 2nd)
+      198079, -- Hateful Gaze (BRH - 3rd)
+      214003, -- Coup de Grace (BRH - Trash)
+      235751, -- Timber Smash (CotEN - 1st)
+      193668, -- Savage Blade (HoV - 4th)
+      227493, -- Mortal Strike (LOWR - 4th)
+      228852, -- Shared Suffering (LOWR - 4th)
+      193211, -- Dark Slash (MoS - 1st)
+      200732, -- Molten Crash (NL - 4th)
+      -- T20 ToS
+      241635, -- Hammer of Creation (Maiden)
+      241636, -- Hammer of Obliteration (Maiden)
+      236494, -- Desolate (Avatar)
+      239932, -- Felclaws (KJ)
+      -- T21 Antorus
+      254919, -- Forging Strike (Kin'garoth)
+      244899, -- Fiery Strike (Coven)
+      245458, -- Foe Breaker (Aggramar)
+      248499, -- Sweeping Scythe (Argus)
+      258039, -- Deadly Scythe (Argus)
+	  --T27 SoD
+	  346985, -- OverPower (Terra)
+      350828, -- Deathlink (Eye)
+      350202, -- Unending Strike (Nine)
+      350475, -- Pierce Soul (Nine)
+      351066, -- Shatter (Remnant)
+	  350422, -- RuinBlade (Soulrender)
+      352538, -- Purging Protocal (Guardian)
+      350732, -- Sunder (Guardian)
+      348071 -- Soul Fracture (Kel,Thuzad)
+    },
+    Channel = {} -- TODO ?
+  }
+  
+local BigActiveMitigationSpells = {
+    Buff = {
+    },
+    Debuff = {
+
+	}, -- TODO ?
+    Cast = {
+	  --T27 SoD
+      350732, -- Sunder (Guardian)
+      355352, -- Obliterate (Guardian)
+      353603, -- Diviner's Probe (Fatescribe)
+    },
+    Channel = {} -- TODO ?
+  }
+  
+  function Commons.ActiveMitigationNeeded()
+    if not Player:IsTanking(Target) then return false end
+
+    -- Check casts
+    if ActiveMitigationSpells.Cast[Target:CastSpellID()] then
+      return true
+    end
+
+    -- Check buffs
+    for _, Buff in pairs(ActiveMitigationSpells.Buff) do
+      if Target:BuffUp(Buff, true) then
+        return true
+      end
+    end
+
+    -- Check Debuffs
+    for _, Debuff in pairs(ActiveMitigationSpells.Debuff) do
+	  local _, _, count1, _, _, _, _, _, _, spellId1, _, _, _, _, _, _ = UnitDebuff("player", Debuff)
+	  if spellId1 ~= nil then
+		if Debuff == spellId1 then
+			return true
+		end
+      end
+    end
+	
+    return false
+  end
+
+  function Commons.BigActiveMitigationNeeded()
+    if not Player:IsTanking(Target) then return false end
+
+    -- Check casts
+    if BigActiveMitigationSpells.Cast[Target:CastSpellID()] then
+      return true
+    end
+
+    -- Check buffs
+    for _, Buff in pairs(BigActiveMitigationSpells.Buff) do
+      if Target:BuffUp(Buff, true) then
+        return true
+      end
+    end
+
+    -- Check Debuffs
+    for _, Debuff in pairs(BigActiveMitigationSpells.Debuff) do
+	  local _, _, count1, _, _, _, _, _, _, spellId1, _, _, _, _, _, _ = UnitDebuff("player", i)
+	  if spellId1 ~= nil then
+		if Debuff == spellId1 then
+			return true
+		end
+      end
+    end
+	
+    return false
+  end
+  
+
+do
+  local HealingAbsorbedSpells = {
+    Debuff = {
+      -- T21 Antorus
+      Spell(243961) -- Misery (Varimathras)
+    }
+  }
+  function Player:HealingAbsorbed()
+    for _, Debuff in pairs(HealingAbsorbedSpells.Debuff) do
+      if Player:DebuffUp(Debuff, true) then
+        return true
+      end
+    end
+
+    return false
+  end
+end
+
+-- Interrupt
+function Commons.Interrupt(Range, Spell, Setting, StunSpells)
+  if Settings.InterruptEnabled and Target:IsInterruptible() and Target:IsInRange(Range) then
+    if Spell:IsCastable() then
+      if HR.Cast(Spell, Setting) then return "Cast " .. Spell:Name() .. " (Interrupt)"; end
+    elseif Settings.InterruptWithStun and Target:CanBeStunned() then
+      if StunSpells then
+        for i = 1, #StunSpells do
+          if StunSpells[i][1]:IsCastable() and StunSpells[i][3]() then
+            if HR.Cast(StunSpells[i][1]) then return StunSpells[i][2]; end
+          end
+        end
+      end
+    end
+  end
+end
+
+-- Is in Solo Mode?
+function Commons.IsSoloMode()
+  return Settings.SoloMode and not Player:IsInRaidArea() and not Player:IsInDungeonArea();
+end
+
+-- Cycle Unit Helper
+function Commons.CastCycle(Object, Enemies, Condition, OutofRange, OffGCD, DisplayStyle)
+  if Condition(Target) then
+    return HR.Cast(Object, OffGCD, DisplayStyle, OutofRange)
+  end
+  if HR.AoEON() then
+    local TargetGUID = Target:GUID()
+    for _, CycleUnit in pairs(Enemies) do
+      if CycleUnit:GUID() ~= TargetGUID and not CycleUnit:IsFacingBlacklisted() and not CycleUnit:IsUserCycleBlacklisted() and Condition(CycleUnit) then
+        HR.CastLeftNameplate(CycleUnit, Object)
+        break
+      end
+    end
+  end
+end
+
+  -- Target If Helper
+function Commons.CastTargetIf(Object, Enemies, TargetIfMode, TargetIfCondition, Condition, OutofRange, OffGCD, DisplayStyle)
+  local TargetCondition = (not Condition or (Condition and Condition(Target)))
+  if not HR.AoEON() and TargetCondition then
+    return HR.Cast(Object, OffGCD, DisplayStyle, OutofRange)
+  end
+  if HR.AoEON() then
+    local BestUnit, BestConditionValue = nil, nil
+    for _, CycleUnit in pairs(Enemies) do
+      if not CycleUnit:IsFacingBlacklisted() and not CycleUnit:IsUserCycleBlacklisted() and (CycleUnit:AffectingCombat() or CycleUnit:IsDummy())
+        and (not BestConditionValue or Utils.CompareThis(TargetIfMode, TargetIfCondition(CycleUnit), BestConditionValue)) then
+        BestUnit, BestConditionValue = CycleUnit, TargetIfCondition(CycleUnit)
+      end
+    end
+    if BestUnit then
+      if TargetCondition and (BestUnit:GUID() == Target:GUID() or BestConditionValue == TargetIfCondition(Target)) then
+        return HR.Cast(Object, OffGCD, DisplayStyle, OutofRange)
+      elseif ((Condition and Condition(BestUnit)) or not Condition) then
+        HR.CastLeftNameplate(BestUnit, Object)
+      end
+    end
+  end
+end
+
+local CombatTracker 							= {
+	Data			 						= {},
+	Doubles 								= {
+		[3]  								= "Holy + Physical",
+		[5]  								= "Fire + Physical",
+		[9]  								= "Nature + Physical",
+		[17] 								= "Frost + Physical",
+		[33] 								= "Shadow + Physical",
+		[65] 								= "Arcane + Physical",
+		[127]								= "Arcane + Shadow + Frost + Nature + Fire + Holy + Physical",
+	},
+	SchoolDoubles							= {
+		Holy								= {
+			[2]								= "Holy",
+			[3]								= "Holy + Physical",
+			[6]								= "Fire + Holy",
+			[10]							= "Nature + Holy",
+			[18]							= "Frost + Holy",
+			[34]							= "Shadow + Holy",
+			[66]							= "Arcane + Holy",
+			[126]							= "Arcane + Shadow + Frost + Nature + Fire + Holy",
+			[127]							= "Arcane + Shadow + Frost + Nature + Fire + Holy + Physical",
+		},
+		Fire								= {
+			[4]								= "Fire",
+			[5]								= "Fire + Physical",
+			[6]								= "Fire + Holy",
+			[12]							= "Nature + Fire",
+			[20]							= "Frost + Fire",
+			[28]							= "Frost + Nature + Fire",
+			[36]							= "Shadow + Fire",
+			[68]							= "Arcane + Fire",
+			[124]							= "Arcane + Shadow + Frost + Nature + Fire",
+			[126]							= "Arcane + Shadow + Frost + Nature + Fire + Holy",
+			[127]							= "Arcane + Shadow + Frost + Nature + Fire + Holy + Physical",			
+		},
+		Nature								= {
+			[8]								= "Nature",
+			[9]								= "Nature + Physical",
+			[10]							= "Nature + Holy",
+			[12]							= "Nature + Fire",
+			[24]							= "Frost + Nature",
+			[28]							= "Frost + Nature + Fire",
+			[40]							= "Shadow + Nature",
+			[72]							= "Arcane + Nature",
+			[124]							= "Arcane + Shadow + Frost + Nature + Fire",
+			[126]							= "Arcane + Shadow + Frost + Nature + Fire + Holy",
+			[127]							= "Arcane + Shadow + Frost + Nature + Fire + Holy + Physical",
+		},
+		Frost								= {
+			[16]							= "Frost",			
+			[17]							= "Frost + Physical",			
+			[18]							= "Frost + Holy",			
+			[20]							= "Frost + Fire",			
+			[24]							= "Frost + Nature",
+			[28]							= "Frost + Nature + Fire",			
+			[48]							= "Shadow + Frost",			
+			[80]							= "Arcane + Frost",									
+			[124]							= "Arcane + Shadow + Frost + Nature + Fire",									
+			[126]							= "Arcane + Shadow + Frost + Nature + Fire + Holy",									
+			[127]							= "Arcane + Shadow + Frost + Nature + Fire + Holy + Physical",									
+		},
+		Shadow								= {
+			[32]							= "Shadow",
+			[33]							= "Shadow + Physical",
+			[34]							= "Shadow + Holy",
+			[36]							= "Shadow + Fire",
+			[40]							= "Shadow + Nature",
+			[48]							= "Shadow + Frost",
+			[96]							= "Arcane + Shadow",
+			[124]							= "Arcane + Shadow + Frost + Nature + Fire",
+			[126]							= "Arcane + Shadow + Frost + Nature + Fire + Holy",
+			[127]							= "Arcane + Shadow + Frost + Nature + Fire + Holy + Physical",
+		},
+		Arcane								= {
+			[64]							= "Arcane",
+			[65]							= "Arcane + Physical",
+			[66]							= "Arcane + Holy",
+			[68]							= "Arcane + Fire",
+			[72]							= "Arcane + Nature",
+			[80]							= "Arcane + Frost",
+			[96]							= "Arcane + Shadow",
+			[124]							= "Arcane + Shadow + Frost + Nature + Fire",
+			[126]							= "Arcane + Shadow + Frost + Nature + Fire + Holy",
+			[127]							= "Arcane + Shadow + Frost + Nature + Fire + Holy + Physical",
+		},
+	},
+}
+--Magic Damage Listener
+local LastTimeMagic = 99999
+

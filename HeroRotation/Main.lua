@@ -24,7 +24,10 @@
   local UIFrames;
   local MasqueFrameList;
   local PrevResult, CurrResult;
-
+local Settings = {
+  General = HR.GUISettings.General
+  }
+  
   local function ModMasque(Frame, Disabled)
     if Disabled then
       Frame.__MSQ_Normal:Hide();
@@ -430,7 +433,7 @@
   };
   function HR.Pulse ()
     if GetTime() > HR.Timer.Pulse and HR.Locked() then
-      HR.Timer.Pulse = GetTime() + HL.Timer.PulseOffset;
+      HR.Timer.Pulse = GetTime() + 0.066 + Settings.General.TickRate/1000;
 
       HR.ResetIcons();
 
