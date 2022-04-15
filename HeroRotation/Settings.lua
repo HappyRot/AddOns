@@ -35,7 +35,7 @@
       ScaleButtons = 1.1,
       ScaleHotkey = 1,
       SetAlpha = 1,
-	  TickRate = 0
+	  TickRate = 100
     },
     APL = {}
   };
