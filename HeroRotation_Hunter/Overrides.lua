@@ -11,9 +11,9 @@
 -- HeroRotation
   local HR      = HeroRotation
 -- Spells
-  local SpellBM = Spell.Hunter.BeastMastery
-  local SpellMM = Spell.Hunter.Marksmanship
-  local SpellSV = Spell.Hunter.Survival
+  -- local SpellBM = Spell.Hunter.BeastMastery
+  -- local SpellMM = Spell.Hunter.Marksmanship
+  -- local SpellSV = Spell.Hunter.Survival
 -- Lua
   local mathmax = math.max
 

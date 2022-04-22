@@ -1,1 +1,25 @@
-local a,b=...local c=HeroDBC.DBC;local d=HeroLib;local e=HeroCache;local f=HeroRotation;local g=d.Unit;local h=g.Player;local i=g.Target;local j=d.Spell;local k=d.Item;f.Commons.Hunter={}local l=f.Commons.Hunter;local pairs=pairs;local select=select;local wipe=wipe;local m=0;local n=j.Hunter.BeastMastery;do l.PetTable={LastPetSpellID=0,LastPetSpellCount=0}local o,p;local q={}m=GetTime()end
+--- ============================ HEADER ============================
+--- ======= LOCALIZE =======
+-- Addon
+local addonName, addonTable = ...;
+-- HeroDBC
+local DBC = HeroDBC.DBC
+-- HeroLib
+local HL = HeroLib;
+local Cache = HeroCache;
+local HR = HeroRotation;
+local Unit = HL.Unit;
+local Player = Unit.Player;
+local Target = Unit.Target;
+local Spell = HL.Spell;
+local Item = HL.Item;
+HR.Commons.Hunter = {};
+local Hunter = HR.Commons.Hunter;
+-- Lua
+local pairs = pairs;
+local select = select;
+local wipe = wipe;
+local starttime = 0
+-- Spells
+local SpellBM = Spell.Hunter.BeastMastery;
+
