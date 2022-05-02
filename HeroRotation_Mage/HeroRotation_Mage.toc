@@ -1,0 +1,17 @@
+## Interface: 90105
+
+## Title: Hero|cFFA330C9Rotation|r [|cFF40C7EBMage|r]
+## Author: KutiKuti
+## Notes: Hero Rotation - Mage Module.
+
+## DefaultState: Enabled
+## LoadOnDemand: 1
+## Dependencies: HeroRotation
+
+Settings.lua
+Mage.lua
+Events.lua
+Arcane.lua
+Fire.lua
+Frost.lua
+Overrides.lua
