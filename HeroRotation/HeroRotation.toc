@@ -22,6 +22,7 @@ Panels.lua
 Settings.lua
 Core.lua
 Events.lua
+BossMods.lua
 
 # APL Commons
 Commons.lua
