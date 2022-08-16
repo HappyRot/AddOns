@@ -1,1 +1,169 @@
-local a=HeroLib;local b=HeroCache;local c=a.Unit;local d=c.Player;local e=c.Pet;local f=c.Target;local g=a.Spell;local h=a.Item;local i=HeroRotation;local j=g.Warlock.Affliction;local k=g.Warlock.Demonology;local l=g.Warlock.Destruction;local m=math.min;local n=math.max;local o=math.floor;a.AddCoreOverride("Player.SoulShardsP",function()local p=d:SoulShards()if not d:IsCasting()then return p else if d:IsCasting(j.MaleficRapture)or d:IsCasting(j.SeedofCorruption)or d:IsCasting(j.VileTaint)or d:IsCasting(j.SummonPet)then return p-1 else return p end end end,265)local q;q=a.AddCoreOverride("Spell.IsCastable",function(self,r,s,t,u,v)local w=true;if r then local x=t or f;w=x:IsInRange(r,s)end;local y=q(self,r,s,t,u,v)if self==j.SummonPet then return y and d:SoulShardsP()>0 and not(e:IsActive()or d:BuffUp(j.GrimoireofSacrificeBuff))else return y end end,265)local z;z=a.AddCoreOverride("Spell.IsReady",function(self,r,s,t,u,v)local w=true;if r then local x=t or f;w=x:IsInRange(r,s)end;local y=z(self,r,s,t,u,v)if self==j.VileTaint or self==j.ScouringTithe or self==j.UnstableAffliction or self==j.SoulRot then return y and not d:IsCasting(self)elseif self==j.SeedofCorruption or self==j.Haunt then return y and not d:IsCasting(self)and not self:InFlight()else return y end end,265)a.AddCoreOverride("Player.SoulShardsP",function()local p=d:SoulShards()p=o(p)if not d:IsCasting()then return p else if d:IsCasting(k.SummonDemonicTyrant)and d:Level()>=58 then return 5 elseif d:IsCasting(k.Demonbolt)then return m(p+2,5)elseif d:IsCasting(k.ShadowBolt)or d:IsCasting(k.SoulStrike)then return m(p+1,5)elseif d:IsCasting(k.HandofGuldan)then return n(p-3,0)elseif d:IsCasting(k.CallDreadstalkers)or d:IsCasting(k.BilescourgeBombers)then return p-2 elseif d:IsCasting(k.SummonVilefiend)or d:IsCasting(k.SummonPet)or d:IsCasting(k.NetherPortal)then return p-1 else return p end end end,266)local A;A=a.AddCoreOverride("Spell.IsCastable",function(self,r,s,t,u,v)local w=true;if r then local x=t or f;w=x:IsInRange(r,s)end;local y=A(self,r,s,t,u,v)if self==k.SummonPet then return y and not e:IsActive()and d:SoulShardsP()>0 elseif self==k.SummonDemonicTyrant then return y and not d:IsCasting(self)else return y end end,266)local B;B=a.AddCoreOverride("Spell.IsReady",function(self,r,s,t,u,v)local w=true;if r then local x=t or f;w=x:IsInRange(r,s)end;local y=B(self,r,s,t,u,v)if self==k.SummonVilefiend or self==k.CallDreadstalkers or self==k.NetherPortal or self==k.DecimatingBolt or self==k.ScouringTithe then return y and not d:IsCasting(self)else return y end end,266)a.AddCoreOverride("Player.SoulShardsP",function()local p=d:SoulShards()if not d:IsCasting()then return p else if d:IsCasting(l.ChaosBolt)then return p-2 else return p end end end,267)local C;C=a.AddCoreOverride("Spell.IsCastable",function(self,r,s,t,u,v)local w=true;if r then local x=t or f;w=x:IsInRange(r,s)end;local y=C(self,r,s,t,u,v)if self==l.SummonPet then return y and not e:IsActive()elseif self==l.Cataclysm then return y and not d:IsCasting(l.Cataclysm)elseif self==l.ChannelDemonfire then return y and not d:IsCasting(l.ChannelDemonfire)elseif self==l.ScourgeStrike then return y and not d:IsCasting(l.ScourgeStrike)elseif self==l.DecimatingBolt then return y and not d:IsCasting(l.DecimatingBolt)elseif self==l.SoulRot then return y and not d:IsCasting(l.SoulRot)elseif self==l.ImpendingCatastrophe then return y and not d:IsCasting(l.ImpendingCatastrophe)else return y end end,267)local D;D=a.AddCoreOverride("Player.AffectingCombat",function(self)return l.Incinerate:InFlight()or D(self)end,267)
+local o = HeroLib
+local e = HeroCache
+local t = o.Unit
+local e = t.Player
+local s = t.Pet
+local n = t.Target
+local a = o.Spell
+local t = o.Item
+local t = HeroRotation
+local i = a.Warlock.Affliction
+local t = a.Warlock.Demonology
+local a = a.Warlock.Destruction
+local r = math.min
+local u = math.max
+local c = math.floor
+o.AddCoreOverride("Player.SoulShardsP", function()
+    local t = e:SoulShards()
+    if not e:IsCasting() then
+        return t
+    else
+        if e:IsCasting(i.MaleficRapture) or e:IsCasting(i.SeedofCorruption) or e:IsCasting(i.VileTaint) or e:IsCasting(i.SummonPet) then
+            return t - 1
+        else
+            return t
+        end
+
+    end
+
+end, 265)
+local h
+h = o.AddCoreOverride("Spell.IsCastable", function(a, t, o, r, l, u)
+    local d = true
+    if t then
+        local e = r or n
+        d = e:IsInRange(t, o)
+    end
+
+    local t = h(a, t, o, r, l, u)
+    if a == i.SummonPet then
+        return t and e:SoulShardsP() > 0 and not (s:IsActive() or e:BuffUp(i.GrimoireofSacrificeBuff))
+    else
+        return t
+    end
+
+end, 265)
+local h
+h = o.AddCoreOverride("Spell.IsReady", function(t, a, o, s, d, r)
+    local l = true
+    if a then
+        local e = s or n
+        l = e:IsInRange(a, o)
+    end
+
+    local a = h(t, a, o, s, d, r)
+        if t == i.VileTaint or t == i.ScouringTithe or t == i.UnstableAffliction or t == i.SoulRot then
+        return a and not e:IsCasting(t)
+    elseif t == i.SeedofCorruption or t == i.Haunt then
+        return a and not e:IsCasting(t) and not t:InFlight()
+    else
+        return a
+    end
+
+end, 265)
+o.AddCoreOverride("Player.SoulShardsP", function()
+    local a = e:SoulShards()
+    a = c(a)
+    if not e:IsCasting() then
+        return a
+    else
+                                                if e:IsCasting(t.SummonDemonicTyrant) and e:Level() >= 58 then
+            return 5
+        elseif e:IsCasting(t.Demonbolt) then
+            return r(a + 2, 5)
+        elseif e:IsCasting(t.ShadowBolt) or e:IsCasting(t.SoulStrike) then
+            return r(a + 1, 5)
+        elseif e:IsCasting(t.HandofGuldan) then
+            return u(a - 3, 0)
+        elseif e:IsCasting(t.CallDreadstalkers) or e:IsCasting(t.BilescourgeBombers) then
+            return a - 2
+        elseif e:IsCasting(t.SummonVilefiend) or e:IsCasting(t.SummonPet) or e:IsCasting(t.NetherPortal) then
+            return a - 1
+        else
+            return a
+        end
+
+    end
+
+end, 266)
+local i
+i = o.AddCoreOverride("Spell.IsCastable", function(a, o, r, h, u, l)
+    local d = true
+    if o then
+        local e = h or n
+        d = e:IsInRange(o, r)
+    end
+
+    local o = i(a, o, r, h, u, l)
+        if a == t.SummonPet then
+        return o and not s:IsActive() and e:SoulShardsP() > 0
+    elseif a == t.SummonDemonicTyrant then
+        return o and not e:IsCasting(a)
+    else
+        return o
+    end
+
+end, 266)
+local i
+i = o.AddCoreOverride("Spell.IsReady", function(a, o, h, s, r, l)
+    local d = true
+    if o then
+        local e = s or n
+        d = e:IsInRange(o, h)
+    end
+
+    local o = i(a, o, h, s, r, l)
+    if a == t.SummonVilefiend or a == t.CallDreadstalkers or a == t.NetherPortal or a == t.DecimatingBolt or a == t.ScouringTithe then
+        return o and not e:IsCasting(a)
+    else
+        return o
+    end
+
+end, 266)
+o.AddCoreOverride("Player.SoulShardsP", function()
+    local t = e:SoulShards()
+    if not e:IsCasting() then
+        return t
+    else
+        if e:IsCasting(a.ChaosBolt) then
+            return t - 2
+        else
+            return t
+        end
+
+    end
+
+end, 267)
+local i
+i = o.AddCoreOverride("Spell.IsCastable", function(t, o, r, h, u, l)
+    local d = true
+    if o then
+        local e = h or n
+        d = e:IsInRange(o, r)
+    end
+
+    local o = i(t, o, r, h, u, l)
+                            if t == a.SummonPet then
+        return o and not s:IsActive()
+    elseif t == a.Cataclysm then
+        return o and not e:IsCasting(a.Cataclysm)
+    elseif t == a.ChannelDemonfire then
+        return o and not e:IsCasting(a.ChannelDemonfire)
+    elseif t == a.ScourgeStrike then
+        return o and not e:IsCasting(a.ScourgeStrike)
+    elseif t == a.DecimatingBolt then
+        return o and not e:IsCasting(a.DecimatingBolt)
+    elseif t == a.SoulRot then
+        return o and not e:IsCasting(a.SoulRot)
+    elseif t == a.ImpendingCatastrophe then
+        return o and not e:IsCasting(a.ImpendingCatastrophe)
+    else
+        return o
+    end
+
+end, 267)
+local e
+e = o.AddCoreOverride("Player.AffectingCombat", function(t)
+    return a.Incinerate:InFlight() or e(t)
+end, 267)
+

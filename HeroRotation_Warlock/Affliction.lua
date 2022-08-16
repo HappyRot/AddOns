@@ -1,45 +1,38 @@
---- ============================ HEADER ============================
---- ======= LOCALIZE =======
--- Addon
-local addonName, addonTable = ...
--- HeroDBC
-local DBC = HeroDBC.DBC
--- HeroLib
-local HL = HeroLib
-local Cache = HeroCache
-local Unit = HL.Unit
-local Player = Unit.Player
-local Pet = Unit.Pet
-local Target = Unit.Target
-local Spell = HL.Spell
-local MultiSpell = HL.MultiSpell
-local Item = HL.Item
--- HeroRotation
-local HR = HeroRotation
-local AoEON = HR.AoEON
-local CDsON = HR.CDsON
-local Cast  = HR.Cast
--- Lua
-
-
-local function OnInit()
-
+local e, e = ...
+local e = HeroDBC.DBC
+local e = HeroLib
+local t = HeroCache
+local t = e.Unit
+local a = t.Player
+local a = t.Pet
+local t = t.Target
+local t = e.Spell
+local t = e.MultiSpell
+local e = e.Item
+local e = HeroRotation
+local t = e.AoEON
+local t = e.CDsON
+local t = e.Cast
+local function t()
 end
 
 function ReturnSpell()
-	if shouldcast == 0 then
-		return 0
-	else
-		return shouldcast
-	end
-end
-	
-function ReturnSpellMO()
-	if MOshouldcast == 0 then
-		return 0
-	else
-		return MOshouldcast
-	end
+    if shouldcast == 0 then
+        return 0
+    else
+        return shouldcast
+    end
+
 end
 
-HR.SetAPL(265, APL, OnInit)
+function ReturnSpellMO()
+    if MOshouldcast == 0 then
+        return 0
+    else
+        return MOshouldcast
+    end
+
+end
+
+e.SetAPL(265, APL, t)
+

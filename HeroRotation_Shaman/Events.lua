@@ -1,22 +1,10 @@
---- ============================ HEADER ============================
---- ======= LOCALIZE =======
--- Addon
-local addonName, addonTable = ...
--- HeroLib
-local HL = HeroLib
-local HR = HeroRotation
-local Cache = HeroCache
-local Unit = HL.Unit
-local Player = Unit.Player
-local Target = Unit.Target
-local Spell = HL.Spell
-local Item = HL.Item
--- Lua
--- File Locals
+local e, e = ...
+local e = HeroLib
+local t = HeroRotation
+local t = HeroCache
+local t = e.Unit
+local a = t.Player
+local t = t.Target
+local t = e.Spell
+local e = e.Item
 
-
---- ============================ CONTENT ============================
---- ======= NON-COMBATLOG =======
-
-
---- ======= COMBATLOG =======

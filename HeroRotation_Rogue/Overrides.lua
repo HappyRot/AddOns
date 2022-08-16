@@ -1,38 +1,13 @@
---- ============================ HEADER ============================
-  -- HeroLib
-  local HL      = HeroLib
-  local Cache   = HeroCache
-  local Unit    = HL.Unit
-  local Player  = Unit.Player
-  local Pet     = Unit.Pet
-  local Target  = Unit.Target
-  local Spell   = HL.Spell
-  local Item    = HL.Item
--- HeroRotation
-  local HR      = HeroRotation
--- Spells
-  local SpellAssa     = Spell.Rogue.Assassination
-  local SpellOutlaw   = Spell.Rogue.Outlaw
-  local SpellSubtlety = Spell.Rogue.Subtlety
--- Lua
+local e = HeroLib
+local t = HeroCache
+local t = e.Unit
+local a = t.Player
+local a = t.Pet
+local t = t.Target
+local t = e.Spell
+local e = e.Item
+local e = HeroRotation
+local e = t.Rogue.Assassination
+local e = t.Rogue.Outlaw
+local e = t.Rogue.Subtlety
 
---- ============================ CONTENT ============================
--- Assassination, ID: 259
-
--- Outlaw, ID: 260
-
--- Subtlety, ID: 261
-
--- Example (Arcane Mage)
--- HL.AddCoreOverride ("Spell.IsCastableP",
--- function (self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
---   if Range then
---     local RangeUnit = ThisUnit or Target
---     return self:IsLearned() and self:CooldownRemains( BypassRecovery, Offset or "Auto") == 0 and RangeUnit:IsInRange( Range, AoESpell )
---   elseif self == SpellArcane.MarkofAluneth then
---     return self:IsLearned() and self:CooldownRemains( BypassRecovery, Offset or "Auto") == 0 and not Player:IsCasting(self)
---   else
---     return self:IsLearned() and self:CooldownRemains( BypassRecovery, Offset or "Auto") == 0
---   end
--- end
--- , 62)

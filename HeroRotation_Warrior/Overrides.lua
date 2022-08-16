@@ -1,59 +1,32 @@
---- ============================ HEADER ============================
--- HeroLib
-local HL      = HeroLib
-local Cache   = HeroCache
-local Unit    = HL.Unit
-local Player  = Unit.Player
-local Pet     = Unit.Pet
-local Target  = Unit.Target
-local Spell   = HL.Spell
-local Item    = HL.Item
--- HeroRotation
-local HR      = HeroRotation
--- Spells
-local SpellFury             = Spell.Warrior.Fury
-local SpellArms             = Spell.Warrior.Arms
--- Lua
-
---- ============================ CONTENT ============================
--- Arms, ID: 71
-local ArmsOldSpellIsCastable
-ArmsOldSpellIsCastable = HL.AddCoreOverride ("Spell.IsCastable",
-  function (self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-    local BaseCheck = ArmsOldSpellIsCastable(self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-    if self == SpellArms.Charge then
-      return BaseCheck and self:Charges() >= 1 and (not Target:IsInRange(8) and Target:IsInRange(25))
+local e = HeroLib
+local t = HeroCache
+local t = e.Unit
+local a = t.Player
+local a = t.Pet
+local t = t.Target
+local a = e.Spell
+local o = e.Item
+local o = HeroRotation
+local o = a.Warrior.Fury
+local i = a.Warrior.Arms
+local a
+a = e.AddCoreOverride("Spell.IsCastable", function(e, n, s, h, r, o)
+    local a = a(e, n, s, h, r, o)
+    if e == i.Charge then
+        return a and e:Charges() >= 1 and (not t:IsInRange(8) and t:IsInRange(25))
     else
-      return BaseCheck
+        return a
     end
-  end
-, 71);
 
--- Fury, ID: 72
-local FuryOldSpellIsCastable
-FuryOldSpellIsCastable = HL.AddCoreOverride ("Spell.IsCastable",
-  function (self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-    local BaseCheck = FuryOldSpellIsCastable(self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-    if self == SpellFury.Charge then
-      return BaseCheck and (SpellFury.Charge:Charges() >= 1 and (not Target:IsInRange(8)) and Target:IsInRange(25))
+end, 71)
+local a
+a = e.AddCoreOverride("Spell.IsCastable", function(e, n, i, s, h, r)
+    local a = a(e, n, i, s, h, r)
+    if e == o.Charge then
+        return a and (o.Charge:Charges() >= 1 and (not t:IsInRange(8)) and t:IsInRange(25))
     else
-      return BaseCheck
+        return a
     end
-  end
-, 72);
 
--- Protection, ID: 73
+end, 72)
 
--- Example (Arcane Mage)
--- HL.AddCoreOverride ("Spell.IsCastableP",
--- function (self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
---   if Range then
---     local RangeUnit = ThisUnit or Target
---     return self:IsLearned() and self:CooldownRemainsP( BypassRecovery, Offset or "Auto") == 0 and RangeUnit:IsInRange( Range, AoESpell )
---   elseif self == SpellArcane.MarkofAluneth then
---     return self:IsLearned() and self:CooldownRemainsP( BypassRecovery, Offset or "Auto") == 0 and not Player:IsCasting(self)
---   else
---     return self:IsLearned() and self:CooldownRemainsP( BypassRecovery, Offset or "Auto") == 0
---   end
--- end
--- , 62)

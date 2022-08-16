@@ -1,1 +1,362 @@
-local a,b=...local c=HeroDBC.DBC;local d=HeroLib;local e=HeroCache;local f=d.Unit;local g=f.Player;local h=f.Target;local i=f.MouseOver;local j=d.Spell;local k=d.MultiSpell;local l=d.Item;local m=d.Utils.MergeTableByKey;local n=HeroRotation;local o=n.Commons.Everyone;local p=math.min;local pairs=pairs;local q={}local r=HeroRotationCharDB.Toggles[12]n.Commons.Rogue=q;local s={General=n.GUISettings.General,Commons=n.GUISettings.APL.Rogue.Commons,Assassination=n.GUISettings.APL.Rogue.Assassination,Outlaw=n.GUISettings.APL.Rogue.Outlaw,Subtlety=n.GUISettings.APL.Rogue.Subtlety}local t=0;local u=0;if not j.Rogue then j.Rogue={}end;j.Rogue.Commons={AncestralCall=j(274738),ArcanePulse=j(260364),ArcaneTorrent=j(25046),BagofTricks=j(312411),Berserking=j(26297),BloodFury=j(20572),Fireblood=j(265221),LightsJudgment=j(255647),Shadowmeld=j(58984),CloakofShadows=j(31224),CrimsonVial=j(185311),Evasion=j(5277),Feint=j(1966),Blind=j(2094),CheapShot=j(1833),Kick=j(1766),KidneyShot=j(408),Sap=j(6770),Shadowstep=j(36554),Sprint=j(2983),TricksoftheTrade=j(57934),MasterAssassinsMark=j(340094),EchoingReprimand=j(323547),EchoingReprimand2=j(323558),EchoingReprimand3=j(323559),EchoingReprimand4=j(323560),EchoingReprimand5=j(354838),Flagellation=j(323654),FlagellationBuff=j(345569),Fleshcraft=j(324631),Sepsis=j(328305),SepsisBuff=j(347037),SerratedBoneSpike=j(328547),SerratedBoneSpikeDebuff=j(324073),EffusiveAnimaAccelerator=j(352188),KevinsOozeling=j(352110),KevinsWrathDebuff=j(352528),LeadbyExample=j(342156),LeadbyExampleBuff=j(342181),MarrowedGemstoneBuff=j(327069),PustuleEruption=j(351094),VolatileSolvent=j(323074),ChaosBaneBuff=j(355829),AcquiredSword=j(368657),AcquiredAxe=j(368656),AcquiredWand=j(368654),PoolEnergy=j(999910),SinfulRevelationDebuff=j(324260)}j.Rogue.Assassination=m(j.Rogue.Commons,{Ambush=j(8676),DeadlyPoison=j(2823),DeadlyPoisonDebuff=j(2818),Envenom=j(32645),FanofKnives=j(51723),Garrote=j(703),Mutilate=j(1329),PoisonedKnife=j(185565),Rupture=j(1943),SliceandDice=j(315496),Stealth=j(1784),Stealth2=j(115191),Vanish=j(1856),VanishBuff=j(11327),Vendetta=j(79140),WoundPoison=j(8679),WoundPoisonDebuff=j(8680),BlindsideBuff=j(121153),CrimsonTempest=j(121411),DeeperStratagem=j(193531),Elusiveness=j(79008),Exsanguinate=j(200806),HiddenBladesBuff=j(270070),InternalBleeding=j(154953),MarkedforDeath=j(137619),MasterAssassin=j(255989),MasterAssassinBuff=j(256735),Nightstalker=j(14062),PreyontheWeak=j(131511),PreyontheWeakDebuff=j(255909),Shiv=j(5938),ShivDebuff=j(319504),Subterfuge=j(108208),SubterfugeBuff=j(115192),VenomRush=j(152152),DeathfromAbove=j(269513),Maneuverability=j(197000),Neurotoxin=j(206328),SmokeBomb=j(212182)})j.Rogue.Outlaw=m(j.Rogue.Commons,{AncestralCall=j(274738),ArcanePulse=j(260364),ArcaneTorrent=j(25046),BagofTricks=j(312411),Berserking=j(26297),BloodFury=j(20572),Fireblood=j(265221),LightsJudgment=j(255647),Shadowmeld=j(58984),AdrenalineRush=j(13750),Ambush=j(8676),BetweentheEyes=j(315341),BladeFlurry=j(13877),Dispatch=j(2098),Elusiveness=j(79008),Opportunity=j(195627),PistolShot=j(185763),RolltheBones=j(315508),Shiv=j(5938),SinisterStrike=j(193315),SliceandDice=j(315496),Stealth=j(1784),Vanish=j(1856),VanishBuff=j(11327),AcrobaticStrikes=j(196924),BladeRush=j(271877),DeeperStratagem=j(193531),Dreadblades=j(343142),GhostlyStrike=j(196937),KillingSpree=j(51690),LoadedDiceBuff=j(256171),MarkedforDeath=j(137619),PreyontheWeak=j(131511),PreyontheWeakDebuff=j(255909),QuickDraw=j(196938),CloakofShadows=j(31224),CrimsonVial=j(185311),Evasion=j(5277),Feint=j(1966),Blind=j(2094),CheapShot=j(1833),Gouge=j(1776),GrapplingHook=j(195457),Kick=j(1766),KidneyShot=j(408),Sap=j(6770),Sprint=j(2983),TricksoftheTrade=j(57934),DeathfromAbove=j(269513),Dismantle=j(207777),Maneuverability=j(197000),PlunderArmor=j(198529),SmokeBomb=j(212182),ThickasThieves=j(221622),Broadside=j(193356),BuriedTreasure=j(199600),GrandMelee=j(193358),RuthlessPrecision=j(193357),SkullandCrossbones=j(199603),TrueBearing=j(193359),EchoingReprimand=j(323547),Flagellation=j(323654),FlagellationBuff=j(345569),Sepsis=j(328305),SepsisBuff=j(347037),SerratedBoneSpike=j(328547),SerratedBoneSpikeDebuff=j(324073),Ambidexterity=j(341542),CountTheOdds=j(341546),ConcealedBlunderbuss=j(340587),DeathlyShadowsBuff=j(341202),GreenskinsWickers=j(340573),MasterAssassinsMark=j(340094),TornadoTriggerBuff=j(364556),PoolEnergy=j(999910),SinfulRevelationDebuff=j(324260)})j.Rogue.Subtlety=m(j.Rogue.Commons,{AncestralCall=j(274738),ArcanePulse=j(260364),ArcaneTorrent=j(25046),BagofTricks=j(312411),Berserking=j(26297),BloodFury=j(20572),Fireblood=j(265221),LightsJudgment=j(255647),Shadowmeld=j(58984),Backstab=j(53),BlackPowder=j(319175),Elusiveness=j(79008),Eviscerate=j(196819),FindWeaknessDebuff=j(316220),Rupture=j(1943),ShadowBlades=j(121471),ShadowDance=j(185313),ShadowDanceBuff=j(185422),Shadowstrike=j(185438),Shiv=j(5938),ShurikenStorm=j(197835),ShurikenToss=j(114014),SliceandDice=j(315496),Stealth=j(1784),Stealth2=j(115191),SymbolsofDeath=j(212283),SymbolsofDeathCrit=j(227151),Vanish=j(1856),VanishBuff=j(11327),VanishBuff2=j(115193),Alacrity=j(193539),DarkShadow=j(245687),DeeperStratagem=j(193531),EnvelopingShadows=j(238104),Gloomblade=j(200758),MarkedforDeath=j(137619),MasterofShadows=j(196976),Nightstalker=j(14062),PreyontheWeak=j(131511),PreyontheWeakDebuff=j(255909),Premeditation=j(343160),PremeditationBuff=j(343173),SecretTechnique=j(280719),ShadowFocus=j(108209),ShurikenTornado=j(277925),Subterfuge=j(108208),Vigor=j(14983),Weaponmaster=j(193537),CloakofShadows=j(31224),CrimsonVial=j(185311),Evasion=j(5277),Feint=j(1966),Blind=j(2094),CheapShot=j(1833),Kick=j(1766),KidneyShot=j(408),Sap=j(6770),Shadowstep=j(36554),Sprint=j(2983),TricksoftheTrade=j(57934),ColdBlood=j(213981),DeathfromAbove=j(269513),Maneuverability=j(197000),ShadowyDuel=j(207736),SmokeBomb=j(212182),VeilofMidnight=j(198952),EchoingReprimand=j(323547),EchoingReprimand2=j(323558),EchoingReprimand3=j(323559),EchoingReprimand4=j(323560),EchoingReprimand5=j(354838),Flagellation=j(323654),FlagellationBuff=j(345569),Sepsis=j(328305),SepsisBuff=j(347037),SerratedBoneSpike=j(328547),SerratedBoneSpikeDebuff=j(324073),DeeperDaggers=j(341549),PerforatedVeinsBuff=j(341572),LeadbyExample=j(342156),LeadbyExampleBuff=j(342181),DeathlyShadowsBuff=j(341202),FinalityBlackPowder=j(340603),FinalityEviscerate=j(340600),FinalityRupture=j(340601),TheRottenBuff=j(341134),PoolEnergy=j(999910),SinfulRevelationDebuff=j(324260)})if not l.Rogue then l.Rogue={}end;l.Rogue.Assassination={GalecallersBoon=l(159614,{13,14}),LustrousGoldenPlumage=l(159617,{13,14}),ComputationDevice=l(167555,{13,14}),VigorTrinket=l(165572,{13,14}),FontOfPower=l(169314,{13,14}),RazorCoral=l(169311,{13,14})}l.Rogue.Outlaw={ComputationDevice=l(167555,{13,14}),VigorTrinket=l(165572,{13,14}),FontOfPower=l(169314,{13,14}),RazorCoral=l(169311,{13,14}),MistcallerOcarina=l(178715,{13,14}),CacheOfAcquiredTreasures=l(188265,{13,14}),PotionofSpectralAgility=l(171270),Healthstone=l(5512),HealPot=l(171267),CosmicHealPot=l(187802),PhialofSerenity=l(177278)}l.Rogue.Subtlety={ComputationDevice=l(167555,{13,14}),VigorTrinket=l(165572,{13,14}),FontOfPower=l(169314,{13,14}),RazorCoral=l(169311,{13,14}),MistcallerOcarina=l(178715,{13,14}),CacheOfAcquiredTreasures=l(188265,{13,14}),PotionofSpectralAgility=l(171270),Healthstone=l(5512),HealPot=l(171267),CosmicHealPot=l(187802),PhialofSerenity=l(177278)}function q.Stealth(v,w)u=0;t=0;if(s.Commons.StealthOOC=="Always"or s.Commons.StealthOOC=="w/ Target"and o.TargetIsValid())and v:IsCastable()and g:StealthDown()and not g:DebuffUp(j(319070))then if n.Cast(v,nil)then t=200;return"Cast Stealth (OOC)"end else t=0 end;return false end;do local x=j(185311)function q.CrimsonVial()u=0;t=0;if x:IsCastable()and g:HealthPercentage()<=s.Commons.CrimsonVialHP then if n.Cast(x,nil)then t=201;return"Cast Crimson Vial (Defensives)"end end;return false end end;do local y=j(1966)function q.Feint()u=0;t=0;if y:IsCastable()and g:BuffDown(y)and g:HealthPercentage()<=s.Commons.FeintHP then if n.Cast(y,nil)then t=202;return"Cast Feint (Defensives)"end end end end;do local z=j(5277)function q.Evasion()u=0;t=0;if z:IsCastable()and g:BuffDown(z)and g:HealthPercentage()<=s.Commons.EvasionHP then if n.Cast(z,nil)then t=5277;return"Cast Evasion (Defensives)"end end end end;do local A=j(3408)local B=j(2823)local C=j(315584)local D=j(5761)local E=j(8679)function q.Poisons()u=0;t=0;local F=g:AffectingCombat()and 180 or 900;local G;G=g:BuffRemains(E)if G>0 then if G<F then if n.Cast(E)then t=203;return"Wound Poison Refresh"end end else if B:IsAvailable()then G=g:BuffRemains(B)if G<F then if n.Cast(B)then t=204;return"Deadly Poison Refresh"end end else G=g:BuffRemains(C)if G<F then if n.Cast(C)then t=205;return"Instant Poison Refresh"end end end end;G=g:BuffRemains(A)if G>0 then if G<F then if n.Cast(A)then t=206;return"Crippling Poison Refresh"end end else G=g:BuffRemains(D)if G<F then if n.Cast(D)then t=204;return"Numbing Poison Refresh"end end end end end;function q.MfDSniping(H)u=0;t=0;if H:IsCastable()and(g:AffectingCombat()or HeroRotationCharDB.Toggles[6])then local I,J=nil,60;local K=i:IsInRange(30)and i:TimeToDie()or 11111;for L,M in pairs(g:GetEnemiesInRange(30))do local N=M:TimeToDie()if not M:IsMfDBlacklisted()and N<g:ComboPointsDeficit()*1.5 and N<J then if K-N>1 then I,J=M,N else I,J=i,K end end end;if I and I:GUID()~=h:GUID()then n.CastLeftNameplate(I,H)if I:GUID()==f("mouseover"):GUID()and s.Subtlety.TargetSwap=="Mouseover"then u=1117 elseif s.Subtlety.TargetSwap=="AutoSwap"and I:GUID()~=h:GUID()and not r then u=999 end end end end;function q.CanDoTUnit(M,O)return o.CanDoTUnit(M,O)end;do local P=j(193531)function q.CPMaxSpend()return P:IsAvailable()and 6 or 5 end end;function q.CPSpend()return p(g:ComboPoints(),q.CPMaxSpend())end;function q.TimeToNextTornado()if g:BuffUp(S.ShurikenTornado)then if g:BuffRemains(S.ShurikenTornado)<=4 and g:BuffRemains(S.ShurikenTornado)>3 then return g:BuffRemains(S.ShurikenTornado)-3 elseif g:BuffRemains(S.ShurikenTornado)<=3 and g:BuffRemains(S.ShurikenTornado)>2 then return g:BuffRemains(S.ShurikenTornado)-2 elseif g:BuffRemains(S.ShurikenTornado)<=2 and g:BuffRemains(S.ShurikenTornado)>1 then return g:BuffRemains(S.ShurikenTornado)-1 elseif g:BuffRemains(S.ShurikenTornado)<=1 then return g:BuffRemains(S.ShurikenTornado)end end end;do local Q=j(323558)local R=j(323559)local T=j(323560)function q.AnimachargedCP()if g:BuffUp(j.Rogue.Commons.EchoingReprimand2)then return 2 elseif g:BuffUp(j.Rogue.Commons.EchoingReprimand3)then return 3 elseif g:BuffUp(j.Rogue.Commons.EchoingReprimand4)then return 4 elseif g:BuffUp(j.Rogue.Commons.EchoingReprimand5)then return 5 end;return-1 end;function q.EffectiveComboPoints(U)if U==2 and g:BuffUp(Q)or U==3 and g:BuffUp(j.Rogue.Commons.EchoingReprimand3)or U==4 and g:BuffUp(j.Rogue.Commons.EchoingReprimand4)or U==5 and g:BuffUp(j.Rogue.Commons.EchoingReprimand5)then return 7 else return U end end end;do local V=j.Rogue.Assassination.DeadlyPoisonDebuff;local W=j.Rogue.Assassination.WoundPoisonDebuff;function q.Poisoned(M)return(M:DebuffUp(V)or M:DebuffUp(W))and true or false end end;do local V=j.Rogue.Assassination.DeadlyPoisonDebuff;local W=j.Rogue.Assassination.WoundPoisonDebuff;function q.PoisonRemains(M)return M:DebuffUp(V)and M:DebuffRemains(V)or M:DebuffUp(W)and M:DebuffRemains(W)or 0 end end;do local X=j.Rogue.Assassination.Garrote;local Y=j.Rogue.Assassination.Rupture;local Z=j.Rogue.Assassination.CrimsonTempest;local _=j.Rogue.Assassination.InternalBleeding;function q.Bleeds()return(h:DebuffUp(X)and 1 or 0)+(h:DebuffUp(Y)and 1 or 0)+(h:DebuffUp(Z)and 1 or 0)+(h:DebuffUp(_)and 1 or 0)end end;do local X=j.Rogue.Assassination.Garrote;local _=j.Rogue.Assassination.InternalBleeding;local Y=j.Rogue.Assassination.Rupture;local a0=0;function q.PoisonedBleeds()a0=0;for L,M in pairs(g:GetEnemiesInRange(50))do if q.Poisoned(M)then if M:DebuffUp(X)then a0=a0+1 end;if M:DebuffUp(_)then a0=a0+1 end;if M:DebuffUp(Y)then a0=a0+1 end end end;return a0 end end;do local a1,a2=j(340094),4;function q.MasterAssassinsMarkRemains()if g:BuffRemains(a1)<0 then return g:GCDRemains()+a2 else return g:BuffRemains(a1)end end end;function q.ReturnSpell()if t==0 then return 0 else return t end end;function q.ReturnSpellMO()if u==0 then return 0 else return u end end
+local e, e = ...
+local e = HeroDBC.DBC
+local o = HeroLib
+local e = HeroCache
+local d = o.Unit
+local t = d.Player
+local r = d.Target
+local u = d.MouseOver
+local e = o.Spell
+local a = o.MultiSpell
+local a = o.Item
+local l = o.Utils.MergeTableByKey
+local n = HeroRotation
+local m = n.Commons.Everyone
+local y = math.min
+local f = pairs
+local o = {  }
+local w = HeroRotationCharDB.Toggles[12]
+n.Commons.Rogue = o
+local h = { General = n.GUISettings.General, Commons = n.GUISettings.APL.Rogue.Commons, Assassination = n.GUISettings.APL.Rogue.Assassination, Outlaw = n.GUISettings.APL.Rogue.Outlaw, Subtlety = n.GUISettings.APL.Rogue.Subtlety }
+local i = 0
+local s = 0
+if not e.Rogue then
+    e.Rogue = {  }
+end
+
+e.Rogue.Commons = { AncestralCall = e(274738), ArcanePulse = e(260364), ArcaneTorrent = e(25046), BagofTricks = e(312411), Berserking = e(26297), BloodFury = e(20572), Fireblood = e(265221), LightsJudgment = e(255647), Shadowmeld = e(58984), CloakofShadows = e(31224), CrimsonVial = e(185311), Evasion = e(5277), Feint = e(1966), Blind = e(2094), CheapShot = e(1833), Kick = e(1766), KidneyShot = e(408), Sap = e(6770), Shadowstep = e(36554), Sprint = e(2983), TricksoftheTrade = e(57934), MasterAssassinsMark = e(340094), EchoingReprimand = e(323547), EchoingReprimand2 = e(323558), EchoingReprimand3 = e(323559), EchoingReprimand4 = e(323560), EchoingReprimand5 = e(354838), Flagellation = e(323654), FlagellationBuff = e(345569), Fleshcraft = e(324631), Sepsis = e(328305), SepsisBuff = e(347037), SerratedBoneSpike = e(328547), SerratedBoneSpikeDebuff = e(324073), EffusiveAnimaAccelerator = e(352188), KevinsOozeling = e(352110), KevinsWrathDebuff = e(352528), LeadbyExample = e(342156), LeadbyExampleBuff = e(342181), MarrowedGemstoneBuff = e(327069), PustuleEruption = e(351094), VolatileSolvent = e(323074), ChaosBaneBuff = e(355829), AcquiredSword = e(368657), AcquiredAxe = e(368656), AcquiredWand = e(368654), PoolEnergy = e(999910), SinfulRevelationDebuff = e(324260) }
+e.Rogue.Assassination = l(e.Rogue.Commons, { Ambush = e(8676), DeadlyPoison = e(2823), DeadlyPoisonDebuff = e(2818), Envenom = e(32645), FanofKnives = e(51723), Garrote = e(703), Mutilate = e(1329), PoisonedKnife = e(185565), Rupture = e(1943), SliceandDice = e(315496), Stealth = e(1784), Stealth2 = e(115191), Vanish = e(1856), VanishBuff = e(11327), Vendetta = e(79140), WoundPoison = e(8679), WoundPoisonDebuff = e(8680), BlindsideBuff = e(121153), CrimsonTempest = e(121411), DeeperStratagem = e(193531), Elusiveness = e(79008), Exsanguinate = e(200806), HiddenBladesBuff = e(270070), InternalBleeding = e(154953), MarkedforDeath = e(137619), MasterAssassin = e(255989), MasterAssassinBuff = e(256735), Nightstalker = e(14062), PreyontheWeak = e(131511), PreyontheWeakDebuff = e(255909), Shiv = e(5938), ShivDebuff = e(319504), Subterfuge = e(108208), SubterfugeBuff = e(115192), VenomRush = e(152152), DeathfromAbove = e(269513), Maneuverability = e(197000), Neurotoxin = e(206328), SmokeBomb = e(212182) })
+e.Rogue.Outlaw = l(e.Rogue.Commons, { AncestralCall = e(274738), ArcanePulse = e(260364), ArcaneTorrent = e(25046), BagofTricks = e(312411), Berserking = e(26297), BloodFury = e(20572), Fireblood = e(265221), LightsJudgment = e(255647), Shadowmeld = e(58984), AdrenalineRush = e(13750), Ambush = e(8676), BetweentheEyes = e(315341), BladeFlurry = e(13877), Dispatch = e(2098), Elusiveness = e(79008), Opportunity = e(195627), PistolShot = e(185763), RolltheBones = e(315508), Shiv = e(5938), SinisterStrike = e(193315), SliceandDice = e(315496), Stealth = e(1784), Vanish = e(1856), VanishBuff = e(11327), AcrobaticStrikes = e(196924), BladeRush = e(271877), DeeperStratagem = e(193531), Dreadblades = e(343142), GhostlyStrike = e(196937), KillingSpree = e(51690), LoadedDiceBuff = e(256171), MarkedforDeath = e(137619), PreyontheWeak = e(131511), PreyontheWeakDebuff = e(255909), QuickDraw = e(196938), CloakofShadows = e(31224), CrimsonVial = e(185311), Evasion = e(5277), Feint = e(1966), Blind = e(2094), CheapShot = e(1833), Gouge = e(1776), GrapplingHook = e(195457), Kick = e(1766), KidneyShot = e(408), Sap = e(6770), Sprint = e(2983), TricksoftheTrade = e(57934), DeathfromAbove = e(269513), Dismantle = e(207777), Maneuverability = e(197000), PlunderArmor = e(198529), SmokeBomb = e(212182), ThickasThieves = e(221622), Broadside = e(193356), BuriedTreasure = e(199600), GrandMelee = e(193358), RuthlessPrecision = e(193357), SkullandCrossbones = e(199603), TrueBearing = e(193359), EchoingReprimand = e(323547), Flagellation = e(323654), FlagellationBuff = e(345569), Sepsis = e(328305), SepsisBuff = e(347037), SerratedBoneSpike = e(328547), SerratedBoneSpikeDebuff = e(324073), Ambidexterity = e(341542), CountTheOdds = e(341546), ConcealedBlunderbuss = e(340587), DeathlyShadowsBuff = e(341202), GreenskinsWickers = e(340573), MasterAssassinsMark = e(340094), TornadoTriggerBuff = e(364556), PoolEnergy = e(999910), SinfulRevelationDebuff = e(324260) })
+e.Rogue.Subtlety = l(e.Rogue.Commons, { AncestralCall = e(274738), ArcanePulse = e(260364), ArcaneTorrent = e(25046), BagofTricks = e(312411), Berserking = e(26297), BloodFury = e(20572), Fireblood = e(265221), LightsJudgment = e(255647), Shadowmeld = e(58984), Backstab = e(53), BlackPowder = e(319175), Elusiveness = e(79008), Eviscerate = e(196819), FindWeaknessDebuff = e(316220), Rupture = e(1943), ShadowBlades = e(121471), ShadowDance = e(185313), ShadowDanceBuff = e(185422), Shadowstrike = e(185438), Shiv = e(5938), ShurikenStorm = e(197835), ShurikenToss = e(114014), SliceandDice = e(315496), Stealth = e(1784), Stealth2 = e(115191), SymbolsofDeath = e(212283), SymbolsofDeathCrit = e(227151), Vanish = e(1856), VanishBuff = e(11327), VanishBuff2 = e(115193), Alacrity = e(193539), DarkShadow = e(245687), DeeperStratagem = e(193531), EnvelopingShadows = e(238104), Gloomblade = e(200758), MarkedforDeath = e(137619), MasterofShadows = e(196976), Nightstalker = e(14062), PreyontheWeak = e(131511), PreyontheWeakDebuff = e(255909), Premeditation = e(343160), PremeditationBuff = e(343173), SecretTechnique = e(280719), ShadowFocus = e(108209), ShurikenTornado = e(277925), Subterfuge = e(108208), Vigor = e(14983), Weaponmaster = e(193537), CloakofShadows = e(31224), CrimsonVial = e(185311), Evasion = e(5277), Feint = e(1966), Blind = e(2094), CheapShot = e(1833), Kick = e(1766), KidneyShot = e(408), Sap = e(6770), Shadowstep = e(36554), Sprint = e(2983), TricksoftheTrade = e(57934), ColdBlood = e(213981), DeathfromAbove = e(269513), Maneuverability = e(197000), ShadowyDuel = e(207736), SmokeBomb = e(212182), VeilofMidnight = e(198952), EchoingReprimand = e(323547), EchoingReprimand2 = e(323558), EchoingReprimand3 = e(323559), EchoingReprimand4 = e(323560), EchoingReprimand5 = e(354838), Flagellation = e(323654), FlagellationBuff = e(345569), Sepsis = e(328305), SepsisBuff = e(347037), SerratedBoneSpike = e(328547), SerratedBoneSpikeDebuff = e(324073), DeeperDaggers = e(341549), PerforatedVeinsBuff = e(341572), LeadbyExample = e(342156), LeadbyExampleBuff = e(342181), DeathlyShadowsBuff = e(341202), FinalityBlackPowder = e(340603), FinalityEviscerate = e(340600), FinalityRupture = e(340601), TheRottenBuff = e(341134), PoolEnergy = e(999910), SinfulRevelationDebuff = e(324260) })
+if not a.Rogue then
+    a.Rogue = {  }
+end
+
+a.Rogue.Assassination = { GalecallersBoon = a(159614, { 13, 14 }), LustrousGoldenPlumage = a(159617, { 13, 14 }), ComputationDevice = a(167555, { 13, 14 }), VigorTrinket = a(165572, { 13, 14 }), FontOfPower = a(169314, { 13, 14 }), RazorCoral = a(169311, { 13, 14 }) }
+a.Rogue.Outlaw = { ComputationDevice = a(167555, { 13, 14 }), VigorTrinket = a(165572, { 13, 14 }), FontOfPower = a(169314, { 13, 14 }), RazorCoral = a(169311, { 13, 14 }), MistcallerOcarina = a(178715, { 13, 14 }), CacheOfAcquiredTreasures = a(188265, { 13, 14 }), PotionofSpectralAgility = a(171270), Healthstone = a(5512), HealPot = a(171267), CosmicHealPot = a(187802), PhialofSerenity = a(177278) }
+a.Rogue.Subtlety = { ComputationDevice = a(167555, { 13, 14 }), VigorTrinket = a(165572, { 13, 14 }), FontOfPower = a(169314, { 13, 14 }), RazorCoral = a(169311, { 13, 14 }), MistcallerOcarina = a(178715, { 13, 14 }), CacheOfAcquiredTreasures = a(188265, { 13, 14 }), PotionofSpectralAgility = a(171270), Healthstone = a(5512), HealPot = a(171267), CosmicHealPot = a(187802), PhialofSerenity = a(177278) }
+function o.Stealth(a, o)
+    s = 0
+    i = 0
+    if ((h.Commons.StealthOOC == "Always" or (h.Commons.StealthOOC == "w/ Target" and m.TargetIsValid())) and a:IsCastable() and t:StealthDown() and not t:DebuffUp(e(319070))) then
+        if n.Cast(a, nil) then
+            i = 200
+            return "Cast Stealth (OOC)"
+        end
+
+    else
+        i = 0
+    end
+
+    return false
+end
+
+do
+    local e = e(185311)
+    function o.CrimsonVial()
+        s = 0
+        i = 0
+        if e:IsCastable() and t:HealthPercentage() <= h.Commons.CrimsonVialHP then
+            if n.Cast(e, nil) then
+                i = 201
+                return "Cast Crimson Vial (Defensives)"
+            end
+
+        end
+
+        return false
+    end
+
+end
+
+do
+    local e = e(1966)
+    function o.Feint()
+        s = 0
+        i = 0
+        if e:IsCastable() and t:BuffDown(e) and t:HealthPercentage() <= h.Commons.FeintHP then
+            if n.Cast(e, nil) then
+                i = 202
+                return "Cast Feint (Defensives)"
+            end
+
+        end
+
+    end
+
+end
+
+do
+    local e = e(5277)
+    function o.Evasion()
+        s = 0
+        i = 0
+        if e:IsCastable() and t:BuffDown(e) and t:HealthPercentage() <= h.Commons.EvasionHP then
+            if n.Cast(e, nil) then
+                i = 5277
+                return "Cast Evasion (Defensives)"
+            end
+
+        end
+
+    end
+
+end
+
+do
+    local u = e(3408)
+    local h = e(2823)
+    local l = e(315584)
+    local r = e(5761)
+    local d = e(8679)
+    function o.Poisons()
+        s = 0
+        i = 0
+        local a = t:AffectingCombat() and 180 or 900
+        local e
+        e = t:BuffRemains(d)
+        if e > 0 then
+            if e < a then
+                if n.Cast(d) then
+                    i = 203
+                    return "Wound Poison Refresh"
+                end
+
+            end
+
+        else
+            if h:IsAvailable() then
+                e = t:BuffRemains(h)
+                if e < a then
+                    if n.Cast(h) then
+                        i = 204
+                        return "Deadly Poison Refresh"
+                    end
+
+                end
+
+            else
+                e = t:BuffRemains(l)
+                if e < a then
+                    if n.Cast(l) then
+                        i = 205
+                        return "Instant Poison Refresh"
+                    end
+
+                end
+
+            end
+
+        end
+
+        e = t:BuffRemains(u)
+        if e > 0 then
+            if e < a then
+                if n.Cast(u) then
+                    i = 206
+                    return "Crippling Poison Refresh"
+                end
+
+            end
+
+        else
+            e = t:BuffRemains(r)
+            if e < a then
+                if n.Cast(r) then
+                    i = 204
+                    return "Numbing Poison Refresh"
+                end
+
+            end
+
+        end
+
+    end
+
+end
+
+function o.MfDSniping(l)
+    s = 0
+    i = 0
+    if l:IsCastable() and (t:AffectingCombat() or HeroRotationCharDB.Toggles[6]) then
+        local e, o = nil, 60
+        local c = u:IsInRange(30) and u:TimeToDie() or 11111
+        for a, i in f(t:GetEnemiesInRange(30)) do
+            local a = i:TimeToDie()
+            if not i:IsMfDBlacklisted() and a < t:ComboPointsDeficit() * 1.5 and a < o then
+                if c - a > 1 then
+                    e, o = i, a
+                else
+                    e, o = u, c
+                end
+
+            end
+
+        end
+
+        if e and e:GUID() ~= r:GUID() then
+            n.CastLeftNameplate(e, l)
+                        if e:GUID() == d("mouseover"):GUID() and h.Subtlety.TargetSwap == "Mouseover" then
+                s = 1117
+            elseif h.Subtlety.TargetSwap == "AutoSwap" and e:GUID() ~= r:GUID() and not w then
+                s = 999
+            end
+
+        end
+
+    end
+
+end
+
+function o.CanDoTUnit(t, e)
+    return m.CanDoTUnit(t, e)
+end
+
+do
+    local e = e(193531)
+    function o.CPMaxSpend()
+        return e:IsAvailable() and 6 or 5
+    end
+
+end
+
+function o.CPSpend()
+    return y(t:ComboPoints(), o.CPMaxSpend())
+end
+
+function o.TimeToNextTornado()
+    if t:BuffUp(S.ShurikenTornado) then
+                                if t:BuffRemains(S.ShurikenTornado) <= 4 and t:BuffRemains(S.ShurikenTornado) > 3 then
+            return t:BuffRemains(S.ShurikenTornado) - 3
+        elseif t:BuffRemains(S.ShurikenTornado) <= 3 and t:BuffRemains(S.ShurikenTornado) > 2 then
+            return t:BuffRemains(S.ShurikenTornado) - 2
+        elseif t:BuffRemains(S.ShurikenTornado) <= 2 and t:BuffRemains(S.ShurikenTornado) > 1 then
+            return t:BuffRemains(S.ShurikenTornado) - 1
+        elseif t:BuffRemains(S.ShurikenTornado) <= 1 then
+            return t:BuffRemains(S.ShurikenTornado)
+        end
+
+    end
+
+end
+
+do
+    local i = e(323558)
+    local a = e(323559)
+    local a = e(323560)
+    function o.AnimachargedCP()
+                                if t:BuffUp(e.Rogue.Commons.EchoingReprimand2) then
+            return 2
+        elseif t:BuffUp(e.Rogue.Commons.EchoingReprimand3) then
+            return 3
+        elseif t:BuffUp(e.Rogue.Commons.EchoingReprimand4) then
+            return 4
+        elseif t:BuffUp(e.Rogue.Commons.EchoingReprimand5) then
+            return 5
+        end
+
+        return -1
+    end
+
+    function o.EffectiveComboPoints(a)
+        if ((a == 2 and t:BuffUp(i)) or (a == 3 and t:BuffUp(e.Rogue.Commons.EchoingReprimand3)) or (a == 4 and t:BuffUp(e.Rogue.Commons.EchoingReprimand4)) or (a == 5 and t:BuffUp(e.Rogue.Commons.EchoingReprimand5))) then
+            return 7
+        else
+            return a
+        end
+
+    end
+
+end
+
+do
+    local a = e.Rogue.Assassination.DeadlyPoisonDebuff
+    local t = e.Rogue.Assassination.WoundPoisonDebuff
+    function o.Poisoned(e)
+        return (e:DebuffUp(a) or e:DebuffUp(t)) and true or false
+    end
+
+end
+
+do
+    local a = e.Rogue.Assassination.DeadlyPoisonDebuff
+    local t = e.Rogue.Assassination.WoundPoisonDebuff
+    function o.PoisonRemains(e)
+        return (e:DebuffUp(a) and e:DebuffRemains(a)) or (e:DebuffUp(t) and e:DebuffRemains(t)) or 0
+    end
+
+end
+
+do
+    local i = e.Rogue.Assassination.Garrote
+    local a = e.Rogue.Assassination.Rupture
+    local t = e.Rogue.Assassination.CrimsonTempest
+    local e = e.Rogue.Assassination.InternalBleeding
+    function o.Bleeds()
+        return (r:DebuffUp(i) and 1 or 0) + (r:DebuffUp(a) and 1 or 0) + (r:DebuffUp(t) and 1 or 0) + (r:DebuffUp(e) and 1 or 0)
+    end
+
+end
+
+do
+    local n = e.Rogue.Assassination.Garrote
+    local a = e.Rogue.Assassination.InternalBleeding
+    local i = e.Rogue.Assassination.Rupture
+    local e = 0
+    function o.PoisonedBleeds()
+        e = 0
+        for s, t in f(t:GetEnemiesInRange(50)) do
+            if o.Poisoned(t) then
+                if t:DebuffUp(n) then
+                    e = e + 1
+                end
+
+                if t:DebuffUp(a) then
+                    e = e + 1
+                end
+
+                if t:DebuffUp(i) then
+                    e = e + 1
+                end
+
+            end
+
+        end
+
+        return e
+    end
+
+end
+
+do
+    local e, a = e(340094), 4
+    function o.MasterAssassinsMarkRemains()
+        if t:BuffRemains(e) < 0 then
+            return t:GCDRemains() + a
+        else
+            return t:BuffRemains(e)
+        end
+
+    end
+
+end
+
+function o.ReturnSpell()
+    if i == 0 then
+        return 0
+    else
+        return i
+    end
+
+end
+
+function o.ReturnSpellMO()
+    if s == 0 then
+        return 0
+    else
+        return s
+    end
+
+end
+
+

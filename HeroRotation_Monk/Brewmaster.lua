@@ -1,301 +1,424 @@
---- ============================ HEADER ============================
---- ======= LOCALIZE =======
--- Addon
-local addonName, addonTable = ...;
--- HeroDBC
-local DBC        = HeroDBC.DBC
--- HeroLib
-local HL         = HeroLib
-local Cache      = HeroCache
-local Unit       = HL.Unit
-local Player     = Unit.Player
-local Target     = Unit.Target
-local Pet        = Unit.Pet
-local Spell      = HL.Spell
-local MultiSpell = HL.MultiSpell
-local Item       = HL.Item
--- HeroRotation
-local HR         = HeroRotation
-local AoEON      = HR.AoEON
-local CDsON      = HR.CDsON
--- Lua
-local mathmin    = math.min
-local pairs      = pairs;
-
-
---- ============================ CONTENT ===========================
---- ======= APL LOCALS =======
--- luacheck: max_line_length 9999
-
--- Spells
-local S = Spell.Monk.Brewmaster;
-local I = Item.Monk.Brewmaster;
-
--- Create table to exclude above trinkets from On Use function
-local OnUseExcludes = {
-  -- BfA
---  I.PocketsizedComputationDevice:ID(),
---  I.AshvanesRazorCoral:ID(),
-}
-
--- Rotation Var
-local Enemies5y
-local Enemies8y
-local EnemiesCount8
-local IsInMeleeRange, IsInAoERange
-local ShouldReturn; -- Used to get the return string
-local Interrupts = {
-  { S.SpearHandStrike, "Cast Spear Hand Strike (Interrupt)", function () return true end },
-}
-local Stuns = {
-  { S.LegSweep, "Cast Leg Sweep (Stun)", function () return true end },
-}
-local Traps = {
-  { S.Paralysis, "Cast Paralysis (Stun)", function () return true end },
-}
-
--- GUI Settings
-local Everyone = HR.Commons.Everyone;
-local Monk = HR.Commons.Monk;
-local Settings = {
-  General    = HR.GUISettings.General,
-  Commons    = HR.GUISettings.APL.Monk.Commons,
-  Brewmaster = HR.GUISettings.APL.Monk.Brewmaster
-};
-
--- Legendary variables
-local CelestialInfusionEquipped = Player:HasLegendaryEquipped(88)
-local CharredPassionsEquipped = Player:HasLegendaryEquipped(86)
-local EscapeFromRealityEquipped = Player:HasLegendaryEquipped(82)
-local FatalTouchEquipped = Player:HasLegendaryEquipped(85)
-local InvokersDelightEquipped = Player:HasLegendaryEquipped(83)
-local ShaohaosMightEquipped = Player:HasLegendaryEquipped(89)
-local StormstoutsLastKegEquipped = Player:HasLegendaryEquipped(87)
-local SwiftsureWrapsEquipped = Player:HasLegendaryEquipped(84)
-
-HL:RegisterForEvent(function()
-  VarFoPPreChan = 0
-end, "PLAYER_REGEN_ENABLED")
-
--- Melee Is In Range w/ Movement Handlers
-local function IsInMeleeRange(range)
-  if S.TigerPalm:TimeSinceLastCast() <= Player:GCD() then
+local e, e = ...
+local e = HeroDBC.DBC
+local n = HeroLib
+local e = HeroCache
+local e = n.Unit
+local t = e.Player
+local o = e.Target
+local e = e.Pet
+local e = n.Spell
+local a = n.MultiSpell
+local i = n.Item
+local a = HeroRotation
+local s = a.AoEON
+local s = a.CDsON
+local s = math.min
+local s = pairs
+local e = e.Monk.Brewmaster
+local i = i.Monk.Brewmaster
+local c = {  }
+local y
+local d
+local h
+local i, i
+local i
+local w = { { e.SpearHandStrike, "Cast Spear Hand Strike (Interrupt)", function()
     return true
-  end
-  return range and Target:IsInMeleeRange(range) or Target:IsInMeleeRange(5)
+end } }
+local r = { { e.LegSweep, "Cast Leg Sweep (Stun)", function()
+    return true
+end } }
+local i = { { e.Paralysis, "Cast Paralysis (Stun)", function()
+    return true
+end } }
+local s = a.Commons.Everyone
+local i = a.Commons.Monk
+local i = { General = a.GUISettings.General, Commons = a.GUISettings.APL.Monk.Commons, Brewmaster = a.GUISettings.APL.Monk.Brewmaster }
+local l = t:HasLegendaryEquipped(88)
+local f = t:HasLegendaryEquipped(86)
+local l = t:HasLegendaryEquipped(82)
+local l = t:HasLegendaryEquipped(85)
+local l = t:HasLegendaryEquipped(83)
+local l = t:HasLegendaryEquipped(89)
+local l = t:HasLegendaryEquipped(87)
+local l = t:HasLegendaryEquipped(84)
+n:RegisterForEvent(function()
+    VarFoPPreChan = 0
+end, "PLAYER_REGEN_ENABLED")
+local function l(a)
+    if e.TigerPalm:TimeSinceLastCast() <= t:GCD() then
+        return true
+    end
+
+    return a and o:IsInMeleeRange(a) or o:IsInMeleeRange(5)
 end
 
-local function UseItems()
-  -- use_items
-  local TrinketToUse = Player:GetUseableTrinkets(OnUseExcludes)
-  if TrinketToUse then
-    if HR.Cast(TrinketToUse, nil, Settings.Commons.TrinketDisplayStyle) then return "Generic use_items for " .. TrinketToUse:Name(); end
-  end
-end
-
--- I am going keep this function in place in case it is needed in the future.
--- The code is sound for a smoothing of damage intake.
--- However this is not needed in the current APL.
-local function ShouldPurify ()
-  return S.PurifyingBrew:ChargesFractional() >= 1.8 and (Player:DebuffUp(S.HeavyStagger) or Player:DebuffUp(S.ModerateStagger) or Player:DebuffUp(S.LightStagger))
-end
-
-local function Defensives()
-  local IsTanking = Player:IsTankingAoE(8) or Player:IsTanking(Target);
-
-  if S.CelestialBrew:IsCastable() and Player:BuffStack(S.PurifiedChiBuff) >= 2 then
-    if HR.Cast(S.CelestialBrew, Settings.Brewmaster.GCDasOffGCD.CelestialBrew) then return "Celestial Brew"; end
-  end
-  if S.PurifyingBrew:IsCastable() and ShouldPurify() then
-    if HR.CastRightSuggested(S.PurifyingBrew) then return "Purifying Brew"; end
-  end
-  if S.DampenHarm:IsCastable() and Player:HealthPercentage() <= 35 then
-    if HR.CastSuggested(S.DampenHarm) then return "Dampen Harm"; end
-  end
-  if S.FortifyingBrew:IsCastable() and Player:HealthPercentage() <= 25 then
-    if HR.CastSuggested(S.FortifyingBrew) then return "Fortifying Brew"; end
-  end
-end
-
---- ======= ACTION LISTS =======
-local function APL()
-  -- Unit Update
-  IsInMeleeRange();
-  Enemies5y = Player:GetEnemiesInMeleeRange(5) -- Multiple Abilities
-  Enemies8y = Player:GetEnemiesInMeleeRange(8) -- Multiple Abilities
-  EnemiesCount8 = #Enemies8y -- AOE Toogle
-
-  --- Out of Combat
-  if not Player:AffectingCombat() and Everyone.TargetIsValid() then
-    if S.RushingJadeWind:IsCastable() then
-      if HR.Cast(S.RushingJadeWind, nil, nil, not Target:IsInMeleeRange(8)) then return "Rushing Jade Wind"; end
-    end
-    if S.ChiBurst:IsCastable() then
-      if HR.Cast(S.ChiBurst, nil, nil, not Target:IsInRange(40)) then return "Chi Burst"; end
-    end
-    if S.KegSmash:IsCastable() then 
-      if HR.Cast(S.KegSmash, nil, nil, not Target:IsInRange(40)) then return "Keg Smash"; end
-    end
-    if S.ChiWave:IsCastable() then
-      if HR.Cast(S.ChiWave, nil, nil, not Target:IsInRange(40)) then return "Chi Wave"; end
-    end
-  end
-
-  --- In Combat
-  if Everyone.TargetIsValid() then
-    local ShouldReturn = Everyone.Interrupt(5, S.SpearHandStrike, Settings.Commons.OffGCDasOffGCD.SpearHandStrike, Interrupts); if ShouldReturn then return ShouldReturn; end
-    local ShouldReturn = Everyone.Interrupt(5, S.LegSweep, Settings.Commons.GCDasOffGCD.LegSweep, Stuns); if ShouldReturn and Settings.General.InterruptWithStun then return ShouldReturn; end
-    local ShouldReturn = Everyone.Interrupt(5, S.Paralysis, Settings.Commons.GCDasOffGCD.Paralysis, Stuns); if ShouldReturn and Settings. General.InterruptWithStun then return ShouldReturn; end
-    ShouldReturn = Defensives(); if ShouldReturn then return ShouldReturn; end
-    if HR.CDsON() then
-      
-      -- blood_fury
-      if S.BloodFury:IsCastable() then
-        if HR.Cast(S.BloodFury, Settings.Commons.OffGCDasOffGCD.Racials) then return "Blood Fury"; end
-      end
-      -- berserking
-      if S.Berserking:IsCastable() then
-        if HR.Cast(S.Berserking, Settings.Commons.OffGCDasOffGCD.Racials) then return "Berserking"; end
-      end
-      -- lights_judgment
-      if S.LightsJudgment:IsCastable() then
-        if HR.Cast(S.LightsJudgment, Settings.Commons.OffGCDasOffGCD.Racials, not Target:IsInRange(40)) then return "Lights Judgment"; end
-      end
-      -- fireblood
-      if S.Fireblood:IsCastable() then
-        if HR.Cast(S.Fireblood, Settings.Commons.OffGCDasOffGCD.Racials) then return "Fireblood"; end
-      end
-      -- ancestral_call
-      if S.AncestralCall:IsCastable() then
-        if HR.Cast(S.AncestralCall, Settings.Commons.OffGCDasOffGCD.Racials) then return "Ancestral Call"; end
-      end
-      -- bag_of_tricks
-      if S.BagOfTricks:IsCastable() then
-        if HR.Cast(S.BagOfTricks, Settings.Commons.OffGCDasOffGCD.Racials, not Target:IsInRange(40)) then return "Bag of Tricks"; end
-      end
-      -- weapons_of_order (if KegSmash is on CD)
-      if S.WeaponsOfOrder:IsCastable() and (not S.KegSmash:CooldownUp()) then
-        if HR.Cast(S.WeaponsOfOrder, nil, Settings.Commons.CovenantDisplayStyle) then return "Weapons Of Order cd 1"; end
-      end
-      -- fallen_order
-      if S.FallenOrder:IsCastable() then
-        if HR.Cast(S.FallenOrder, nil, Settings.Commons.CovenantDisplayStyle) then return "Fallen Order cd 1"; end
-      end
-      -- bonedust_brew
-      if S.BonedustBrew:IsCastable() then
-        if HR.Cast(S.BonedustBrew, nil, Settings.Commons.CovenantDisplayStyle) then return "Bonedust Brew cd 1"; end
-      end
-      -- invoke_niuzao_the_black_ox
-      if S.InvokeNiuzaoTheBlackOx:IsCastable() and HL.BossFilteredFightRemains(">", 25) then
-        if HR.Cast(S.InvokeNiuzaoTheBlackOx, Settings.Brewmaster.GCDasOffGCD.InvokeNiuzaoTheBlackOx) then return "Invoke Niuzao the Black Ox"; end
-      end
-      -- black_ox_brew,if=cooldown.purifying_brew.charges_fractional<0.5
-      if S.BlackOxBrew:IsCastable() and S.PurifyingBrew:ChargesFractional() < 0.5 then
-        if HR.Cast(S.BlackOxBrew, Settings.Brewmaster.OffGCDasOffGCD.BlackOxBrew) then return "Black Ox Brew"; end
-      end
-      -- black_ox_brew,if=(energy+(energy.regen*cooldown.keg_smash.remains))<40&buff.blackout_combo.down&cooldown.keg_smash.up
-      if S.BlackOxBrew:IsCastable() and (Player:Energy() + (Player:EnergyRegen() * S.KegSmash:CooldownRemains())) < 40 and Player:BuffDown(S.BlackoutComboBuff) and S.KegSmash:CooldownUp() then
-        if HR.Cast(S.BlackOxBrew, Settings.Brewmaster.OffGCDasOffGCD.BlackOxBrew) then return "Black Ox Brew 2"; end
-      end
-      if (Settings.Commons.UseTrinkets) then
-        if (true) then
-          local ShouldReturn = UseItems(); if ShouldReturn then return ShouldReturn; end
+local function u()
+    local e = t:GetUseableTrinkets(c)
+    if e then
+        if a.Cast(e, nil, i.Commons.TrinketDisplayStyle) then
+            return "Generic use_items for " .. e:Name()
         end
-      end
+
     end
 
-    -- keg_smash,if=spell_targets>=2
-    if S.KegSmash:IsCastable() and EnemiesCount8 >= 2 then
-      if HR.Cast(S.KegSmash, nil, nil, not Target:IsSpellInRange(S.KegSmash)) then return "Keg Smash 1"; end
-    end
-    -- faeline_stomp,if=spell_targets>=2
-    if S.FaelineStomp:IsCastable() and EnemiesCount8 >= 2 then
-      if HR.Cast(S.FaelineStomp, nil, Settings.Commons.CovenantDisplayStyle) then return "Faeline Stomp cd 1"; end
-    end
-    -- keg_smash,if=buff.weapons_of_order.up
-    if S.KegSmash:IsCastable() and Player:BuffUp(S.WeaponsOfOrder) then
-      if HR.Cast(S.KegSmash, nil, nil, not Target:IsSpellInRange(S.KegSmash)) then return "Keg Smash 2"; end
-    end
-    -- blackout_strike (Original with no CharredPassions)
-    if S.BlackoutKick:IsCastable() and (not Player:HasLegendaryEquipped(86)) then
-      if HR.Cast(S.BlackoutKick, nil, nil, not Target:IsSpellInRange(S.BlackoutKick)) then return "Blackout Kick"; end
-    end
-    -- keg_smash (Original with no CharredPassions)
-    if S.KegSmash:IsReady() and (not Player:HasLegendaryEquipped(86)) then
-      if HR.Cast(S.KegSmash, nil, nil, not Target:IsSpellInRange(S.KegSmash)) then return "Keg Smash 3"; end
-    end
-    -- keg_smash (Kegsmash with charredpassions buff if BK on CD)
-    if S.KegSmash:IsReady() and (Player:HasLegendaryEquipped(86) and Player:BuffUp(S.CharredPassions) and not S.BlackoutKick:CooldownUp()) then
-      if HR.Cast(S.KegSmash, nil, nil, not Target:IsSpellInRange(S.KegSmash)) then return "Keg Smash 3"; end
-    end
-    -- keg_smash (Kegsmash if no charredpassions buff)
-    if S.KegSmash:IsReady() and (Player:HasLegendaryEquipped(86) and Player:BuffDown(S.CharredPassions)) then
-      if HR.Cast(S.KegSmash, nil, nil, not Target:IsSpellInRange(S.KegSmash)) then return "Keg Smash 3"; end
-    end
-    -- blackout_strike (BK with charredpassions buff, but shuffle buff missing)
-    if S.BlackoutKick:IsCastable() and (Player:HasLegendaryEquipped(86) and Player:BuffUp(S.CharredPassions) and Player:BuffDown(S.Shuffle)) then
-      if HR.Cast(S.BlackoutKick, nil, nil, not Target:IsSpellInRange(S.BlackoutKick)) then return "Blackout Kick"; end
-    end
-  	-- blackout_strike (Use BK where it would otherwise not, due to waiting for BoF CD)
-  	if S.BlackoutKick:IsCastable() and (S.BreathOfFire:CooldownRemains() >= 4 and Player:BuffDown(S.CharredPassions) and Player:HasLegendaryEquipped(86)) then
-      if HR.Cast(S.BlackoutKick, nil, nil, not Target:IsSpellInRange(S.BlackoutKick)) then return "Blackout Kick"; end
-    end
-    -- breath_of_fire (Save BK for after BoF if shuffle buff up)
-    if S.BlackoutKick:IsCastable() and (S.BreathOfFire:IsCastable() and Player:HasLegendaryEquipped(86) and Player:BuffUp(S.Shuffle)) then
-      if HR.Cast(S.BreathOfFire, nil, nil, not Target:IsInMeleeRange(8)) then return "Breath of Fire 2"; end
-    end
-	  -- Prio BK&SCK with charred_passions buff/legendary
-    if S.BlackoutKick:IsCastable() and (Player:HasLegendaryEquipped(86) and Player:BuffUp(S.CharredPassions)) then
-      if HR.Cast(S.BlackoutKick, nil, nil, not Target:IsSpellInRange(S.BlackoutKick)) then return "Blackout Kick"; end
-    end
-	  if not S.BlackoutKick:IsCastable() and (Player:HasLegendaryEquipped(86) and S.BlackoutKick:CooldownRemains() >= 1.3 and S.SpinningCraneKick:IsReady() and Player:BuffUp(S.CharredPassions)) then
-      if HR.Cast(S.SpinningCraneKick, nil, nil, not Target:IsInMeleeRange(8)) then return "Spinning Crane Kick 2"; end
-    end
-    -- faeline_stomp
-    if S.FaelineStomp:IsCastable() then
-      if HR.Cast(S.FaelineStomp, nil, Settings.Commons.CovenantDisplayStyle) then return "Faeline Stomp cd 2"; end
-    end
-    -- Note: Add extra handling to prevent Expel Harm over-healing
-    if S.ExpelHarm:IsReady() and S.ExpelHarm:Count() >= 3 and Player:BuffUp(S.CelestialBrew) then
-      if HR.Cast(S.ExpelHarm, nil, nil, not Target:IsInMeleeRange(8)) then return "Expel Harm 2"; end
-    end
-    if S.TouchOfDeath:IsReady() and Target:Health() < UnitHealthMax("player") then
-      if HR.CastSuggested(S.TouchOfDeath) then return "Touch Of Death 1"; end
-    end
-	-- RJW
-    if S.RushingJadeWind:IsCastable() and Player:BuffDown(S.RushingJadeWind) then
-      if HR.Cast(S.RushingJadeWind, nil, nil, not Target:IsInMeleeRange(8)) then return "Rushing Jade Wind"; end
-    end
-    -- breath_of_fire,if=buff.blackout_combo.down&(buff.bloodlust.down|(buff.bloodlust.up&dot.breath_of_fire_dot.refreshable))
-    if S.BreathOfFire:IsCastable(10, true) and (Player:BuffDown(S.BlackoutComboBuff) and (Player:BloodlustDown() or (Player:BloodlustUp() and Target:BuffRefreshable(S.BreathOfFireDotDebuff)))) then
-      if HR.Cast(S.BreathOfFire, nil, nil, not Target:IsInMeleeRange(8)) then return "Breath of Fire 2"; end
-    end
-    -- chi_burst
-    if S.ChiBurst:IsCastable() then
-      if HR.Cast(S.ChiBurst, nil, nil, not Target:IsInRange(40)) then return "Chi Burst 2"; end
-    end
-    -- chi_wave
-    if S.ChiWave:IsCastable() then
-      if HR.Cast(S.ChiWave, nil, nil, not Target:IsInRange(40)) then return "Chi Wave 2"; end
-    end
-    -- spinning_crane_kick,if=active_enemies>=3&cooldown.keg_smash.remains>gcd&(energy+(energy.regen*(cooldown.keg_smash.remains+execute_time)))>=65&(!talent.spitfire.enabled|!runeforge.charred_passions.equipped)
-    if S.SpinningCraneKick:IsCastable() and (EnemiesCount8 >= 3 and S.KegSmash:CooldownRemains() > Player:GCD() and ((Player:Energy() + (Player:EnergyRegen() * (S.KegSmash:CooldownRemains() + S.SpinningCraneKick:ExecuteTime())) >= 65)) and (not S.Spitfire:IsAvailable() or not CharredPassionsEquipped)) then
-      if HR.Cast(S.SpinningCraneKick, nil, nil, not Target:IsInMeleeRange(8)) then return "Spinning Crane Kick 2"; end
-    end
-    -- tiger_palm,if=!talent.blackout_combo.enabled&cooldown.keg_smash.remains>gcd&(energy+(energy.regen*(cooldown.keg_smash.remains+gcd)))>=65
-    if S.TigerPalm:IsCastable() and (not S.BlackoutCombo:IsAvailable() and S.KegSmash:CooldownRemains() > Player:GCD() and ((Player:Energy() + (Player:EnergyRegen() * (S.KegSmash:CooldownRemains() + Player:GCD()))) >= 65)) then
-      if HR.Cast(S.TigerPalm, nil, nil, not Target:IsSpellInRange(S.TigerPalm)) then return "Tiger Palm 3"; end
-    end
-    -- rushing_jade_wind
-    if S.RushingJadeWind:IsCastable() then
-      if HR.Cast(S.RushingJadeWind, nil, nil, not Target:IsInMeleeRange(8)) then return "Rushing Jade Wind 2"; end
-    end
-    -- Manually added Pool filler
-    if HR.Cast(S.PoolEnergy) and not Settings.Brewmaster.NoBrewmasterPooling then return "Pool Energy"; end
-  end
 end
 
-local function Init()
+local function c()
+    return e.PurifyingBrew:ChargesFractional() >= 1.8 and (t:DebuffUp(e.HeavyStagger) or t:DebuffUp(e.ModerateStagger) or t:DebuffUp(e.LightStagger))
 end
 
-HR.SetAPL(268, APL, Init);
+local function m()
+    local o = t:IsTankingAoE(8) or t:IsTanking(o)
+    if e.CelestialBrew:IsCastable() and t:BuffStack(e.PurifiedChiBuff) >= 2 then
+        if a.Cast(e.CelestialBrew, i.Brewmaster.GCDasOffGCD.CelestialBrew) then
+            return "Celestial Brew"
+        end
+
+    end
+
+    if e.PurifyingBrew:IsCastable() and c() then
+        if a.CastRightSuggested(e.PurifyingBrew) then
+            return "Purifying Brew"
+        end
+
+    end
+
+    if e.DampenHarm:IsCastable() and t:HealthPercentage() <= 35 then
+        if a.CastSuggested(e.DampenHarm) then
+            return "Dampen Harm"
+        end
+
+    end
+
+    if e.FortifyingBrew:IsCastable() and t:HealthPercentage() <= 25 then
+        if a.CastSuggested(e.FortifyingBrew) then
+            return "Fortifying Brew"
+        end
+
+    end
+
+end
+
+local function c()
+    l()
+    y = t:GetEnemiesInMeleeRange(5)
+    d = t:GetEnemiesInMeleeRange(8)
+    h = #d
+    if not t:AffectingCombat() and s.TargetIsValid() then
+        if e.RushingJadeWind:IsCastable() then
+            if a.Cast(e.RushingJadeWind, nil, nil, not o:IsInMeleeRange(8)) then
+                return "Rushing Jade Wind"
+            end
+
+        end
+
+        if e.ChiBurst:IsCastable() then
+            if a.Cast(e.ChiBurst, nil, nil, not o:IsInRange(40)) then
+                return "Chi Burst"
+            end
+
+        end
+
+        if e.KegSmash:IsCastable() then
+            if a.Cast(e.KegSmash, nil, nil, not o:IsInRange(40)) then
+                return "Keg Smash"
+            end
+
+        end
+
+        if e.ChiWave:IsCastable() then
+            if a.Cast(e.ChiWave, nil, nil, not o:IsInRange(40)) then
+                return "Chi Wave"
+            end
+
+        end
+
+    end
+
+    if s.TargetIsValid() then
+        local d = s.Interrupt(5, e.SpearHandStrike, i.Commons.OffGCDasOffGCD.SpearHandStrike, w)
+        if d then
+            return d
+        end
+
+        local d = s.Interrupt(5, e.LegSweep, i.Commons.GCDasOffGCD.LegSweep, r)
+        if d and i.General.InterruptWithStun then
+            return d
+        end
+
+        local s = s.Interrupt(5, e.Paralysis, i.Commons.GCDasOffGCD.Paralysis, r)
+        if s and i.General.InterruptWithStun then
+            return s
+        end
+
+        s = m()
+        if s then
+            return s
+        end
+
+        if a.CDsON() then
+            if e.BloodFury:IsCastable() then
+                if a.Cast(e.BloodFury, i.Commons.OffGCDasOffGCD.Racials) then
+                    return "Blood Fury"
+                end
+
+            end
+
+            if e.Berserking:IsCastable() then
+                if a.Cast(e.Berserking, i.Commons.OffGCDasOffGCD.Racials) then
+                    return "Berserking"
+                end
+
+            end
+
+            if e.LightsJudgment:IsCastable() then
+                if a.Cast(e.LightsJudgment, i.Commons.OffGCDasOffGCD.Racials, not o:IsInRange(40)) then
+                    return "Lights Judgment"
+                end
+
+            end
+
+            if e.Fireblood:IsCastable() then
+                if a.Cast(e.Fireblood, i.Commons.OffGCDasOffGCD.Racials) then
+                    return "Fireblood"
+                end
+
+            end
+
+            if e.AncestralCall:IsCastable() then
+                if a.Cast(e.AncestralCall, i.Commons.OffGCDasOffGCD.Racials) then
+                    return "Ancestral Call"
+                end
+
+            end
+
+            if e.BagOfTricks:IsCastable() then
+                if a.Cast(e.BagOfTricks, i.Commons.OffGCDasOffGCD.Racials, not o:IsInRange(40)) then
+                    return "Bag of Tricks"
+                end
+
+            end
+
+            if e.WeaponsOfOrder:IsCastable() and (not e.KegSmash:CooldownUp()) then
+                if a.Cast(e.WeaponsOfOrder, nil, i.Commons.CovenantDisplayStyle) then
+                    return "Weapons Of Order cd 1"
+                end
+
+            end
+
+            if e.FallenOrder:IsCastable() then
+                if a.Cast(e.FallenOrder, nil, i.Commons.CovenantDisplayStyle) then
+                    return "Fallen Order cd 1"
+                end
+
+            end
+
+            if e.BonedustBrew:IsCastable() then
+                if a.Cast(e.BonedustBrew, nil, i.Commons.CovenantDisplayStyle) then
+                    return "Bonedust Brew cd 1"
+                end
+
+            end
+
+            if e.InvokeNiuzaoTheBlackOx:IsCastable() and n.BossFilteredFightRemains(">", 25) then
+                if a.Cast(e.InvokeNiuzaoTheBlackOx, i.Brewmaster.GCDasOffGCD.InvokeNiuzaoTheBlackOx) then
+                    return "Invoke Niuzao the Black Ox"
+                end
+
+            end
+
+            if e.BlackOxBrew:IsCastable() and e.PurifyingBrew:ChargesFractional() < .5 then
+                if a.Cast(e.BlackOxBrew, i.Brewmaster.OffGCDasOffGCD.BlackOxBrew) then
+                    return "Black Ox Brew"
+                end
+
+            end
+
+            if e.BlackOxBrew:IsCastable() and (t:Energy() + (t:EnergyRegen() * e.KegSmash:CooldownRemains())) < 40 and t:BuffDown(e.BlackoutComboBuff) and e.KegSmash:CooldownUp() then
+                if a.Cast(e.BlackOxBrew, i.Brewmaster.OffGCDasOffGCD.BlackOxBrew) then
+                    return "Black Ox Brew 2"
+                end
+
+            end
+
+            if (i.Commons.UseTrinkets) then
+                if (true) then
+                    local e = u()
+                    if e then
+                        return e
+                    end
+
+                end
+
+            end
+
+        end
+
+        if e.KegSmash:IsCastable() and h >= 2 then
+            if a.Cast(e.KegSmash, nil, nil, not o:IsSpellInRange(e.KegSmash)) then
+                return "Keg Smash 1"
+            end
+
+        end
+
+        if e.FaelineStomp:IsCastable() and h >= 2 then
+            if a.Cast(e.FaelineStomp, nil, i.Commons.CovenantDisplayStyle) then
+                return "Faeline Stomp cd 1"
+            end
+
+        end
+
+        if e.KegSmash:IsCastable() and t:BuffUp(e.WeaponsOfOrder) then
+            if a.Cast(e.KegSmash, nil, nil, not o:IsSpellInRange(e.KegSmash)) then
+                return "Keg Smash 2"
+            end
+
+        end
+
+        if e.BlackoutKick:IsCastable() and (not t:HasLegendaryEquipped(86)) then
+            if a.Cast(e.BlackoutKick, nil, nil, not o:IsSpellInRange(e.BlackoutKick)) then
+                return "Blackout Kick"
+            end
+
+        end
+
+        if e.KegSmash:IsReady() and (not t:HasLegendaryEquipped(86)) then
+            if a.Cast(e.KegSmash, nil, nil, not o:IsSpellInRange(e.KegSmash)) then
+                return "Keg Smash 3"
+            end
+
+        end
+
+        if e.KegSmash:IsReady() and (t:HasLegendaryEquipped(86) and t:BuffUp(e.CharredPassions) and not e.BlackoutKick:CooldownUp()) then
+            if a.Cast(e.KegSmash, nil, nil, not o:IsSpellInRange(e.KegSmash)) then
+                return "Keg Smash 3"
+            end
+
+        end
+
+        if e.KegSmash:IsReady() and (t:HasLegendaryEquipped(86) and t:BuffDown(e.CharredPassions)) then
+            if a.Cast(e.KegSmash, nil, nil, not o:IsSpellInRange(e.KegSmash)) then
+                return "Keg Smash 3"
+            end
+
+        end
+
+        if e.BlackoutKick:IsCastable() and (t:HasLegendaryEquipped(86) and t:BuffUp(e.CharredPassions) and t:BuffDown(e.Shuffle)) then
+            if a.Cast(e.BlackoutKick, nil, nil, not o:IsSpellInRange(e.BlackoutKick)) then
+                return "Blackout Kick"
+            end
+
+        end
+
+        if e.BlackoutKick:IsCastable() and (e.BreathOfFire:CooldownRemains() >= 4 and t:BuffDown(e.CharredPassions) and t:HasLegendaryEquipped(86)) then
+            if a.Cast(e.BlackoutKick, nil, nil, not o:IsSpellInRange(e.BlackoutKick)) then
+                return "Blackout Kick"
+            end
+
+        end
+
+        if e.BlackoutKick:IsCastable() and (e.BreathOfFire:IsCastable() and t:HasLegendaryEquipped(86) and t:BuffUp(e.Shuffle)) then
+            if a.Cast(e.BreathOfFire, nil, nil, not o:IsInMeleeRange(8)) then
+                return "Breath of Fire 2"
+            end
+
+        end
+
+        if e.BlackoutKick:IsCastable() and (t:HasLegendaryEquipped(86) and t:BuffUp(e.CharredPassions)) then
+            if a.Cast(e.BlackoutKick, nil, nil, not o:IsSpellInRange(e.BlackoutKick)) then
+                return "Blackout Kick"
+            end
+
+        end
+
+        if not e.BlackoutKick:IsCastable() and (t:HasLegendaryEquipped(86) and e.BlackoutKick:CooldownRemains() >= 1.3 and e.SpinningCraneKick:IsReady() and t:BuffUp(e.CharredPassions)) then
+            if a.Cast(e.SpinningCraneKick, nil, nil, not o:IsInMeleeRange(8)) then
+                return "Spinning Crane Kick 2"
+            end
+
+        end
+
+        if e.FaelineStomp:IsCastable() then
+            if a.Cast(e.FaelineStomp, nil, i.Commons.CovenantDisplayStyle) then
+                return "Faeline Stomp cd 2"
+            end
+
+        end
+
+        if e.ExpelHarm:IsReady() and e.ExpelHarm:Count() >= 3 and t:BuffUp(e.CelestialBrew) then
+            if a.Cast(e.ExpelHarm, nil, nil, not o:IsInMeleeRange(8)) then
+                return "Expel Harm 2"
+            end
+
+        end
+
+        if e.TouchOfDeath:IsReady() and o:Health() < UnitHealthMax("player") then
+            if a.CastSuggested(e.TouchOfDeath) then
+                return "Touch Of Death 1"
+            end
+
+        end
+
+        if e.RushingJadeWind:IsCastable() and t:BuffDown(e.RushingJadeWind) then
+            if a.Cast(e.RushingJadeWind, nil, nil, not o:IsInMeleeRange(8)) then
+                return "Rushing Jade Wind"
+            end
+
+        end
+
+        if e.BreathOfFire:IsCastable(10, true) and (t:BuffDown(e.BlackoutComboBuff) and (t:BloodlustDown() or (t:BloodlustUp() and o:BuffRefreshable(e.BreathOfFireDotDebuff)))) then
+            if a.Cast(e.BreathOfFire, nil, nil, not o:IsInMeleeRange(8)) then
+                return "Breath of Fire 2"
+            end
+
+        end
+
+        if e.ChiBurst:IsCastable() then
+            if a.Cast(e.ChiBurst, nil, nil, not o:IsInRange(40)) then
+                return "Chi Burst 2"
+            end
+
+        end
+
+        if e.ChiWave:IsCastable() then
+            if a.Cast(e.ChiWave, nil, nil, not o:IsInRange(40)) then
+                return "Chi Wave 2"
+            end
+
+        end
+
+        if e.SpinningCraneKick:IsCastable() and (h >= 3 and e.KegSmash:CooldownRemains() > t:GCD() and ((t:Energy() + (t:EnergyRegen() * (e.KegSmash:CooldownRemains() + e.SpinningCraneKick:ExecuteTime())) >= 65)) and (not e.Spitfire:IsAvailable() or not f)) then
+            if a.Cast(e.SpinningCraneKick, nil, nil, not o:IsInMeleeRange(8)) then
+                return "Spinning Crane Kick 2"
+            end
+
+        end
+
+        if e.TigerPalm:IsCastable() and (not e.BlackoutCombo:IsAvailable() and e.KegSmash:CooldownRemains() > t:GCD() and ((t:Energy() + (t:EnergyRegen() * (e.KegSmash:CooldownRemains() + t:GCD()))) >= 65)) then
+            if a.Cast(e.TigerPalm, nil, nil, not o:IsSpellInRange(e.TigerPalm)) then
+                return "Tiger Palm 3"
+            end
+
+        end
+
+        if e.RushingJadeWind:IsCastable() then
+            if a.Cast(e.RushingJadeWind, nil, nil, not o:IsInMeleeRange(8)) then
+                return "Rushing Jade Wind 2"
+            end
+
+        end
+
+        if a.Cast(e.PoolEnergy) and not i.Brewmaster.NoBrewmasterPooling then
+            return "Pool Energy"
+        end
+
+    end
+
+end
+
+local function e()
+end
+
+a.SetAPL(268, c, e)
+

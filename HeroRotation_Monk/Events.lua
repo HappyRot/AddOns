@@ -1,131 +1,52 @@
---- ============================ HEADER ============================
---- ======= LOCALIZE =======
--- Addon
-local addonName, addonTable = ...
--- HeroLib
-local HL = HeroLib
-local Cache, Utils = HeroCache, HL.Utils
-local Unit = HL.Unit
-local Player, Pet, Target = Unit.Player, Unit.Pet, Unit.Target
-local Focus, MouseOver = Unit.Focus, Unit.MouseOver
-local Arena, Boss, Nameplate = Unit.Arena, Unit.Boss, Unit.Nameplate
-local Party, Raid = Unit.Party, Unit.Raid
-local Spell = HL.Spell
-local Item = HL.Item
--- HeroRotation
-local HR = HeroRotation
-local Rogue = HR.Commons.Monk
--- Lua
-local C_Timer = C_Timer
-local mathmax = math.max
-local mathmin = math.min
-local pairs = pairs
-local tableinsert = table.insert
-local UnitAttackSpeed = UnitAttackSpeed
-local GetTime = GetTime
--- Lua
-
--- File Locals
-
---- ============================ CONTENT ============================
---- ======= NON-COMBATLOG =======
-
-
---- ======= COMBATLOG =======
---- Combat Log Arguments
-  ------- Base -------
-    --     1        2         3           4           5           6              7             8         9        10           11
-    -- TimeStamp, Event, HideCaster, SourceGUID, SourceName, SourceFlags, SourceRaidFlags, DestGUID, DestName, DestFlags, DestRaidFlags
-
-  ------- Prefixes -------
-    --- SWING
-    -- N/A
-
-    --- SPELL & SPELL_PACIODIC
-    --    12        13          14
-    -- SpellID, SpellName, SpellSchool
-
-  ------- Suffixes -------
-    --- _CAST_START & _CAST_SUCCESS & _SUMMON & _RESURRECT
-    -- N/A
-
-    --- _CAST_FAILED
-    --     15
-    -- FailedType
-
-    --- _AURA_APPLIED & _AURA_REMOVED & _AURA_REFRESH
-    --    15
-    -- AuraType
-
-    --- _AURA_APPLIED_DOSE
-    --    15       16
-    -- AuraType, Charges
-
-    --- _INTERRUPT
-    --      15            16             17
-    -- ExtraSpellID, ExtraSpellName, ExtraSchool
-
-    --- _HEAL
-    --   15         16         17        18
-    -- Amount, Overhealing, Absorbed, Critical
-
-    --- _DAMAGE
-    --   15       16       17       18        19       20        21        22        23
-    -- Amount, Overkill, School, Resisted, Blocked, Absorbed, Critical, Glancing, Crushing
-
-    --- _MISSED
-    --    15        16           17
-    -- MissType, IsOffHand, AmountMissed
-
-  ------- Special -------
-    --- UNIT_DIED, UNIT_DESTROYED
-    -- N/A
-
---- End Combat Log Arguments
-
--- Arguments Variables
-
---------------------------
-------- Brewmaster -------
---------------------------
-
--- Stagger Tracker
-local StaggerSpellID = 115069;
-local BobandWeave = Spell(280515);
-local StaggerFull = 0;
-
-local function RegisterStaggerFullAbsorb (Amount)
-  local StaggerDuration = 10 + (BobandWeave:IsAvailable() and 3 or 0);
-  StaggerFull = StaggerFull + Amount;
-  C_Timer.After(StaggerDuration, function() StaggerFull = StaggerFull - Amount; end)
+local e, e = ...
+local t = HeroLib
+local e, e = HeroCache, t.Utils
+local e = t.Unit
+local a, o, o = e.Player, e.Pet, e.Target
+local o, o = e.Focus, e.MouseOver
+local o, o, o = e.Arena, e.Boss, e.Nameplate
+local e, e = e.Party, e.Raid
+local i = t.Spell
+local e = t.Item
+local e = HeroRotation
+local e = e.Commons.Monk
+local s = C_Timer
+local e = math.max
+local e = math.min
+local e = pairs
+local e = table.insert
+local e = UnitAttackSpeed
+local e = GetTime
+local o = 115069
+local n = i(280515)
+local e = 0
+local function i(t)
+    local a = 10 + (n:IsAvailable() and 3 or 0)
+    e = e + t
+    s.After(a, function()
+        e = e - t
+    end)
 end
 
-function Player:StaggerFull ()
-  return StaggerFull;
+function a:StaggerFull()
+    return e
 end
 
-HL:RegisterForCombatEvent(
-  function (...)
-    local args = {...}
+t:RegisterForCombatEvent(function(...)
+    local e = { ... }
+    if #e == 23 then
+        local s, s, s, s, s, s, s, n, s, s, s, s, s, s, s, s, s, s, t, s, s, e = ...
+        if n == a:GUID() and t == o then
+            i(e)
+        end
 
-    -- Absorb is coming from a spell damage
-    if #args == 23 then
-      -- 1          2      3           4           5           6            7                8         9         10         11             12             13               14                 15                16                17                 18                     19       20         21           22
-      -- TimeStamp, Event, HideCaster, SourceGUID, SourceName, SourceFlags, SourceRaidFlags, DestGUID, DestName, DestFlags, DestRaidFlags, AbsorbSpellId, AbsorbSpellName, AbsorbSpellSchool, AbsorbSourceGUID, AbsorbSourceName, AbsorbSourceFlags, AbsorbSourceRaidFlags, SpellID, SpellName, SpellSchool, Amount
-      local _, _, _, _, _, _, _, DestGUID, _, _, _, _, _, _, _, _, _, _, SpellID, _, _, Amount = ...
-
-      if DestGUID == Player:GUID() and SpellID == StaggerSpellID then
-        RegisterStaggerFullAbsorb(Amount)
-      end
     else
-      -- 1          2      3           4           5           6            7                8         9         10         11             12                13                14                 15                     16       17         18           19
-      -- TimeStamp, Event, HideCaster, SourceGUID, SourceName, SourceFlags, SourceRaidFlags, DestGUID, DestName, DestFlags, DestRaidFlags, AbsorbSourceGUID, AbsorbSourceName, AbsorbSourceFlags, AbsorbSourceRaidFlags, SpellID, SpellName, SpellSchool, Amount
-      local _, _, _, _, _, _, _, DestGUID, _, _, _, _, _, _, _, SpellID, _, _, Amount = ...
+        local s, s, s, s, s, s, s, t, s, s, s, s, s, s, s, n, s, s, e = ...
+        if t == a:GUID() and n == o then
+            i(e)
+        end
 
-      if DestGUID == Player:GUID() and SpellID == StaggerSpellID then
-        RegisterStaggerFullAbsorb(Amount)
-      end
     end
-  end
-  , "SPELL_ABSORBED"
-);
+
+end, "SPELL_ABSORBED")
+

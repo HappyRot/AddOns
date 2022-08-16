@@ -1,351 +1,192 @@
---- ============================ HEADER ============================
---- ======= LOCALIZE =======
--- Addon
-local addonName, HR = ...
--- HeroLib
-local HL = HeroLib
-local HR = HeroRotation
-local Cache = HeroCache
-local Unit = HL.Unit
-local Player = Unit.Player
-local Target = Unit.Target
-local Spell = HL.Spell
-local Item = HL.Item
--- Lua
-local find = string.find
-local GetTime = GetTime
--- File Locals
-HR.Commons.Warlock = {}
-local Warlock = HR.Commons.Warlock
-
---- ============================ CONTENT ============================
---- ======= NON-COMBATLOG =======
-
---- ======= COMBATLOG =======
-  --- Combat Log Arguments
-    ------- Base -------
-      --     1        2         3           4           5           6              7             8         9        10           11
-      -- TimeStamp, Event, HideCaster, SourceGUID, SourceName, SourceFlags, SourceRaidFlags, DestGUID, DestName, DestFlags, DestRaidFlags
-
-    ------- Prefixes -------
-      --- SWING
-      -- N/A
-
-      --- SPELL & SPELL_PACIODIC
-      --    12        13          14
-      -- SpellID, SpellName, SpellSchool
-
-    ------- Suffixes -------
-      --- _CAST_START & _CAST_SUCCESS & _SUMMON & _RESURRECT
-      -- N/A
-
-      --- _CAST_FAILED
-      --     15
-      -- FailedType
-
-      --- _AURA_APPLIED & _AURA_REMOVED & _AURA_REFRESH
-      --    15
-      -- AuraType
-
-      --- _AURA_APPLIED_DOSE
-      --    15       16
-      -- AuraType, Charges
-
-      --- _INTERRUPT
-      --      15            16             17
-      -- ExtraSpellID, ExtraSpellName, ExtraSchool
-
-      --- _HEAL
-      --   15         16         17        18
-      -- Amount, Overhealing, Absorbed, Critical
-
-      --- _DAMAGE
-      --   15       16       17       18        19       20        21        22        23
-      -- Amount, Overkill, School, Resisted, Blocked, Absorbed, Critical, Glancing, Crushing
-
-      --- _MISSED
-      --    15        16           17
-      -- MissType, IsOffHand, AmountMissed
-
-    ------- Special -------
-      --- UNIT_DIED, UNIT_DESTROYED
-      -- N/A
-
-  --- End Combat Log Arguments
-
-  -- Arguments Variables
-
-HL.ImmolationTable = {
-  Destruction = {
-    ImmolationDebuff = {},
-  }
-}
-
-HL.GuardiansTable = {
-  --{ID, name, spawnTime, ImpCasts, Duration, despawnTime}
-  Pets = {
-  },
-  ImpCount = 0,
-  FelguardDuration = 0,
-  DreadstalkerDuration = 0,
-  DemonicTyrantDuration = 0,
-  VilefiendDuration = 0,
-  Infernal = 0,
-
-  -- Used for Wild Imps spawn prediction
-  InnerDemonsNextCast = 0,
-  ImpsSpawnedFromHoG = 0
-}
-
-local PetsData = {
-  [98035] = {
-    name = "Dreadstalker",
-    duration = 12.25
-  },
-  [55659] = {
-    name = "Wild Imp",
-    duration = 20
-  },
-  [143622] = {
-    name = "Wild Imp",
-    duration = 20
-  },
-  [17252] = {
-    name = "Felguard",
-    duration = 17
-  },
-  [135002] = {
-    name = "Demonic Tyrant",
-    duration = 15
-  },
-  [135816] = {
-    name = "Vilefiend",
-    duration = 15
-  },
-  [89] = {
-    name = "Infernal",
-    duration = 30
-  },
-}
-
---------------------------
------ Destruction --------
---------------------------
--- Immolate OnApply/OnRefresh Listener
-HL:RegisterForSelfCombatEvent(
-  function (...)
+local e, e = ...
+local e = HeroLib
+local a = HeroRotation
+local t = HeroCache
+local t = e.Unit
+local h = t.Player
+local t = t.Target
+local t = e.Spell
+local t = e.Item
+local r = string.find
+local i = GetTime
+a.Commons.Warlock = {  }
+local o = a.Commons.Warlock
+e.ImmolationTable = { Destruction = { ImmolationDebuff = {  } } }
+e.GuardiansTable = { Pets = {  }, ImpCount = 0, FelguardDuration = 0, DreadstalkerDuration = 0, DemonicTyrantDuration = 0, VilefiendDuration = 0, Infernal = 0, InnerDemonsNextCast = 0, ImpsSpawnedFromHoG = 0 }
+local n = { [98035] = { name = "Dreadstalker", duration = 12.25 }, [55659] = { name = "Wild Imp", duration = 20 }, [143622] = { name = "Wild Imp", duration = 20 }, [17252] = { name = "Felguard", duration = 17 }, [135002] = { name = "Demonic Tyrant", duration = 15 }, [135816] = { name = "Vilefiend", duration = 15 }, [89] = { name = "Infernal", duration = 30 } }
+e:RegisterForSelfCombatEvent(function(...)
     DestGUID, _, _, _, SpellID = select(8, ...)
-
-    --- Record the Immolate
     if SpellID == 157736 then
-      HL.ImmolationTable.Destruction.ImmolationDebuff[DestGUID] = 0
+        e.ImmolationTable.Destruction.ImmolationDebuff[DestGUID] = 0
     end
-  end
-  , "SPELL_AURA_APPLIED"
-  , "SPELL_AURA_REFRESH"
-)
--- Immolate OnRemove Listener
-HL:RegisterForSelfCombatEvent(
-  function (...)
+
+end, "SPELL_AURA_APPLIED", "SPELL_AURA_REFRESH")
+e:RegisterForSelfCombatEvent(function(...)
     DestGUID, _, _, _, SpellID = select(8, ...)
-
-    -- Removes the Unit from Immolate Table
     if SpellID == 157736 then
-      if HL.ImmolationTable.Destruction.ImmolationDebuff[DestGUID] then
-        HL.ImmolationTable.Destruction.ImmolationDebuff[DestGUID] = nil
-      end
+        if e.ImmolationTable.Destruction.ImmolationDebuff[DestGUID] then
+            e.ImmolationTable.Destruction.ImmolationDebuff[DestGUID] = nil
+        end
+
     end
-  end
-  , "SPELL_AURA_REMOVED"
-)
--- Immolate OnUnitDeath Listener
-HL:RegisterForCombatEvent(
-  function (...)
+
+end, "SPELL_AURA_REMOVED")
+e:RegisterForCombatEvent(function(...)
     DestGUID = select(8, ...)
-    -- Removes the Unit from Immolate Table
-    if HL.ImmolationTable.Destruction.ImmolationDebuff[DestGUID] then
-      HL.ImmolationTable.Destruction.ImmolationDebuff[DestGUID] = nil
+    if e.ImmolationTable.Destruction.ImmolationDebuff[DestGUID] then
+        e.ImmolationTable.Destruction.ImmolationDebuff[DestGUID] = nil
     end
-  end
-  , "UNIT_DIED"
-  , "UNIT_DESTROYED"
-)
--- Conflagrate Listener
-HL:RegisterForSelfCombatEvent(
-  function (...)
+
+end, "UNIT_DIED", "UNIT_DESTROYED")
+e:RegisterForSelfCombatEvent(function(...)
     DestGUID, _, _, _, SpellID = select(8, ...)
-
-    -- Add a stack to the table
     if SpellID == 17962 then
-      if HL.ImmolationTable.Destruction.ImmolationDebuff[DestGUID] then
-        HL.ImmolationTable.Destruction.ImmolationDebuff[DestGUID] = HL.ImmolationTable.Destruction.ImmolationDebuff[DestGUID]+1
-      end
-    end
-  end
-  , "SPELL_CAST_SUCCESS"
-)
+        if e.ImmolationTable.Destruction.ImmolationDebuff[DestGUID] then
+            e.ImmolationTable.Destruction.ImmolationDebuff[DestGUID] = e.ImmolationTable.Destruction.ImmolationDebuff[DestGUID] + 1
+        end
 
---------------------------
------ Demonology ---------
---------------------------
--- Update the GuardiansTable
-function Warlock.UpdatePetTable()
-  for key, petTable in pairs(HL.GuardiansTable.Pets) do
-    if petTable then
-      -- Remove expired pets
-      if GetTime() >= petTable.despawnTime then
-        if petTable.name == "Wild Imp" then
-          HL.GuardiansTable.ImpCount = HL.GuardiansTable.ImpCount - 1
+    end
+
+end, "SPELL_CAST_SUCCESS")
+function o.UpdatePetTable()
+    for a, t in pairs(e.GuardiansTable.Pets) do
+        if t then
+            if i() >= t.despawnTime then
+                if t.name == "Wild Imp" then
+                    e.GuardiansTable.ImpCount = e.GuardiansTable.ImpCount - 1
+                end
+
+                                                                                if t.name == "Felguard" then
+                    e.GuardiansTable.FelguardDuration = 0
+                elseif t.name == "Dreadstalker" then
+                    e.GuardiansTable.DreadstalkerDuration = 0
+                elseif t.name == "Demonic Tyrant" then
+                    e.GuardiansTable.DemonicTyrantDuration = 0
+                elseif t.name == "Vilefiend" then
+                    e.GuardiansTable.VilefiendDuration = 0
+                elseif t.name == "Infernal" then
+                    e.GuardiansTable.InfernalDuration = 0
+                end
+
+                e.GuardiansTable.Pets[a] = nil
+            end
+
         end
-        if petTable.name == "Felguard"  then
-          HL.GuardiansTable.FelguardDuration = 0
-        elseif petTable.name == "Dreadstalker" then
-          HL.GuardiansTable.DreadstalkerDuration = 0
-        elseif petTable.name == "Demonic Tyrant" then
-          HL.GuardiansTable.DemonicTyrantDuration = 0
-        elseif petTable.name == "Vilefiend" then
-          HL.GuardiansTable.VilefiendDuration = 0
-        elseif petTable.name == "Infernal" then
-          HL.GuardiansTable.InfernalDuration = 0
+
+        if t.ImpCasts <= 0 then
+            e.GuardiansTable.ImpCount = e.GuardiansTable.ImpCount - 1
+            e.GuardiansTable.Pets[a] = nil
         end
-        HL.GuardiansTable.Pets[key] = nil
-      end
+
+        if i() <= t.despawnTime then
+            t.Duration = t.despawnTime - i()
+                                                            if t.name == "Felguard" then
+                e.GuardiansTable.FelguardDuration = t.Duration
+            elseif t.name == "Dreadstalker" then
+                e.GuardiansTable.DreadstalkerDuration = t.Duration
+            elseif t.name == "Demonic Tyrant" then
+                e.GuardiansTable.DemonicTyrantDuration = t.Duration
+            elseif t.name == "Vilefiend" then
+                e.GuardiansTable.VilefiendDuration = t.Duration
+            elseif t.name == "Infernal" then
+                e.GuardiansTable.InfernalDuration = t.Duration
+            end
+
+        end
+
     end
-    -- Remove any imp that has casted all of its bolts
-    if petTable.ImpCasts <= 0 then
-      HL.GuardiansTable.ImpCount = HL.GuardiansTable.ImpCount - 1
-      HL.GuardiansTable.Pets[key] = nil
-    end
-    -- Update Durations
-    if GetTime() <= petTable.despawnTime then
-      petTable.Duration = petTable.despawnTime - GetTime()
-      if petTable.name == "Felguard" then
-        HL.GuardiansTable.FelguardDuration = petTable.Duration
-      elseif petTable.name == "Dreadstalker" then
-        HL.GuardiansTable.DreadstalkerDuration = petTable.Duration
-      elseif petTable.name == "Demonic Tyrant" then
-        HL.GuardiansTable.DemonicTyrantDuration = petTable.Duration
-      elseif petTable.name == "Vilefiend" then
-        HL.GuardiansTable.VilefiendDuration = petTable.Duration
-      elseif petTable.name == "Infernal" then
-        HL.GuardiansTable.InfernalDuration = petTable.Duration
-      end
-    end
-  end
+
 end
 
--- Add demon to table
-HL:RegisterForSelfCombatEvent(
-  function (...)
-    local timestamp,Event,_,SourceGUID,_,_,_,UnitPetGUID,_,_,_,SpellID=select(1,...)
-    local _, _, _, _, _, _, _, UnitPetID = find(UnitPetGUID, "(%S+)-(%d+)-(%d+)-(%d+)-(%d+)-(%d+)-(%S+)")
-    UnitPetID = tonumber(UnitPetID)
+e:RegisterForSelfCombatEvent(function(...)
+    local a, t, a, a, a, a, a, s, a, a, a, h = select(1, ...)
+    local r, r, r, r, r, r, r, a = r(s, "(%S+)-(%d+)-(%d+)-(%d+)-(%d+)-(%d+)-(%S+)")
+    a = tonumber(a)
+    if (s ~= UnitGUID("pet") and t == "SPELL_SUMMON" and n[a]) then
+        local t = n[a]
+        local a
+                                                if t.name == "Wild Imp" then
+            e.GuardiansTable.ImpCount = e.GuardiansTable.ImpCount + 1
+            a = t.duration
+        elseif t.name == "Felguard" then
+            e.GuardiansTable.FelguardDuration = t.duration
+            a = t.duration
+        elseif t.name == "Dreadstalker" then
+            e.GuardiansTable.DreadstalkerDuration = t.duration
+            a = t.duration
+        elseif t.name == "Demonic Tyrant" then
+            if (h == 265187) then
+                e.GuardiansTable.DemonicTyrantDuration = t.duration
+                a = t.duration
+            end
 
-    -- Add pet
-    if (UnitPetGUID ~= UnitGUID("pet") and Event == "SPELL_SUMMON" and PetsData[UnitPetID]) then
-      local summonedPet = PetsData[UnitPetID]
-      local petDuration
-      if summonedPet.name == "Wild Imp" then
-        HL.GuardiansTable.ImpCount = HL.GuardiansTable.ImpCount + 1
-        petDuration = summonedPet.duration
-      elseif summonedPet.name == "Felguard" then
-        HL.GuardiansTable.FelguardDuration = summonedPet.duration
-        petDuration = summonedPet.duration
-      elseif summonedPet.name == "Dreadstalker" then
-        HL.GuardiansTable.DreadstalkerDuration = summonedPet.duration
-        petDuration = summonedPet.duration
-      elseif summonedPet.name == "Demonic Tyrant" then
-        if (SpellID == 265187) then
-          HL.GuardiansTable.DemonicTyrantDuration = summonedPet.duration
-          petDuration = summonedPet.duration
+        elseif t.name == "Vilefiend" then
+            e.GuardiansTable.VilefiendDuration = t.duration
+            a = t.duration
+        elseif t.name == "Infernal" then
+            e.GuardiansTable.InfernalDuration = t.duration
+            a = t.duration
         end
-      elseif summonedPet.name == "Vilefiend" then
-        HL.GuardiansTable.VilefiendDuration = summonedPet.duration
-        petDuration = summonedPet.duration
-      elseif summonedPet.name == "Infernal" then
-        HL.GuardiansTable.InfernalDuration = summonedPet.duration
-        petDuration = summonedPet.duration
-      end
-      local petTable = {
-        ID = UnitPetGUID,
-        name = summonedPet.name,
-        spawnTime = GetTime(),
-        ImpCasts = 5,
-        Duration = petDuration,
-        despawnTime = GetTime() + tonumber(petDuration)
-      }
-      table.insert(HL.GuardiansTable.Pets,petTable)
+
+        local t = { ID = s, name = t.name, spawnTime = i(), ImpCasts = 5, Duration = a, despawnTime = i() + tonumber(a) }
+        table.insert(e.GuardiansTable.Pets, t)
     end
 
-    -- Add 15 seconds and 7 casts to all pets when Tyrant is cast
-    if PetsData[UnitPetID] and PetsData[UnitPetID].name == "Demonic Tyrant" then
-      for key, petTable in pairs(HL.GuardiansTable.Pets) do
-        if (petTable and petTable.name ~= "Demonic Tyrant") then
-          petTable.despawnTime = petTable.despawnTime + 15
-          petTable.ImpCasts = petTable.ImpCasts + 7
+    if n[a] and n[a].name == "Demonic Tyrant" then
+        for t, e in pairs(e.GuardiansTable.Pets) do
+            if (e and e.name ~= "Demonic Tyrant") then
+                e.despawnTime = e.despawnTime + 15
+                e.ImpCasts = e.ImpCasts + 7
+            end
+
         end
-      end
+
     end
 
-    -- Update when next Wild Imp will spawn from Inner Demons talent
-    if UnitPetID == 143622 then
-      HL.GuardiansTable.InnerDemonsNextCast = GetTime() + 12
+    if a == 143622 then
+        e.GuardiansTable.InnerDemonsNextCast = i() + 12
     end
 
-    -- Updates how many Wild Imps have yet to spawn from HoG cast
-    if UnitPetID == 55659 and HL.GuardiansTable.ImpsSpawnedFromHoG > 0 then
-      HL.GuardiansTable.ImpsSpawnedFromHoG = HL.GuardiansTable.ImpsSpawnedFromHoG - 1
+    if a == 55659 and e.GuardiansTable.ImpsSpawnedFromHoG > 0 then
+        e.GuardiansTable.ImpsSpawnedFromHoG = e.GuardiansTable.ImpsSpawnedFromHoG - 1
     end
 
-    -- Update the pet table
-    Warlock.UpdatePetTable()
-  end
-  , "SPELL_SUMMON"
-  , "SPELL_CAST_SUCCESS"
-)
+    o.UpdatePetTable()
+end, "SPELL_SUMMON", "SPELL_CAST_SUCCESS")
+e:RegisterForCombatEvent(function(...)
+    local t, i, i, i, i, i, i, i, a = select(4, ...)
+    if a == 104318 then
+        for a, e in pairs(e.GuardiansTable.Pets) do
+            if t == e.ID then
+                e.ImpCasts = e.ImpCasts - 1
+            end
 
--- Decrement ImpCasts and Implosion Listener
-HL:RegisterForCombatEvent(
-  function (...)
-    local SourceGUID,_,_,_,UnitPetGUID,_,_,_,SpellID = select(4, ...)
-
-    -- Check for imp bolt casts
-    if SpellID == 104318 then
-      for key, petTable in pairs(HL.GuardiansTable.Pets) do
-        if SourceGUID == petTable.ID then
-          petTable.ImpCasts = petTable.ImpCasts - 1
         end
-      end
+
     end
 
-    -- Clear the imp table upon Implosion cast
-    if SourceGUID == Player:GUID() and SpellID == 196277 then
-      for key, petTable in pairs(HL.GuardiansTable.Pets) do
-        if petTable.name == "Wild Imp" then
-          HL.GuardiansTable.Pets[key] = nil
+    if t == h:GUID() and a == 196277 then
+        for a, t in pairs(e.GuardiansTable.Pets) do
+            if t.name == "Wild Imp" then
+                e.GuardiansTable.Pets[a] = nil
+            end
+
         end
-      end
-      HL.GuardiansTable.ImpCount = 0
+
+        e.GuardiansTable.ImpCount = 0
     end
 
-    -- Update the imp table
-    Warlock.UpdatePetTable()
-  end
-  , "SPELL_CAST_SUCCESS"
-)
-
--- Keep track how many Soul Shards we have
-Warlock.SoulShards = 0
-function Warlock.UpdateSoulShards()
-  Warlock.SoulShards = Player:SoulShards()
+    o.UpdatePetTable()
+end, "SPELL_CAST_SUCCESS")
+o.SoulShards = 0
+function o.UpdateSoulShards()
+    o.SoulShards = h:SoulShards()
 end
 
--- On Successful HoG cast add how many Imps will spawn
-HL:RegisterForSelfCombatEvent(
-  function(_, event, _, _, _, _, _, _, _, _, _, SpellID)
-    if SpellID == 105174 then
-      HL.GuardiansTable.ImpsSpawnedFromHoG = HL.GuardiansTable.ImpsSpawnedFromHoG + (Warlock.SoulShards >= 3 and 3 or Warlock.SoulShards)
+e:RegisterForSelfCombatEvent(function(a, a, a, a, a, a, a, a, a, a, a, t)
+    if t == 105174 then
+        e.GuardiansTable.ImpsSpawnedFromHoG = e.GuardiansTable.ImpsSpawnedFromHoG + (o.SoulShards >= 3 and 3 or o.SoulShards)
     end
-  end
-  , "SPELL_CAST_SUCCESS"
-)
+
+end, "SPELL_CAST_SUCCESS")
+

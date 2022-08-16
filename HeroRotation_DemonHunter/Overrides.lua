@@ -1,58 +1,33 @@
---- ============================ HEADER ============================
--- HeroLib
-local HL      = HeroLib
-local Cache   = HeroCache
-local Unit    = HL.Unit
-local Player  = Unit.Player
-local Pet     = Unit.Pet
-local Target  = Unit.Target
-local Spell   = HL.Spell
-local Item    = HL.Item
--- HeroRotation
-local HR      = HeroRotation
--- Spells
-local SpellHavoc              = Spell.DemonHunter.Havoc
-local SpellVengeance          = Spell.DemonHunter.Vengeance
--- Lua
-
---- ============================ CONTENT ============================
--- Havoc, ID: 577
-local HavocOldSpellIsCastable
-HavocOldSpellIsCastable = HL.AddCoreOverride ("Spell.IsCastable",
-  function (self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-    local BaseCheck = HavocOldSpellIsCastable(self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-    if self == SpellHavoc.Metamorphosis then
-      local HMIA = HR.GUISettings.APL.DemonHunter.Havoc.HideMetaIfActive
-      return BaseCheck and ((HMIA and Player:BuffDown(SpellHavoc.MetamorphosisBuff)) or not HMIA)
+local e = HeroLib
+local t = HeroCache
+local t = e.Unit
+local i = t.Player
+local a = t.Pet
+local t = t.Target
+local t = e.Spell
+local a = e.Item
+local n = HeroRotation
+local o = t.DemonHunter.Havoc
+local a = t.DemonHunter.Vengeance
+local t
+t = e.AddCoreOverride("Spell.IsCastable", function(e, a, d, h, r, s)
+    local t = t(e, a, d, h, r, s)
+    if e == o.Metamorphosis then
+        local e = n.GUISettings.APL.DemonHunter.Havoc.HideMetaIfActive
+        return t and ((e and i:BuffDown(o.MetamorphosisBuff)) or not e)
     else
-      return BaseCheck
+        return t
     end
-  end
-, 577)
 
--- Vengeance, ID: 581
-local VengOldSpellIsCastable
-VengOldSpellIsCastable = HL.AddCoreOverride ("Spell.IsCastable",
-  function (self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-    local BaseCheck = VengOldSpellIsCastable(self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-    if self == SpellVengeance.ImmolationAura and IsInJailersTower() then
-      return BaseCheck and Player:BuffDown(SpellVengeance.ImmolationAuraBuff)
+end, 577)
+local t
+t = e.AddCoreOverride("Spell.IsCastable", function(e, s, r, n, o, h)
+    local t = t(e, s, r, n, o, h)
+    if e == a.ImmolationAura and IsInJailersTower() then
+        return t and i:BuffDown(a.ImmolationAuraBuff)
     else
-      return BaseCheck
+        return t
     end
-  end
-, 581)
 
--- Example (Arcane Mage)
--- HL.AddCoreOverride ("Spell.IsCastableP", 
--- function (self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
---   if Range then
---     local RangeUnit = ThisUnit or Target
---     return self:IsLearned() and self:CooldownRemainsP( BypassRecovery, Offset or "Auto") == 0 and RangeUnit:IsInRange( Range, AoESpell )
---   elseif self == SpellArcane.MarkofAluneth then
---     return self:IsLearned() and self:CooldownRemainsP( BypassRecovery, Offset or "Auto") == 0 and not Player:IsCasting(self)
---   else
---     return self:IsLearned() and self:CooldownRemainsP( BypassRecovery, Offset or "Auto") == 0
---   end
--- end
--- , 62)
+end, 581)
+

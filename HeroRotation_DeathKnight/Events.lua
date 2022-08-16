@@ -1,108 +1,46 @@
---- ============================ HEADER ============================
---- ======= LOCALIZE =======
-  -- Addon
-  local addonName, addonTable = ...;
-  -- HeroLib
-  local HL = HeroLib;
-  local Cache = HeroCache;
-  local Unit = HL.Unit;
-  local Player = Unit.Player;
-  local Target = Unit.Target;
-  local Spell = HL.Spell;
-  local Item = HL.Item;
-  -- Lua
+local e, e = ...
+local e = HeroLib
+local t = HeroCache
+local t = e.Unit
+local a = t.Player
+local t = t.Target
+local t = e.Spell
+local t = e.Item
+e:RegisterForSelfCombatEvent(function(o, o, o, o, o, o, o, a, o, o, o, t)
+    if t ~= 46585 then
+        return 
+    end
 
-  -- File Locals
-
-
-
---- ============================ CONTENT ============================
---- Ghoul Tracking
-HL:RegisterForSelfCombatEvent(function(_, _, _, _, _, _, _, destGUID, _, _, _, spellId)
-  if spellId ~= 46585 then return end
-  HL.GhoulTable.SummonedGhoul = destGUID
-  -- Unsure if there's any items that could extend the ghouls time past 60 seconds
-  HL.GhoulTable.SummonExpiration = time() + 60
+    e.GhoulTable.SummonedGhoul = a
+    e.GhoulTable.SummonExpiration = time() + 60
 end, "SPELL_SUMMON")
+e:RegisterForSelfCombatEvent(function(a, a, a, a, a, a, a, a, a, a, a, t)
+    if t ~= 327574 then
+        return 
+    end
 
-HL:RegisterForSelfCombatEvent(function(_, _, _, _, _, _, _, _, _, _, _, spellId)
-  if spellId ~= 327574 then return end
-  HL.GhoulTable.SummonedGhoul = nil
-  HL.GhoulTable.SummonExpiration = nil
+    e.GhoulTable.SummonedGhoul = nil
+    e.GhoulTable.SummonExpiration = nil
 end, "SPELL_CAST_SUCCESS")
+e:RegisterForCombatEvent(function(a, a, a, a, a, a, a, t)
+    if t ~= e.GhoulTable.SummonedGhoul then
+        return 
+    end
 
-HL:RegisterForCombatEvent(function(_, _, _, _, _, _, _, destGUID)
-  if destGUID ~= HL.GhoulTable.SummonedGhoul then return end
-  HL.GhoulTable.SummonedGhoul = nil
-  HL.GhoulTable.SummonExpiration = nil
+    e.GhoulTable.SummonedGhoul = nil
+    e.GhoulTable.SummonExpiration = nil
 end, "UNIT_DESTROYED")
---- ======= NON-COMBATLOG =======
+e.GhoulTable = { SummonedGhoul = nil, SummonExpiration = nil }
+function e.GhoulTable:remains()
+    if e.GhoulTable.SummonExpiration == nil then
+        return 0
+    end
+
+    return e.GhoulTable.SummonExpiration - time()
+end
+
+function e.GhoulTable:active()
+    return e.GhoulTable.SummonedGhoul ~= nil and e.GhoulTable:remains() > 0
+end
 
 
---- ======= COMBATLOG =======
-  --- Combat Log Arguments
-    ------- Base -------
-      --     1        2         3           4           5           6              7             8         9        10           11
-      -- TimeStamp, Event, HideCaster, SourceGUID, SourceName, SourceFlags, SourceRaidFlags, DestGUID, DestName, DestFlags, DestRaidFlags
-
-    ------- Prefixes -------
-      --- SWING
-      -- N/A
-
-      --- SPELL & SPELL_PACIODIC
-      --    12        13          14
-      -- SpellID, SpellName, SpellSchool
-
-    ------- Suffixes -------
-      --- _CAST_START & _CAST_SUCCESS & _SUMMON & _RESURRECT
-      -- N/A
-
-      --- _CAST_FAILED
-      --     15
-      -- FailedType
-
-      --- _AURA_APPLIED & _AURA_REMOVED & _AURA_REFRESH
-      --    15
-      -- AuraType
-
-      --- _AURA_APPLIED_DOSE
-      --    15       16
-      -- AuraType, Charges
-
-      --- _INTERRUPT
-      --      15            16             17
-      -- ExtraSpellID, ExtraSpellName, ExtraSchool
-
-      --- _HEAL
-      --   15         16         17        18
-      -- Amount, Overhealing, Absorbed, Critical
-
-      --- _DAMAGE
-      --   15       16       17       18        19       20        21        22        23
-      -- Amount, Overkill, School, Resisted, Blocked, Absorbed, Critical, Glancing, Crushing
-
-      --- _MISSED
-      --    15        16           17
-      -- MissType, IsOffHand, AmountMissed
-
-    ------- Special -------
-      --- UNIT_DIED, UNIT_DESTROYED
-      -- N/A
-
-  --- End Combat Log Arguments
-
-  -- Arguments Variables
-  -- I referenced the warlock events file, not sure if this is correct
-  HL.GhoulTable = {
-    SummonedGhoul = nil,
-    SummonExpiration = nil
-  }
-
-  function HL.GhoulTable:remains()
-    if HL.GhoulTable.SummonExpiration == nil then return 0 end
-    return HL.GhoulTable.SummonExpiration - time()
-  end
-
-  function HL.GhoulTable:active()
-    return HL.GhoulTable.SummonedGhoul ~= nil and HL.GhoulTable:remains() > 0
-  end

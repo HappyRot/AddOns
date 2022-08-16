@@ -1,30 +1,22 @@
---- ============================ HEADER ============================
---- ======= LOCALIZE =======
--- Addon
-local addonName, addonTable = ...
--- HeroDBC
-local DBC        = HeroDBC.DBC
--- HeroLib
-local HL         = HeroLib
-local Cache      = HeroCache
-local Unit       = HL.Unit
-local Player     = Unit.Player
-local Target     = Unit.Target
-local Pet        = Unit.Pet
-local Spell      = HL.Spell
-local Item       = HL.Item
--- HeroRotation
-local HR         = HeroRotation
-local Cast       = HR.Cast
-local AoEON      = HR.AoEON
-local CDsON      = HR.CDsON
-local Warlock    = HR.Commons.Warlock
--- lua
-local GetTime    = GetTime
-
-
-local function Init()
-  HR.Print("Demonology Warlock rotation is currently a work in progress.")
+local e, e = ...
+local e = HeroDBC.DBC
+local t = HeroLib
+local e = HeroCache
+local e = t.Unit
+local a = e.Player
+local a = e.Target
+local e = e.Pet
+local e = t.Spell
+local e = t.Item
+local e = HeroRotation
+local t = e.Cast
+local t = e.AoEON
+local t = e.CDsON
+local t = e.Commons.Warlock
+local t = GetTime
+local function t()
+    e.Print("Demonology Warlock rotation is currently a work in progress.")
 end
 
-HR.SetAPL(266, APL, Init)
+e.SetAPL(266, APL, t)
+

@@ -1,75 +1,44 @@
---- ============================ HEADER ============================
--- HeroLib
-local HL      = HeroLib;
-local Cache   = HeroCache;
-local Unit    = HL.Unit;
-local Player  = Unit.Player;
-local Pet     = Unit.Pet;
-local Target  = Unit.Target;
-local Spell   = HL.Spell;
-local Item    = HL.Item;
--- HeroRotation
-local HR      = HeroRotation;
--- Spells
-local SpellFrost   = Spell.DeathKnight.Frost;
-local SpellUnholy  = Spell.DeathKnight.Unholy;
--- Lua
-
---- ============================ CONTENT ============================
--- Generic
-
--- Blood, ID: 250
-
--- Frost, ID: 251
-local OldFrostIsCastable
-OldFrostIsCastable = HL.AddCoreOverride("Spell.IsCastable",
-  function (self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-    local BaseCheck = OldFrostIsCastable(self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-    if self == SpellFrost.RaiseDead then
-      return (not Pet:IsActive()) and BaseCheck
+local e = HeroLib
+local t = HeroCache
+local t = e.Unit
+local a = t.Player
+local a = t.Pet
+local t = t.Target
+local t = e.Spell
+local o = e.Item
+local o = HeroRotation
+local i = t.DeathKnight.Frost
+local t = t.DeathKnight.Unholy
+local o
+o = e.AddCoreOverride("Spell.IsCastable", function(e, t, r, h, s, n)
+    local t = o(e, t, r, h, s, n)
+    if e == i.RaiseDead then
+        return (not a:IsActive()) and t
     else
-      return BaseCheck
+        return t
     end
-  end
-, 251);
 
--- Unholy, ID: 252
-local OldUHIsCastable
-OldUHIsCastable = HL.AddCoreOverride("Spell.IsCastable",
-  function (self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-    local BaseCheck = OldUHIsCastable(self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-    if self == SpellUnholy.RaiseDead then
-      return (not Pet:IsActive()) and BaseCheck
-    elseif self == SpellUnholy.DarkTransformation then
-      return (Pet:IsActive() and Pet:NPCID() == 26125) and BaseCheck
+end, 251)
+local o
+o = e.AddCoreOverride("Spell.IsCastable", function(e, r, s, h, n, i)
+    local o = o(e, r, s, h, n, i)
+        if e == t.RaiseDead then
+        return (not a:IsActive()) and o
+    elseif e == t.DarkTransformation then
+        return (a:IsActive() and a:NPCID() == 26125) and o
     else
-      return BaseCheck
+        return o
     end
-  end
-, 252);
 
-local OldUHIsReady
-OldUHIsReady = HL.AddCoreOverride("Spell.IsReady",
-  function (self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-    local BaseCheck = OldUHIsReady(self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-    if self == SpellUnholy.Epidemic then
-      return (SpellUnholy.VirulentPlagueDebuff:AuraActiveCount() > 1) and BaseCheck
+end, 252)
+local a
+a = e.AddCoreOverride("Spell.IsReady", function(e, o, n, i, s, h)
+    local a = a(e, o, n, i, s, h)
+    if e == t.Epidemic then
+        return (t.VirulentPlagueDebuff:AuraActiveCount() > 1) and a
     else
-      return BaseCheck
+        return a
     end
-  end
-, 252);
 
--- Example (Arcane Mage)
--- HL.AddCoreOverride ("Spell.IsCastableP",
--- function (self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
---   if Range then
---     local RangeUnit = ThisUnit or Target;
---     return self:IsLearned() and self:CooldownRemainsP( BypassRecovery, Offset or "Auto") == 0 and RangeUnit:IsInRange( Range, AoESpell );
---   elseif self == SpellArcane.MarkofAluneth then
---     return self:IsLearned() and self:CooldownRemainsP( BypassRecovery, Offset or "Auto") == 0 and not Player:IsCasting(self);
---   else
---     return self:IsLearned() and self:CooldownRemainsP( BypassRecovery, Offset or "Auto") == 0;
---   end;
--- end
--- , 62);
+end, 252)
+

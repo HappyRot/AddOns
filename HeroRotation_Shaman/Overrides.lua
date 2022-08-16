@@ -1,21 +1,12 @@
---- ============================ HEADER ============================
--- HeroLib
-local HL       = HeroLib
-local Cache    = HeroCache
-local Unit     = HL.Unit
-local Player   = Unit.Player
-local Pet      = Unit.Pet
-local Target   = Unit.Target
-local Spell    = HL.Spell
-local Item     = HL.Item
--- HeroRotation
-local HR       = HeroRotation
--- Spells
-local SpellEle = Spell.Shaman.Elemental
-local SpellEnh = Spell.Shaman.Enhancement
--- Lua
+local e = HeroLib
+local t = HeroCache
+local t = e.Unit
+local a = t.Player
+local a = t.Pet
+local t = t.Target
+local t = e.Spell
+local e = e.Item
+local e = HeroRotation
+local e = t.Shaman.Elemental
+local e = t.Shaman.Enhancement
 
---- ============================ CONTENT ============================
-
-
--- Enhancement, ID: 263

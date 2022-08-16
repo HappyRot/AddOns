@@ -1,379 +1,334 @@
---- ============================ HEADER ============================
--- HeroLib
-local HL      = HeroLib
-local Cache   = HeroCache
-local Unit    = HL.Unit
-local Player  = Unit.Player
-local Pet     = Unit.Pet
-local Target  = Unit.Target
-local Spell   = HL.Spell
-local Item    = HL.Item
--- HeroRotation
-local HR      = HeroRotation
--- Spells
-local SpellArcane = Spell.Mage.Arcane
-local SpellFire   = Spell.Mage.Fire
-local SpellFrost  = Spell.Mage.Frost
+local o = HeroLib
+local e = HeroCache
+local t = o.Unit
+local e = t.Player
+local u = t.Pet
+local s = t.Target
+local t = o.Spell
+local l = o.Item
+local n = HeroRotation
+local i = t.Mage.Arcane
+local a = t.Mage.Fire
+local t = t.Mage.Frost
+local r = { General = n.GUISettings.General, Commons = n.GUISettings.APL.Mage.Commons, Frost = n.GUISettings.APL.Mage.Frost, Fire = n.GUISettings.APL.Mage.Fire, Arcane = n.GUISettings.APL.Mage.Arcane }
+local function n(e)
+    if e then
+        return 1
+    else
+        return 0
+    end
 
-local Settings = {
-  General = HR.GUISettings.General,
-  Commons = HR.GUISettings.APL.Mage.Commons,
-  Frost = HR.GUISettings.APL.Mage.Frost,
-  Fire = HR.GUISettings.APL.Mage.Fire,
-  Arcane = HR.GUISettings.APL.Mage.Arcane,
-}
-
--- Util
-local function num(val)
-  if val then return 1 else return 0 end
 end
 
-local function bool(val)
-  return val ~= 0
+local function n(e)
+    return e ~= 0
 end
 
---- ============================ CONTENT ============================
--- Mage
-local RopDuration = SpellArcane.RuneofPower:BaseDuration()
-
-local function ROPRemains(ROP)
-  return math.max(RopDuration - ROP:TimeSinceLastAppliedOnPlayer() - Player:GCD(),0)
+local n = i.RuneofPower:BaseDuration()
+local function h(t)
+    return math.max(n - t:TimeSinceLastAppliedOnPlayer() - e:GCD(), 0)
 end
 
--- Arcane, ID: 62
-local ArcaneOldPlayerAffectingCombat
-ArcaneOldPlayerAffectingCombat = HL.AddCoreOverride("Player.AffectingCombat",
-  function (self)
-    return SpellArcane.Frostbolt:InFlight() or SpellArcane.ArcaneBlast:InFlight() or ArcaneOldPlayerAffectingCombat(self)
-  end
-, 64)
-
-local ArcaneOldSpellCooldownRemains
-ArcaneOldSpellCooldownRemains = HL.AddCoreOverride("Spell.CooldownRemains",
-  function (self, BypassRecovery, Offset)
-    if self == SpellArcane.RuneofPower and Player:IsCasting(self) then
-      return RopDuration
+local d
+d = o.AddCoreOverride("Player.AffectingCombat", function(e)
+    return i.Frostbolt:InFlight() or i.ArcaneBlast:InFlight() or d(e)
+end, 64)
+local d
+d = o.AddCoreOverride("Spell.CooldownRemains", function(t, a, o)
+    if t == i.RuneofPower and e:IsCasting(t) then
+        return n
     else
-      return ArcaneOldSpellCooldownRemains(self, BypassRecovery, Offset)
+        return d(t, a, o)
     end
-  end
-, 62)
 
-local ArcanePlayerBuffRemains
-ArcanePlayerBuffRemains = HL.AddCoreOverride("Player.BuffRemains",
-  function (self, Spell, AnyCaster, Offset)
-    if Spell == SpellArcane.RuneofPowerBuff then
-      return self:IsCasting(SpellArcane.RuneofPower) and RopDuration or ROPRemains(Spell)
+end, 62)
+local d
+d = o.AddCoreOverride("Player.BuffRemains", function(t, e, a, o)
+    if e == i.RuneofPowerBuff then
+        return t:IsCasting(i.RuneofPower) and n or h(e)
     else
-      return ArcanePlayerBuffRemains(self, Spell, AnyCaster, Offset)
-    end
-  end
-, 62)
-
-local ArcanePlayerBuff
-ArcanePlayerBuff = HL.AddCoreOverride("Player.BuffUp",
-  function (self, Spell, AnyCaster, Offset)
-    local BaseCheck = ArcanePlayerBuff(self, Spell, AnyCaster, Offset)
-    if Spell == SpellArcane.RuneofPowerBuff then
-      return self:IsCasting(SpellArcane.RuneofPower) or (ROPRemains(Spell) > 0)
-    elseif Spell == SpellArcane.RuleofThreesBuff then
-      if self:IsCasting(SpellArcane.ArcaneBlast) then
-        return self:ArcaneCharges() == 2
-      else
-        return BaseCheck
-      end
-    else
-      return BaseCheck
-    end
-  end
-, 62)
-
-HL.AddCoreOverride("Spell.IsCastable",
-  function (self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-    if self:CastTime() > 0 and Player:IsMoving() and Settings.Arcane.MovingRotation then
-      return false
+        return d(t, e, a, o)
     end
 
-    local RangeOK = true
-    if Range then
-      local RangeUnit = ThisUnit or Target
-      RangeOK = RangeUnit:IsInRange( Range, AoESpell )
-    end
-
-    local BaseCheck = self:IsLearned() and self:CooldownRemains( BypassRecovery, Offset or "Auto") == 0 and RangeOK and Player:Mana() >= self:Cost()
-    if self == SpellArcane.PresenceofMind then
-      return BaseCheck  and Player:BuffDown(SpellArcane.PresenceofMind)
-    elseif self == SpellArcane.MirrorsofTorment then
-      return BaseCheck and not Player:IsCasting(self)
-    elseif self == SpellArcane.RadiantSpark then
-      return BaseCheck and not Player:IsCasting(self)    
-    elseif self == SpellArcane.ShiftingPower then
-      return BaseCheck and not Player:IsCasting(self)    
-    elseif self == SpellArcane.Deathborne then
-      return BaseCheck and not Player:IsCasting(self)
-    elseif self == SpellArcane.TouchoftheMagi then
-      return BaseCheck and not Player:IsCasting(self)
-    elseif self == SpellArcane.Frostbolt then
-      return BaseCheck and not Player:IsCasting(self)
-    elseif self == SpellArcane.ConjureManaGem then
-      local ManaGem = Item.Mage.Arcane.ManaGem
-      local GemCD = ManaGem:CooldownRemains()
-      return BaseCheck and (not Player:IsCasting(self)) and not (ManaGem:IsReady() or GemCD > 0)
-    else
-      return BaseCheck
-    end
-  end
-, 62)
-
--- Fire, ID: 63
-local FireOldPlayerBuffStack
-FireOldPlayerBuffStack = HL.AddCoreOverride("Player.BuffStack",
-  function (self, Spell, AnyCaster, Offset)
-    local BaseCheck = FireOldPlayerBuffStack(self, Spell, AnyCaster, Offset)
-    if Spell == SpellFire.PyroclasmBuff and self:IsCasting(SpellFire.Pyroblast) then
-      return 0
-    else
-      return BaseCheck
-    end
-  end
-, 63)
-
-local FirePlayerBuffRemains
-FirePlayerBuffRemains = HL.AddCoreOverride("Player.BuffRemains",
-  function (self, Spell, AnyCaster, Offset)
-    local BaseCheck = FirePlayerBuffRemains(self, Spell, AnyCaster, Offset)
-    if Spell == SpellFire.RuneofPowerBuff then
-      return self:IsCasting(SpellFire.RuneofPower) and RopDuration or ROPRemains(Spell)
-    elseif Spell == SpellFire.PyroclasmBuff and self:IsCasting(SpellFire.Pyroblast) then
-      return 0
-    end
-    return BaseCheck
-  end
-, 63)
-
-HL.AddCoreOverride("Player.BuffUp",
-  function (self, Spell, AnyCaster, Offset)
-    if Spell == SpellFire.RuneofPowerBuff then
-      return self:IsCasting(SpellFire.RuneofPower) or (ROPRemains(Spell) > 0)
-    end
-    return self:BuffRemains(Spell, AnyCaster, Offset or "Auto") > 0
-  end
-, 63)
-
-HL.AddCoreOverride("Spell.IsReady",
-  function (self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-    local MovingOK = true
-    if self:CastTime() > 0 and Player:IsMoving() and Settings.Fire.MovingRotation then
-      if self == SpellFire.Scorch or (self == SpellFire.Pyroblast and Player:BuffUp(SpellFire.HotStreakBuff)) or (self == SpellFire.Flamestrike and Player:BuffUp(SpellFire.HotStreakBuff)) then
-        MovingOK = true
-      else
-        return false
-      end
-    end
-
-    local RangeOK = true
-    if Range then
-      local RangeUnit = ThisUnit or Target
-      RangeOK = RangeUnit:IsInRange( Range, AoESpell )
-    end
-
-    local BaseCheck = self:IsLearned() and self:CooldownRemains( BypassRecovery, Offset or "Auto") == 0 and RangeOK and MovingOK
-    if self == SpellFire.RuneofPower then
-      return BaseCheck and not Player:IsCasting(SpellFire.RuneofPower)
-    else
-      return BaseCheck
-    end
-  end
-, 63)
-
-HL.AddCoreOverride("Spell.IsCastable",
-  function (self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-    if self:CastTime() > 0 and Player:IsMoving() and Settings.Arcane.MovingRotation then
-      return false
-    end
-
-    local RangeOK = true
-    if Range then
-      local RangeUnit = ThisUnit or Target
-      RangeOK = RangeUnit:IsInRange( Range, AoESpell )
-    end
-
-    local BaseCheck = self:IsLearned() and self:CooldownRemains( BypassRecovery, Offset or "Auto") == 0 and RangeOK
-    if self == SpellFire.MirrorsofTorment then
-      return BaseCheck and not Player:IsCasting(self)
-    elseif self == SpellFire.RadiantSpark then
-      return BaseCheck and not Player:IsCasting(self)    
-    elseif self == SpellFire.ShiftingPower then
-      return BaseCheck and not Player:IsCasting(self)    
-    elseif self == SpellFire.Deathborne then
-      return BaseCheck and not Player:IsCasting(self)
-    elseif self == SpellFire.Frostbolt then
-      return BaseCheck and not Player:IsCasting(self)
-    else
-      return BaseCheck
-    end
-  end
-, 63)
-
-local FireOldPlayerAffectingCombat
-FireOldPlayerAffectingCombat = HL.AddCoreOverride("Player.AffectingCombat",
-  function (self)
-    return FireOldPlayerAffectingCombat(self)
-      or SpellFire.Pyroblast:InFlight()
-      or SpellFire.Fireball:InFlight()
-      or SpellFire.PhoenixFlames:InFlight()
-  end
-, 63)
-
--- Frost, ID: 64
-local FrostOldSpellIsCastable
-FrostOldSpellIsCastable = HL.AddCoreOverride("Spell.IsCastable",
-  function (self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-    local MovingOK = true
-    if self:CastTime() > 0 and Player:IsMoving() and Settings.Frost.MovingRotation then
-      if self == SpellFrost.Blizzard and Player:BuffUp(SpellFrost.FreezingRain) then
-        MovingOK = true
-      else
-        return false
-      end
-    end
-
-    local RangeOK = true
-    if Range then
-      local RangeUnit = ThisUnit or Target
-      RangeOK = RangeUnit:IsInRange( Range, AoESpell )
-    end
-    if self == SpellFrost.GlacialSpike then
-      return self:IsLearned() and RangeOK and MovingOK and not Player:IsCasting(self) and (Player:BuffUp(SpellFrost.GlacialSpikeBuff) or (Player:BuffStack(SpellFrost.IciclesBuff) == 5))
-    else
-      local BaseCheck = FrostOldSpellIsCastable(self, Range, AoESpell, ThisUnit, BypassRecovery, Offset)
-      if self == SpellFrost.SummonWaterElemental then
-        return BaseCheck and not Pet:IsActive()
-      elseif self == SpellFrost.RuneofPower then
-        return BaseCheck and not Player:IsCasting(self) and Player:BuffDown(SpellFrost.RuneofPowerBuff)
-      elseif self == SpellFrost.MirrorsofTorment then
-        return BaseCheck and not Player:IsCasting(self)
-      elseif self == SpellFrost.RadiantSpark then
-        return BaseCheck and not Player:IsCasting(self)    
-      elseif self == SpellFrost.ShiftingPower then
-        return BaseCheck and not Player:IsCasting(self)    
-      elseif self == SpellFrost.Deathborne then
-        return BaseCheck and not Player:IsCasting(self)
-      else
-        return BaseCheck
-      end
-    end
-  end
-, 64)
-
-local FrostOldSpellCooldownRemains
-FrostOldSpellCooldownRemains = HL.AddCoreOverride("Spell.CooldownRemains",
-  function (self, BypassRecovery, Offset)
-    if self == SpellFrost.Blizzard and Player:IsCasting(self) then
-      return 8
-    elseif self == SpellFrost.Ebonbolt and Player:IsCasting(self) then
-      return 45
-    else
-      return FrostOldSpellCooldownRemains(self, BypassRecovery, Offset)
-    end
-  end
-, 64)
-
-local FrostOldPlayerBuffStack
-FrostOldPlayerBuffStack = HL.AddCoreOverride("Player.BuffStackP",
-  function (self, Spell, AnyCaster, Offset)
-    local BaseCheck = Player:BuffStack(Spell)
-    if Spell == SpellFrost.IciclesBuff then
-      return self:IsCasting(SpellFrost.GlacialSpike) and 0 or math.min(BaseCheck + (self:IsCasting(SpellFrost.Frostbolt) and 1 or 0), 5)
-    elseif Spell == SpellFrost.GlacialSpikeBuff then
-      return self:IsCasting(SpellFrost.GlacialSpike) and 0 or BaseCheck
-    elseif Spell == SpellFrost.WintersReachBuff then
-      return self:IsCasting(SpellFrost.Flurry) and 0 or BaseCheck
-    elseif Spell == SpellFrost.FingersofFrostBuff then
-      if SpellFrost.IceLance:InFlight() then
-        if BaseCheck == 0 then
-          return 0
+end, 62)
+local d
+d = o.AddCoreOverride("Player.BuffUp", function(e, t, a, o)
+    local a = d(e, t, a, o)
+        if t == i.RuneofPowerBuff then
+        return e:IsCasting(i.RuneofPower) or (h(t) > 0)
+    elseif t == i.RuleofThreesBuff then
+        if e:IsCasting(i.ArcaneBlast) then
+            return e:ArcaneCharges() == 2
         else
-          return BaseCheck - 1
+            return a
         end
-      else
-        return BaseCheck
-      end
-    else
-      return BaseCheck
-    end
-  end
-, 64)
 
-local FrostOldPlayerBuffUp
-FrostOldPlayerBuffUp = HL.AddCoreOverride("Player.BuffUpP",
-  function (self, Spell, AnyCaster, Offset)
-    local BaseCheck = Player:BuffUp(Spell)
-    if Spell == SpellFrost.FingersofFrostBuff then
-      if SpellFrost.IceLance:InFlight() then
-        return Player:BuffStack(Spell) >= 1
-      else
-        return BaseCheck
-      end
     else
-      return BaseCheck
+        return a
     end
-  end
-, 64)
 
-local FrostOldPlayerBuffDown
-FrostOldPlayerBuffDown = HL.AddCoreOverride("Player.BuffDownP",
-  function (self, Spell, AnyCaster, Offset)
-    local BaseCheck = Player:BuffDown(Spell)
-    if Spell == SpellFrost.FingersofFrostBuff then
-      if SpellFrost.IceLance:InFlight() then
-        return Player:BuffStack(Spell) == 0
-      else
-        return BaseCheck
-      end
+end, 62)
+o.AddCoreOverride("Spell.IsCastable", function(t, o, u, d, n, h)
+    if t:CastTime() > 0 and e:IsMoving() and r.Arcane.MovingRotation then
+        return false
+    end
+
+    local a = true
+    if o then
+        local e = d or s
+        a = e:IsInRange(o, u)
+    end
+
+    local a = t:IsLearned() and t:CooldownRemains(n, h or "Auto") == 0 and a and e:Mana() >= t:Cost()
+                                if t == i.PresenceofMind then
+        return a and e:BuffDown(i.PresenceofMind)
+    elseif t == i.MirrorsofTorment then
+        return a and not e:IsCasting(t)
+    elseif t == i.RadiantSpark then
+        return a and not e:IsCasting(t)
+    elseif t == i.ShiftingPower then
+        return a and not e:IsCasting(t)
+    elseif t == i.Deathborne then
+        return a and not e:IsCasting(t)
+    elseif t == i.TouchoftheMagi then
+        return a and not e:IsCasting(t)
+    elseif t == i.Frostbolt then
+        return a and not e:IsCasting(t)
+    elseif t == i.ConjureManaGem then
+        local o = l.Mage.Arcane.ManaGem
+        local i = o:CooldownRemains()
+        return a and (not e:IsCasting(t)) and not (o:IsReady() or i > 0)
     else
-      return BaseCheck
+        return a
     end
-  end
-, 64)
 
-local FrostOldTargetDebuffStack
-FrostOldTargetDebuffStack = HL.AddCoreOverride("Target.DebuffStack",
-  function (self, Spell, AnyCaster, Offset)
-    local BaseCheck = FrostOldTargetDebuffStack(self, Spell, AnyCaster, Offset)
-    if Spell == SpellFrost.WintersChillDebuff then
-      if SpellFrost.Flurry:InFlight() then
-        return 2
-      elseif SpellFrost.IceLance:InFlight() then
-        if BaseCheck == 0 then
-          return 0
+end, 62)
+local i
+i = o.AddCoreOverride("Player.BuffStack", function(e, t, o, n)
+    local o = i(e, t, o, n)
+    if t == a.PyroclasmBuff and e:IsCasting(a.Pyroblast) then
+        return 0
+    else
+        return o
+    end
+
+end, 63)
+local i
+i = o.AddCoreOverride("Player.BuffRemains", function(t, e, o, s)
+    local o = i(t, e, o, s)
+        if e == a.RuneofPowerBuff then
+        return t:IsCasting(a.RuneofPower) and n or h(e)
+    elseif e == a.PyroclasmBuff and t:IsCasting(a.Pyroblast) then
+        return 0
+    end
+
+    return o
+end, 63)
+o.AddCoreOverride("Player.BuffUp", function(t, e, i, o)
+    if e == a.RuneofPowerBuff then
+        return t:IsCasting(a.RuneofPower) or (h(e) > 0)
+    end
+
+    return t:BuffRemains(e, i, o or "Auto") > 0
+end, 63)
+o.AddCoreOverride("Spell.IsReady", function(t, n, d, h, l, u)
+    local o = true
+    if t:CastTime() > 0 and e:IsMoving() and r.Fire.MovingRotation then
+        if t == a.Scorch or (t == a.Pyroblast and e:BuffUp(a.HotStreakBuff)) or (t == a.Flamestrike and e:BuffUp(a.HotStreakBuff)) then
+            o = true
         else
-          return BaseCheck - 1
+            return false
         end
-      else
-        return BaseCheck
-      end
-    else
-      return BaseCheck
-    end
-  end
-, 64)
 
-local FrostOldTargetDebuffRemains
-FrostOldTargetDebuffRemains = HL.AddCoreOverride("Target.DebuffRemains",
-  function (self, Spell, AnyCaster, Offset)
-    local BaseCheck = FrostOldTargetDebuffRemains(self, Spell, AnyCaster, Offset)
-    if Spell == SpellFrost.WintersChillDebuff then
-      return SpellFrost.Flurry:InFlight() and 6 or BaseCheck
-    else
-      return BaseCheck
     end
-  end
-, 64)
 
-local FrostOldPlayerAffectingCombat
-FrostOldPlayerAffectingCombat = HL.AddCoreOverride("Player.AffectingCombat",
-  function (self)
-    return SpellFrost.Frostbolt:InFlight() or FrostOldPlayerAffectingCombat(self)
-  end
-, 64)
+    local i = true
+    if n then
+        local e = h or s
+        i = e:IsInRange(n, d)
+    end
+
+    local o = t:IsLearned() and t:CooldownRemains(l, u or "Auto") == 0 and i and o
+    if t == a.RuneofPower then
+        return o and not e:IsCasting(a.RuneofPower)
+    else
+        return o
+    end
+
+end, 63)
+o.AddCoreOverride("Spell.IsCastable", function(t, o, l, d, n, h)
+    if t:CastTime() > 0 and e:IsMoving() and r.Arcane.MovingRotation then
+        return false
+    end
+
+    local i = true
+    if o then
+        local e = d or s
+        i = e:IsInRange(o, l)
+    end
+
+    local o = t:IsLearned() and t:CooldownRemains(n, h or "Auto") == 0 and i
+                    if t == a.MirrorsofTorment then
+        return o and not e:IsCasting(t)
+    elseif t == a.RadiantSpark then
+        return o and not e:IsCasting(t)
+    elseif t == a.ShiftingPower then
+        return o and not e:IsCasting(t)
+    elseif t == a.Deathborne then
+        return o and not e:IsCasting(t)
+    elseif t == a.Frostbolt then
+        return o and not e:IsCasting(t)
+    else
+        return o
+    end
+
+end, 63)
+local i
+i = o.AddCoreOverride("Player.AffectingCombat", function(e)
+    return i(e) or a.Pyroblast:InFlight() or a.Fireball:InFlight() or a.PhoenixFlames:InFlight()
+end, 63)
+local i
+i = o.AddCoreOverride("Spell.IsCastable", function(a, o, l, d, m, c)
+    local n = true
+    if a:CastTime() > 0 and e:IsMoving() and r.Frost.MovingRotation then
+        if a == t.Blizzard and e:BuffUp(t.FreezingRain) then
+            n = true
+        else
+            return false
+        end
+
+    end
+
+    local h = true
+    if o then
+        local e = d or s
+        h = e:IsInRange(o, l)
+    end
+
+    if a == t.GlacialSpike then
+        return a:IsLearned() and h and n and not e:IsCasting(a) and (e:BuffUp(t.GlacialSpikeBuff) or (e:BuffStack(t.IciclesBuff) == 5))
+    else
+        local o = i(a, o, l, d, m, c)
+                                                if a == t.SummonWaterElemental then
+            return o and not u:IsActive()
+        elseif a == t.RuneofPower then
+            return o and not e:IsCasting(a) and e:BuffDown(t.RuneofPowerBuff)
+        elseif a == t.MirrorsofTorment then
+            return o and not e:IsCasting(a)
+        elseif a == t.RadiantSpark then
+            return o and not e:IsCasting(a)
+        elseif a == t.ShiftingPower then
+            return o and not e:IsCasting(a)
+        elseif a == t.Deathborne then
+            return o and not e:IsCasting(a)
+        else
+            return o
+        end
+
+    end
+
+end, 64)
+local i
+i = o.AddCoreOverride("Spell.CooldownRemains", function(a, o, n)
+        if a == t.Blizzard and e:IsCasting(a) then
+        return 8
+    elseif a == t.Ebonbolt and e:IsCasting(a) then
+        return 45
+    else
+        return i(a, o, n)
+    end
+
+end, 64)
+local a
+a = o.AddCoreOverride("Player.BuffStackP", function(o, a, i, i)
+    local e = e:BuffStack(a)
+                if a == t.IciclesBuff then
+        return o:IsCasting(t.GlacialSpike) and 0 or math.min(e + (o:IsCasting(t.Frostbolt) and 1 or 0), 5)
+    elseif a == t.GlacialSpikeBuff then
+        return o:IsCasting(t.GlacialSpike) and 0 or e
+    elseif a == t.WintersReachBuff then
+        return o:IsCasting(t.Flurry) and 0 or e
+    elseif a == t.FingersofFrostBuff then
+        if t.IceLance:InFlight() then
+            if e == 0 then
+                return 0
+            else
+                return e - 1
+            end
+
+        else
+            return e
+        end
+
+    else
+        return e
+    end
+
+end, 64)
+local a
+a = o.AddCoreOverride("Player.BuffUpP", function(o, a, o, o)
+    local o = e:BuffUp(a)
+    if a == t.FingersofFrostBuff then
+        if t.IceLance:InFlight() then
+            return e:BuffStack(a) >= 1
+        else
+            return o
+        end
+
+    else
+        return o
+    end
+
+end, 64)
+local a
+a = o.AddCoreOverride("Player.BuffDownP", function(o, a, o, o)
+    local o = e:BuffDown(a)
+    if a == t.FingersofFrostBuff then
+        if t.IceLance:InFlight() then
+            return e:BuffStack(a) == 0
+        else
+            return o
+        end
+
+    else
+        return o
+    end
+
+end, 64)
+local e
+e = o.AddCoreOverride("Target.DebuffStack", function(n, a, i, o)
+    local e = e(n, a, i, o)
+    if a == t.WintersChillDebuff then
+                if t.Flurry:InFlight() then
+            return 2
+        elseif t.IceLance:InFlight() then
+            if e == 0 then
+                return 0
+            else
+                return e - 1
+            end
+
+        else
+            return e
+        end
+
+    else
+        return e
+    end
+
+end, 64)
+local a
+a = o.AddCoreOverride("Target.DebuffRemains", function(o, e, n, i)
+    local a = a(o, e, n, i)
+    if e == t.WintersChillDebuff then
+        return t.Flurry:InFlight() and 6 or a
+    else
+        return a
+    end
+
+end, 64)
+local e
+e = o.AddCoreOverride("Player.AffectingCombat", function(a)
+    return t.Frostbolt:InFlight() or e(a)
+end, 64)
+

@@ -1,1 +1,185 @@
-local a,b=...local c=HeroDBC.DBC;local d=HeroLib;local e=HeroCache;local f=d.Unit;local g=f.Player;local h=f.Target;local i=f.Pet;local j=d.Spell;local k=d.MultiSpell;local l=d.Item;local m=d.Utils.MergeTableByKey;local n=HeroRotation;local GetTime=GetTime;n.Commons.Mage={}local o=n.GUISettings.APL.Mage.Commons;local p=n.Commons.Mage;if not j.Mage then j.Mage={}end;j.Mage.Commons={AncestralCall=j(274738),BagofTricks=j(312411),Berserking=j(26297),BerserkingBuff=j(26297),BloodFury=j(20572),BloodFuryBuff=j(20572),Fireblood=j(265221),LightsJudgment=j(255647),AlterTime=j(108978),ArcaneExplosion=j(1449),ArcaneIntellect=j(1459),ArcaneIntellectBuff=j(1459),Blink=k(1953,212653),Counterspell=j(2139),Frostbolt=j(116),FrostNova=j(122),IceBlock=j(45438),Invisibility=j(66),MirrorImage=j(55342),RemoveCurse=j(475),SlowFall=j(130),SpellSteal=j(30449),TimeWarp=j(80353),FocusMagic=j(321358),RingOfFrost=j(113724),RuneofPower=j(116011),RuneofPowerBuff=j(116014),Deathborne=j(324220),DeathborneBuff=j(324220),DoorofShadows=j(300728),Fleshcraft=j(324631),MirrorsofTorment=j(314793),RadiantSpark=j(307443),RadiantSparkDebuff=j(307443),RadiantSparkVulnerability=j(307454),ShiftingPower=j(314791),Soulshape=j(310143),CombatMeditation=j(328266),EffusiveAnimaAccelerator=j(352188),FieldOfBlossoms=j(319191),GroveInvigoration=j(322721),WastelandPropriety=j(333251),ArcaneProdigy=j(336873),IcyPropulsion=j(336522),IreOfTheAscended=j(337058),PustuleEruption=j(351094),ShiveringCore=j(336472),SiphonedMalice=j(337090),VolatileSolvent=j(323074),DisciplinaryCommandBuff=j(327371),ExpandedPotentialBuff=j(327495),ScarsofFraternalStrifeBuff4=j(368638),SoulIgnitionBuff=j(345211),TomeofMonstruousConstructionsBuff=j(357163)}j.Mage.Arcane=m(j.Mage.Commons,{AncestralCall=j(274738),BagofTricks=j(312411),Berserking=j(26297),BerserkingBuff=j(26297),BloodFury=j(20572),BloodFuryBuff=j(20572),Fireblood=j(265221),LightsJudgment=j(255647),ArcaneBarrage=j(44425),ArcaneBlast=j(30451),ArcaneMissiles=j(5143),ArcaneExplosion=j(1449),ArcaneIntellect=j(1459),ArcanePower=j(12042),Blink=k(1953,212653),ClearcastingBuff=j(263725),Counterspell=j(2139),Evocation=j(12051),FireBlast=j(319836),MirrorImage=j(55342),PresenceofMind=j(205025),TouchoftheMagi=j(321507),Frostbolt=j(116),ConjureManaHem=j(759),FrostNova=j(122),TimeWarp=j(80353),AlterTime=j(108978),SpellSteal=j(30449),RemoveCurse=j(475),Invisibility=j(66),SlowFall=j(130),IceBlock=j(45438),PrismaticBarrier=j(235450),GreaterInvisibility=j(110959),Amplification=j(236628),RuleofThrees=j(264354),RuleofThreesBuff=j(264774),ArcaneFamiliar=j(205022),ArcaneFamiliarBuff=j(210126),Slipstream=j(236457),RuneofPower=j(116011),RuneofPowerBuff=j(116014),Resonance=j(205028),ArcaneEcho=j(342231),NetherTempest=j(114923),ArcaneOrb=j(153626),Supernova=j(157980),Overpowered=j(155147),Enlightened=j(321387),FocusMagic=j(321358),RingOfFrost=j(113724),RadiantSpark=j(307443),RadiantSparkVulnerability=j(307454),MirrorsofTorment=j(314793),Deathborne=j(324220),Fleshcraft=j(324631),ShiftingPower=j(314791),FieldOfBlossoms=j(319191),ArcaneProdigy=j(336873),VolatileSolvent=j(323074),PustuleEruption=j(351094),ExpandedPotentialBuff=j(327495),SiphonStormBuff=j(332928),DisciplinaryCommandBuff=j(327371),ArcaneHarmonyBuff=j(332777),SoulIgniterBuff=j(345211),TomeofMonstruousConstructionsBuff=j(357163)})j.Mage.Fire=m(j.Mage.Commons,{AncestralCall=j(274738),BagofTricks=j(312411),Berserking=j(26297),BerserkingBuff=j(26297),BloodFury=j(20572),BloodFuryBuff=j(20572),Fireblood=j(265221),LightsJudgment=j(255647),ArcaneIntellect=j(1459),ArcaneIntellectBuff=j(1459),ArcaneExplosion=j(1449),Blink=k(1953,212653),Frostbolt=j(116),TimeWarp=j(80353),MirrorImage=j(55342),Pyroblast=j(11366),Combustion=j(190319),CombustionBuff=j(190319),FireBlast=j(108853),Fireball=j(133),Scorch=j(2948),HeatingUpBuff=j(48107),HotStreakBuff=j(48108),PhoenixFlames=j(257541),DragonsBreath=j(31661),Flamestrike=j(2120),Counterspell=j(2139),FrostNova=j(122),Ignite=j(12654),AlterTime=j(108978),SpellSteal=j(30449),RemoveCurse=j(475),Invisibility=j(66),SlowFall=j(130),IceBlock=j(45438),BlazingBarrier=j(235313),Firestarter=j(205026),SearingTouch=j(269644),RuneofPower=j(116011),RuneofPowerBuff=j(116014),FlameOn=j(205029),AlexstraszasFury=j(235870),FromTheAshes=j(342344),FlamePatch=j(205037),LivingBomb=j(44457),Kindling=j(155148),Pyroclasm=j(269650),PyroclasmBuff=j(269651),Meteor=j(153561),FocusMagic=j(321358),RingOfFrost=j(113724),BlastWave=j(157981),Deathborne=j(324220),DeathborneBuff=j(324220),DoorofShadows=j(300728),Fleshcraft=j(324631),MirrorsofTorment=j(314793),RadiantSpark=j(307443),RadiantSparkDebuff=j(307443),RaidantSparkVulnerability=j(307454),ShiftingPower=j(314791),Soulshape=j(310143),WastelandPropriety=j(333251),SiphonedMalice=j(337090),GroveInvigoration=j(322721),FieldOfBlossoms=j(319191),IreOfTheAscended=j(337058),FlameAccretion=j(337224),InfernalCascade=j(336821),InfernalCascadeBuff=j(336832),FirestormBuff=j(333100),SunKingsBlessingBuff=j(333314),SunKingsBlessingBuffReady=j(333315),GrislyIcicleBuff=j(333393),GrislyIcicleDebuff=j(348007),DisciplinaryCommandBuff=j(327371),SoulIgnitionBuff=j(345211),TomeofMonstruousConstructionsBuff=j(357163),Pool=j(999910)})j.Mage.Frost=m(j.Mage.Commons,{Blizzard=j(190356),BrainFreezeBuff=j(190446),ConeofCold=j(120),FingersofFrostBuff=j(44544),Flurry=j(44614),FrozenOrb=k(84714,198149),IceLance=j(30455),IciclesBuff=j(205473),IcyVeins=j(12472),SummonWaterElemental=j(31687),WintersChillDebuff=j(228358),FireBlast=j(319836),Frostbite=j(198121),Freeze=j(33395),TemporalDisplacement=j(80354),SpellSteal=j(30449),RemoveCurse=j(475),IceBarrier=j(11426),IceBlock=j(45438),BoneChilling=j(205027),ChainReaction=j(278309),IceNova=j(157997),IceFloes=j(108839),IncantersFlow=j(1463),IncantersFlowBuff=j(116267),FocusMagic=j(321358),RuneofPower=j(116011),RuneofPowerBuff=j(116014),Ebonbolt=j(257537),FreezingRain=j(270233),FreezingRainBuff=j(270232),SplittingIce=j(56377),CometStorm=j(153595),RayofFrost=j(205021),GlacialSpike=j(199786),GlacialSpikeBuff=j(199844),RingOfFrost=j(113724),CombatMeditation=j(328266),Deathborne=j(324220),DoorofShadows=j(300728),Fleshcraft=j(324631),MirrorsofTorment=j(314793),RadiantSpark=j(307443),RadiantSparkDebuff=j(307443),RaidantSparkVulnerability=j(307454),ShiftingPower=j(314791),Soulshape=j(310143),WastelandPropriety=j(333251),SiphonedMalice=j(337090),GroveInvigoration=j(322721),FieldOfBlossoms=j(319191),IreOfTheAscended=j(337058),FreezingWindsBuff=j(327364),SlickIceBuff=j(327508),ExpandedPotentialBuff=j(327495),DisciplinaryCommandBuff=j(327371),TomeofMonstruousConstructionsBuff=j(357163),Pool=j(999910)})if not l.Mage then l.Mage={}end;l.Mage.Arcane={ManaGem=l(36799),PotionofSpectralIntellect=l(171273),DarkmoonDeckPutrescence=l(173069),DreadfireVessel=l(184030),EmpyrealOrdnance=l(180117),FlameofBattle=l(181501),GlyphofAssimilation=l(184021),InscrutableQuantumDevice=l(179350),MacabreSheetMusic=l(184024),SinfulGladiatorsBadge=l(175921),SoulIgniter=l(184019),SoullettingRuby=l(178809),SunbloodAmethyst=l(178826),WakenersFrond=l(181457),ShadowedOrbofTorment=l(186428),TomeofMonstruousConstructions=l(186422)}l.Mage.Fire={PotionofSpectralIntellect=l(171273),DreadfireVessel=l(184030),EmpyrealOrdnance=l(180117),FlameofBattle=l(181501),GlyphofAssimilation=l(184021),InscrutableQuantumDevice=l(179350),InstructorsDivineBell=l(184842),MacabreSheetMusic=l(184024),SinfulAspirantsBadge=l(175884),SinfulGladiatorsBadge=l(175921),SoulIgniter=l(184019),SunbloodAmethyst=l(178826),WakenersFrond=l(181457),ShadowedOrbofTorment=l(186428),TomeofMonstruousConstructions=l(186422)}l.Mage.Frost={PotionofSpectralIntellect=l(171273),ShadowedOrbofTorment=l(186428),TomeofMonstruousConstructions=l(186422)}p.IFST={CurrStacks=0,CurrStacksTime=0,OldStacks=0,OldStacksTime=0,Direction=0}local q={}q.IncantersFlowBuff=j(116267)d:RegisterForEvent(function()p.IFST.CurrStacks=0;p.IFST.CurrStacksTime=0;p.IFST.OldStacks=0;p.IFST.OldStacksTime=0;p.IFST.Direction=0 end,"PLAYER_REGEN_ENABLED")function p.IFTracker()if d.CombatTime()==0 then return end;local r=p.IFST.CurrStacksTime-p.IFST.OldStacksTime;local s=p.IFST.CurrStacks;local t=p.IFST.CurrStacksTime;local u=p.IFST.OldStacks;if g:BuffUp(q.IncantersFlowBuff)then if g:BuffStack(q.IncantersFlowBuff)~=s or g:BuffStack(q.IncantersFlowBuff)==s and r>1 then p.IFST.OldStacks=s;p.IFST.OldStacksTime=t end;p.IFST.CurrStacks=g:BuffStack(q.IncantersFlowBuff)p.IFST.CurrStacksTime=d.CombatTime()if p.IFST.CurrStacks>p.IFST.OldStacks then if p.IFST.CurrStacks==5 then p.IFST.Direction=0 else p.IFST.Direction=1 end elseif p.IFST.CurrStacks<p.IFST.OldStacks then if p.IFST.CurrStacks==1 then p.IFST.Direction=0 else p.IFST.Direction=-1 end else if p.IFST.CurrStacks==1 then p.IFST.Direction=1 else p.IFST.Direction=-1 end end else p.IFST.OldStacks=0;p.IFST.OldStacksTime=0;p.IFST.CurrStacks=0;p.IFST.CurrStacksTime=0;p.IFST.Direction=0 end end;function p.IFTimeToX(v,w)local x;local y;local z;if p.IFST.Direction==-1 or p.IFST.Direction==0 and p.IFST.CurrStacks==0 then z=10-p.IFST.CurrStacks+1 else z=p.IFST.CurrStacks end;if w=="up"then x=v;y=v elseif w=="down"then x=10-v+1;y=10-v+1 else x=v;y=10-v+1 end;if x==z or y==z then return 0 end;local A=(10+x-z)%10;local B=(10+y-z)%10;return p.IFST.CurrStacksTime-p.IFST.OldStacksTime+math.min(A,B)-1 end;p.DC={Arcane=0,ArcaneTime=0,Fire=0,FireTime=0,Frost=0,FrostTime=0}function p.DCCheck()local C=GetTime()local D=e.Persistent.Player.Spec[1]local q;if D==62 then q=j.Mage.Arcane elseif D==63 then q=j.Mage.Fire elseif D==64 then q=j.Mage.Frost end;local E=p.DC;local F=30-q.DisciplinaryCommandBuff:TimeSinceLastAppliedOnPlayer()if g:BuffDown(q.DisciplinaryCommandBuff)and F<=0 then if E.Arcane==0 then if g:PrevOffGCD(1,q.Counterspell)or g:PrevGCD(1,q.ArcaneExplosion)or g:PrevGCD(1,q.RuneofPower)or g:PrevOffGCD(1,j(212653))or g:PrevOffGCD(1,j(1953))or g:PrevGCD(1,q.ArcaneIntellect)or g:PrevGCD(1,q.AlterTime)or g:PrevGCD(1,q.SpellSteal)or g:PrevGCD(1,q.RemoveCurse)or g:PrevGCD(1,q.MirrorImage)or g:PrevGCD(1,q.Invisibility)or g:PrevGCD(1,q.SlowFall)or g:PrevGCD(1,q.FocusMagic)or g:PrevOffGCD(1,q.TimeWarp)or q.RuneofPower:IsAvailable()and(D==64 and g:PrevOffGCD(1,q.IcyVeins)or D==63 and g:PrevOffGCD(1,q.Combustion)or D==62 and g:PrevOffGCD(1,q.ArcanePower))or D==62 and(g:PrevGCD(1,q.ArcaneBarrage)or g:PrevGCD(1,q.ArcaneBlast)or g:PrevGCD(1,q.ArcaneMissiles)or g:PrevGCD(1,q.ArcaneOrb)or g:PrevOffGCD(1,q.ArcanePower)or g:PrevGCD(1,q.Evocation)or g:PrevGCD(1,q.PresenceofMind)or g:PrevGCD(1,q.GreaterInvisibility)or g:PrevGCD(1,q.PrismaticBarrier)or g:PrevGCD(1,q.TouchoftheMagi)or g:PrevGCD(1,q.ArcaneFamiliar)or g:PrevGCD(1,q.NetherTempest)or g:PrevGCD(1,q.Supernova))then E.Arcane=1;E.ArcaneTime=C end end;if E.Fire==0 then if g:PrevGCD(1,q.FireBlast)or D==63 and(g:PrevOffGCD(1,q.FireBlast)or g:PrevGCD(1,q.Fireball)or g:PrevGCD(1,q.Scorch)or g:PrevGCD(1,q.Pyroblast)or g:PrevGCD(1,q.Flamestrike)or g:PrevGCD(1,q.BlazingBarrier)or g:PrevOffGCD(1,q.Combustion)or g:PrevGCD(1,q.DragonsBreath)or g:PrevGCD(1,q.PhoenixFlames)or g:PrevGCD(1,q.BlastWave)or g:PrevGCD(1,q.LivingBomb)or g:PrevGCD(1,q.Meteor))then E.Fire=1;E.FireTime=C end end;if E.Frost==0 then if g:PrevGCD(1,q.Frostbolt)or g:PrevGCD(1,q.FrostNova)or g:PrevGCD(1,q.IceBlock)or g:PrevGCD(1,q.RingOfFrost)or D==64 and(g:PrevGCD(1,q.IceLance)or g:PrevGCD(1,q.Flurry)or g:PrevGCD(1,q.Blizzard)or g:PrevGCD(1,q.ConeofCold)or g:PrevGCD(1,q.FrozenOrb)or g:PrevGCD(1,q.IceBarrier)or g:PrevOffGCD(1,q.IcyVeins)or g:PrevGCD(1,q.RayofFrost)or g:PrevGCD(1,q.GlacialSpike)or g:PrevGCD(1,q.CometStorm)or g:PrevGCD(1,q.Ebonbolt)or g:PrevOffGCD(1,q.IceFloes)or g:PrevOffGCD(1,q.IceNova)or g:PrevOffGCD(1,q.SummonWaterElemental))then E.Frost=1;E.FrostTime=C end end end;if g:BuffUp(q.DisciplinaryCommandBuff)and(E.Arcane==1 or E.Fire==1 or E.Frost==1)then E.Arcane=0;E.Fire=0;E.Frost=0 end;if E.Arcane==1 and E.ArcaneTime<C-10 then E.Arcane=0 end;if E.Fire==1 and E.FireTime<C-10 then E.Fire=0 end;if E.Frost==1 and E.FrostTime<C-10 then E.Frost=0 end end
+local e, e = ...
+local e = HeroDBC.DBC
+local i = HeroLib
+local r = HeroCache
+local e = i.Unit
+local t = e.Player
+local a = e.Target
+local e = e.Pet
+local e = i.Spell
+local n = i.MultiSpell
+local a = i.Item
+local s = i.Utils.MergeTableByKey
+local o = HeroRotation
+local h = GetTime
+o.Commons.Mage = {  }
+local d = o.GUISettings.APL.Mage.Commons
+local o = o.Commons.Mage
+if not e.Mage then
+    e.Mage = {  }
+end
+
+e.Mage.Commons = { AncestralCall = e(274738), BagofTricks = e(312411), Berserking = e(26297), BerserkingBuff = e(26297), BloodFury = e(20572), BloodFuryBuff = e(20572), Fireblood = e(265221), LightsJudgment = e(255647), AlterTime = e(108978), ArcaneExplosion = e(1449), ArcaneIntellect = e(1459), ArcaneIntellectBuff = e(1459), Blink = n(1953, 212653), Counterspell = e(2139), Frostbolt = e(116), FrostNova = e(122), IceBlock = e(45438), Invisibility = e(66), MirrorImage = e(55342), RemoveCurse = e(475), SlowFall = e(130), SpellSteal = e(30449), TimeWarp = e(80353), FocusMagic = e(321358), RingOfFrost = e(113724), RuneofPower = e(116011), RuneofPowerBuff = e(116014), Deathborne = e(324220), DeathborneBuff = e(324220), DoorofShadows = e(300728), Fleshcraft = e(324631), MirrorsofTorment = e(314793), RadiantSpark = e(307443), RadiantSparkDebuff = e(307443), RadiantSparkVulnerability = e(307454), ShiftingPower = e(314791), Soulshape = e(310143), CombatMeditation = e(328266), EffusiveAnimaAccelerator = e(352188), FieldOfBlossoms = e(319191), GroveInvigoration = e(322721), WastelandPropriety = e(333251), ArcaneProdigy = e(336873), IcyPropulsion = e(336522), IreOfTheAscended = e(337058), PustuleEruption = e(351094), ShiveringCore = e(336472), SiphonedMalice = e(337090), VolatileSolvent = e(323074), DisciplinaryCommandBuff = e(327371), ExpandedPotentialBuff = e(327495), ScarsofFraternalStrifeBuff4 = e(368638), SoulIgnitionBuff = e(345211), TomeofMonstruousConstructionsBuff = e(357163) }
+e.Mage.Arcane = s(e.Mage.Commons, { AncestralCall = e(274738), BagofTricks = e(312411), Berserking = e(26297), BerserkingBuff = e(26297), BloodFury = e(20572), BloodFuryBuff = e(20572), Fireblood = e(265221), LightsJudgment = e(255647), ArcaneBarrage = e(44425), ArcaneBlast = e(30451), ArcaneMissiles = e(5143), ArcaneExplosion = e(1449), ArcaneIntellect = e(1459), ArcanePower = e(12042), Blink = n(1953, 212653), ClearcastingBuff = e(263725), Counterspell = e(2139), Evocation = e(12051), FireBlast = e(319836), MirrorImage = e(55342), PresenceofMind = e(205025), TouchoftheMagi = e(321507), Frostbolt = e(116), ConjureManaHem = e(759), FrostNova = e(122), TimeWarp = e(80353), AlterTime = e(108978), SpellSteal = e(30449), RemoveCurse = e(475), Invisibility = e(66), SlowFall = e(130), IceBlock = e(45438), PrismaticBarrier = e(235450), GreaterInvisibility = e(110959), Amplification = e(236628), RuleofThrees = e(264354), RuleofThreesBuff = e(264774), ArcaneFamiliar = e(205022), ArcaneFamiliarBuff = e(210126), Slipstream = e(236457), RuneofPower = e(116011), RuneofPowerBuff = e(116014), Resonance = e(205028), ArcaneEcho = e(342231), NetherTempest = e(114923), ArcaneOrb = e(153626), Supernova = e(157980), Overpowered = e(155147), Enlightened = e(321387), FocusMagic = e(321358), RingOfFrost = e(113724), RadiantSpark = e(307443), RadiantSparkVulnerability = e(307454), MirrorsofTorment = e(314793), Deathborne = e(324220), Fleshcraft = e(324631), ShiftingPower = e(314791), FieldOfBlossoms = e(319191), ArcaneProdigy = e(336873), VolatileSolvent = e(323074), PustuleEruption = e(351094), ExpandedPotentialBuff = e(327495), SiphonStormBuff = e(332928), DisciplinaryCommandBuff = e(327371), ArcaneHarmonyBuff = e(332777), SoulIgniterBuff = e(345211), TomeofMonstruousConstructionsBuff = e(357163) })
+e.Mage.Fire = s(e.Mage.Commons, { AncestralCall = e(274738), BagofTricks = e(312411), Berserking = e(26297), BerserkingBuff = e(26297), BloodFury = e(20572), BloodFuryBuff = e(20572), Fireblood = e(265221), LightsJudgment = e(255647), ArcaneIntellect = e(1459), ArcaneIntellectBuff = e(1459), ArcaneExplosion = e(1449), Blink = n(1953, 212653), Frostbolt = e(116), TimeWarp = e(80353), MirrorImage = e(55342), Pyroblast = e(11366), Combustion = e(190319), CombustionBuff = e(190319), FireBlast = e(108853), Fireball = e(133), Scorch = e(2948), HeatingUpBuff = e(48107), HotStreakBuff = e(48108), PhoenixFlames = e(257541), DragonsBreath = e(31661), Flamestrike = e(2120), Counterspell = e(2139), FrostNova = e(122), Ignite = e(12654), AlterTime = e(108978), SpellSteal = e(30449), RemoveCurse = e(475), Invisibility = e(66), SlowFall = e(130), IceBlock = e(45438), BlazingBarrier = e(235313), Firestarter = e(205026), SearingTouch = e(269644), RuneofPower = e(116011), RuneofPowerBuff = e(116014), FlameOn = e(205029), AlexstraszasFury = e(235870), FromTheAshes = e(342344), FlamePatch = e(205037), LivingBomb = e(44457), Kindling = e(155148), Pyroclasm = e(269650), PyroclasmBuff = e(269651), Meteor = e(153561), FocusMagic = e(321358), RingOfFrost = e(113724), BlastWave = e(157981), Deathborne = e(324220), DeathborneBuff = e(324220), DoorofShadows = e(300728), Fleshcraft = e(324631), MirrorsofTorment = e(314793), RadiantSpark = e(307443), RadiantSparkDebuff = e(307443), RaidantSparkVulnerability = e(307454), ShiftingPower = e(314791), Soulshape = e(310143), WastelandPropriety = e(333251), SiphonedMalice = e(337090), GroveInvigoration = e(322721), FieldOfBlossoms = e(319191), IreOfTheAscended = e(337058), FlameAccretion = e(337224), InfernalCascade = e(336821), InfernalCascadeBuff = e(336832), FirestormBuff = e(333100), SunKingsBlessingBuff = e(333314), SunKingsBlessingBuffReady = e(333315), GrislyIcicleBuff = e(333393), GrislyIcicleDebuff = e(348007), DisciplinaryCommandBuff = e(327371), SoulIgnitionBuff = e(345211), TomeofMonstruousConstructionsBuff = e(357163), Pool = e(999910) })
+e.Mage.Frost = s(e.Mage.Commons, { Blizzard = e(190356), BrainFreezeBuff = e(190446), ConeofCold = e(120), FingersofFrostBuff = e(44544), Flurry = e(44614), FrozenOrb = n(84714, 198149), IceLance = e(30455), IciclesBuff = e(205473), IcyVeins = e(12472), SummonWaterElemental = e(31687), WintersChillDebuff = e(228358), FireBlast = e(319836), Frostbite = e(198121), Freeze = e(33395), TemporalDisplacement = e(80354), SpellSteal = e(30449), RemoveCurse = e(475), IceBarrier = e(11426), IceBlock = e(45438), BoneChilling = e(205027), ChainReaction = e(278309), IceNova = e(157997), IceFloes = e(108839), IncantersFlow = e(1463), IncantersFlowBuff = e(116267), FocusMagic = e(321358), RuneofPower = e(116011), RuneofPowerBuff = e(116014), Ebonbolt = e(257537), FreezingRain = e(270233), FreezingRainBuff = e(270232), SplittingIce = e(56377), CometStorm = e(153595), RayofFrost = e(205021), GlacialSpike = e(199786), GlacialSpikeBuff = e(199844), RingOfFrost = e(113724), CombatMeditation = e(328266), Deathborne = e(324220), DoorofShadows = e(300728), Fleshcraft = e(324631), MirrorsofTorment = e(314793), RadiantSpark = e(307443), RadiantSparkDebuff = e(307443), RaidantSparkVulnerability = e(307454), ShiftingPower = e(314791), Soulshape = e(310143), WastelandPropriety = e(333251), SiphonedMalice = e(337090), GroveInvigoration = e(322721), FieldOfBlossoms = e(319191), IreOfTheAscended = e(337058), FreezingWindsBuff = e(327364), SlickIceBuff = e(327508), ExpandedPotentialBuff = e(327495), DisciplinaryCommandBuff = e(327371), TomeofMonstruousConstructionsBuff = e(357163), Pool = e(999910) })
+if not a.Mage then
+    a.Mage = {  }
+end
+
+a.Mage.Arcane = { ManaGem = a(36799), PotionofSpectralIntellect = a(171273), DarkmoonDeckPutrescence = a(173069), DreadfireVessel = a(184030), EmpyrealOrdnance = a(180117), FlameofBattle = a(181501), GlyphofAssimilation = a(184021), InscrutableQuantumDevice = a(179350), MacabreSheetMusic = a(184024), SinfulGladiatorsBadge = a(175921), SoulIgniter = a(184019), SoullettingRuby = a(178809), SunbloodAmethyst = a(178826), WakenersFrond = a(181457), ShadowedOrbofTorment = a(186428), TomeofMonstruousConstructions = a(186422) }
+a.Mage.Fire = { PotionofSpectralIntellect = a(171273), DreadfireVessel = a(184030), EmpyrealOrdnance = a(180117), FlameofBattle = a(181501), GlyphofAssimilation = a(184021), InscrutableQuantumDevice = a(179350), InstructorsDivineBell = a(184842), MacabreSheetMusic = a(184024), SinfulAspirantsBadge = a(175884), SinfulGladiatorsBadge = a(175921), SoulIgniter = a(184019), SunbloodAmethyst = a(178826), WakenersFrond = a(181457), ShadowedOrbofTorment = a(186428), TomeofMonstruousConstructions = a(186422) }
+a.Mage.Frost = { PotionofSpectralIntellect = a(171273), ShadowedOrbofTorment = a(186428), TomeofMonstruousConstructions = a(186422) }
+o.IFST = { CurrStacks = 0, CurrStacksTime = 0, OldStacks = 0, OldStacksTime = 0, Direction = 0 }
+local a = {  }
+a.IncantersFlowBuff = e(116267)
+i:RegisterForEvent(function()
+    o.IFST.CurrStacks = 0
+    o.IFST.CurrStacksTime = 0
+    o.IFST.OldStacks = 0
+    o.IFST.OldStacksTime = 0
+    o.IFST.Direction = 0
+end, "PLAYER_REGEN_ENABLED")
+function o.IFTracker()
+    if i.CombatTime() == 0 then
+        return 
+    end
+
+    local s = o.IFST.CurrStacksTime - o.IFST.OldStacksTime
+    local e = o.IFST.CurrStacks
+    local n = o.IFST.CurrStacksTime
+    local h = o.IFST.OldStacks
+    if (t:BuffUp(a.IncantersFlowBuff)) then
+        if (t:BuffStack(a.IncantersFlowBuff) ~= e or (t:BuffStack(a.IncantersFlowBuff) == e and s > 1)) then
+            o.IFST.OldStacks = e
+            o.IFST.OldStacksTime = n
+        end
+
+        o.IFST.CurrStacks = t:BuffStack(a.IncantersFlowBuff)
+        o.IFST.CurrStacksTime = i.CombatTime()
+                if o.IFST.CurrStacks > o.IFST.OldStacks then
+            if o.IFST.CurrStacks == 5 then
+                o.IFST.Direction = 0
+            else
+                o.IFST.Direction = 1
+            end
+
+        elseif o.IFST.CurrStacks < o.IFST.OldStacks then
+            if o.IFST.CurrStacks == 1 then
+                o.IFST.Direction = 0
+            else
+                o.IFST.Direction = -1
+            end
+
+        else
+            if o.IFST.CurrStacks == 1 then
+                o.IFST.Direction = 1
+            else
+                o.IFST.Direction = -1
+            end
+
+        end
+
+    else
+        o.IFST.OldStacks = 0
+        o.IFST.OldStacksTime = 0
+        o.IFST.CurrStacks = 0
+        o.IFST.CurrStacksTime = 0
+        o.IFST.Direction = 0
+    end
+
+end
+
+function o.IFTimeToX(t, n)
+    local a
+    local i
+    local e
+    if o.IFST.Direction == -1 or (o.IFST.Direction == 0 and o.IFST.CurrStacks == 0) then
+        e = 10 - o.IFST.CurrStacks + 1
+    else
+        e = o.IFST.CurrStacks
+    end
+
+        if n == "up" then
+        a = t
+        i = t
+    elseif n == "down" then
+        a = 10 - t + 1
+        i = 10 - t + 1
+    else
+        a = t
+        i = 10 - t + 1
+    end
+
+    if a == e or i == e then
+        return 0
+    end
+
+    local t = (10 + a - e) % 10
+    local e = (10 + i - e) % 10
+    return (o.IFST.CurrStacksTime - o.IFST.OldStacksTime) + math.min(t, e) - 1
+end
+
+o.DC = { Arcane = 0, ArcaneTime = 0, Fire = 0, FireTime = 0, Frost = 0, FrostTime = 0 }
+function o.DCCheck()
+    local n = h()
+    local i = r.Persistent.Player.Spec[1]
+    local a
+            if i == 62 then
+        a = e.Mage.Arcane
+    elseif i == 63 then
+        a = e.Mage.Fire
+    elseif i == 64 then
+        a = e.Mage.Frost
+    end
+
+    local o = o.DC
+    local s = 30 - a.DisciplinaryCommandBuff:TimeSinceLastAppliedOnPlayer()
+    if t:BuffDown(a.DisciplinaryCommandBuff) and s <= 0 then
+        if o.Arcane == 0 then
+            if t:PrevOffGCD(1, a.Counterspell) or t:PrevGCD(1, a.ArcaneExplosion) or t:PrevGCD(1, a.RuneofPower) or t:PrevOffGCD(1, e(212653)) or t:PrevOffGCD(1, e(1953)) or t:PrevGCD(1, a.ArcaneIntellect) or t:PrevGCD(1, a.AlterTime) or t:PrevGCD(1, a.SpellSteal) or t:PrevGCD(1, a.RemoveCurse) or t:PrevGCD(1, a.MirrorImage) or t:PrevGCD(1, a.Invisibility) or t:PrevGCD(1, a.SlowFall) or t:PrevGCD(1, a.FocusMagic) or t:PrevOffGCD(1, a.TimeWarp) or (a.RuneofPower:IsAvailable() and ((i == 64 and t:PrevOffGCD(1, a.IcyVeins)) or (i == 63 and t:PrevOffGCD(1, a.Combustion)) or (i == 62 and t:PrevOffGCD(1, a.ArcanePower)))) or (i == 62 and (t:PrevGCD(1, a.ArcaneBarrage) or t:PrevGCD(1, a.ArcaneBlast) or t:PrevGCD(1, a.ArcaneMissiles) or t:PrevGCD(1, a.ArcaneOrb) or t:PrevOffGCD(1, a.ArcanePower) or t:PrevGCD(1, a.Evocation) or t:PrevGCD(1, a.PresenceofMind) or t:PrevGCD(1, a.GreaterInvisibility) or t:PrevGCD(1, a.PrismaticBarrier) or t:PrevGCD(1, a.TouchoftheMagi) or t:PrevGCD(1, a.ArcaneFamiliar) or t:PrevGCD(1, a.NetherTempest) or t:PrevGCD(1, a.Supernova))) then
+                o.Arcane = 1
+                o.ArcaneTime = n
+            end
+
+        end
+
+        if o.Fire == 0 then
+            if t:PrevGCD(1, a.FireBlast) or (i == 63 and (t:PrevOffGCD(1, a.FireBlast) or t:PrevGCD(1, a.Fireball) or t:PrevGCD(1, a.Scorch) or t:PrevGCD(1, a.Pyroblast) or t:PrevGCD(1, a.Flamestrike) or t:PrevGCD(1, a.BlazingBarrier) or t:PrevOffGCD(1, a.Combustion) or t:PrevGCD(1, a.DragonsBreath) or t:PrevGCD(1, a.PhoenixFlames) or t:PrevGCD(1, a.BlastWave) or t:PrevGCD(1, a.LivingBomb) or t:PrevGCD(1, a.Meteor))) then
+                o.Fire = 1
+                o.FireTime = n
+            end
+
+        end
+
+        if o.Frost == 0 then
+            if t:PrevGCD(1, a.Frostbolt) or t:PrevGCD(1, a.FrostNova) or t:PrevGCD(1, a.IceBlock) or t:PrevGCD(1, a.RingOfFrost) or (i == 64 and (t:PrevGCD(1, a.IceLance) or t:PrevGCD(1, a.Flurry) or t:PrevGCD(1, a.Blizzard) or t:PrevGCD(1, a.ConeofCold) or t:PrevGCD(1, a.FrozenOrb) or t:PrevGCD(1, a.IceBarrier) or t:PrevOffGCD(1, a.IcyVeins) or t:PrevGCD(1, a.RayofFrost) or t:PrevGCD(1, a.GlacialSpike) or t:PrevGCD(1, a.CometStorm) or t:PrevGCD(1, a.Ebonbolt) or t:PrevOffGCD(1, a.IceFloes) or t:PrevOffGCD(1, a.IceNova) or t:PrevOffGCD(1, a.SummonWaterElemental))) then
+                o.Frost = 1
+                o.FrostTime = n
+            end
+
+        end
+
+    end
+
+    if t:BuffUp(a.DisciplinaryCommandBuff) and (o.Arcane == 1 or o.Fire == 1 or o.Frost == 1) then
+        o.Arcane = 0
+        o.Fire = 0
+        o.Frost = 0
+    end
+
+    if o.Arcane == 1 and o.ArcaneTime < n - 10 then
+        o.Arcane = 0
+    end
+
+    if o.Fire == 1 and o.FireTime < n - 10 then
+        o.Fire = 0
+    end
+
+    if o.Frost == 1 and o.FrostTime < n - 10 then
+        o.Frost = 0
+    end
+
+end
+
+
