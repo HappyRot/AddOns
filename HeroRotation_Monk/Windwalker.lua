@@ -1,25 +1,25 @@
 local e, e = ...
 local e = HeroDBC.DBC
-local k = HeroLib
+local q = HeroLib
 local e = HeroCache
-local m = k.Unit
+local m = q.Unit
 local a = m.Player
 local t = m.Target
 local e = m.Pet
-local e = k.Spell
-local o = k.MultiSpell
-local o = k.Item
+local e = q.Spell
+local o = q.MultiSpell
+local o = q.Item
 local i = HeroRotation
 local ae = i.Cast
 local y = i.CDsON
 local ve = i.AoEON
-local _ = HeroRotationCharDB.Toggles[4]
+local T = HeroRotationCharDB.Toggles[4]
 local U = HeroRotationCharDB.Toggles[5]
 local M = HeroRotationCharDB.Toggles[6]
 local Oe = HeroRotationCharDB.Toggles[15]
 local H = HeroRotationCharDB.Toggles[31]
 local I = HeroRotationCharDB.Toggles[32]
-local v = HeroRotationCharDB.Toggles[33]
+local b = HeroRotationCharDB.Toggles[33]
 local se = HeroRotationCharDB.Toggles[34]
 local K = HeroRotationCharDB.Toggles[35]
 local ee = HeroRotationCharDB.Toggles[36]
@@ -31,30 +31,30 @@ local G = false
 local A = 0
 local n = nil
 local n = nil
-local O = false
+local N = false
 local R = false
 local W = false
 local te = false
-local x = GetInventoryItemID("player", 13)
-local j = GetInventoryItemID("player", 14)
+local j = GetInventoryItemID("player", 13)
+local k = GetInventoryItemID("player", 14)
 local n = math.min
 local oe = pairs
 local e = e.Monk.Windwalker
 local s = o.Monk.Windwalker
-local ie = { s.InscrutibleQuantumDevice:ID(), s.Wrathstone:ID(), s.ShadowgraspTotem:ID(), s.OverchargedAnimaBattery:ID(), s.GladiatorsBadgeCosmic:ID(), s.GladiatorsBadgeSinful:ID(), s.GladiatorsBadgeUnchained:ID(), s.TheFirstSigil:ID(), s.CacheofAcquiredTreasures:ID() }
+local ie = { s.InscrutibleQuantumDevice:ID(), s.Wrathstone:ID(), s.ShadowgraspTotem:ID(), s.OverchargedAnimaBattery:ID(), s.GladiatorsBadgeCosmic:ID(), s.GladiatorsBadgeSinful:ID(), s.GladiatorsBadgeUnchained:ID(), s.TheFirstSigil:ID(), s.EnforcersStunGrenade:ID(), s.CacheofAcquiredTreasures:ID() }
 local o
 local o
 local p
 local E
 local l
 local d
-local b
+local v
 local _e
 local r = 0
 local o = 0
 local D = 0
 local ne = false
-local T = false
+local _ = false
 local C = false
 local n = false
 local g
@@ -79,28 +79,28 @@ local n = { General = i.GUISettings.General, Commons = i.GUISettings.APL.Monk.Co
 local z = a:HasLegendaryEquipped(88)
 local h = a:HasLegendaryEquipped(82)
 local Z = a:HasLegendaryEquipped(85)
-local N = a:HasLegendaryEquipped(83)
+local O = a:HasLegendaryEquipped(83)
 local u = a:HasLegendaryEquipped(96)
 local c = a:HasLegendaryEquipped(95)
-local q = a:HasLegendaryEquipped(97)
+local x = a:HasLegendaryEquipped(97)
 local L = a:HasLegendaryEquipped(94)
 local ze = a:HasLegendaryEquipped(257)
-k:RegisterForEvent(function()
+q:RegisterForEvent(function()
     z = a:HasLegendaryEquipped(88)
     h = a:HasLegendaryEquipped(82)
     Z = a:HasLegendaryEquipped(85)
-    N = a:HasLegendaryEquipped(83)
+    O = a:HasLegendaryEquipped(83)
     u = a:HasLegendaryEquipped(96)
     c = a:HasLegendaryEquipped(95)
-    q = a:HasLegendaryEquipped(97)
+    x = a:HasLegendaryEquipped(97)
     L = a:HasLegendaryEquipped(94)
     ze = a:HasLegendaryEquipped(257)
 end, "PLAYER_EQUIPMENT_CHANGED")
-local q = a:CovenantID()
-k:RegisterForEvent(function()
-    q = a:CovenantID()
+local x = a:CovenantID()
+q:RegisterForEvent(function()
+    x = a:CovenantID()
 end, "COVENANT_CHOSEN")
-k:RegisterForEvent(function()
+q:RegisterForEvent(function()
     S = 0
 end, "PLAYER_REGEN_ENABLED")
 local function S(e)
@@ -275,16 +275,16 @@ local function he(e)
 end
 
 local function me(i)
-                if (((e.WhirlingDragonPunch:IsAvailable() and ((10 / (1 + a:HastePct() / 100)) > (e.WhirlingDragonPunch:CooldownRemains() + 4))) and ((e.FistsOfFury:CooldownRemains() > 3 or v) or a:Chi() >= 5)) and (i:IsInMeleeRange(10)) and i:GUID() == m("mouseover"):GUID()) then
+                if (((e.WhirlingDragonPunch:IsAvailable() and ((10 / (1 + a:HastePct() / 100)) > (e.WhirlingDragonPunch:CooldownRemains() + 4))) and ((e.FistsOfFury:CooldownRemains() > 3 or b) or a:Chi() >= 5)) and (i:IsInMeleeRange(10)) and i:GUID() == m("mouseover"):GUID()) then
         r = 1107428
         return true
-    elseif (((e.WhirlingDragonPunch:IsAvailable() and ((10 / (1 + a:HastePct() / 100)) > (e.WhirlingDragonPunch:CooldownRemains() + 4))) and ((e.FistsOfFury:CooldownRemains() > 3 or v) or a:Chi() >= 5)) and (i:IsInMeleeRange(10)) and n.Windwalker.TargetSwap == "AutoSwap" and i:GUID() ~= t:GUID() and not w and not string.find(i:GUID(), 174773)) then
+    elseif (((e.WhirlingDragonPunch:IsAvailable() and ((10 / (1 + a:HastePct() / 100)) > (e.WhirlingDragonPunch:CooldownRemains() + 4))) and ((e.FistsOfFury:CooldownRemains() > 3 or b) or a:Chi() >= 5)) and (i:IsInMeleeRange(10)) and n.Windwalker.TargetSwap == "AutoSwap" and i:GUID() ~= t:GUID() and not w and not string.find(i:GUID(), 174773)) then
         r = 999
         return true
-    elseif (((e.WhirlingDragonPunch:IsAvailable() and ((10 / (1 + a:HastePct() / 100)) > (e.WhirlingDragonPunch:CooldownRemains() + 4))) and ((e.FistsOfFury:CooldownRemains() > 3 or v) or a:Chi() >= 5)) and (i:IsInMeleeRange(10)) and i:GUID() == t:GUID()) then
+    elseif (((e.WhirlingDragonPunch:IsAvailable() and ((10 / (1 + a:HastePct() / 100)) > (e.WhirlingDragonPunch:CooldownRemains() + 4))) and ((e.FistsOfFury:CooldownRemains() > 3 or b) or a:Chi() >= 5)) and (i:IsInMeleeRange(10)) and i:GUID() == t:GUID()) then
         o = 107428
         return true
-    elseif (((e.WhirlingDragonPunch:IsAvailable() and ((10 / (1 + a:HastePct() / 100)) > (e.WhirlingDragonPunch:CooldownRemains() + 4))) and ((e.FistsOfFury:CooldownRemains() > 3 or v) or a:Chi() >= 5)) and (i:IsInMeleeRange(10)) and not string.find(i:GUID(), 174773)) then
+    elseif (((e.WhirlingDragonPunch:IsAvailable() and ((10 / (1 + a:HastePct() / 100)) > (e.WhirlingDragonPunch:CooldownRemains() + 4))) and ((e.FistsOfFury:CooldownRemains() > 3 or b) or a:Chi() >= 5)) and (i:IsInMeleeRange(10)) and not string.find(i:GUID(), 174773)) then
         return true
     end
 
@@ -403,16 +403,16 @@ local function P(i)
 end
 
 local function B(a)
-                if (((e.Serenity:CooldownRemains() > 1) or (not e.Serenity:IsAvailable() and (e.WeaponsOfOrder:CooldownRemains() > 4 or q ~= 1) and ((not L) or e.FistsOfFury:CooldownRemains() > 0))) and (a:IsInMeleeRange(10)) and a:GUID() == m("mouseover"):GUID()) then
+                if (((e.Serenity:CooldownRemains() > 1) or (not e.Serenity:IsAvailable() and (e.WeaponsOfOrder:CooldownRemains() > 4 or x ~= 1) and ((not L) or e.FistsOfFury:CooldownRemains() > 0))) and (a:IsInMeleeRange(10)) and a:GUID() == m("mouseover"):GUID()) then
         r = 1107428
         return true
-    elseif (((e.Serenity:CooldownRemains() > 1) or (not e.Serenity:IsAvailable() and (e.WeaponsOfOrder:CooldownRemains() > 4 or q ~= 1) and ((not L) or e.FistsOfFury:CooldownRemains() > 0))) and (a:IsInMeleeRange(10)) and n.Windwalker.TargetSwap == "AutoSwap" and a:GUID() ~= t:GUID() and not w and not string.find(a:GUID(), 174773)) then
+    elseif (((e.Serenity:CooldownRemains() > 1) or (not e.Serenity:IsAvailable() and (e.WeaponsOfOrder:CooldownRemains() > 4 or x ~= 1) and ((not L) or e.FistsOfFury:CooldownRemains() > 0))) and (a:IsInMeleeRange(10)) and n.Windwalker.TargetSwap == "AutoSwap" and a:GUID() ~= t:GUID() and not w and not string.find(a:GUID(), 174773)) then
         r = 999
         return true
-    elseif (((e.Serenity:CooldownRemains() > 1) or (not e.Serenity:IsAvailable() and (e.WeaponsOfOrder:CooldownRemains() > 4 or q ~= 1) and ((not L) or e.FistsOfFury:CooldownRemains() > 0))) and (a:IsInMeleeRange(10)) and a:GUID() == t:GUID()) then
+    elseif (((e.Serenity:CooldownRemains() > 1) or (not e.Serenity:IsAvailable() and (e.WeaponsOfOrder:CooldownRemains() > 4 or x ~= 1) and ((not L) or e.FistsOfFury:CooldownRemains() > 0))) and (a:IsInMeleeRange(10)) and a:GUID() == t:GUID()) then
         o = 107428
         return true
-    elseif (((e.Serenity:CooldownRemains() > 1) or (not e.Serenity:IsAvailable() and (e.WeaponsOfOrder:CooldownRemains() > 4 or q ~= 1) and ((not L) or e.FistsOfFury:CooldownRemains() > 0))) and (a:IsInMeleeRange(10)) and not string.find(a:GUID(), 174773)) then
+    elseif (((e.Serenity:CooldownRemains() > 1) or (not e.Serenity:IsAvailable() and (e.WeaponsOfOrder:CooldownRemains() > 4 or x ~= 1) and ((not L) or e.FistsOfFury:CooldownRemains() > 0))) and (a:IsInMeleeRange(10)) and not string.find(a:GUID(), 174773)) then
         return true
     end
 
@@ -451,16 +451,16 @@ local function je(e)
 end
 
 local function ke(i)
-                if ((h(e.BlackoutKick) and ((e.Serenity:IsAvailable() and e.Serenity:CooldownRemains() < 3) or (e.RisingSunKick:CooldownRemains() > 1 and e.FistsOfFury:CooldownRemains() > 1 or v) or (e.RisingSunKick:CooldownRemains() < 3 and (e.FistsOfFury:CooldownRemains() > 3 or v) and a:Chi() > 2) or (e.RisingSunKick:CooldownRemains() > 3 and e.FistsOfFury:CooldownRemains() < 3 and a:Chi() > 3) or (a:Chi() > 5) or (a:BuffUp(e.BlackoutKickBuff)))) and (i:IsInMeleeRange(10)) and i:GUID() == m("mouseover"):GUID()) then
+                if ((h(e.BlackoutKick) and ((e.Serenity:IsAvailable() and e.Serenity:CooldownRemains() < 3) or (e.RisingSunKick:CooldownRemains() > 1 and e.FistsOfFury:CooldownRemains() > 1 or b) or (e.RisingSunKick:CooldownRemains() < 3 and (e.FistsOfFury:CooldownRemains() > 3 or b) and a:Chi() > 2) or (e.RisingSunKick:CooldownRemains() > 3 and e.FistsOfFury:CooldownRemains() < 3 and a:Chi() > 3) or (a:Chi() > 5) or (a:BuffUp(e.BlackoutKickBuff)))) and (i:IsInMeleeRange(10)) and i:GUID() == m("mouseover"):GUID()) then
         r = 1100784
         return true
-    elseif ((h(e.BlackoutKick) and ((e.Serenity:IsAvailable() and e.Serenity:CooldownRemains() < 3) or (e.RisingSunKick:CooldownRemains() > 1 and e.FistsOfFury:CooldownRemains() > 1 or v) or (e.RisingSunKick:CooldownRemains() < 3 and (e.FistsOfFury:CooldownRemains() > 3 or v) and a:Chi() > 2) or (e.RisingSunKick:CooldownRemains() > 3 and e.FistsOfFury:CooldownRemains() < 3 and a:Chi() > 3) or (a:Chi() > 5) or (a:BuffUp(e.BlackoutKickBuff)))) and (i:IsInMeleeRange(10)) and n.Windwalker.TargetSwap == "AutoSwap" and i:GUID() ~= t:GUID() and not w) then
+    elseif ((h(e.BlackoutKick) and ((e.Serenity:IsAvailable() and e.Serenity:CooldownRemains() < 3) or (e.RisingSunKick:CooldownRemains() > 1 and e.FistsOfFury:CooldownRemains() > 1 or b) or (e.RisingSunKick:CooldownRemains() < 3 and (e.FistsOfFury:CooldownRemains() > 3 or b) and a:Chi() > 2) or (e.RisingSunKick:CooldownRemains() > 3 and e.FistsOfFury:CooldownRemains() < 3 and a:Chi() > 3) or (a:Chi() > 5) or (a:BuffUp(e.BlackoutKickBuff)))) and (i:IsInMeleeRange(10)) and n.Windwalker.TargetSwap == "AutoSwap" and i:GUID() ~= t:GUID() and not w) then
         r = 999
         return true
-    elseif ((h(e.BlackoutKick) and ((e.Serenity:IsAvailable() and e.Serenity:CooldownRemains() < 3) or (e.RisingSunKick:CooldownRemains() > 1 and e.FistsOfFury:CooldownRemains() > 1 or v) or (e.RisingSunKick:CooldownRemains() < 3 and (e.FistsOfFury:CooldownRemains() > 3 or v) and a:Chi() > 2) or (e.RisingSunKick:CooldownRemains() > 3 and e.FistsOfFury:CooldownRemains() < 3 and a:Chi() > 3) or (a:Chi() > 5) or (a:BuffUp(e.BlackoutKickBuff)))) and (i:IsInMeleeRange(10)) and i:GUID() == t:GUID()) then
+    elseif ((h(e.BlackoutKick) and ((e.Serenity:IsAvailable() and e.Serenity:CooldownRemains() < 3) or (e.RisingSunKick:CooldownRemains() > 1 and e.FistsOfFury:CooldownRemains() > 1 or b) or (e.RisingSunKick:CooldownRemains() < 3 and (e.FistsOfFury:CooldownRemains() > 3 or b) and a:Chi() > 2) or (e.RisingSunKick:CooldownRemains() > 3 and e.FistsOfFury:CooldownRemains() < 3 and a:Chi() > 3) or (a:Chi() > 5) or (a:BuffUp(e.BlackoutKickBuff)))) and (i:IsInMeleeRange(10)) and i:GUID() == t:GUID()) then
         o = 100784
         return true
-    elseif (h(e.BlackoutKick) and ((e.Serenity:IsAvailable() and e.Serenity:CooldownRemains() < 3) or (e.RisingSunKick:CooldownRemains() > 1 and e.FistsOfFury:CooldownRemains() > 1 or v) or (e.RisingSunKick:CooldownRemains() < 3 and (e.FistsOfFury:CooldownRemains() > 3 or v) and a:Chi() > 2) or (e.RisingSunKick:CooldownRemains() > 3 and e.FistsOfFury:CooldownRemains() < 3 and a:Chi() > 3) or (a:Chi() > 5) or (a:BuffUp(e.BlackoutKickBuff)))) and (i:IsInMeleeRange(10)) then
+    elseif (h(e.BlackoutKick) and ((e.Serenity:IsAvailable() and e.Serenity:CooldownRemains() < 3) or (e.RisingSunKick:CooldownRemains() > 1 and e.FistsOfFury:CooldownRemains() > 1 or b) or (e.RisingSunKick:CooldownRemains() < 3 and (e.FistsOfFury:CooldownRemains() > 3 or b) and a:Chi() > 2) or (e.RisingSunKick:CooldownRemains() > 3 and e.FistsOfFury:CooldownRemains() < 3 and a:Chi() > 3) or (a:Chi() > 5) or (a:BuffUp(e.BlackoutKickBuff)))) and (i:IsInMeleeRange(10)) then
         return true
     end
 
@@ -569,8 +569,8 @@ local function Q()
 end
 
 local function Ae()
-    ne = (s.InscrutibleQuantumDevice:IsEquipped() or s.GladiatorsBadgeCosmic:IsEquipped() or s.GladiatorsBadgeSinful:IsEquipped() or s.GladiatorsBadgeUnchained:IsEquipped() or s.Wrathstone:IsEquipped() or s.OverchargedAnimaBattery:IsEquipped() or s.ShadowgraspTotem:IsEquipped() or s.TheFirstSigil:IsEquipped() or s.CacheofAcquiredTreasures:IsEquipped())
-    if e.ChiBurst:IsReady() and t:IsInRange(30) and not a:IsMoving() and (A == 0 or A > e.ChiBurst:CastTime() + .5) and (q ~= 3) then
+    ne = (s.InscrutibleQuantumDevice:IsEquipped() or s.GladiatorsBadgeCosmic:IsEquipped() or s.GladiatorsBadgeSinful:IsEquipped() or s.GladiatorsBadgeUnchained:IsEquipped() or s.Wrathstone:IsEquipped() or s.OverchargedAnimaBattery:IsEquipped() or s.ShadowgraspTotem:IsEquipped() or s.TheFirstSigil:IsEquipped() or s.EnforcersStunGrenade:IsEquipped() or s.CacheofAcquiredTreasures:IsEquipped())
+    if e.ChiBurst:IsReady() and t:IsInRange(30) and not a:IsMoving() and (A == 0 or A > e.ChiBurst:CastTime() + .5) and (x ~= 3) then
         if i.Cast(e.ChiBurst, nil, nil, not t:IsInRange(40)) then
             o = 123986
             return "Chi Burst 4"
@@ -669,7 +669,7 @@ local function he()
 
     end
 
-    if e.WhirlingDragonPunch:IsReady() and not g and not H and t:IsInRange(8) and (not e.BonedustBrew:IsAvailable() or (e.BonedustBrew:CooldownRemains() >= 5) or not _) then
+    if e.WhirlingDragonPunch:IsReady() and not g and not H and t:IsInRange(8) and (not e.BonedustBrew:IsAvailable() or (e.BonedustBrew:CooldownRemains() >= 5) or not T) then
         if i.Cast(e.WhirlingDragonPunch, nil, nil, not t:IsInMeleeRange(8)) then
             o = 152175
             return "Whirling Dragon Punch 300"
@@ -693,7 +693,7 @@ local function he()
 
     end
 
-    if e.FistsOfFury:IsReady() and not v and UnitsWithBDBCount == 0 and ((c() > e.FistsOfFury:ExecuteTime()) or a:ChiDeficit() <= 1) and t:IsInRange(8) then
+    if e.FistsOfFury:IsReady() and not b and UnitsWithBDBCount == 0 and ((c() > e.FistsOfFury:ExecuteTime()) or a:ChiDeficit() <= 1) and t:IsInRange(8) then
         if (EnemiesWithMotC >= l or EnemiesWithMotC >= 5) and (not e.WhirlingDragonPunch:IsAvailable() or (e.WhirlingDragonPunch:IsAvailable() and e.WhirlingDragonPunch:CooldownRemains() > 0) or H) and l >= 2 and e.SpinningCraneKick:IsReady(BypassRecovery) and e.BonedustBrew:CooldownRemains() >= 2 then
             if i.Cast(e.SpinningCraneKick, nil, nil, not t:IsInMeleeRange(8)) then
                 o = 101546
@@ -710,7 +710,7 @@ local function he()
 
     end
 
-    if e.RisingSunKick:IsReady() and (UnitsWithBDBCount == 0 or (e.BonedustBrew:CooldownRemains() <= 0 and _)) then
+    if e.RisingSunKick:IsReady() and (UnitsWithBDBCount == 0 or (e.BonedustBrew:CooldownRemains() <= 0 and T)) then
         if l >= 2 and (not e.WhirlingDragonPunch:IsAvailable() or (e.WhirlingDragonPunch:IsAvailable() and e.WhirlingDragonPunch:CooldownRemains() > 0) or H) and e.SpinningCraneKick:IsReady(BypassRecovery) and e.BonedustBrew:CooldownRemains() >= 2 and ((l == 2 and (EnemiesWithMotC >= 4 or (EnemiesWithMotC >= 2 and e.CalculatedStrikes:SoulbindEnabled()))) or (l == 3 and (EnemiesWithMotC >= 3 or (EnemiesWithMotC >= 2 and e.CalculatedStrikes:SoulbindEnabled()))) or (l >= 4)) then
             if i.Cast(e.SpinningCraneKick, nil, nil, not t:IsInMeleeRange(8)) then
                 o = 101546
@@ -773,7 +773,7 @@ local function he()
 
     end
 
-    if e.CracklingJadeLightning:IsReady() and ((a:BuffStack(e.TheEmperorsCapacitor) > 19) and (c() > (e.CracklingJadeLightning:ExecuteTime() - 1)) and (e.FistsOfFury:CooldownRemains() > e.CracklingJadeLightning:ExecuteTime() or v)) then
+    if e.CracklingJadeLightning:IsReady() and ((a:BuffStack(e.TheEmperorsCapacitor) > 19) and (c() > (e.CracklingJadeLightning:ExecuteTime() - 1)) and (e.FistsOfFury:CooldownRemains() > e.CracklingJadeLightning:ExecuteTime() or b)) then
         if i.Cast(e.CracklingJadeLightning, nil, nil, not t:IsInRange(40)) then
             o = 117952
             return "Crackling Jade Lightning 324"
@@ -804,7 +804,7 @@ local function he()
 
     end
 
-    if e.SpinningCraneKick:IsReady() and t:IsInMeleeRange(10) and ((h(e.SpinningCraneKick) or EnemiesWithMotC >= 5) and (e.BonedustBrew:CooldownRemains() > 2 or q ~= 4) and (a:Chi() >= 5 or e.FistsOfFury:CooldownRemains() > 6 or e.FistsOfFury:CooldownRemains() > 3 and a:Chi() >= 3 and a:EnergyTimeToX(50) < 1 or c() <= (3 + 3 * S(e.FistsOfFury:CooldownRemains() < 5)) or a:BuffUp(e.StormEarthAndFireBuff))) then
+    if e.SpinningCraneKick:IsReady() and t:IsInMeleeRange(10) and ((h(e.SpinningCraneKick) or EnemiesWithMotC >= 5) and (e.BonedustBrew:CooldownRemains() > 2 or x ~= 4) and (a:Chi() >= 5 or e.FistsOfFury:CooldownRemains() > 6 or e.FistsOfFury:CooldownRemains() > 3 and a:Chi() >= 3 and a:EnergyTimeToX(50) < 1 or c() <= (3 + 3 * S(e.FistsOfFury:CooldownRemains() < 5)) or a:BuffUp(e.StormEarthAndFireBuff))) then
         if i.Cast(e.SpinningCraneKick, nil, nil, not t:IsInMeleeRange(8)) then
             o = 101546
             return "Spinning Crane Kick 314"
@@ -837,7 +837,7 @@ local function he()
 
     end
 
-    if e.BlackoutKick:IsReady() and (UnitsWithBDBCount == 0 or (e.BonedustBrew:CooldownRemains() <= 0 and _ and EnemiesWithMotC < 5 and EnemiesWithMotC < l)) then
+    if e.BlackoutKick:IsReady() and (UnitsWithBDBCount == 0 or (e.BonedustBrew:CooldownRemains() <= 0 and T and EnemiesWithMotC < 5 and EnemiesWithMotC < l)) then
         if l >= 2 and e.SpinningCraneKick:IsReady(BypassRecovery) then
             if i.Cast(e.SpinningCraneKick, nil, nil, not t:IsInMeleeRange(8)) then
                 o = 101546
@@ -887,8 +887,8 @@ local function he()
 end
 
 local function Y()
-    C = (e.Serenity:CooldownRemains() < 1 or b and e.Serenity:CooldownRemains() > 30 or d < 20)
-    if e.InvokeXuenTheWhiteTiger:IsReady() and O and t:IsInRange(8) and ((not T) or d < 25) then
+    C = (e.Serenity:CooldownRemains() < 1 or v and e.Serenity:CooldownRemains() > 30 or d < 20)
+    if e.InvokeXuenTheWhiteTiger:IsReady() and N and t:IsInRange(8) and ((not _) or d < 25) then
         if i.Cast(e.InvokeXuenTheWhiteTiger, nil, nil, not t:IsInRange(40)) then
             o = 123904
             return "Invoke Xuen the White Tiger 500"
@@ -947,7 +947,7 @@ local function Y()
 
     end
 
-    if e.TouchOfDeath:IsReady() and not J and t:IsInRange(8) and ((not n.Windwalker.ToDExecute and t:HealthPercentage() <= 15) or (n.Windwalker.ToDExecute and UnitHealth("target") < UnitHealth("player"))) and (d > (180 - S(Z) * 120) or b and (q ~= 4 or a:BuffUp(e.BonedustBrew)) or (e.InvokeXuenTheWhiteTiger:CooldownRemains() > d) and a:BuffUp(e.BonedustBrew) or d < 10) then
+    if e.TouchOfDeath:IsReady() and not J and t:IsInRange(8) and ((not n.Windwalker.ToDExecute and t:HealthPercentage() <= 15) or (n.Windwalker.ToDExecute and UnitHealth("target") < UnitHealth("player"))) and (d > (180 - S(Z) * 120) or v and (x ~= 4 or a:BuffUp(e.BonedustBrew)) or (e.InvokeXuenTheWhiteTiger:CooldownRemains() > d) and a:BuffUp(e.BonedustBrew) or d < 10) then
         if i.Cast(e.TouchOfDeath, nil, nil, not t:IsSpellInRange(e.TouchOfDeath)) then
             o = 322109
             return "Touch of Death 514"
@@ -955,7 +955,7 @@ local function Y()
 
     end
 
-    if e.WeaponsOfOrder:IsReady() and _ and t:IsInRange(10) and (e.RisingSunKick:CooldownRemains() < e.WeaponsOfOrder:ExecuteTime()) then
+    if e.WeaponsOfOrder:IsReady() and T and t:IsInRange(10) and (e.RisingSunKick:CooldownRemains() < e.WeaponsOfOrder:ExecuteTime()) then
         if i.Cast(e.WeaponsOfOrder, nil, nil) then
             o = 310454
             return "Weapons Of Order 518"
@@ -975,10 +975,10 @@ local function Y()
         if n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket then
             local e = a:GetUseableTrinkets(ie)
             if s.InscrutibleQuantumDevice:IsEquippedAndReady() then
-                                if s.InscrutibleQuantumDevice:ID() == x and n.Commons.Enabled.TopTrinket then
+                                if s.InscrutibleQuantumDevice:ID() == j and n.Commons.Enabled.TopTrinket then
                     o = 24
                     return "top trinket InscrutibleQuantumDevice"
-                elseif s.InscrutibleQuantumDevice:ID() == j and n.Commons.Enabled.BottomTrinket then
+                elseif s.InscrutibleQuantumDevice:ID() == k and n.Commons.Enabled.BottomTrinket then
                     o = 35
                     return "bot trinket InscrutibleQuantumDevice"
                 end
@@ -986,10 +986,10 @@ local function Y()
             end
 
             if s.Wrathstone:IsEquippedAndReady() then
-                                if s.Wrathstone:ID() == x and n.Commons.Enabled.TopTrinket then
+                                if s.Wrathstone:ID() == j and n.Commons.Enabled.TopTrinket then
                     o = 24
                     return "top trinket Wrathstone"
-                elseif s.Wrathstone:ID() == j and n.Commons.Enabled.BottomTrinket then
+                elseif s.Wrathstone:ID() == k and n.Commons.Enabled.BottomTrinket then
                     o = 35
                     return "bot trinket Wrathstone"
                 end
@@ -997,10 +997,10 @@ local function Y()
             end
 
             if s.OverchargedAnimaBattery:IsEquippedAndReady() then
-                                if s.OverchargedAnimaBattery:ID() == x and n.Commons.Enabled.TopTrinket then
+                                if s.OverchargedAnimaBattery:ID() == j and n.Commons.Enabled.TopTrinket then
                     o = 24
                     return "top trinket OverchargedAnimaBattery"
-                elseif s.OverchargedAnimaBattery:ID() == j and n.Commons.Enabled.BottomTrinket then
+                elseif s.OverchargedAnimaBattery:ID() == k and n.Commons.Enabled.BottomTrinket then
                     o = 35
                     return "bot trinket OverchargedAnimaBattery"
                 end
@@ -1011,11 +1011,11 @@ local function Y()
 
     end
 
-    if s.ShadowgraspTotem:IsEquippedAndReady() and (b or d < 20 or not N) then
-                if s.ShadowgraspTotem:ID() == x and n.Commons.Enabled.TopTrinket then
+    if s.ShadowgraspTotem:IsEquippedAndReady() and (v or d < 20 or not O) then
+                if s.ShadowgraspTotem:ID() == j and n.Commons.Enabled.TopTrinket then
             o = 24
             return "top trinket ShadowgraspTotem"
-        elseif s.ShadowgraspTotem:ID() == j and n.Commons.Enabled.BottomTrinket then
+        elseif s.ShadowgraspTotem:ID() == k and n.Commons.Enabled.BottomTrinket then
             o = 35
             return "bot trinket ShadowgraspTotem"
         end
@@ -1023,44 +1023,55 @@ local function Y()
     end
 
     if (n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket) and (C or d < 20) then
-        if s.GladiatorsBadgeCosmic:IsEquippedAndReady() and (b or d < 20 or not N) then
-                        if s.GladiatorsBadgeCosmic:ID() == x and n.Commons.Enabled.TopTrinket then
+        if s.GladiatorsBadgeCosmic:IsEquippedAndReady() and (v or d < 20 or not O) then
+                        if s.GladiatorsBadgeCosmic:ID() == j and n.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket GladiatorsBadgeCosmic"
-            elseif s.GladiatorsBadgeCosmic:ID() == j and n.Commons.Enabled.BottomTrinket then
+            elseif s.GladiatorsBadgeCosmic:ID() == k and n.Commons.Enabled.BottomTrinket then
                 o = 35
                 return "bot trinket GladiatorsBadgeCosmic"
             end
 
         end
 
-        if s.GladiatorsBadgeSinful:IsEquippedAndReady() and (b or d < 20 or not N) then
-                        if s.GladiatorsBadgeSinful:ID() == x and n.Commons.Enabled.TopTrinket then
+        if s.GladiatorsBadgeSinful:IsEquippedAndReady() and (v or d < 20 or not O) then
+                        if s.GladiatorsBadgeSinful:ID() == j and n.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket GladiatorsBadgeSinful"
-            elseif s.GladiatorsBadgeSinful:ID() == j and n.Commons.Enabled.BottomTrinket then
+            elseif s.GladiatorsBadgeSinful:ID() == k and n.Commons.Enabled.BottomTrinket then
                 o = 35
                 return "bot trinket GladiatorsBadgeSinful"
             end
 
         end
 
-        if s.GladiatorsBadgeUnchained:IsEquippedAndReady() and (b or d < 20 or not N) then
-                        if s.GladiatorsBadgeUnchained:ID() == x and n.Commons.Enabled.TopTrinket then
+        if s.GladiatorsBadgeUnchained:IsEquippedAndReady() and (v or d < 20 or not O) then
+                        if s.GladiatorsBadgeUnchained:ID() == j and n.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket GladiatorsBadgeUnchained"
-            elseif s.GladiatorsBadgeUnchained:ID() == j and n.Commons.Enabled.BottomTrinket then
+            elseif s.GladiatorsBadgeUnchained:ID() == k and n.Commons.Enabled.BottomTrinket then
                 o = 35
                 return "bot trinket GladiatorsBadgeUnchained"
             end
 
         end
 
+        if s.EnforcersStunGrenade:IsEquippedAndReady() and (v or d < 20 or not O) then
+                        if s.EnforcersStunGrenade:ID() == j and n.Commons.Enabled.TopTrinket then
+                o = 24
+                return "top trinket EnforcersStunGrenade"
+            elseif s.EnforcersStunGrenade:ID() == k and n.Commons.Enabled.BottomTrinket then
+                o = 35
+                return "bot trinket EnforcersStunGrenade"
+            end
+
+        end
+
         if s.TheFirstSigil:IsEquippedAndReady() then
-                        if s.TheFirstSigil:ID() == x and n.Commons.Enabled.TopTrinket then
+                        if s.TheFirstSigil:ID() == j and n.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket TheFirstSigil"
-            elseif s.TheFirstSigil:ID() == j and n.Commons.Enabled.BottomTrinket then
+            elseif s.TheFirstSigil:ID() == k and n.Commons.Enabled.BottomTrinket then
                 o = 35
                 return "bot trinket TheFirstSigil"
             end
@@ -1069,7 +1080,7 @@ local function Y()
 
     end
 
-    if ((not ne) or e.InvokeXuenTheWhiteTiger:CooldownRemains() > 20 or T) then
+    if ((not ne) or e.InvokeXuenTheWhiteTiger:CooldownRemains() > 20 or _) then
         local e = Q()
         if e then
             return e
@@ -1077,7 +1088,7 @@ local function Y()
 
     end
 
-    if e.FaelineStomp:IsReady() and _ and t:IsInRange(10) and h(e.FaelineStomp) then
+    if e.FaelineStomp:IsReady() and T and t:IsInRange(10) and h(e.FaelineStomp) then
         if i.Cast(e.FaelineStomp, nil, nil) then
             o = 327104
             return "Faeline Stomp 520"
@@ -1085,7 +1096,7 @@ local function Y()
 
     end
 
-    if e.FallenOrder:IsReady() and _ and t:IsInRange(8) then
+    if e.FallenOrder:IsReady() and T and t:IsInRange(8) then
         if i.Cast(e.FallenOrder, nil, nil) then
             o = 326860
             return "Faeline Stomp 522"
@@ -1093,7 +1104,7 @@ local function Y()
 
     end
 
-    if e.BonedustBrew:IsReady() and UnitsWithBDBCount == 0 and _ and t:IsInRange(8) and (d < 15 or (a:Chi() >= 2 and (d > 60 and ((e.Serenity:CooldownRemains() > 10 or a:BuffUp(e.SerenityBuff) or e.Serenity:CooldownUp()) and (b or e.InvokeXuenTheWhiteTiger:CooldownRemains() > 10 or T))) or (d <= 60 and (b or e.InvokeXuenTheWhiteTiger:CooldownRemains() > d)))) then
+    if e.BonedustBrew:IsReady() and UnitsWithBDBCount == 0 and T and t:IsInRange(8) and (d < 15 or (a:Chi() >= 2 and (d > 60 and ((e.Serenity:CooldownRemains() > 10 or a:BuffUp(e.SerenityBuff) or e.Serenity:CooldownUp()) and (v or e.InvokeXuenTheWhiteTiger:CooldownRemains() > 10 or _))) or (d <= 60 and (v or e.InvokeXuenTheWhiteTiger:CooldownRemains() > d)))) then
         if i.Cast(e.BonedustBrew, nil, nil) then
             o = 325216
             return "Bonedust Brew 524"
@@ -1120,7 +1131,7 @@ local function Y()
 end
 
 local function C()
-    if e.InvokeXuenTheWhiteTiger:IsReady() and O and t:IsInRange(15) and ((l < 3) or (l >= 3 and (a:BuffUp(e.WhirlingDragonPunchBuff) or e.WhirlingDragonPunch:CooldownRemains() > 2 or not e.WhirlingDragonPunch:IsAvailable()))) and ((not T) and (e.RisingSunKick:CooldownRemains() < 2 or q ~= 1) and (q ~= 4 or e.BonedustBrew:CooldownRemains() < 2) or d < 25) then
+    if e.InvokeXuenTheWhiteTiger:IsReady() and N and t:IsInRange(15) and ((l < 3) or (l >= 3 and (a:BuffUp(e.WhirlingDragonPunchBuff) or e.WhirlingDragonPunch:CooldownRemains() > 2 or not e.WhirlingDragonPunch:IsAvailable()))) and ((not _) and (e.RisingSunKick:CooldownRemains() < 2 or x ~= 1) and (x ~= 4 or e.BonedustBrew:CooldownRemains() < 2) or d < 25) then
                 if l >= 3 and a:Chi() < 5 and EnemiesWithMotC < 5 and EnemiesWithMotC < l and n.Windwalker.PoolBeforeBurst then
             g = true
         elseif (EnemiesWithMotC >= 5 or EnemiesWithMotC >= l) or not n.Windwalker.PoolBeforeBurst then
@@ -1133,7 +1144,7 @@ local function C()
 
     end
 
-    if e.TouchOfDeath:IsReady() and not J and t:IsInRange(8) and ((not n.Windwalker.ToDExecute and t:HealthPercentage() <= 15) or (n.Windwalker.ToDExecute and UnitHealth("target") < UnitHealth("player"))) and (d > (180 - S(Z) * 120) or a:BuffDown(e.StormEarthAndFireBuff) and b and (q ~= 4 or a:BuffUp(e.BonedustBrew)) or (e.InvokeXuenTheWhiteTiger:CooldownRemains() > d) and a:BuffUp(e.BonedustBrew) or d < 10) then
+    if e.TouchOfDeath:IsReady() and not J and t:IsInRange(8) and ((not n.Windwalker.ToDExecute and t:HealthPercentage() <= 15) or (n.Windwalker.ToDExecute and UnitHealth("target") < UnitHealth("player"))) and (d > (180 - S(Z) * 120) or a:BuffDown(e.StormEarthAndFireBuff) and v and (x ~= 4 or a:BuffUp(e.BonedustBrew)) or (e.InvokeXuenTheWhiteTiger:CooldownRemains() > d) and a:BuffUp(e.BonedustBrew) or d < 10) then
         if i.Cast(e.TouchOfDeath, nil, nil, not t:IsSpellInRange(e.TouchOfDeath)) then
             o = 322109
             return "Touch of Death 404"
@@ -1141,7 +1152,7 @@ local function C()
 
     end
 
-    if e.WeaponsOfOrder:IsReady() and _ and t:IsInRange(8) and (e.RisingSunKick:CooldownRemains() < e.WeaponsOfOrder:ExecuteTime() and e.InvokeXuenTheWhiteTiger:CooldownRemains() > (20 + 20 * S(N)) or d < 35) then
+    if e.WeaponsOfOrder:IsReady() and T and t:IsInRange(8) and (e.RisingSunKick:CooldownRemains() < e.WeaponsOfOrder:ExecuteTime() and e.InvokeXuenTheWhiteTiger:CooldownRemains() > (20 + 20 * S(O)) or d < 35) then
         if i.Cast(e.WeaponsOfOrder, nil, nil) then
             o = 310454
             return "Weapons Of Order 406"
@@ -1149,7 +1160,7 @@ local function C()
 
     end
 
-    if e.FaelineStomp:IsReady() and _ and t:IsInRange(8) and h(e.FaelineStomp) then
+    if e.FaelineStomp:IsReady() and T and t:IsInRange(8) and h(e.FaelineStomp) then
         if i.Cast(e.FaelineStomp, nil, nil) then
             o = 327104
             return "Faeline Stomp 408"
@@ -1157,7 +1168,7 @@ local function C()
 
     end
 
-    if e.FallenOrder:IsReady() and _ and t:IsInRange(8) then
+    if e.FallenOrder:IsReady() and T and t:IsInRange(8) then
         if i.Cast(e.FallenOrder, nil, nil) then
             o = 326860
             return "Faeline Stomp 410"
@@ -1165,7 +1176,7 @@ local function C()
 
     end
 
-    if e.BonedustBrew:IsReady() and UnitsWithBDBCount == 0 and (_) and t:IsInRange(8) and (a:BuffDown(e.BonedustBrew) and (a:Chi() >= 2 and d > 60 and (e.StormEarthAndFire:Charges() > 0 or e.StormEarthAndFire:CooldownRemains() > 10) and (b or e.InvokeXuenTheWhiteTiger:CooldownRemains() > 10 or T) or (a:Chi() >= 2 and d <= 60 and (b or e.InvokeXuenTheWhiteTiger:CooldownRemains() > d) and (e.StormEarthAndFire:Charges() > 0 or e.StormEarthAndFire:CooldownRemains() > d or a:BuffUp(e.StormEarthAndFireBuff))) or d < 15) or d < 10 and e.LeadByExample:SoulbindEnabled()) then
+    if e.BonedustBrew:IsReady() and UnitsWithBDBCount == 0 and (T) and t:IsInRange(8) and (a:BuffDown(e.BonedustBrew) and (a:Chi() >= 2 and d > 60 and (e.StormEarthAndFire:Charges() > 0 or e.StormEarthAndFire:CooldownRemains() > 10) and (v or e.InvokeXuenTheWhiteTiger:CooldownRemains() > 10 or _) or (a:Chi() >= 2 and d <= 60 and (v or e.InvokeXuenTheWhiteTiger:CooldownRemains() > d) and (e.StormEarthAndFire:Charges() > 0 or e.StormEarthAndFire:CooldownRemains() > d or a:BuffUp(e.StormEarthAndFireBuff))) or d < 15) or d < 10 and e.LeadByExample:SoulbindEnabled()) then
         if ((l >= 3 and a:Chi() < 5 and EnemiesWithMotC < 5 and EnemiesWithMotC < l) or (l < 3 and (e.RisingSunKick:CooldownRemains() > 0))) and n.Windwalker.PoolBeforeBurst then
             g = true
         else
@@ -1186,7 +1197,7 @@ local function C()
 
     end
 
-    if e.StormEarthAndFire:IsReady() and R and t:IsInRange(10) and q ~= 4 and (e.StormEarthAndFire:Charges() == 2 or d < 20 or ((q ~= 1 and q ~= 4) and (e.InvokeXuenTheWhiteTiger:CooldownRemains() > e.StormEarthAndFire:FullRechargeTime() or T) and e.FistsOfFury:CooldownRemains() <= 9 and a:Chi() >= 2 and e.WhirlingDragonPunch:CooldownRemains() <= 12)) then
+    if e.StormEarthAndFire:IsReady() and R and t:IsInRange(10) and x ~= 4 and (e.StormEarthAndFire:Charges() == 2 or d < 20 or ((x ~= 1 and x ~= 4) and (e.InvokeXuenTheWhiteTiger:CooldownRemains() > e.StormEarthAndFire:FullRechargeTime() or _) and e.FistsOfFury:CooldownRemains() <= 9 and a:Chi() >= 2 and e.WhirlingDragonPunch:CooldownRemains() <= 12)) then
         if i.Cast(e.StormEarthAndFire, nil) then
             o = 137639
             return "Storm Earth and Fire 416"
@@ -1194,7 +1205,7 @@ local function C()
 
     end
 
-    if e.StormEarthAndFire:IsReady() and (q == 1 and (a:BuffUp(e.WeaponsOfOrder) or (d < e.WeaponsOfOrder:CooldownRemains() or e.WeaponsOfOrder:CooldownRemains() > e.StormEarthAndFire:FullRechargeTime()) and e.FistsOfFury:CooldownRemains() <= 9 and a:Chi() >= 2 and e.WhirlingDragonPunch:CooldownRemains() <= 12)) then
+    if e.StormEarthAndFire:IsReady() and (x == 1 and (a:BuffUp(e.WeaponsOfOrder) or (d < e.WeaponsOfOrder:CooldownRemains() or e.WeaponsOfOrder:CooldownRemains() > e.StormEarthAndFire:FullRechargeTime()) and e.FistsOfFury:CooldownRemains() <= 9 and a:Chi() >= 2 and e.WhirlingDragonPunch:CooldownRemains() <= 12)) then
         if i.Cast(e.StormEarthAndFire, nil) then
             o = 137639
             return "Storm Earth and Fire 418"
@@ -1202,7 +1213,7 @@ local function C()
 
     end
 
-    if e.StormEarthAndFire:IsReady() and R and t:IsInRange(10) and (q == 4 and UnitsWithBDBSEFCount > 0 and (b or T or e.InvokeXuenTheWhiteTiger:CooldownRemains() > e.StormEarthAndFire:FullRechargeTime() or e.InvokeXuenTheWhiteTiger:CooldownRemains() > 30)) then
+    if e.StormEarthAndFire:IsReady() and R and t:IsInRange(10) and (x == 4 and UnitsWithBDBSEFCount > 0 and (v or _ or e.InvokeXuenTheWhiteTiger:CooldownRemains() > e.StormEarthAndFire:FullRechargeTime() or e.InvokeXuenTheWhiteTiger:CooldownRemains() > 30)) then
         if i.Cast(e.StormEarthAndFire, nil) then
             o = 137639
             return "Storm Earth and Fire 420"
@@ -1210,7 +1221,7 @@ local function C()
 
     end
 
-    if s.Jotungeirr:IsEquippedAndReady() and y() and (b or e.InvokeXuenTheWhiteTiger:CooldownRemains() > 60 and d > 180 or d < 20) then
+    if s.Jotungeirr:IsEquippedAndReady() and y() and (v or e.InvokeXuenTheWhiteTiger:CooldownRemains() > 60 and d > 180 or d < 20) then
         if ae(s.Jotungeirr, nil, nil) then
             o = 16
             return "jotungeirr_destinys_call bear 8"
@@ -1220,88 +1231,99 @@ local function C()
 
     if n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket then
         local t = a:GetUseableTrinkets(ie)
-        if s.InscrutibleQuantumDevice:IsEquippedAndReady() and (b or e.InvokeXuenTheWhiteTiger:CooldownRemains() > 60 and d > 180 or d < 20) then
-                        if s.InscrutibleQuantumDevice:ID() == x and n.Commons.Enabled.TopTrinket then
+        if s.InscrutibleQuantumDevice:IsEquippedAndReady() and (v or e.InvokeXuenTheWhiteTiger:CooldownRemains() > 60 and d > 180 or d < 20) then
+                        if s.InscrutibleQuantumDevice:ID() == j and n.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket InscrutibleQuantumDevice"
-            elseif s.InscrutibleQuantumDevice:ID() == j and n.Commons.Enabled.BottomTrinket then
+            elseif s.InscrutibleQuantumDevice:ID() == k and n.Commons.Enabled.BottomTrinket then
                 o = 35
                 return "bot trinket InscrutibleQuantumDevice"
             end
 
         end
 
-        if s.Wrathstone:IsEquippedAndReady() and (b or d < 20) then
-                        if s.Wrathstone:ID() == x and n.Commons.Enabled.TopTrinket then
+        if s.Wrathstone:IsEquippedAndReady() and (v or d < 20) then
+                        if s.Wrathstone:ID() == j and n.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket Wrathstone"
-            elseif s.Wrathstone:ID() == j and n.Commons.Enabled.BottomTrinket then
+            elseif s.Wrathstone:ID() == k and n.Commons.Enabled.BottomTrinket then
                 o = 35
                 return "bot trinket Wrathstone"
             end
 
         end
 
-        if s.ShadowgraspTotem:IsEquippedAndReady() and (b or d < 20 or not N) then
-                        if s.ShadowgraspTotem:ID() == x and n.Commons.Enabled.TopTrinket then
+        if s.ShadowgraspTotem:IsEquippedAndReady() and (v or d < 20 or not O) then
+                        if s.ShadowgraspTotem:ID() == j and n.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket ShadowgraspTotem"
-            elseif s.ShadowgraspTotem:ID() == j and n.Commons.Enabled.BottomTrinket then
+            elseif s.ShadowgraspTotem:ID() == k and n.Commons.Enabled.BottomTrinket then
                 o = 35
                 return "bot trinket ShadowgraspTotem"
             end
 
         end
 
-        if s.OverchargedAnimaBattery:IsEquippedAndReady() and (b or e.InvokeXuenTheWhiteTiger:CooldownRemains() > 90 or d < 20) then
-                        if s.OverchargedAnimaBattery:ID() == x and n.Commons.Enabled.TopTrinket then
+        if s.OverchargedAnimaBattery:IsEquippedAndReady() and (v or e.InvokeXuenTheWhiteTiger:CooldownRemains() > 90 or d < 20) then
+                        if s.OverchargedAnimaBattery:ID() == j and n.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket OverchargedAnimaBattery"
-            elseif s.OverchargedAnimaBattery:ID() == j and n.Commons.Enabled.BottomTrinket then
+            elseif s.OverchargedAnimaBattery:ID() == k and n.Commons.Enabled.BottomTrinket then
                 o = 35
                 return "bot trinket OverchargedAnimaBattery"
             end
 
         end
 
-        if s.GladiatorsBadgeCosmic:IsEquippedAndReady() and (e.InvokeXuenTheWhiteTiger:CooldownRemains() > 55 or T or d < 15) then
-                        if s.GladiatorsBadgeCosmic:ID() == x and n.Commons.Enabled.TopTrinket then
+        if s.GladiatorsBadgeCosmic:IsEquippedAndReady() and (e.InvokeXuenTheWhiteTiger:CooldownRemains() > 55 or _ or d < 15) then
+                        if s.GladiatorsBadgeCosmic:ID() == j and n.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket GladiatorsBadgeCosmic"
-            elseif s.GladiatorsBadgeCosmic:ID() == j and n.Commons.Enabled.BottomTrinket then
+            elseif s.GladiatorsBadgeCosmic:ID() == k and n.Commons.Enabled.BottomTrinket then
                 o = 35
                 return "bot trinket GladiatorsBadgeCosmic"
             end
 
         end
 
-        if s.GladiatorsBadgeSinful:IsEquippedAndReady() and (e.InvokeXuenTheWhiteTiger:CooldownRemains() > 55 or T or d < 15) then
-                        if s.GladiatorsBadgeSinful:ID() == x and n.Commons.Enabled.TopTrinket then
+        if s.GladiatorsBadgeSinful:IsEquippedAndReady() and (e.InvokeXuenTheWhiteTiger:CooldownRemains() > 55 or _ or d < 15) then
+                        if s.GladiatorsBadgeSinful:ID() == j and n.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket GladiatorsBadgeSinful"
-            elseif s.GladiatorsBadgeSinful:ID() == j and n.Commons.Enabled.BottomTrinket then
+            elseif s.GladiatorsBadgeSinful:ID() == k and n.Commons.Enabled.BottomTrinket then
                 o = 35
                 return "bot trinket GladiatorsBadgeSinful"
             end
 
         end
 
-        if s.GladiatorsBadgeUnchained:IsEquippedAndReady() and (e.InvokeXuenTheWhiteTiger:CooldownRemains() > 55 or T or d < 15) then
-                        if s.GladiatorsBadgeUnchained:ID() == x and n.Commons.Enabled.TopTrinket then
+        if s.GladiatorsBadgeUnchained:IsEquippedAndReady() and (e.InvokeXuenTheWhiteTiger:CooldownRemains() > 55 or _ or d < 15) then
+                        if s.GladiatorsBadgeUnchained:ID() == j and n.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket GladiatorsBadgeUnchained"
-            elseif s.GladiatorsBadgeUnchained:ID() == j and n.Commons.Enabled.BottomTrinket then
+            elseif s.GladiatorsBadgeUnchained:ID() == k and n.Commons.Enabled.BottomTrinket then
                 o = 35
                 return "bot trinket GladiatorsBadgeUnchained"
             end
 
         end
 
+        if s.EnforcersStunGrenade:IsEquippedAndReady() and (e.InvokeXuenTheWhiteTiger:CooldownRemains() > 55 or _ or d < 15) then
+                        if s.EnforcersStunGrenade:ID() == j and n.Commons.Enabled.TopTrinket then
+                o = 24
+                return "top trinket EnforcersStunGrenade"
+            elseif s.EnforcersStunGrenade:ID() == k and n.Commons.Enabled.BottomTrinket then
+                o = 35
+                return "bot trinket EnforcersStunGrenade"
+            end
+
+        end
+
         if s.TheFirstSigil:IsEquippedAndReady() and (e.InvokeXuenTheWhiteTiger:TimeSinceLastCast() < 9 or e.InvokeXuenTheWhiteTiger:CooldownRemains() > 60 and d > 300 or d < 20) then
-                        if s.TheFirstSigil:ID() == x and n.Commons.Enabled.TopTrinket then
+                        if s.TheFirstSigil:ID() == j and n.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket TheFirstSigil"
-            elseif s.TheFirstSigil:ID() == j and n.Commons.Enabled.BottomTrinket then
+            elseif s.TheFirstSigil:ID() == k and n.Commons.Enabled.BottomTrinket then
                 o = 35
                 return "bot trinket TheFirstSigil"
             end
@@ -1309,17 +1331,17 @@ local function C()
         end
 
         if s.CacheofAcquiredTreasures:IsEquippedAndReady() and (l < 2 and a:BuffUp(e.AcquiredWandBuff) or l > 1 and a:BuffUp(e.AcquiredAxeBuff) or d < 20) then
-                        if s.CacheofAcquiredTreasures:ID() == x and n.Commons.Enabled.TopTrinket then
+                        if s.CacheofAcquiredTreasures:ID() == j and n.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket CacheofAcquiredTreasures"
-            elseif s.CacheofAcquiredTreasures:ID() == j and n.Commons.Enabled.BottomTrinket then
+            elseif s.CacheofAcquiredTreasures:ID() == k and n.Commons.Enabled.BottomTrinket then
                 o = 35
                 return "bot trinket CacheofAcquiredTreasures"
             end
 
         end
 
-        if ((not ne) or e.InvokeXuenTheWhiteTiger:CooldownRemains() > 20 and b and e.InvokeXuenTheWhiteTiger:TimeSinceLastCast() > 4 or T) then
+        if ((not ne) or e.InvokeXuenTheWhiteTiger:CooldownRemains() > 20 and v and e.InvokeXuenTheWhiteTiger:TimeSinceLastCast() > 4 or _) then
             local e = Q()
             if e then
                 return e
@@ -1329,7 +1351,7 @@ local function C()
 
     end
 
-    if e.BloodFury:IsCastable() and y() and t:IsInRange(8) and (e.InvokeXuenTheWhiteTiger:CooldownRemains() > 30 or not O or VarXuenHold or k.BossFilteredFightRemains("<", 20)) then
+    if e.BloodFury:IsCastable() and y() and t:IsInRange(8) and (e.InvokeXuenTheWhiteTiger:CooldownRemains() > 30 or not N or VarXuenHold or q.BossFilteredFightRemains("<", 20)) then
         if i.Cast(e.BloodFury, nil) then
             o = 20572
             return "Blood Fury 420"
@@ -1337,7 +1359,7 @@ local function C()
 
     end
 
-    if e.Berserking:IsCastable() and y() and t:IsInRange(8) and (e.InvokeXuenTheWhiteTiger:CooldownRemains() > 30 or not O or VarXuenHold or k.BossFilteredFightRemains("<", 15)) then
+    if e.Berserking:IsCastable() and y() and t:IsInRange(8) and (e.InvokeXuenTheWhiteTiger:CooldownRemains() > 30 or not N or VarXuenHold or q.BossFilteredFightRemains("<", 15)) then
         if i.Cast(e.Berserking, nil) then
             o = 26297
             return "Berserking 422"
@@ -1353,7 +1375,7 @@ local function C()
 
     end
 
-    if e.Fireblood:IsCastable() and y() and t:IsInRange(8) and (e.InvokeXuenTheWhiteTiger:CooldownRemains() > 30 or not O or VarXuenHold or k.BossFilteredFightRemains("<", 10)) then
+    if e.Fireblood:IsCastable() and y() and t:IsInRange(8) and (e.InvokeXuenTheWhiteTiger:CooldownRemains() > 30 or not N or VarXuenHold or q.BossFilteredFightRemains("<", 10)) then
         if i.Cast(e.Fireblood, nil) then
             o = 265221
             return "Fireblood 426"
@@ -1361,7 +1383,7 @@ local function C()
 
     end
 
-    if e.AncestralCall:IsCastable() and y() and t:IsInRange(8) and (e.InvokeXuenTheWhiteTiger:CooldownRemains() > 30 or not O or VarXuenHold or k.BossFilteredFightRemains("<", 20)) then
+    if e.AncestralCall:IsCastable() and y() and t:IsInRange(8) and (e.InvokeXuenTheWhiteTiger:CooldownRemains() > 30 or not N or VarXuenHold or q.BossFilteredFightRemains("<", 20)) then
         if i.Cast(e.AncestralCall, nil) then
             o = 274738
             return "Ancestral Call 428"
@@ -1379,8 +1401,8 @@ local function C()
 
 end
 
-local function j()
-    if e.FistsOfFury:IsReady() and not v and t:IsInRange(8) and a:BuffRemains(e.SerenityBuff) < 1 and (not UnitsWithBDBCount == 0 or not i.AoEON() or l <= 3) then
+local function k()
+    if e.FistsOfFury:IsReady() and not b and t:IsInRange(8) and a:BuffRemains(e.SerenityBuff) < 1 and (not UnitsWithBDBCount == 0 or not i.AoEON() or l <= 3) then
         if i.Cast(e.FistsOfFury, nil, nil, not t:IsSpellInRange(e.FistsOfFury)) then
             o = 113656
             return "Fists of Fury 600"
@@ -1422,7 +1444,7 @@ local function j()
 
     end
 
-    if e.FistsOfFury:IsReady() and not v and i.AoEON() and l >= 3 and t:IsInRange(8) and (not UnitsWithBDBCount == 0 or not i.AoEON() or l <= 3) then
+    if e.FistsOfFury:IsReady() and not b and i.AoEON() and l >= 3 and t:IsInRange(8) and (not UnitsWithBDBCount == 0 or not i.AoEON() or l <= 3) then
         if i.Cast(e.FistsOfFury, nil, nil, not t:IsSpellInRange(e.FistsOfFury)) then
             o = 113656
             return "Fists of Fury 608"
@@ -1453,7 +1475,7 @@ local function j()
 
     end
 
-    if e.FistsOfFury:IsReady() and not v and (not UnitsWithBDBCount == 0 or not i.AoEON() or l <= 3) then
+    if e.FistsOfFury:IsReady() and not b and (not UnitsWithBDBCount == 0 or not i.AoEON() or l <= 3) then
         if i.Cast(e.FistsOfFury, nil, nil, not t:IsSpellInRange(e.FistsOfFury)) then
             o = 113656
             W = true
@@ -1510,7 +1532,7 @@ local function j()
 
 end
 
-local function N()
+local function O()
     if (i.CDsON() and not e.Serenity:IsAvailable()) then
         local e = C()
         if e then
@@ -1566,7 +1588,7 @@ local function N()
 
     end
 
-    if e.FistsOfFury:IsReady() and not v and t:IsInRange(8) and (a:BuffUp(e.WeaponsOfOrderChiBuff) and a:BuffUp(e.StormEarthAndFireBuff) and (not a:HasTier(28, 2)) and l < 2) then
+    if e.FistsOfFury:IsReady() and not b and t:IsInRange(8) and (a:BuffUp(e.WeaponsOfOrderChiBuff) and a:BuffUp(e.StormEarthAndFireBuff) and (not a:HasTier(28, 2)) and l < 2) then
         G = true
         if i.Cast(e.FistsOfFury, nil, nil, not t:IsSpellInRange(e.FistsOfFury)) then
             o = 113656
@@ -1575,7 +1597,7 @@ local function N()
 
     end
 
-    if e.FistsOfFury:IsReady() and not v and t:IsInRange(8) and ((a:BuffUp(e.WeaponsOfOrderChiBuff) and a:BuffUp(e.StormEarthAndFireBuff) and a:HasTier(28, 2)) or (l >= 2 and ve() and a:BuffRemains(e.WeaponsOfOrderChiBuff) < 1)) then
+    if e.FistsOfFury:IsReady() and not b and t:IsInRange(8) and ((a:BuffUp(e.WeaponsOfOrderChiBuff) and a:BuffUp(e.StormEarthAndFireBuff) and a:HasTier(28, 2)) or (l >= 2 and ve() and a:BuffRemains(e.WeaponsOfOrderChiBuff) < 1)) then
         if i.Cast(e.FistsOfFury, nil, nil, not t:IsSpellInRange(e.FistsOfFury)) then
             o = 113656
             return "Fists of Fury 708"
@@ -1695,7 +1717,7 @@ local function N()
 end
 
 local function S()
-    if e.WhirlingDragonPunch:IsReady() and not H and not g and t:IsInRange(8) and ((a:BuffStack(e.PrimordialPotentialBuff) < 9) or (a:BuffRemains(e.BonedustBrew) < e.RisingSunKick:CooldownRemains() and a:BuffUp(e.BonedustBrew) and b)) then
+    if e.WhirlingDragonPunch:IsReady() and not H and not g and t:IsInRange(8) and ((a:BuffStack(e.PrimordialPotentialBuff) < 9) or (a:BuffRemains(e.BonedustBrew) < e.RisingSunKick:CooldownRemains() and a:BuffUp(e.BonedustBrew) and v)) then
         if i.Cast(e.WhirlingDragonPunch, nil, nil, not t:IsInMeleeRange(8)) then
             o = 152175
             return "Whirling Dragon Punch 800"
@@ -1726,7 +1748,7 @@ local function S()
 
     end
 
-    if e.FistsOfFury:IsReady() and not g and not v and (((c() > e.FistsOfFury:ExecuteTime() - 1) or (a:ChiDeficit() <= 1) or (a:BuffRemains(e.StormEarthAndFireBuff) < e.FistsOfFury:ExecuteTime() + 1)) or (d < e.FistsOfFury:ExecuteTime() + 1) or (t:DebuffUp(e.BonedustBrew)) or (a:BuffUp(e.PrimordialPowerBuff))) then
+    if e.FistsOfFury:IsReady() and not g and not b and (((c() > e.FistsOfFury:ExecuteTime() - 1) or (a:ChiDeficit() <= 1) or (a:BuffRemains(e.StormEarthAndFireBuff) < e.FistsOfFury:ExecuteTime() + 1)) or (d < e.FistsOfFury:ExecuteTime() + 1) or (t:DebuffUp(e.BonedustBrew)) or (a:BuffUp(e.PrimordialPowerBuff))) then
         if i.Cast(e.FistsOfFury, nil, nil, not t:IsSpellInRange(e.FistsOfFury)) then
             o = 113656
             return "Fists of Fury 810"
@@ -1734,7 +1756,7 @@ local function S()
 
     end
 
-    if e.CracklingJadeLightning:IsReady() and t:IsInRange(40) and (a:BuffStack(e.TheEmperorsCapacitor) > 19 and c() > e.CracklingJadeLightning:ExecuteTime() - 1 and e.RisingSunKick:CooldownRemains() > e.CracklingJadeLightning:ExecuteTime() or a:BuffStack(e.TheEmperorsCapacitor) > 14 and (e.Serenity:IsAvailable() and e.Serenity:CooldownRemains() < 5 or q == 1 and e.WeaponsOfOrder:CooldownRemains() < 5 or d < 5)) then
+    if e.CracklingJadeLightning:IsReady() and t:IsInRange(40) and (a:BuffStack(e.TheEmperorsCapacitor) > 19 and c() > e.CracklingJadeLightning:ExecuteTime() - 1 and e.RisingSunKick:CooldownRemains() > e.CracklingJadeLightning:ExecuteTime() or a:BuffStack(e.TheEmperorsCapacitor) > 14 and (e.Serenity:IsAvailable() and e.Serenity:CooldownRemains() < 5 or x == 1 and e.WeaponsOfOrder:CooldownRemains() < 5 or d < 5)) then
         if i.Cast(e.CracklingJadeLightning, nil, nil, not t:IsInRange(40)) then
             o = 117952
             return "Crackling Jade Lightning 812"
@@ -1928,15 +1950,15 @@ local function S()
 
 end
 
-local function x()
+local function j()
     M = HeroRotationCharDB.Toggles[6]
-    _ = HeroRotationCharDB.Toggles[4]
+    T = HeroRotationCharDB.Toggles[4]
     U = HeroRotationCharDB.Toggles[5]
     w = HeroRotationCharDB.Toggles[12]
     Oe = HeroRotationCharDB.Toggles[15]
     H = HeroRotationCharDB.Toggles[31]
     I = HeroRotationCharDB.Toggles[32]
-    v = HeroRotationCharDB.Toggles[33]
+    b = HeroRotationCharDB.Toggles[33]
     se = HeroRotationCharDB.Toggles[34]
     K = HeroRotationCharDB.Toggles[35]
     ee = HeroRotationCharDB.Toggles[36]
@@ -1944,10 +1966,10 @@ local function x()
     ge = HeroRotationCharDB.Toggles[38]
     J = HeroRotationCharDB.Toggles[39]
     g = false
-    O = false
+    N = false
     R = false
     if ((n.Windwalker.IncludedCooldowns.Xuen and y()) or (n.Windwalker.IncludedSmallCooldowns.Xuen and (y() or U)) or (not n.Windwalker.IncludedSmallCooldowns.Xuen and not n.Windwalker.IncludedCooldowns.Xuen and not n.Windwalker.IncludedSmallCooldowns.SEFEcho and not n.Windwalker.IncludedCooldowns.SEFEco)) then
-        O = true
+        N = true
     end
 
     if ((n.Windwalker.IncludedCooldowns.SEFFull and y()) or (n.Windwalker.IncludedSmallCooldowns.SEFFull and (y() or U)) or (not n.Windwalker.IncludedSmallCooldowns.SEFFull and not n.Windwalker.IncludedCooldowns.SEFFull)) or ((n.Windwalker.IncludedCooldowns.SEFEco and y() and e.StormEarthAndFire:ChargesFractional() > n.Windwalker.SEFEcoCharge) or (n.Windwalker.IncludedSmallCooldowns.SEFEco and (y() or U) and e.StormEarthAndFire:ChargesFractional() > n.Windwalker.SEFEcoCharge) or (not n.Windwalker.IncludedSmallCooldowns.SEFEco and not n.Windwalker.IncludedCooldowns.SEFEco and e.StormEarthAndFire:ChargesFractional() > n.Windwalker.SEFEcoCharge)) then
@@ -1967,7 +1989,7 @@ local function x()
 
 end
 
-local function v()
+local function b()
     local a = 0
     local n = { 322968, 319603, 319611, 325876, 334493, 334496, 332605, 328494, 326836, 336277, 319669, 323831, 330725, 333299 }
     if UnitExists("mouseover") then
@@ -2023,8 +2045,8 @@ local function y()
     UnitsWithBDBCount = Ne(E)
     UnitsWithBDBSEFCount = Ie(E)
     local y = a:IsTankingAoE(8) or a:IsTanking(t)
-    d = k.FightRemains(E, false)
-    b = e.InvokeXuenTheWhiteTiger:TimeSinceLastCast() <= 24
+    d = q.FightRemains(E, false)
+    v = e.InvokeXuenTheWhiteTiger:TimeSinceLastCast() <= 24
     if not BotOn then
         r = 0
         o = 0
@@ -2043,12 +2065,12 @@ local function y()
         D = 0
     end
 
-    _e = x()
+    _e = j()
     if not t:IsInMeleeRange(10) and l > 0 and n.Windwalker.TargetSwap == "AutoSwap" and not w then
         r = 999
     end
 
-    _e = v()
+    _e = b()
     if f.TargetIsValid() and not a:IsDeadOrGhost() then
         if not a:AffectingCombat() and M then
             local e = Ae()
@@ -2190,8 +2212,8 @@ local function y()
 
         end
 
-        T = (e.InvokeXuenTheWhiteTiger:CooldownRemains() > d or d - e.InvokeXuenTheWhiteTiger:CooldownRemains() < 120 and ((e.Serenity:IsAvailable() and d > e.Serenity:CooldownRemains() and e.Serenity:CooldownRemains() > 10) or (e.StormEarthAndFire:FullRechargeTime() < d and e.StormEarthAndFire:FullRechargeTime() > 15) or (e.StormEarthAndFire:Charges() == 0 and e.StormEarthAndFire:CooldownRemains() < d)))
-        if s.PotionofPhantomFire:IsReady() and a:AffectingCombat() and t:IsInRange(8) and n.Commons.UsePotions and ((((a:BuffUp(e.SerenityBuff) or a:BuffUp(e.StormEarthAndFireBuff)) and (e.InvokeXuenTheWhiteTiger:TimeSinceLastCast() <= 24) or k.BossFilteredFightRemains("<=", 60)) and not i.GUISettings.General.HoldPotforBL) or (i.GUISettings.General.HoldPotforBL and a:BloodlustUp())) then
+        _ = (e.InvokeXuenTheWhiteTiger:CooldownRemains() > d or d - e.InvokeXuenTheWhiteTiger:CooldownRemains() < 120 and ((e.Serenity:IsAvailable() and d > e.Serenity:CooldownRemains() and e.Serenity:CooldownRemains() > 10) or (e.StormEarthAndFire:FullRechargeTime() < d and e.StormEarthAndFire:FullRechargeTime() > 15) or (e.StormEarthAndFire:Charges() == 0 and e.StormEarthAndFire:CooldownRemains() < d)))
+        if s.PotionofPhantomFire:IsReady() and a:AffectingCombat() and t:IsInRange(8) and n.Commons.UsePotions and ((((a:BuffUp(e.SerenityBuff) or a:BuffUp(e.StormEarthAndFireBuff)) and (e.InvokeXuenTheWhiteTiger:TimeSinceLastCast() <= 24) or q.BossFilteredFightRemains("<=", 60)) and not i.GUISettings.General.HoldPotforBL) or (i.GUISettings.General.HoldPotforBL and a:BloodlustUp())) then
             if i.CastSuggested(s.PotionofPhantomFire) then
                 o = 32
                 return "Potion of Phantom Fire 102"
@@ -2199,7 +2221,7 @@ local function y()
 
         end
 
-        if s.PotionofSpectralAgility:IsReady() and a:AffectingCombat() and t:IsInRange(8) and n.Commons.UsePotions and ((((a:BuffUp(e.SerenityBuff) or a:BuffUp(e.StormEarthAndFireBuff)) and (e.InvokeXuenTheWhiteTiger:TimeSinceLastCast() <= 24) or k.BossFilteredFightRemains("<=", 60)) and not i.GUISettings.General.HoldPotforBL) or (i.GUISettings.General.HoldPotforBL and a:BloodlustUp())) then
+        if s.PotionofSpectralAgility:IsReady() and a:AffectingCombat() and t:IsInRange(8) and n.Commons.UsePotions and ((((a:BuffUp(e.SerenityBuff) or a:BuffUp(e.StormEarthAndFireBuff)) and (e.InvokeXuenTheWhiteTiger:TimeSinceLastCast() <= 24) or q.BossFilteredFightRemains("<=", 60)) and not i.GUISettings.General.HoldPotforBL) or (i.GUISettings.General.HoldPotforBL and a:BloodlustUp())) then
             if i.CastSuggested(s.PotionofSpectralAgility) then
                 o = 32
                 return "Potion of Spectral Agility 104"
@@ -2207,7 +2229,7 @@ local function y()
 
         end
 
-        if s.PotionofDeathlyFixation:IsReady() and a:AffectingCombat() and t:IsInRange(8) and n.Commons.UsePotions and ((((a:BuffUp(e.SerenityBuff) or a:BuffUp(e.StormEarthAndFireBuff)) and (e.InvokeXuenTheWhiteTiger:TimeSinceLastCast() <= 24) or k.BossFilteredFightRemains("<=", 60)) and not i.GUISettings.General.HoldPotforBL) or (i.GUISettings.General.HoldPotforBL and a:BloodlustUp())) then
+        if s.PotionofDeathlyFixation:IsReady() and a:AffectingCombat() and t:IsInRange(8) and n.Commons.UsePotions and ((((a:BuffUp(e.SerenityBuff) or a:BuffUp(e.StormEarthAndFireBuff)) and (e.InvokeXuenTheWhiteTiger:TimeSinceLastCast() <= 24) or q.BossFilteredFightRemains("<=", 60)) and not i.GUISettings.General.HoldPotforBL) or (i.GUISettings.General.HoldPotforBL and a:BloodlustUp())) then
             if i.CastSuggested(s.PotionofDeathlyFixation) then
                 o = 32
                 return "Potion of Deathly Fixation 106"
@@ -2215,7 +2237,7 @@ local function y()
 
         end
 
-        if s.PotionofEmpoweredExorcisms:IsReady() and a:AffectingCombat() and t:IsInRange(8) and n.Commons.UsePotions and ((((a:BuffUp(e.SerenityBuff) or a:BuffUp(e.StormEarthAndFireBuff)) and (e.InvokeXuenTheWhiteTiger:TimeSinceLastCast() <= 24) or k.BossFilteredFightRemains("<=", 60)) and not i.GUISettings.General.HoldPotforBL) or (i.GUISettings.General.HoldPotforBL and a:BloodlustUp())) then
+        if s.PotionofEmpoweredExorcisms:IsReady() and a:AffectingCombat() and t:IsInRange(8) and n.Commons.UsePotions and ((((a:BuffUp(e.SerenityBuff) or a:BuffUp(e.StormEarthAndFireBuff)) and (e.InvokeXuenTheWhiteTiger:TimeSinceLastCast() <= 24) or q.BossFilteredFightRemains("<=", 60)) and not i.GUISettings.General.HoldPotforBL) or (i.GUISettings.General.HoldPotforBL and a:BloodlustUp())) then
             if i.CastSuggested(s.PotionofEmpoweredExorcisms) then
                 o = 32
                 return "Potion of Empowered Exorcisms 108"
@@ -2223,7 +2245,7 @@ local function y()
 
         end
 
-        if s.PotionofHardenedShadows:IsReady() and a:AffectingCombat() and t:IsInRange(8) and n.Commons.UsePotions and ((((a:BuffUp(e.SerenityBuff) or a:BuffUp(e.StormEarthAndFireBuff)) and (e.InvokeXuenTheWhiteTiger:TimeSinceLastCast() <= 24) or k.BossFilteredFightRemains("<=", 60)) and not i.GUISettings.General.HoldPotforBL) or (i.GUISettings.General.HoldPotforBL and a:BloodlustUp())) then
+        if s.PotionofHardenedShadows:IsReady() and a:AffectingCombat() and t:IsInRange(8) and n.Commons.UsePotions and ((((a:BuffUp(e.SerenityBuff) or a:BuffUp(e.StormEarthAndFireBuff)) and (e.InvokeXuenTheWhiteTiger:TimeSinceLastCast() <= 24) or q.BossFilteredFightRemains("<=", 60)) and not i.GUISettings.General.HoldPotforBL) or (i.GUISettings.General.HoldPotforBL and a:BloodlustUp())) then
             if i.CastSuggested(s.PotionofHardenedShadows) then
                 o = 32
                 return "Potion of Hardened Shadows 110"
@@ -2231,7 +2253,7 @@ local function y()
 
         end
 
-        if s.PotionofSpectralStamina:IsReady() and a:AffectingCombat() and t:IsInRange(8) and n.Commons.UsePotions and ((((a:BuffUp(e.SerenityBuff) or a:BuffUp(e.StormEarthAndFireBuff)) and (e.InvokeXuenTheWhiteTiger:TimeSinceLastCast() <= 24) or k.BossFilteredFightRemains("<=", 60)) and not i.GUISettings.General.HoldPotforBL) or (i.GUISettings.General.HoldPotforBL and a:BloodlustUp())) then
+        if s.PotionofSpectralStamina:IsReady() and a:AffectingCombat() and t:IsInRange(8) and n.Commons.UsePotions and ((((a:BuffUp(e.SerenityBuff) or a:BuffUp(e.StormEarthAndFireBuff)) and (e.InvokeXuenTheWhiteTiger:TimeSinceLastCast() <= 24) or q.BossFilteredFightRemains("<=", 60)) and not i.GUISettings.General.HoldPotforBL) or (i.GUISettings.General.HoldPotforBL and a:BloodlustUp())) then
             if i.CastSuggested(s.PotionofSpectralStamina) then
                 o = 32
                 return "Potion of Spectral Stamina 112"
@@ -2240,7 +2262,7 @@ local function y()
         end
 
         if a:BuffUp(e.SerenityBuff) and a:AffectingCombat() then
-            local e = j()
+            local e = k()
             if e then
                 return e
             end
@@ -2248,14 +2270,14 @@ local function y()
         end
 
         if a:BuffUp(e.WeaponsOfOrder) and a:AffectingCombat() then
-            local e = N()
+            local e = O()
             if e then
                 return e
             end
 
         end
 
-        if e.FaelineStomp:IsCastable() and _ and t:IsInMeleeRange(10) and (a:AffectingCombat() or M) and (h(e.FaelineStomp) and (ze or e.GroveInvigoration:SoulbindEnabled() or l < 3 and a:BuffDown(e.StormEarthAndFireBuff))) then
+        if e.FaelineStomp:IsCastable() and T and t:IsInMeleeRange(10) and (a:AffectingCombat() or M) and (h(e.FaelineStomp) and (ze or e.GroveInvigoration:SoulbindEnabled() or l < 3 and a:BuffDown(e.StormEarthAndFireBuff))) then
             if ae(e.FaelineStomp, nil) then
                 o = 327104
                 return "faeline_stomp main 6"
@@ -2263,7 +2285,7 @@ local function y()
 
         end
 
-        if (k.CombatTime() < 4 and a:Chi() < 5 and not (b)) and (a:AffectingCombat() or M) then
+        if (q.CombatTime() < 4 and a:Chi() < 5 and not (v)) and (a:AffectingCombat() or M) then
             local e = Te()
             if e then
                 return e
@@ -2309,7 +2331,7 @@ local function y()
 
         end
 
-        if e.ChiBurst:IsReady() and not a:IsMoving() and (q == 3 and e.FaelineStomp:CooldownRemains() > 25 and (a:ChiDeficit() >= 1 and l == 1 or a:ChiDeficit() >= 2 and l >= 2)) then
+        if e.ChiBurst:IsReady() and not a:IsMoving() and (x == 3 and e.FaelineStomp:CooldownRemains() > 25 and (a:ChiDeficit() >= 1 and l == 1 or a:ChiDeficit() >= 2 and l >= 2)) then
             if i.Cast(e.ChiBurst, nil, nil, not t:IsInRange(40)) then
                 o = 123986
                 return "chi_burst main 16"
