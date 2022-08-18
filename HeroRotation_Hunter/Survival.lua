@@ -230,16 +230,13 @@ end
 
 local function S(i)
                 if ((e.KillCommand:FullRechargeTime() < a:GCD() and d(e.KillCommand:ExecuteTime(), 15) and (TargetInRangePet30y)) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == f("mouseover"):GUID()) then
-        print((TargetInRangePet30y), (not PetRangeAbility))
         s = 1259489
         return true
     elseif ((e.KillCommand:FullRechargeTime() < a:GCD() and d(e.KillCommand:ExecuteTime(), 15) and (TargetInRangePet30y)) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and n.Survival.KillCommandTargetSwap == "AutoSwap" and i:GUID() ~= t:GUID() and not w) then
         s = 999
-        print((TargetInRangePet30y), (not PetRangeAbility))
         return true
     elseif ((e.KillCommand:FullRechargeTime() < a:GCD() and d(e.KillCommand:ExecuteTime(), 15) and (TargetInRangePet30y)) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == t:GUID()) then
         o = 259489
-        print((TargetInRangePet30y), (not PetRangeAbility))
         return true
     elseif (e.KillCommand:FullRechargeTime() < a:GCD() and d(e.KillCommand:ExecuteTime(), 15) and (TargetInRangePet30y)) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) then
         return true
