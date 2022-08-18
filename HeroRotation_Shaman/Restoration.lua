@@ -1,1334 +1,1699 @@
---- ============================ HEADER ============================
---- ======= LOCALIZE =======
--- Addon
-local addonName, addonTable = ...
--- HeroDBC
-local DBC        = HeroDBC.DBC
--- HeroLib
-local HL         = HeroLib
-local Cache      = HeroCache
-local Unit       = HL.Unit
-local Player     = Unit.Player
-local Pet        = Unit.Pet
-local Target     = Unit.Target
-local Spell      = HL.Spell
-local MultiSpell = HL.MultiSpell
-local Item       = HL.Item
--- HeroRotation
-local HR         = HeroRotation
-local Cast       = HR.Cast
-local AoEON      = HR.AoEON
-local CDsON      = HR.CDsON
-local CovenantsON = HeroRotationCharDB.Toggles[4]
-local SmallCDsOn = HeroRotationCharDB.Toggles[5]
-local Opener1 = HeroRotationCharDB.Toggles[6]
-local UsePots =  HeroRotationCharDB.Toggles[15]
-local StopAutoSwap = HeroRotationCharDB.Toggles[12]
-local ForceAoE = HeroRotationCharDB.Toggles[60]
-local HoldEarthEle = HeroRotationCharDB.Toggles[90] 
-local QTremorTotem = HeroRotationCharDB.Toggles[93] 
-local QWindRushTotem = HeroRotationCharDB.Toggles[94] 
-local QHex = HeroRotationCharDB.Toggles[95] 
-local UsePurge = HeroRotationCharDB.Toggles[97] 
-local HealOOC = HeroRotationCharDB.Toggles[160] 
-local OhShit = HeroRotationCharDB.Toggles[161] 
-local QCapTotem = HeroRotationCharDB.Toggles[91] 
-local QVesperTotem = HeroRotationCharDB.Toggles[92] 
-local HoldPurify = HeroRotationCharDB.Toggles[163] 
-local QPurify = HeroRotationCharDB.Toggles[164]
-local StopDPS = HeroRotationCharDB.Toggles[165]
-local StopHeal = HeroRotationCharDB.Toggles[166]
-
-local QuakingR = 0
-
--- Lua
-local mathmin    = math.min
-
---- ============================ CONTENT ============================
---- ======= APL LOCALS =======
-
--- Define S/I for spell and item arrays
-local S = Spell.Shaman.Restoration
-local I = Item.Shaman.Restoration
-
-local PSCastable = S.PurifySpirit:IsCastable()
-
-
--- Trinket Item Objects
-local equip = Player:GetEquipment()
-local trinket1 = Item(0)
-local trinket2 = Item(0)
---Trinket Detection
-local TopTrinketID,_ = GetInventoryItemID("player", 13)
-local BotTrinketID,_ = GetInventoryItemID("player", 14)
-
--- Create table to exclude above trinkets from On Use function
-local OnUseExcludes = {
-}
-
-
--- GUI Settings
-local Everyone = HR.Commons.Everyone
-local Shaman = HR.Commons.Shaman
-local Settings = {
-  General = HR.GUISettings.General,
-  Commons = HR.GUISettings.APL.Shaman.Commons,
-  Restoration = HR.GUISettings.APL.Shaman.Restoration,
-  RestorationM = HR.GUISettings.APL.Shaman.RestorationM,
-  RestorationR = HR.GUISettings.APL.Shaman.RestorationR
-}
-
-
-HL:RegisterForEvent(function()
-  S.LavaBurst:RegisterInFlight()
+local e, e = ...
+local e = HeroDBC.DBC
+local z = HeroLib
+local e = HeroCache
+local t = z.Unit
+local s = t.Player
+local e = t.Pet
+local h = t.Target
+local m = z.Spell
+local e = z.MultiSpell
+local a = z.Item
+local n = HeroRotation
+local o = n.Cast
+local J = n.AoEON
+local ne = n.CDsON
+local T = HeroRotationCharDB.Toggles[4]
+local pe = HeroRotationCharDB.Toggles[5]
+local N = HeroRotationCharDB.Toggles[6]
+local ve = HeroRotationCharDB.Toggles[15]
+local X = HeroRotationCharDB.Toggles[12]
+local ie = HeroRotationCharDB.Toggles[60]
+local ge = HeroRotationCharDB.Toggles[90]
+local Q = HeroRotationCharDB.Toggles[93]
+local B = HeroRotationCharDB.Toggles[94]
+local V = HeroRotationCharDB.Toggles[95]
+local ce = HeroRotationCharDB.Toggles[97]
+local de = HeroRotationCharDB.Toggles[160]
+local oe = HeroRotationCharDB.Toggles[161]
+local Z = HeroRotationCharDB.Toggles[91]
+local G = HeroRotationCharDB.Toggles[92]
+local L = HeroRotationCharDB.Toggles[163]
+local K = HeroRotationCharDB.Toggles[164]
+local g = HeroRotationCharDB.Toggles[165]
+local _ = HeroRotationCharDB.Toggles[166]
+local ae = 0
+local e = math.min
+local e = m.Shaman.Restoration
+local i = a.Shaman.Restoration
+local re = e.PurifySpirit:IsCastable()
+local i = s:GetEquipment()
+local i = a(0)
+local a = a(0)
+local W, a = GetInventoryItemID("player", 13)
+local M, a = GetInventoryItemID("player", 14)
+local F = {  }
+local w = n.Commons.Everyone
+local a = n.Commons.Shaman
+local i = { General = n.GUISettings.General, Commons = n.GUISettings.APL.Shaman.Commons, Restoration = n.GUISettings.APL.Shaman.Restoration, RestorationM = n.GUISettings.APL.Shaman.RestorationM, RestorationR = n.GUISettings.APL.Shaman.RestorationR }
+z:RegisterForEvent(function()
+    e.LavaBurst:RegisterInFlight()
 end, "LEARNED_SPELL_IN_TAB")
-S.LavaBurst:RegisterInFlight()
-
-local function num(val)
-  if val then return 1 else return 0 end
-end
-
-local function bool(val)
-  return val ~= 0
-end
-
--- These variables are rotational modifiers parameters.
-local NumEnemiesInCombat
-local NumEnemiesInLargestCluster
-local ActiveFlameshocks
-local RefreshableFlameshocks
-local FightTimeRemaining
-local CoreUnitInLargestCluster
-local BestFlameshockUnit
-local SplashedEnemiesTable
-local LowestHealthFriendPercentage = 1.0
-local LowestHealthGUID = nil
-local LowestHealthIndex = 0
-local SwapTimer = 0
-local VesperDMG = 0
-local VesperHeal = 0
-local VesperUp = false
-local VesperPlaced = false
-local CounterTimer = 0
-local CounterTimerH = 0
-local MidnightGUID, MidnightTime, MidnightName
-local currentspell, currentspelltarget, missedunit
-local BlacklistTable = {}
-
-local ShamanCBT = false
-local ShamanHoldCBT = false
-local ShamanCBTPop = false
-local HoldWellspring = false
-local WellspringPop = false
-local HoldHealingRain = false
-local ShouldCancel = false
-
--- local BuffsTable = {
-	-- Buffs = {}
-	-- Debuffs = {
-		-- UnitGUID = {}
-		-- DebuffSpellID = {}
-	-- }
--- }
-	
-HL:RegisterForEvent(function()
-  VesperPlaced = false
-end, "PLAYER_REGEN_ENABLED")
-
-HL:RegisterForEvent(function(self, ...)
-	if self == "CHAT_MSG_YELL" then
-		local text, playerName, languageName, channelName, playerName2, specialFlags, zoneChannelID, channelIndex, channelBaseName, languageID, lineID, guid, bnSenderID, isMobile, isSubtitle, hideSenderInLetterbox, supressRaidIcons = ...
-		if text == "DISPEL ME(auto)" then
-			MidnightGUID = guid
-			MidnightTime = GetTime()
-			MidnightName = playerName
-		 end	
-	end
-end, "CHAT_MSG_YELL")
-
-HL:RegisterForEvent(function(self, ...)
-	local arg1, arg2, arg3, arg4 = ...
-	if self == "UNIT_SPELLCAST_SENT" then
-		if arg1 == "player" and arg2 then
-			currentspell = arg4
-			currentspelltarget = arg2
-		end
-	end
-	if self == "UI_ERROR_MESSAGE" then
-		if arg2 == SPELL_FAILED_LINE_OF_SIGHT then
-			missedunit = currentspelltarget
-			missedspell = currentspell
-		end
-	end
-end, "UI_ERROR_MESSAGE", "UNIT_SPELLCAST_SENT")
-
--- HL:RegisterForCombatEvent(function(timestamp, subevent, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellid, spellname, _, spelltype)
-	-- if subevent = "SPELL_AURA_APPLIED" then
-		
--- end, "SPELL_AURA_APPLIED", "SPELL_AURA_REMOVED")
-
-local function FindUnitFor(who, unitname)
-  local i, size
-  if not unitname then
-	  -- second parameter ("true" on these) indicates whether or not
-	  -- to give names qualified with -servername for players from
-	  -- other servers
-	  if GetUnitName("player", true) == who then return UnitGUID("player") end
-	  if GetUnitName("target", true) == who then return Unit("target"):GUID() end
-	  if GetUnitName("focus", true) == who then return UnitGUID("focus") end
-
-	  size = GetNumGroupMembers()
-	  if size > 0 and size <= 5 then
-		for i=1, size do
-		  if GetUnitName("party"..i, true) == who then return UnitGUID("party"..i) end
-		end
-	  end
-	  if size > 5 then
-		for i=1, size do
-		  if GetUnitName("raid"..i, true) == who then return UnitGUID("raid"..i) end
-		end
-	  end
-  else
-	  if GetUnitName("player", true) == who then return "player" end
-	  if GetUnitName("target", true) == who then return "target" end
-	  if GetUnitName("focus", true) == who then return "focus" end
-
-	  size = GetNumGroupMembers()
-	  if size > 0 and size <= 5 then
-		for i=1, size do
-		  if GetUnitName("party"..i, true) == who then return "party"..i end
-		end
-	  end
-	  if size > 5 then
-		for i=1, size do
-		  if GetUnitName("raid"..i, true) == who then return "raid"..i end
-		end
-	  end
-  end
-	
-  -- couldn't find a unit, just return what we were passed
-  return who
-end
-
-local function Blacklist()
-	-- add new unit
-	if missedunit then
-		table.insert(BlacklistTable, (FindUnitFor(missedunit) .. " " .. GetTime()))
-		missedunit = nil
-	end
-	
-	if table.getn(BlacklistTable) > 0 then
-		for i=1, table.getn(BlacklistTable) do
-			if BlacklistTable[i] ~= nil then
-				for w in string.gmatch(BlacklistTable[i], "([^%s]+)") do
-					w = tonumber(w)
-					if type(w) == "number" then
-						if w <= GetTime() - 3 then
-							table.remove(BlacklistTable, i)
-						end
-					end
-				end
-			end
-		end
-	end
-	
-	-- if table.getn(BlacklistTable) > 0 then
-	   -- for i=1, table.getn(BlacklistTable) do
-		  -- for w in string.gmatch(BlacklistTable[i], "([^%s]+)") do
-			 -- if tonumber(w) ~= nil then
-				-- w = tonumber(w)
-			 -- end
-			 -- if type(w) == "string" then
-				-- HR.Nameplate.AddIcon(w, S.Pool)
-			 -- end
-		  -- end
-	   -- end
-	-- end	
-end
-
-local function UnitIsBlackListed(unit)
-	if table.getn(BlacklistTable) > 0 and unit ~= nil then
-	   for i=1, table.getn(BlacklistTable) do
-		  for w in string.gmatch(BlacklistTable[i], "([^%s]+)") do
-			 if w and w == Unit(unit):GUID() then
-				return true
-			 end
-		  end
-	   end
-	else
-		return false
-	end
-end
-
-local function HealingAbsorb(unit)
-	if (Unit(unit):BuffUp(Spell(365153))) then
-		for i=1,40 do
-			if select(10, UnitBuff(unit, i)) == 365153 then
-				return select(16, UnitBuff(unit, i))
-			end
-		end
-	else
-		return 0
-	end
-end
-				
-local Enemies8yMelee, Enemies30y, Enemies40y, Enemies10ySplash
-
-local MOshouldcast = 0
-local shouldcast = 0
-local shouldcastfocus = 0
-
-local function num(val)
-  if val then return 1 else return 0 end
-end
-
-local function EvaluateTargetIfFilterFlameShock100(TargetUnit)
-  return TargetUnit:DebuffRemains(S.FlameShockDebuff)
-end
-
-local function EvaluateTargetIfFilterBlacklist(TargetUnit)
-  return UnitIsBlackListed(TargetUnit)
-end
-
-local function EvaluateTargetIfFlameShock108(TargetUnit)
-	if (TargetUnit:DebuffDown(S.FlameShockDebuff) and TargetUnit:IsInRange(40) and (TargetUnit:AffectingCombat() or TargetUnit:IsDummy() or TargetUnit:NPCID() == 153285 or TargetUnit:NPCID() == 168326) and TargetUnit:GUID() == Unit("mouseover"):GUID()) then
-  		MOshouldcast = 1188389
-		return true
-	elseif (TargetUnit:DebuffDown(S.FlameShockDebuff) and TargetUnit:IsInRange(40) and (TargetUnit:AffectingCombat() or TargetUnit:IsDummy() or TargetUnit:NPCID() == 153285 or TargetUnit:NPCID() == 168326) and Settings.Restoration.TargetSwap == "AutoSwap" and TargetUnit:GUID() ~= Target:GUID() and not StopAutoSwap) then
-  		MOshouldcast = 999
-		return true
-	elseif (TargetUnit:DebuffDown(S.FlameShockDebuff)  and TargetUnit:IsInRange(40)  and (TargetUnit:AffectingCombat() or TargetUnit:IsDummy() or TargetUnit:NPCID() == 153285 or TargetUnit:NPCID() == 168326) and TargetUnit:GUID() == Target:GUID()) then
-  		shouldcast = 188389
-		return true
-	elseif TargetUnit:DebuffDown(S.FlameShockDebuff) and TargetUnit:IsInRange(40) and (TargetUnit:AffectingCombat() or TargetUnit:IsDummy() or TargetUnit:NPCID() == 153285 or TargetUnit:NPCID() == 168326) then
-		return true
-	end
-end
-
-local function EvaluateTargetIfBlacklist(TargetUnit)
-	return (TargetUnit:IsInRange(40) and UnitIsBlackListed(TargetUnit) and (TargetUnit:AffectingCombat() or TargetUnit:IsDummy() or TargetUnit:NPCID() == 153285 or TargetUnit:NPCID() == 168326))
-end
-
-local function VesperCounter()
-	VesperUp = false
-	for i = 1, 6 do
-		local _, _, _, _, textureid = GetTotemInfo(i)
-		if textureid == 3565451 then
-			VesperUp = true
-		end
-	end
-	
-	if not VesperUp then
-		VesperDMG = 0
-		VesperHeal = 0
-	end
-	
-	if (S.VesperTotem:TimeSinceLastCast() <= 0.5 or S.RecallVesperTotem:TimeSinceLastCast() <= 0.5) and VesperUp then
-		VesperDMG = 3
-		VesperHeal = 3
-		VesperPlaced = true
-	end
-	
-	if (S.LavaBurst:TimeSinceLastCast() <= 0.5 or S.ChainLightning:TimeSinceLastCast() <= 0.5 or S.LightningBolt:TimeSinceLastCast() <= 0.5) and CounterTimer <= GetTime() and VesperUp then
-		VesperDMG = VesperDMG - 1
-		CounterTimer = GetTime() + 0.66
-	end
-	if (S.EarthShield:TimeSinceLastCast() <= 0.5 or S.Riptide:TimeSinceLastCast() <= 0.5 or S.ChainHeal:TimeSinceLastCast() <= 0.5 or S.HealingSurge:TimeSinceLastCast() <= 0.5 or S.HealingStreamTotem:TimeSinceLastCast() <= 0.5
-	or S.CloudBurstTotem:TimeSinceLastCast() <= 0.5 or S.HealingWave:TimeSinceLastCast() <= 0.5 or S.HealingRain:TimeSinceLastCast() <= 0.5) and CounterTimerH <= GetTime() and VesperUp then
-		VesperHeal = VesperDMG - 1
-		CounterTimerH = GetTime() + 0.66
-	end
-end
-
-local function UnitsRefreshFS(enemies)
-  local RefreshFSCount = 0
-    if enemies ~= nil then
-	  for k in pairs(enemies) do
-		local CycleUnit = enemies[k]
-		if CycleUnit:DebuffRefreshable(S.FlameShockDebuff) and CycleUnit:TimeToDie() > 18 then
-		  RefreshFSCount = RefreshFSCount + 1
-		end
-	end
-  end
-  return RefreshFSCount
-end
-
-local function StewardCheck()
-	local PhialStacks = false
-	local itemID = 0
-	for i = 0, NUM_BAG_SLOTS do
-		for j = 1, GetContainerNumSlots(i) do
-			itemID = GetContainerItemID(i, j)
-			if itemID == 177278 then
-				PhialStacks = true
-			end
-		end
-	end
-	return PhialStacks
-end
-			
-local function MembersUnderX(percentage)
-	if percentage == nil then
-		return nil
-	end	
-	percentage = percentage / 100
-
-	
-
-	local unitsunder = 0
-	if GetNumGroupMembers() > 0 and GetNumGroupMembers() <= 5 then
-		for i= 1, GetNumGroupMembers() do
-			if UnitExists("party"..i) and not Unit("party"..i):IsDeadOrGhost() and Unit("party"..i):DebuffDown(Spell(228578)) then
-				local CurrentHealthXP = UnitHealth("party"..i) + (UnitGetIncomingHeals("party"..i) or 0) - HealingAbsorb("party"..i)
-				local TotalHealthXP = UnitHealthMax("party"..i)
-				if CurrentHealthXP / TotalHealthXP <= percentage or (UnitHealth("party"..i) / TotalHealthXP == 1 and percentage == 1) then
-					unitsunder = unitsunder + 1
-				end
-			end
-		end
-		if (((UnitHealth("player") + (UnitGetIncomingHeals("player") or 0)) / UnitHealthMax("player")) < percentage or (UnitHealth("player") / UnitHealthMax("player") == 1 and percentage == 1)) then
-			unitsunder = unitsunder + 1
-		end	
-	end
-	if GetNumGroupMembers() > 5 then
-		for i= 1, GetNumGroupMembers() do
-			if UnitExists("raid"..i) and  not UnitIsDead("raid"..i) and Unit("raid"..i):DebuffDown(Spell(362075)) and Unit("raid"..i):DebuffDown(Spell(362397)) and Unit("raid"..i):DebuffDown(Spell(191587)) then
-				local healabsorb = 0
-				local CurrentHealthXR = UnitHealth("raid"..i) + (UnitGetIncomingHeals("raid"..i) or 0) - HealingAbsorb("raid"..i)
-				local TotalHealthXR = UnitHealthMax("raid"..i)
-				if CurrentHealthXR / TotalHealthXR <= percentage then
-					unitsunder = unitsunder + 1
-				end
-			end
-		end
-	end
-	if GetNumGroupMembers() == 0 then
-		local CurrentHealthXS = UnitHealth("player") + (UnitGetIncomingHeals("player") or 0) - HealingAbsorb("player")
-		local TotalHealthXS = UnitHealthMax("player")
-		if CurrentHealthXS / TotalHealthXS < percentage then
-			unitsunder = unitsunder + 1
-		end
-	end 
-	return unitsunder
-end
-
-local function EarthShieldUp()
-	local ShieldUp = false
-	if GetNumGroupMembers() > 0 and GetNumGroupMembers() <= 5 then
-		for i= 1, GetNumGroupMembers() do
-			for j=0, 40 do
-				local _, _, _, _, _, _, source1, _, _, spellId1 = UnitBuff("party"..i, j)
-				if source1 == "player" and spellId1 == 974 then
-					ShieldUp = true
-				end
-			end
-		end
-	end
-	if GetNumGroupMembers() > 5 then
-		for i= 1, GetNumGroupMembers() do
-			for j=0, 40 do
-				local _, _, _, _, _, _, source1, _, _, spellId1 = UnitBuff("raid"..i, j)
-				if source1 == "player" and spellId1 == 974 then
-					ShieldUp = true
-				end
-			end
-		end
-	end
-	return ShieldUp
-end
-
-local function EarthShieldUpOn(unit)
-	local ShieldUpOn = false
-	for j=0, GetNumGroupMembers() do
-		local _, _, _, _, _, _, source1, _, _, spellId1 = UnitBuff(unit, j)
-		if source1 == "player" and spellId1 == 974 then
-			ShieldUpOn = true
-		end
-	end
-	return ShieldUpOn
-end
-
-local function CloudBurstHP()
-	local value = 0
-	if Player:BuffUp(Spell(157504)) then
-		for i=1,40 do
-			if select(10, UnitBuff("player", i)) == 157504 then
-				value = select(16, UnitBuff("player", i))
-			end
-		end
-	end
-	return value
-end
-
-local function IsMoving()
-	if Player:IsMoving() and not Player:BuffUp(S.SpiritwalkersGraceBuff) then
-		return true
-	else
-		return false
-	end
-end
-
--- We keep track of total enemies in combat, as well as a bunch of parameters around the encounter.
-local function BattlefieldSnapshot()
-  FightTimeRemaining = 0
-  LowestHealthFriendPercentage = 1.0
-  LowestHealthGUID = nil
-  LowestHealthIndex = 0
-
-    -- Update FightTimeRemaining
-    if not Target:TimeToDieIsNotValid() and not Target:IsUserCycleBlacklisted() then
-      FightTimeRemaining = Target:TimeToDie()
+e.LavaBurst:RegisterInFlight()
+local function a(e)
+    if e then
+        return 1
+    else
+        return 0
     end
 
-	if GetNumGroupMembers() > 0 and GetNumGroupMembers() <= 5 then
-		if (UnitGUID("focus") == Unit("party"..(shouldcastfocus/100)):GUID() or not UnitExists("party"..(shouldcastfocus/100))) and shouldcastfocus ~= 500 then	
-			shouldcastfocus = 0
-		end
-		if UnitGUID("focus") == UnitGUID("player") and shouldcastfocus == 500 then	
-			shouldcastfocus = 0
-		end
-	end
-	if GetNumGroupMembers() > 5 then
-		if UnitGUID("focus") == Unit("raid"..(shouldcastfocus/1000)):GUID() or not UnitExists("raid"..(shouldcastfocus/1000)) then	
-			shouldcastfocus = 0
-		end
-	end	
-
-  PSCastable = S.PurifySpirit:IsCastable()
-  if GetNumGroupMembers() > 0 and not StopHeal then
-	if GetNumGroupMembers() > 0 and GetNumGroupMembers() <= 5 then
-		for i= 1, GetNumGroupMembers() do
-			if UnitExists("party"..i) and not Unit("party"..i):IsDeadOrGhost() and Unit("party"..i):IsInRange(40) and not UnitIsBlackListed("party"..i) and Unit("party"..i):DebuffDown(Spell(228578)) then
-				local CurrentHealthP = UnitHealth("party"..i) + (UnitGetIncomingHeals("party"..i) or 0) - HealingAbsorb("party"..i)
-				local TotalHealthP = UnitHealthMax("party"..i)
-				if  (CurrentHealthP / TotalHealthP) - (0) < LowestHealthFriendPercentage and CurrentHealthP / TotalHealthP < Settings.RestorationM.DPSThreshold and SwapTimer <= GetTime() then
-					LowestHealthFriendPercentage = (CurrentHealthP / TotalHealthP) - (0)
-					LowestHealthGUID = UnitGUID("party"..i)
-					LowestHealthIndex = i
-				end		
-			end
-		end
-		if ((UnitHealth("player") + (UnitGetIncomingHeals("player") or 0)) / UnitHealthMax("player")) - (0) < LowestHealthFriendPercentage and SwapTimer <= GetTime() and Unit("player"):DebuffDown(Spell(228578)) then
-			LowestHealthFriendPercentage = ((UnitHealth("player") + (UnitGetIncomingHeals("player") or 0)) / UnitHealthMax("player")) - (0)
-			LowestHealthGUID = UnitGUID("player")
-			LowestHealthIndex = 5
-		end
-		if LowestHealthFriendPercentage >= 0.5 then
-			if S.PurifySpirit:IsCastable() and not HoldPurify then
-				for i = 1, GetNumGroupMembers() do
-					if UnitExists("party"..i) and not Unit("party"..i):IsDeadOrGhost() and Unit("party"..i):IsInRange(40) and not UnitIsBlackListed("party"..i) and Unit("party"..i):DebuffDown(Spell(228578)) then
-						for j= 1, 40 do
-							local name, icon, count, dispelType, duration, expirationTime, source, isStealable, nameplateShowPersonal,spellId, canApplyAura, isBossDebuff, castByPlayer, nameplateShowAll, timeMod = UnitDebuff("party"..i, j)
-							if (dispelType == "Curse" or dispelType == "Magic") then
-								if spellId ~= 320788 and ((spellId ~= 323347) or (spellId == 323347 and count >= 2)) and spellId ~= 350469 and spellId ~= 350541 and spellId ~= 351117 and spellId ~= 229159 and spellId ~= 227404 then
-									if (expirationTime - duration) + (Settings.Restoration.PurifyDelay/1000) <= GetTime() and SwapTimer <= GetTime() then
-										LowestHealthGUID = UnitGUID("party"..i)
-										LowestHealthIndex = i
-									elseif spellId == 227404 and MidnightGUID and MidnightGUID == UnitGUID("party"..i) then
-										LowestHealthGUID = UnitGUID("party"..i)
-										LowestHealthIndex = i
-									end
-								end
-							end
-						end
-					end
-				end
-				if not Unit("player"):IsDeadOrGhost() and Unit("player"):DebuffDown(Spell(228578)) then
-					for i= 1, 40 do
-						local name, icon, count, dispelType, duration, expirationTime, source, isStealable, nameplateShowPersonal,spellId, canApplyAura, isBossDebuff, castByPlayer, nameplateShowAll, timeMod = UnitDebuff("player", i)
-						if (dispelType == "Curse" or dispelType == "Magic") and spellId ~= 320788 and ((spellId ~= 323347) or (spellId == 323347 and count >= 2)) and spellId ~= 350469 and spellId ~= 350541 and spellId ~= 351117  and spellId ~= 229159 and spellId ~= 227404 then
-							if (expirationTime - duration) + (Settings.Restoration.PurifyDelay/1000) <= GetTime() and SwapTimer <= GetTime() then
-								LowestHealthGUID = UnitGUID("player")
-								LowestHealthIndex = 5
-							end
-						end
-					end
-				end	
-			end
-		end
-	elseif GetNumGroupMembers() > 5 and SwapTimer <= GetTime() then
-		for i= 1, GetNumGroupMembers() do
-			if UnitExists("raid"..i) and not UnitIsDead("raid"..i) and IsItemInRange(17067, "raid"..i) and not UnitIsBlackListed("raid"..i) and not UnitCanAttack("player", "raid"..i) then
-				for j=1,10 do
-					local _, _, count, dispelType, duration, expirationTime, _, _, _, spellId = UnitDebuff("raid"..i, j)
-					--local _, _, countB, dispelTypeB, durationB, expirationTimeB, _, _, _, spellIdB = UnitBuff("raid"..i, debuff)
-					-- Index Setter
-					if spellId ~= 329298 then
-						local CurrentHealthR = UnitHealth("raid"..i) + (UnitGetIncomingHeals("raid"..i) or 0) - HealingAbsorb("raid"..i)
-						local TotalHealthR = UnitHealthMax("raid"..i)
-						if CurrentHealthR / TotalHealthR < LowestHealthFriendPercentage and CurrentHealthR / TotalHealthR < Settings.RestorationR.DPSThreshold then
-							LowestHealthFriendPercentage = CurrentHealthR / TotalHealthR
-							LowestHealthGUID = UnitGUID("raid"..i)
-							LowestHealthIndex = i * 10
-						end	
-					end
-					--PurifySpirit
-					if LowestHealthFriendPercentage >= 0.5 and PSCastable and not HoldPurify then
-						if (dispelType == "Curse" or dispelType == "Magic") and spellId ~= 320788 and ((spellId ~= 323347) or (spellId == 323347 and count >= 2)) and spellId ~= 350469 and spellId ~= 350541 and spellId ~= 351117 and spellId ~= 229159 then
-							if (expirationTime - duration) + (Settings.Restoration.PurifyDelay/1000) <= GetTime() then
-								LowestHealthGUID = UnitGUID("raid"..i)
-								LowestHealthIndex = i * 10
-							end
-							if UnitGUID("focus") == UnitGUID("raid"..i) and (expirationTime - duration) + (Settings.Restoration.PurifyDelay/1000) <= GetTime() and spellId ~= 227404 then
-								if spellId ~= 227404 then
-									if Cast(S.PurifySpirit) then shouldcast = 77130 return "Purify Spirit" end
-								elseif spellId == 227404 and MidnightGUID and MidnightGUID == UnitGUID("focus") then
-									if Cast(S.PurifySpirit) then shouldcast = 77130 return "Purify Spirit" end
-								end	
-							end
-						end
-					end
-				end
-				--EarthShield
-				if not UnitAffectingCombat("player") and (UnitGroupRolesAssigned("raid"..i) == "TANK") and IsItemInRange(17067, "raid"..i) and not EarthShieldUp() and LowestHealthFriendPercentage >= 0.5 then
-					if UnitGUID("raid"..i) ~= UnitGUID("focus") then
-						LowestHealthIndex = i * 10
-						LowestHealthGUID = UnitGUID("raid"..i)
-					elseif UnitGUID("raid"..i) == UnitGUID("focus") then
-						if Cast(S.EarthShield) then shouldcast = 974 return "EarthShield a Tank" end
-					end		
-				end
-				if (UnitGroupRolesAssigned("raid"..i) == "TANK") and UnitThreatSituation("raid"..i, "boss1")~= nil and UnitThreatSituation("raid"..i, "boss1") >= 3 and not EarthShieldUpOn("raid"..i) and LowestHealthFriendPercentage >= 0.5 then
-					if UnitGUID("raid"..i) ~= UnitGUID("focus") then
-						LowestHealthIndex = i * 10
-						LowestHealthGUID = UnitGUID("raid"..i)
-					elseif UnitGUID("raid"..i) == UnitGUID("focus") and not EarthShieldUpOn("focus") then
-						if Cast(S.EarthShield) then shouldcast = 974 return "EarthShield a Tank" end
-					end
-				end
-			end	
-		end
-		--Withering Seed/Anduins Hope
-		if UnitExists("target") and (Target:NPCID() == 182822 or Target:NPCID() == 184493) and Unit("target"):HealthPercentage() < 100 and Target:GUID() ~= UnitGUID("focus") and SwapTimer <= GetTime() then
-			LowestHealthGUID = Unit("target"):GUID()
-			LowestHealthIndex = 1000
-		elseif UnitExists("target") and (Target:NPCID() == 182822 or Target:NPCID() == 184493) and Unit("target"):HealthPercentage() < 100 and Target:GUID() == UnitGUID("focus") then
-			LowestHealthGUID = Unit("target"):GUID()
-			LowestHealthIndex = 0
-		end	
-	end
-		
-  elseif GetNumGroupMembers() == 0 then
-	local CurrentHealthS = UnitHealth("player") + (UnitGetIncomingHeals("player") or 0) - HealingAbsorb("player")
-	local TotalHealthS = UnitHealthMax("player")
-	if SwapTimer <= GetTime() and UnitGUID("focus") ~= UnitGUID("player") then
-		LowestHealthFriendPercentage = CurrentHealthS / TotalHealthS
-		LowestHealthGUID = UnitGUID("player")
-		if LowestHealthGUID == UnitGUID("player") and SwapTimer <= GetTime() then
-			LowestHealthIndex = 5
-		end
-	end	
-  end
-  
 end
--- Some spells aren't castable while moving or if you're currently casting them, so we handle that behavior here.
--- Additionally, lavaburst isn't castable without a charge or a proc.
-local function IsViable(spell)
-  if spell == nil or not Everyone.TargetIsValid() then
+
+local function a(e)
+    return e ~= 0
+end
+
+local a
+local a
+local a
+local a
+local he
+local a
+local a
+local a
+local y = 1.
+local r = nil
+local c = 0
+local f = 0
+local l = 0
+local p = 0
+local j = false
+local H = false
+local R = 0
+local C = 0
+local x, P, se
+local u, a, d
+local v = {  }
+local b = false
+local A = false
+local O = false
+local I = false
+local S = false
+local E = false
+local D = false
+z:RegisterForEvent(function()
+    H = false
+end, "PLAYER_REGEN_ENABLED")
+z:RegisterForEvent(function(e, ...)
+    if e == "CHAT_MSG_YELL" then
+        local t, a, o, o, o, o, o, o, o, o, o, e, o, o, o, o, o = ...
+        if t == "DISPEL ME(auto)" then
+            x = e
+            P = GetTime()
+            se = a
+        end
+
+    end
+
+end, "CHAT_MSG_YELL")
+z:RegisterForEvent(function(t, ...)
+    local i, e, n, o = ...
+    if t == "UNIT_SPELLCAST_SENT" then
+        if i == "player" and e then
+            u = o
+            a = e
+        end
+
+    end
+
+    if t == "UI_ERROR_MESSAGE" then
+        if e == SPELL_FAILED_LINE_OF_SIGHT then
+            d = a
+            missedspell = u
+        end
+
+    end
+
+end, "UI_ERROR_MESSAGE", "UNIT_SPELLCAST_SENT")
+local function le(a, o)
+    local i, e
+    if not o then
+        if GetUnitName("player", true) == a then
+            return UnitGUID("player")
+        end
+
+        if GetUnitName("target", true) == a then
+            return t("target"):GUID()
+        end
+
+        if GetUnitName("focus", true) == a then
+            return UnitGUID("focus")
+        end
+
+        e = GetNumGroupMembers()
+        if e > 0 and e <= 5 then
+            for e = 1, e do
+                if GetUnitName("party" .. e, true) == a then
+                    return UnitGUID("party" .. e)
+                end
+
+            end
+
+        end
+
+        if e > 5 then
+            for e = 1, e do
+                if GetUnitName("raid" .. e, true) == a then
+                    return UnitGUID("raid" .. e)
+                end
+
+            end
+
+        end
+
+    else
+        if GetUnitName("player", true) == a then
+            return "player"
+        end
+
+        if GetUnitName("target", true) == a then
+            return "target"
+        end
+
+        if GetUnitName("focus", true) == a then
+            return "focus"
+        end
+
+        e = GetNumGroupMembers()
+        if e > 0 and e <= 5 then
+            for e = 1, e do
+                if GetUnitName("party" .. e, true) == a then
+                    return "party" .. e
+                end
+
+            end
+
+        end
+
+        if e > 5 then
+            for e = 1, e do
+                if GetUnitName("raid" .. e, true) == a then
+                    return "raid" .. e
+                end
+
+            end
+
+        end
+
+    end
+
+    return a
+end
+
+local function me()
+    if d then
+        table.insert(v, (le(d) .. " " .. GetTime()))
+        d = nil
+    end
+
+    if table.getn(v) > 0 then
+        for t = 1, table.getn(v) do
+            if v[t] ~= nil then
+                for e in string.gmatch(v[t], "([^%s]+)") do
+                    e = tonumber(e)
+                    if type(e) == "number" then
+                        if e <= GetTime() - 3 then
+                            table.remove(v, t)
+                        end
+
+                    end
+
+                end
+
+            end
+
+        end
+
+    end
+
+end
+
+local function d(e)
+    if table.getn(v) > 0 and e ~= nil then
+        for a = 1, table.getn(v) do
+            for a in string.gmatch(v[a], "([^%s]+)") do
+                if a and a == t(e):GUID() then
+                    return true
+                end
+
+            end
+
+        end
+
+    else
+        return false
+    end
+
+end
+
+local function q(e)
+    if (t(e):BuffUp(m(365153))) then
+        for t = 1, 40 do
+            if select(10, UnitBuff(e, t)) == 365153 then
+                return select(16, UnitBuff(e, t))
+            end
+
+        end
+
+    else
+        return 0
+    end
+
+end
+
+local a, a, U, a
+local k = 0
+local a = 0
+local u = 0
+local function Y(e)
+    if e then
+        return 1
+    else
+        return 0
+    end
+
+end
+
+local function ee(t)
+    return t:DebuffRemains(e.FlameShockDebuff)
+end
+
+local function Y(e)
+    return d(e)
+end
+
+local function te(o)
+                if (o:DebuffDown(e.FlameShockDebuff) and o:IsInRange(40) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285 or o:NPCID() == 168326) and o:GUID() == t("mouseover"):GUID()) then
+        k = 1188389
+        return true
+    elseif (o:DebuffDown(e.FlameShockDebuff) and o:IsInRange(40) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285 or o:NPCID() == 168326) and i.Restoration.TargetSwap == "AutoSwap" and o:GUID() ~= h:GUID() and not X) then
+        k = 999
+        return true
+    elseif (o:DebuffDown(e.FlameShockDebuff) and o:IsInRange(40) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285 or o:NPCID() == 168326) and o:GUID() == h:GUID()) then
+        a = 188389
+        return true
+    elseif o:DebuffDown(e.FlameShockDebuff) and o:IsInRange(40) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285 or o:NPCID() == 168326) then
+        return true
+    end
+
+end
+
+local function Y(e)
+    return (e:IsInRange(40) and d(e) and (e:AffectingCombat() or e:IsDummy() or e:NPCID() == 153285 or e:NPCID() == 168326))
+end
+
+local function ye()
+    j = false
+    for e = 1, 6 do
+        local t, t, t, t, e = GetTotemInfo(e)
+        if e == 3565451 then
+            j = true
+        end
+
+    end
+
+    if not j then
+        l = 0
+        p = 0
+    end
+
+    if (e.VesperTotem:TimeSinceLastCast() <= .5 or e.RecallVesperTotem:TimeSinceLastCast() <= .5) and j then
+        l = 3
+        p = 3
+        H = true
+    end
+
+    if (e.LavaBurst:TimeSinceLastCast() <= .5 or e.ChainLightning:TimeSinceLastCast() <= .5 or e.LightningBolt:TimeSinceLastCast() <= .5) and R <= GetTime() and j then
+        l = l - 1
+        R = GetTime() + .66
+    end
+
+    if (e.EarthShield:TimeSinceLastCast() <= .5 or e.Riptide:TimeSinceLastCast() <= .5 or e.ChainHeal:TimeSinceLastCast() <= .5 or e.HealingSurge:TimeSinceLastCast() <= .5 or e.HealingStreamTotem:TimeSinceLastCast() <= .5 or e.CloudBurstTotem:TimeSinceLastCast() <= .5 or e.HealingWave:TimeSinceLastCast() <= .5 or e.HealingRain:TimeSinceLastCast() <= .5) and C <= GetTime() and j then
+        p = l - 1
+        C = GetTime() + .66
+    end
+
+end
+
+local function be(t)
+    local a = 0
+    if t ~= nil then
+        for o in pairs(t) do
+            local t = t[o]
+            if t:DebuffRefreshable(e.FlameShockDebuff) and t:TimeToDie() > 18 then
+                a = a + 1
+            end
+
+        end
+
+    end
+
+    return a
+end
+
+local function ue()
+    local e = false
+    local a = 0
+    for t = 0, NUM_BAG_SLOTS do
+        for o = 1, GetContainerNumSlots(t) do
+            a = GetContainerItemID(t, o)
+            if a == 177278 then
+                e = true
+            end
+
+        end
+
+    end
+
+    return e
+end
+
+local function p(o)
+    if o == nil then
+        return nil
+    end
+
+    o = o / 100
+    local e = 0
+    if GetNumGroupMembers() > 0 and GetNumGroupMembers() <= 5 then
+        for a = 1, GetNumGroupMembers() do
+            if UnitExists("party" .. a) and not t("party" .. a):IsDeadOrGhost() and t("party" .. a):DebuffDown(m(228578)) then
+                local i = UnitHealth("party" .. a) + (UnitGetIncomingHeals("party" .. a) or 0) - q("party" .. a)
+                local t = UnitHealthMax("party" .. a)
+                if i / t <= o or (UnitHealth("party" .. a) / t == 1 and o == 1) then
+                    e = e + 1
+                end
+
+            end
+
+        end
+
+        if (((UnitHealth("player") + (UnitGetIncomingHeals("player") or 0)) / UnitHealthMax("player")) < o or (UnitHealth("player") / UnitHealthMax("player") == 1 and o == 1)) then
+            e = e + 1
+        end
+
+    end
+
+    if GetNumGroupMembers() > 5 then
+        for a = 1, GetNumGroupMembers() do
+            if UnitExists("raid" .. a) and not UnitIsDead("raid" .. a) and t("raid" .. a):DebuffDown(m(362075)) and t("raid" .. a):DebuffDown(m(362397)) and t("raid" .. a):DebuffDown(m(191587)) then
+                local t = 0
+                local i = UnitHealth("raid" .. a) + (UnitGetIncomingHeals("raid" .. a) or 0) - q("raid" .. a)
+                local t = UnitHealthMax("raid" .. a)
+                if i / t <= o then
+                    e = e + 1
+                end
+
+            end
+
+        end
+
+    end
+
+    if GetNumGroupMembers() == 0 then
+        local a = UnitHealth("player") + (UnitGetIncomingHeals("player") or 0) - q("player")
+        local t = UnitHealthMax("player")
+        if a / t < o then
+            e = e + 1
+        end
+
+    end
+
+    return e
+end
+
+local function Y()
+    local e = false
+    if GetNumGroupMembers() > 0 and GetNumGroupMembers() <= 5 then
+        for a = 1, GetNumGroupMembers() do
+            for t = 0, 40 do
+                local o, o, o, o, o, o, t, o, o, a = UnitBuff("party" .. a, t)
+                if t == "player" and a == 974 then
+                    e = true
+                end
+
+            end
+
+        end
+
+    end
+
+    if GetNumGroupMembers() > 5 then
+        for a = 1, GetNumGroupMembers() do
+            for t = 0, 40 do
+                local o, o, o, o, o, o, t, o, o, a = UnitBuff("raid" .. a, t)
+                if t == "player" and a == 974 then
+                    e = true
+                end
+
+            end
+
+        end
+
+    end
+
+    return e
+end
+
+local function C(t)
+    local e = false
+    for a = 0, GetNumGroupMembers() do
+        local o, o, o, o, o, o, a, o, o, t = UnitBuff(t, a)
+        if a == "player" and t == 974 then
+            e = true
+        end
+
+    end
+
+    return e
+end
+
+local function R()
+    local t = 0
+    if s:BuffUp(m(157504)) then
+        for e = 1, 40 do
+            if select(10, UnitBuff("player", e)) == 157504 then
+                t = select(16, UnitBuff("player", e))
+            end
+
+        end
+
+    end
+
+    return t
+end
+
+local function l()
+    if s:IsMoving() and not s:BuffUp(e.SpiritwalkersGraceBuff) then
+        return true
+    else
+        return false
+    end
+
+end
+
+local function fe()
+    he = 0
+    y = 1.
+    r = nil
+    c = 0
+    if not h:TimeToDieIsNotValid() and not h:IsUserCycleBlacklisted() then
+        he = h:TimeToDie()
+    end
+
+    if GetNumGroupMembers() > 0 and GetNumGroupMembers() <= 5 then
+        if (UnitGUID("focus") == t("party" .. (u / 100)):GUID() or not UnitExists("party" .. (u / 100))) and u ~= 500 then
+            u = 0
+        end
+
+        if UnitGUID("focus") == UnitGUID("player") and u == 500 then
+            u = 0
+        end
+
+    end
+
+    if GetNumGroupMembers() > 5 then
+        if UnitGUID("focus") == t("raid" .. (u / 1000)):GUID() or not UnitExists("raid" .. (u / 1000)) then
+            u = 0
+        end
+
+    end
+
+    re = e.PurifySpirit:IsCastable()
+        if GetNumGroupMembers() > 0 and not _ then
+                if GetNumGroupMembers() > 0 and GetNumGroupMembers() <= 5 then
+            for e = 1, GetNumGroupMembers() do
+                if UnitExists("party" .. e) and not t("party" .. e):IsDeadOrGhost() and t("party" .. e):IsInRange(40) and not d("party" .. e) and t("party" .. e):DebuffDown(m(228578)) then
+                    local a = UnitHealth("party" .. e) + (UnitGetIncomingHeals("party" .. e) or 0) - q("party" .. e)
+                    local t = UnitHealthMax("party" .. e)
+                    if (a / t) - (0) < y and a / t < i.RestorationM.DPSThreshold and f <= GetTime() then
+                        y = (a / t) - (0)
+                        r = UnitGUID("party" .. e)
+                        c = e
+                    end
+
+                end
+
+            end
+
+            if ((UnitHealth("player") + (UnitGetIncomingHeals("player") or 0)) / UnitHealthMax("player")) - (0) < y and f <= GetTime() and t("player"):DebuffDown(m(228578)) then
+                y = ((UnitHealth("player") + (UnitGetIncomingHeals("player") or 0)) / UnitHealthMax("player")) - (0)
+                r = UnitGUID("player")
+                c = 5
+            end
+
+            if y >= .5 then
+                if e.PurifySpirit:IsCastable() and not L then
+                    for e = 1, GetNumGroupMembers() do
+                        if UnitExists("party" .. e) and not t("party" .. e):IsDeadOrGhost() and t("party" .. e):IsInRange(40) and not d("party" .. e) and t("party" .. e):DebuffDown(m(228578)) then
+                            for t = 1, 40 do
+                                local h, h, n, a, s, o, h, h, h, t, h, h, h, h, h = UnitDebuff("party" .. e, t)
+                                if (a == "Curse" or a == "Magic") then
+                                    if t ~= 320788 and ((t ~= 323347) or (t == 323347 and n >= 2)) and t ~= 350469 and t ~= 350541 and t ~= 351117 and t ~= 229159 and t ~= 227404 then
+                                                                                if (o - s) + (i.Restoration.PurifyDelay / 1000) <= GetTime() and f <= GetTime() then
+                                            r = UnitGUID("party" .. e)
+                                            c = e
+                                        elseif t == 227404 and x and x == UnitGUID("party" .. e) then
+                                            r = UnitGUID("party" .. e)
+                                            c = e
+                                        end
+
+                                    end
+
+                                end
+
+                            end
+
+                        end
+
+                    end
+
+                    if not t("player"):IsDeadOrGhost() and t("player"):DebuffDown(m(228578)) then
+                        for e = 1, 40 do
+                            local s, s, a, t, o, n, s, s, s, e, s, s, s, s, s = UnitDebuff("player", e)
+                            if (t == "Curse" or t == "Magic") and e ~= 320788 and ((e ~= 323347) or (e == 323347 and a >= 2)) and e ~= 350469 and e ~= 350541 and e ~= 351117 and e ~= 229159 and e ~= 227404 then
+                                if (n - o) + (i.Restoration.PurifyDelay / 1000) <= GetTime() and f <= GetTime() then
+                                    r = UnitGUID("player")
+                                    c = 5
+                                end
+
+                            end
+
+                        end
+
+                    end
+
+                end
+
+            end
+
+        elseif GetNumGroupMembers() > 5 and f <= GetTime() then
+            for t = 1, GetNumGroupMembers() do
+                if UnitExists("raid" .. t) and not UnitIsDead("raid" .. t) and IsItemInRange(17067, "raid" .. t) and not d("raid" .. t) and not UnitCanAttack("player", "raid" .. t) then
+                    for n = 1, 10 do
+                        local u, u, l, s, d, h, u, u, u, n = UnitDebuff("raid" .. t, n)
+                        if n ~= 329298 then
+                            local a = UnitHealth("raid" .. t) + (UnitGetIncomingHeals("raid" .. t) or 0) - q("raid" .. t)
+                            local e = UnitHealthMax("raid" .. t)
+                            if a / e < y and a / e < i.RestorationR.DPSThreshold then
+                                y = a / e
+                                r = UnitGUID("raid" .. t)
+                                c = t * 10
+                            end
+
+                        end
+
+                        if y >= .5 and re and not L then
+                            if (s == "Curse" or s == "Magic") and n ~= 320788 and ((n ~= 323347) or (n == 323347 and l >= 2)) and n ~= 350469 and n ~= 350541 and n ~= 351117 and n ~= 229159 then
+                                if (h - d) + (i.Restoration.PurifyDelay / 1000) <= GetTime() then
+                                    r = UnitGUID("raid" .. t)
+                                    c = t * 10
+                                end
+
+                                if UnitGUID("focus") == UnitGUID("raid" .. t) and (h - d) + (i.Restoration.PurifyDelay / 1000) <= GetTime() and n ~= 227404 then
+                                                                        if n ~= 227404 then
+                                        if o(e.PurifySpirit) then
+                                            a = 77130
+                                            return "Purify Spirit"
+                                        end
+
+                                    elseif n == 227404 and x and x == UnitGUID("focus") then
+                                        if o(e.PurifySpirit) then
+                                            a = 77130
+                                            return "Purify Spirit"
+                                        end
+
+                                    end
+
+                                end
+
+                            end
+
+                        end
+
+                    end
+
+                    if not UnitAffectingCombat("player") and (UnitGroupRolesAssigned("raid" .. t) == "TANK") and IsItemInRange(17067, "raid" .. t) and not Y() and y >= .5 then
+                                                if UnitGUID("raid" .. t) ~= UnitGUID("focus") then
+                            c = t * 10
+                            r = UnitGUID("raid" .. t)
+                        elseif UnitGUID("raid" .. t) == UnitGUID("focus") then
+                            if o(e.EarthShield) then
+                                a = 974
+                                return "EarthShield a Tank"
+                            end
+
+                        end
+
+                    end
+
+                    if (UnitGroupRolesAssigned("raid" .. t) == "TANK") and UnitThreatSituation("raid" .. t, "boss1") ~= nil and UnitThreatSituation("raid" .. t, "boss1") >= 3 and not C("raid" .. t) and y >= .5 then
+                                                if UnitGUID("raid" .. t) ~= UnitGUID("focus") then
+                            c = t * 10
+                            r = UnitGUID("raid" .. t)
+                        elseif UnitGUID("raid" .. t) == UnitGUID("focus") and not C("focus") then
+                            if o(e.EarthShield) then
+                                a = 974
+                                return "EarthShield a Tank"
+                            end
+
+                        end
+
+                    end
+
+                end
+
+            end
+
+                        if UnitExists("target") and (h:NPCID() == 182822 or h:NPCID() == 184493) and t("target"):HealthPercentage() < 100 and h:GUID() ~= UnitGUID("focus") and f <= GetTime() then
+                r = t("target"):GUID()
+                c = 1000
+            elseif UnitExists("target") and (h:NPCID() == 182822 or h:NPCID() == 184493) and t("target"):HealthPercentage() < 100 and h:GUID() == UnitGUID("focus") then
+                r = t("target"):GUID()
+                c = 0
+            end
+
+        end
+
+    elseif GetNumGroupMembers() == 0 then
+        local t = UnitHealth("player") + (UnitGetIncomingHeals("player") or 0) - q("player")
+        local e = UnitHealthMax("player")
+        if f <= GetTime() and UnitGUID("focus") ~= UnitGUID("player") then
+            y = t / e
+            r = UnitGUID("player")
+            if r == UnitGUID("player") and f <= GetTime() then
+                c = 5
+            end
+
+        end
+
+    end
+
+end
+
+local function q(t)
+    if t == nil or not w.TargetIsValid() then
+        return nil
+    end
+
+    local a = t:IsCastable() and t:IsReady()
+    local o = (s:BuffUp(e.SpiritwalkersGraceBuff) or not s:IsMoving())
+                if t == e.LightningBolt or t == e.ChainLightning or t == e.HealingRain or t == e.HealingWave or t == e.HealingSurge or t == e.Wellspring then
+        return a and o
+    elseif t == e.VesperTotem then
+        return a
+    elseif t == e.LavaBurst then
+        local n = s:BuffUp(e.LavaSurgeBuff)
+        local i = (not s:IsCasting(e.LavaBurst) and e.LavaBurst:Charges() >= 1)
+        local t = (s:IsCasting(e.LavaBurst) and e.LavaBurst:Charges() == 2)
+        return a and (o or s:BuffUp(e.LavaSurgeBuff)) and (n or i or t)
+    elseif w.TargetIsValid() then
+        return a
+    end
+
+end
+
+local function he()
+    if GetNumGroupMembers() > 0 then
+        if s:BuffDown(e.WaterShield) and e.WaterShield:IsCastable() then
+            if o(e.WaterShield) then
+                a = 52127
+                return "Water Shield Self"
+            end
+
+        end
+
+        if r and UnitGUID("focus") ~= r and f <= GetTime() and not _ then
+            u = c * 100
+            if r == UnitGUID("focus") then
+                f = GetTime() + (s:GCD() + .25)
+            end
+
+        end
+
+        if e.EarthShield:IsCastable() and h:NPCID() ~= 182822 then
+            if GetNumGroupMembers() > 0 and GetNumGroupMembers() <= 5 and y >= .5 then
+                for i = 1, GetNumGroupMembers() do
+                    if (UnitGroupRolesAssigned("party" .. i) == "TANK" or t("party" .. i):NPCID() == 72218) and not UnitCanAttack("player", "party" .. i) and not d("party" .. i) and t("party" .. i):IsInMeleeRange(40) and not Y() and f <= GetTime() and p(80) == 0 then
+                                                if UnitGUID("party" .. i) ~= UnitGUID("focus") and t("party" .. i):IsInMeleeRange(40) and not t("party" .. i):IsDeadOrGhost() then
+                            c = i
+                            r = UnitGUID("party" .. i)
+                        elseif UnitGUID("party" .. i) == UnitGUID("focus") and t("focus"):IsInMeleeRange(40) and not t("party" .. i):IsDeadOrGhost() and not UnitCanAttack("player", "party" .. i) then
+                            if o(e.EarthShield) then
+                                a = 974
+                                return "EarthShield a Tank"
+                            end
+
+                        end
+
+                    end
+
+                end
+
+            end
+
+            if GetNumGroupMembers() > 5 then
+                for i = 1, GetNumGroupMembers() do
+                    if (UnitGroupRolesAssigned("raid" .. i) == "TANK") and IsItemInRange(17067, "raid" .. i) and not UnitCanAttack("player", "raid" .. i) and not d("raid" .. i) and not Y() and f <= GetTime() and not UnitAffectingCombat("player") then
+                                                if UnitGUID("raid" .. i) ~= UnitGUID("focus") and IsItemInRange(17067, "raid" .. i) and not UnitIsDead("raid" .. i) then
+                            c = i * 10
+                            r = UnitGUID("raid" .. i)
+                        elseif UnitGUID("raid" .. i) == UnitGUID("focus") and t("focus"):IsInMeleeRange(40) and not UnitIsDead("raid" .. i) and not UnitAffectingCombat("player") and not UnitCanAttack("player", "raid" .. i) then
+                            if o(e.EarthShield) then
+                                a = 974
+                                return "EarthShield a Tank"
+                            end
+
+                        end
+
+                    end
+
+                    if (UnitGroupRolesAssigned("raid" .. i) == "TANK") and UnitThreatSituation("raid" .. i, "boss1") ~= nil and UnitThreatSituation("raid" .. i, "boss1") >= 3 and IsItemInRange(17067, "raid" .. i) and not d("raid" .. i) and not C("raid" .. i) and not UnitIsDead("raid" .. i) and not UnitCanAttack("player", "raid" .. i) then
+                                                if UnitGUID("raid" .. i) ~= UnitGUID("focus") and f <= GetTime() then
+                            c = i * 10
+                            r = UnitGUID("raid" .. i)
+                        elseif UnitGUID("raid" .. i) == UnitGUID("focus") and not C("focus") then
+                            if o(e.EarthShield) then
+                                a = 974
+                                return "EarthShield a Tank"
+                            end
+
+                        end
+
+                    end
+
+                end
+
+            end
+
+        end
+
+    else
+        if s:BuffDown(e.LightningShieldBuff) then
+            if o(e.LightningShield) then
+                a = 192106
+                return "Lightning Shield Self"
+            end
+
+        end
+
+    end
+
+    if e.SummonSteward:IsCastable() and not ue() and not UnitAffectingCombat("player") then
+        if o(e.SummonSteward, nil, nil) then
+            a = 324739
+            return "Precombat SummonSteward"
+        end
+
+    end
+
+    if q(e.Fleshcraft) and w.TargetIsValid() and T and N and not UnitAffectingCombat("player") then
+        if o(e.Fleshcraft, nil, nil) then
+            a = 324631
+            return "Precombat Fleshcraft"
+        end
+
+    end
+
+    if not g and EnemiesCount10ySplash >= 3 and not d("target") and w.TargetIsValid() and N and not UnitAffectingCombat("player") and q(e.ChainLightning) and not s:IsCasting(e.ChainLightning) then
+        if o(e.ChainLightning, nil, nil, not h:IsSpellInRange(e.ChainLightning)) then
+            a = 188443
+            return "Precombat Chain Lightning"
+        end
+
+    end
+
+    if not g and q(e.LavaBurst) and not d("target") and w.TargetIsValid() and N and not UnitAffectingCombat("player") and not s:IsCasting(e.LavaBurst) then
+        if o(e.LavaBurst, nil, nil, not h:IsSpellInRange(e.LavaBurst)) then
+            a = 51505
+            return "Precombat Lavaburst"
+        end
+
+    end
+
+    if not g and s:IsCasting(e.LavaBurst) and not d("target") and w.TargetIsValid() and N and not UnitAffectingCombat("player") and e.FlameShock:CooldownRemains() == 0 then
+        if o(e.FlameShock, nil, nil, not h:IsSpellInRange(e.FlameShock)) then
+            return "Precombat Flameshock"
+        end
+
+    end
+
+end
+
+local function re()
+    if UnitExists("focus") and not UnitCanAttack("player", "focus") then
+        if t("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and e.CloudBurstTotem:IsCastable() and e.CloudBurstTotem:IsAvailable() and not l() then
+            if o(e.CloudBurstTotem) then
+                a = 157153
+                return "CloudBurst Totem before Ascendance"
+            end
+
+        end
+
+        if t("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and e.Ascendance:IsAvailable() and e.Ascendance:IsCastable() and (e.HealingTideTotem:TimeSinceLastCast() > 10 and e.SpiritLinkTotem:TimeSinceLastCast() > 6) then
+            if o(e.Ascendance) then
+                a = 114050
+                return "Oh S**** Ascendance"
+            end
+
+        end
+
+        if t("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and e.SpiritLinkTotem:IsAvailable() and e.SpiritLinkTotem:IsCastable() and (e.HealingTideTotem:TimeSinceLastCast() > 10 and e.Ascendance:TimeSinceLastCast() > 15) then
+            if o(e.SpiritLinkTotem) then
+                a = 98008
+                return "Oh S**** SpiritLinkTotem"
+            end
+
+        end
+
+        if t("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and e.HealingTideTotem:IsAvailable() and e.HealingTideTotem:IsCastable() and (e.SpiritLinkTotem:TimeSinceLastCast() > 6 and e.Ascendance:TimeSinceLastCast() > 15) then
+            if o(e.HealingTideTotem) then
+                a = 108280
+                return "Oh S**** HealingTideTotem"
+            end
+
+        end
+
+    end
+
+end
+
+local function we()
+    local t = s:GetUseableTrinkets(F)
+    if t and ne() then
+        if o(t, nil, nil) then
+                        if t:ID() == W and i.Commons.Enabled.TopTrinket then
+                a = 24
+                return "top trinket 1"
+            elseif t:ID() == M and i.Commons.Enabled.BottomTrinket then
+                a = 30
+                return "Bot trinket 2"
+            end
+
+        end
+
+    end
+
+    if e.ChainHarvest:IsCastable() and not l() and T then
+        if o(e.ChainHarvest, nil, nil) then
+            a = 320674
+            return "Chain Harvest CD"
+        end
+
+    end
+
+    if ((e.VesperTotem:IsCastable() and T) or (j and not H and e.RecallVesperTotem:IsReady())) then
+        if o(e.VesperTotem, nil, nil) then
+            a = 324386
+            return "Vesper Totem CD"
+        end
+
+    end
+
+end
+
+local function ue()
+    if EnemiesCount10ySplash >= 3 then
+        return 0
+    end
+
+    return EnemiesCount10ySplash
+end
+
+local function C()
+    if q(e.FlameShock) and w.TargetIsValid() then
+        if w.CastTargetIf(e.FlameShock, U, "min", ee, te) then
+            return "Flame Shock 108"
+        end
+
+        if ee(h) and te(h) then
+            if o(e.FlameShock, nil, nil, not h:IsSpellInRange(e.FlameShock)) then
+                a = 188389
+                return "FlameShock 108"
+            end
+
+        end
+
+    end
+
+end
+
+local function Y()
+        if q(e.LavaBurst) and w.TargetIsValid() and not d("target") then
+        a = 51505
+        return e.LavaBurst, false
+    elseif q(e.LightningBolt) and w.TargetIsValid() and not d("target") then
+        a = 188196
+        return e.LightningBolt, true
+    end
+
+    return nil, false
+end
+
+local function ee()
+        if q(e.LavaBurst) and w.TargetIsValid() and not d("target") and (EnemiesCount10ySplash < 3) then
+        a = 51505
+        return e.LavaBurst, true
+    elseif q(e.ChainLightning) and w.TargetIsValid() and not d("target") then
+        a = 188443
+        return e.ChainLightning, true
+    end
+
+    return nil, false
+end
+
+local function y()
+    if GetNumGroupMembers() > 0 then
+        if GetNumGroupMembers() > 0 and GetNumGroupMembers() <= 5 then
+            if D and not s:IsCasting(e.Wellspring) then
+                a = 1999
+            end
+
+            if t("focus"):IsInMeleeRange(40) and e.RecallCloudburstTotem:IsCastable() and not b and R() >= 10000 and (O) then
+                if o(e.RecallCloudburstTotem) then
+                    a = 201764
+                    return "CloudBurst Release under %"
+                end
+
+            end
+
+            if t("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and not A and b and e.CloudBurstTotem:IsCastable() and e.CloudBurstTotem:IsAvailable() then
+                if o(e.CloudBurstTotem) then
+                    a = 157153
+                    return "CloudBurst Totem under %"
+                end
+
+            end
+
+            if t("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and not l() and UnitAffectingCombat("player") and e.Wellspring:IsReady() and not I and (S) then
+                if o(e.Wellspring) then
+                    a = 197995
+                    return "Wellspring under %"
+                end
+
+            end
+
+            if e.PurifySpirit:IsCastable() and UnitExists("focus") and not UnitCanAttack("player", "focus") and not d("focus") and not L and t("focus"):IsInRange(40) and t("focus"):DebuffDown(m(362075)) and t("focus"):DebuffDown(m(362397)) and t("focus"):DebuffDown(m(191587)) and t("focus"):DebuffDown(m(228578)) then
+                for t = 1, 40 do
+                    local d, d, r, n, h, s, d, d, d, t, d, d, d, d, d = UnitDebuff("focus", t)
+                    if (n == "Curse" or n == "Magic") and t ~= 320788 and ((t ~= 323347) or (t == 323347 and r >= 2)) and t ~= 350469 and t ~= 350541 and t ~= 351117 and t ~= 229159 and t ~= 227404 then
+                                                if (s - h) + (i.Restoration.PurifyDelay / 1000) <= GetTime() then
+                            if o(e.PurifySpirit) then
+                                a = 77130
+                                return "Purify Spirit"
+                            end
+
+                        elseif t == 227404 and x and x == UnitGUID("focus") then
+                            if o(e.PurifySpirit) then
+                                a = 77130
+                                return "Purify Spirit"
+                            end
+
+                        end
+
+                    end
+
+                end
+
+            end
+
+            if (UnitExists("focus") and not UnitCanAttack("player", "focus") and not d("focus") and (p(i.RestorationM.DPSThreshold) > 0)) then
+                if h:IsInMeleeRange(40) and UnitAffectingCombat("player") and T and (e.VesperTotem:IsCastable() or (j and not H and e.RecallVesperTotem:IsReady())) then
+                    if o(e.VesperTotem) then
+                        a = 324386
+                        return "Vesper Totem Heal"
+                    end
+
+                end
+
+                if h:IsInMeleeRange(40) and UnitAffectingCombat("player") and T and e.ChainHarvest:IsCastable() then
+                    if o(e.ChainHarvest, nil, nil) then
+                        a = 320674
+                        return "Chain Harvest Heal"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and e.RecallCloudburstTotem:IsCastable() and not b and R() >= 10000 and (p(i.RestorationM.CloudburstReleaseHP) >= i.RestorationM.CloudburstReleaseParty or not UnitAffectingCombat("player") or O) then
+                    if o(e.RecallCloudburstTotem) then
+                        a = 201764
+                        return "CloudBurst Release under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and (t("focus"):HealthPercentage() <= i.RestorationM.HealingStreamHP or b) and not A and e.CloudBurstTotem:IsCastable() and e.CloudBurstTotem:IsAvailable() and ((e.CloudBurstTotem:Charges() >= 2 and not l()) or b) then
+                    if o(e.CloudBurstTotem) then
+                        a = 157153
+                        return "CloudBurst Totem under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and t("focus"):HealthPercentage() <= i.RestorationM.RiptideHP and e.Riptide:IsCastable() then
+                    if o(e.Riptide) then
+                        a = 61295
+                        return "Riptide under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and e.UnleashLife:IsReady() and t("focus"):HealthPercentage() <= i.RestorationM.UnleashLifeHP then
+                    if o(e.UnleashLife) then
+                        a = 73685
+                        return "UnleashLife under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and not l() and UnitAffectingCombat("player") and e.Wellspring:IsReady() and not I and (t("focus"):HealthPercentage() <= i.RestorationM.WellspringHP or S) then
+                    if o(e.Wellspring) then
+                        a = 197995
+                        return "Wellspring under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and ((t("focus"):HealthPercentage() <= i.RestorationM.HealingSurgeHP2 and s:BuffStack(e.TidalWaves) >= 1) or (t("focus"):HealthPercentage() <= i.RestorationM.HealingSurgeHP)) and e.HealingSurge:IsCastable() and not l() then
+                    if o(e.HealingSurge) then
+                        a = 8004
+                        return "Healing Surge under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and ((t("focus"):HealthPercentage() <= i.RestorationM.HealingWaveHP2 and s:BuffStack(e.TidalWaves) >= 1) or (t("focus"):HealthPercentage() <= i.RestorationM.HealingWaveHP)) and e.HealingWave:IsCastable() and not l() then
+                    if o(e.HealingWave) then
+                        a = 77472
+                        return "Healing Wave under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and not l() and e.EarthenWallTotem:IsReady() and not E and p(i.RestorationM.EarthenWallTotemHP) >= i.RestorationM.EarthenWallTotemParty and UnitAffectingCombat("player") then
+                    if o(e.EarthenWallTotem) then
+                        a = 198838
+                        return "EarthenWallTotem under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and e.ChainHeal:IsCastable() and not l() and p(i.RestorationM.ChainHealHP) >= i.RestorationM.ChainHealParty then
+                    if o(e.ChainHeal) then
+                        a = 1064
+                        return "Chain Heal under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and e.HealingRain:IsCastable() and not E and not s:IsCasting(e.HealingRain) and not l() and p(i.RestorationM.HealingRainHP) >= i.RestorationM.HealingRainParty then
+                    if o(e.HealingRain) then
+                        a = 73920
+                        return "Healing Rain under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and t("focus"):HealthPercentage() <= i.RestorationM.HealingStreamHP and e.HealingStreamTotem:IsCastable() and not e.CloudBurstTotem:IsAvailable() and not l() then
+                    if o(e.HealingStreamTotem) then
+                        a = 5394
+                        return "Healing Stream Totem under %"
+                    end
+
+                end
+
+            end
+
+            if t("focus"):IsInMeleeRange(40) and i.RestorationM.RainIgnoreCheck and UnitAffectingCombat("player") and e.HealingRain:IsCastable() and not E and z.FightRemains(U, false) > 10 and p(i.RestorationM.DPSThreshold) <= 0 and not s:IsCasting(e.HealingRain) and not l() and p(i.RestorationM.HealingRainHP) >= i.RestorationM.HealingRainParty then
+                if o(e.HealingRain) then
+                    a = 73920
+                    return "Healing Rain under % 1"
+                end
+
+            end
+
+        end
+
+        if GetNumGroupMembers() > 5 then
+            if D and not s:IsCasting(e.Wellspring) then
+                a = 1999
+            end
+
+            if t("focus"):IsInMeleeRange(40) and e.RecallCloudburstTotem:IsCastable() and not b and R() >= 10000 and (O) then
+                if o(e.RecallCloudburstTotem) then
+                    a = 201764
+                    return "CloudBurst Release DBM"
+                end
+
+            end
+
+            if t("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and not A and b and e.CloudBurstTotem:IsCastable() and e.CloudBurstTotem:IsAvailable() then
+                if o(e.CloudBurstTotem) then
+                    a = 157153
+                    return "CloudBurst Totem DBM"
+                end
+
+            end
+
+            if t("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and not l() and UnitAffectingCombat("player") and e.Wellspring:IsReady() and not I and (S) then
+                if o(e.Wellspring) then
+                    a = 197995
+                    return "Wellspring DBM"
+                end
+
+            end
+
+            if UnitExists("focus") and not UnitCanAttack("player", "focus") and not d("focus") and (p(i.RestorationR.DPSThreshold) > 0 or not UnitExists("target") or not UnitAffectingCombat("player")) then
+                if h:IsInMeleeRange(40) and T and (e.VesperTotem:IsReady() or (j and not H and e.RecallVesperTotem:IsReady())) then
+                    if o(e.VesperTotem) then
+                        a = 324386
+                        return "Vesper Totem"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and e.RecallCloudburstTotem:IsReady() and R() >= 10000 and not b and ((p(i.RestorationR.CloudburstReleaseHP) >= i.RestorationR.CloudburstReleaseRaid) or not UnitAffectingCombat("player") or O) then
+                    if o(e.RecallCloudburstTotem) then
+                        a = 201764
+                        return "CloudBurst Release under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and t("focus"):HealthPercentage() <= i.RestorationR.RiptideHP and e.Riptide:IsReady() then
+                    if o(e.Riptide) then
+                        a = 61295
+                        return "Riptide under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and e.HealingRain:IsReady() and not E and not E and not s:IsCasting(e.HealingRain) and not l() and p(i.RestorationR.HealingRainHP) >= i.RestorationR.HealingRainRaid then
+                    if o(e.HealingRain) then
+                        a = 73920
+                        return "Healing Rain under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and e.UnleashLife:IsReady() and t("focus"):HealthPercentage() <= i.RestorationR.UnleashLifeHP then
+                    if o(e.UnleashLife) then
+                        a = 73685
+                        return "UnleashLife under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and not l() and UnitAffectingCombat("player") and e.Wellspring:IsReady() and not I and (t("focus"):HealthPercentage() <= i.RestorationR.WellspringHP or S) then
+                    if o(e.Wellspring) then
+                        a = 197995
+                        return "Wellspring under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and not A and (t("focus"):HealthPercentage() <= i.RestorationR.HealingStreamHP or b) and e.CloudBurstTotem:IsReady() and e.CloudBurstTotem:IsAvailable() and ((e.CloudBurstTotem:Charges() >= 2 and not l()) or b) then
+                    if o(e.CloudBurstTotem) then
+                        a = 157153
+                        return "CloudBurst Totem under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and t("focus"):HealthPercentage() <= i.RestorationR.HealingStreamHP and e.HealingStreamTotem:IsReady() and not e.CloudBurstTotem:IsAvailable() and not l() then
+                    if o(e.HealingStreamTotem) then
+                        a = 5394
+                        return "Healing Stream Totem under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and e.EarthenWallTotem:IsReady() and not E and p(i.RestorationR.EarthenWallTotemHP) >= i.RestorationR.EarthenWallTotemRaid and UnitAffectingCombat("player") then
+                    if o(e.EarthenWallTotem) then
+                        a = 198838
+                        return "EarthenWallTotem under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and e.ChainHeal:IsReady() and not l() and p(i.RestorationR.ChainHealHP) >= i.RestorationR.ChainHealRaid then
+                    if o(e.ChainHeal) then
+                        a = 1064
+                        return "Chain Heal under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and ((t("focus"):HealthPercentage() <= i.RestorationR.HealingSurgeHP2 and s:BuffStack(e.TidalWaves) >= 1) or (t("focus"):HealthPercentage() <= i.RestorationR.HealingSurgeHP)) and e.HealingSurge:IsReady() and not l() then
+                    if o(e.HealingSurge) then
+                        a = 8004
+                        return "Healing Surge under %"
+                    end
+
+                end
+
+                if t("focus"):IsInMeleeRange(40) and ((t("focus"):HealthPercentage() <= i.RestorationR.HealingWaveHP2 and s:BuffStack(e.TidalWaves) >= 1) or (t("focus"):HealthPercentage() <= i.RestorationR.HealingWaveHP)) and e.HealingWave:IsReady() and not l() then
+                    if o(e.HealingWave) then
+                        a = 77472
+                        return "Healing Wave under %"
+                    end
+
+                end
+
+            end
+
+        end
+
+    else
+        if s:BuffDown(e.LightningShieldBuff) then
+            if o(e.LightningShield) then
+                a = 192106
+                return "Lightning Shield Self"
+            end
+
+        end
+
+    end
+
+end
+
+local function p()
+    local t
+    if GetNumGroupMembers() > 0 and not _ then
+        t = y()
+        if t then
+            return t
+        end
+
+    end
+
+    if GetNumGroupMembers() > 5 and not _ then
+        t = y()
+        if t then
+            return t
+        end
+
+    end
+
+    if be(U) < ue() and not g then
+        t = C()
+        if t then
+            return t
+        end
+
+    end
+
+    local i, n = nil, false
+    if not g then
+        if EnemiesCount10ySplash < 2 then
+            i, n = Y()
+        else
+            i, n = ee()
+        end
+
+    end
+
+    if i ~= nil and q(i) and w.TargetIsValid() and not d("target") and not g then
+        if o(i) then
+            return "Building Maelstrom with optimal Builder (AOE)"
+        end
+
+    end
+
+    if i == nil and w.TargetIsValid() and not d("target") and not g then
+        t = C()
+        if t then
+            return "Refreshing Flame Shock because we cannot build or spend"
+        end
+
+        if o(e.FrostShock) then
+            a = 196840
+            return "Casting Frost Shock because we cannot build or spend or refresh flame shock"
+        end
+
+    end
+
     return nil
-  end
-  local BaseCheck = spell:IsCastable() and spell:IsReady()
-  local MovementPredicate = (Player:BuffUp(S.SpiritwalkersGraceBuff) or not Player:IsMoving())
-  if spell == S.LightningBolt or 
-     spell == S.ChainLightning or 
-     spell == S.HealingRain or
-     spell == S.HealingWave or 
-     spell == S.HealingSurge or 
-     spell == S.Wellspring  then
-    return BaseCheck and MovementPredicate
-  elseif spell == S.VesperTotem then
-	return BaseCheck
-  elseif spell == S.LavaBurst then
-    local a = Player:BuffUp(S.LavaSurgeBuff)
-    local b = (not Player:IsCasting(S.LavaBurst) and S.LavaBurst:Charges() >= 1)
-    local c = (Player:IsCasting(S.LavaBurst) and S.LavaBurst:Charges() == 2)
-    return BaseCheck and (MovementPredicate or Player:BuffUp(S.LavaSurgeBuff)) and (a or b or c)
-  elseif Everyone.TargetIsValid() then
-    return BaseCheck
-  end
 end
 
-local function Precombat()
-	if GetNumGroupMembers() > 0 then
-		-- Water Shield on us
-		if Player:BuffDown(S.WaterShield) and S.WaterShield:IsCastable() then
-			if Cast(S.WaterShield) then shouldcast = 52127 return "Water Shield Self" end
-		end			
-		-- Target (@focus) lowest HP party member
-		if LowestHealthGUID and UnitGUID("focus") ~= LowestHealthGUID and SwapTimer <= GetTime() and not StopHeal then
-			shouldcastfocus = LowestHealthIndex * 100
-			if LowestHealthGUID == UnitGUID("focus") then
-				SwapTimer = GetTime() + (Player:GCD() + 0.25)
-			end
-		end
-		if S.EarthShield:IsCastable() and Target:NPCID() ~= 182822 then
-			if GetNumGroupMembers() > 0 and GetNumGroupMembers() <= 5 and LowestHealthFriendPercentage >= 0.5 then	
-				for i= 1, GetNumGroupMembers() do
-					if (UnitGroupRolesAssigned("party"..i) == "TANK" or Unit("party"..i):NPCID() == 72218) and not UnitCanAttack("player", "party"..i) and not UnitIsBlackListed("party"..i) and Unit("party"..i):IsInMeleeRange(40) and not EarthShieldUp() and SwapTimer <= GetTime() and MembersUnderX(80) == 0 then
-						if UnitGUID("party"..i) ~= UnitGUID("focus") and Unit("party"..i):IsInMeleeRange(40) and not Unit("party"..i):IsDeadOrGhost() then
-							LowestHealthIndex = i
-							LowestHealthGUID = UnitGUID("party"..i)
-						elseif UnitGUID("party"..i) == UnitGUID("focus") and Unit("focus"):IsInMeleeRange(40) and not Unit("party"..i):IsDeadOrGhost() and not UnitCanAttack("player", "party"..i) then
-							if Cast(S.EarthShield) then shouldcast = 974 return "EarthShield a Tank" end
-						end
-					end
-				end
-			end
-			if GetNumGroupMembers() > 5 then	
-				for i= 1, GetNumGroupMembers() do
-					if (UnitGroupRolesAssigned("raid"..i) == "TANK") and IsItemInRange(17067, "raid"..i) and not UnitCanAttack("player", "raid"..i) and not UnitIsBlackListed("raid"..i) and not EarthShieldUp() and SwapTimer <= GetTime() and not UnitAffectingCombat("player") then
-						if UnitGUID("raid"..i) ~= UnitGUID("focus") and IsItemInRange(17067, "raid"..i) and not UnitIsDead("raid"..i) then
-							LowestHealthIndex = i * 10
-							LowestHealthGUID = UnitGUID("raid"..i)
-						elseif UnitGUID("raid"..i) == UnitGUID("focus") and Unit("focus"):IsInMeleeRange(40) and not UnitIsDead("raid"..i) and not UnitAffectingCombat("player") and not UnitCanAttack("player", "raid"..i) then
-							if Cast(S.EarthShield) then shouldcast = 974 return "EarthShield a Tank" end
-						end
-					end
-					
-					if (UnitGroupRolesAssigned("raid"..i) == "TANK") and UnitThreatSituation("raid"..i, "boss1")~= nil and UnitThreatSituation("raid"..i, "boss1") >= 3 and IsItemInRange(17067, "raid"..i) and not UnitIsBlackListed("raid"..i) and not EarthShieldUpOn("raid"..i) and not UnitIsDead("raid"..i)  and not UnitCanAttack("player", "raid"..i) then
-						if UnitGUID("raid"..i) ~= UnitGUID("focus") and SwapTimer <= GetTime() then
-							LowestHealthIndex = i * 10
-							LowestHealthGUID = UnitGUID("raid"..i)
-						elseif UnitGUID("raid"..i) == UnitGUID("focus") and not EarthShieldUpOn("focus") then
-							if Cast(S.EarthShield) then shouldcast = 974 return "EarthShield a Tank" end
-						end
-					end
-					
-				end
-			end			
-		end		
-	else
-		if Player:BuffDown(S.LightningShieldBuff) then
-			if Cast(S.LightningShield) then shouldcast = 192106 return "Lightning Shield Self" end
-		end
-	end
+local function j()
+    N = HeroRotationCharDB.Toggles[6]
+    T = HeroRotationCharDB.Toggles[4]
+    pe = HeroRotationCharDB.Toggles[5]
+    X = HeroRotationCharDB.Toggles[12]
+    ve = HeroRotationCharDB.Toggles[15]
+    ie = HeroRotationCharDB.Toggles[60]
+    ne = n.CDsON
+    ge = HeroRotationCharDB.Toggles[90]
+    Q = HeroRotationCharDB.Toggles[93]
+    B = HeroRotationCharDB.Toggles[94]
+    V = HeroRotationCharDB.Toggles[95]
+    ce = HeroRotationCharDB.Toggles[97]
+    de = HeroRotationCharDB.Toggles[160]
+    oe = HeroRotationCharDB.Toggles[161]
+    Z = HeroRotationCharDB.Toggles[91]
+    G = HeroRotationCharDB.Toggles[162]
+    L = HeroRotationCharDB.Toggles[163]
+    K = HeroRotationCharDB.Toggles[164]
+    g = HeroRotationCharDB.Toggles[165]
+    _ = HeroRotationCharDB.Toggles[166]
+    b, O, A, I, S, E, D = nil, nil, nil, nil, nil, nil, nil
+    c = 0
+    ae = 0
+    for e = 1, 20 do
+        if select(10, UnitDebuff("player", e)) == 240447 then
+            if select(6, UnitDebuff("player", e)) ~= nil then
+                ae = (select(6, UnitDebuff("player", e)) - (GetTime()))
+            end
 
-  if S.SummonSteward:IsCastable() and not StewardCheck() and not UnitAffectingCombat("player") then
-    if Cast(S.SummonSteward, nil, nil) then shouldcast = 324739 return "Precombat SummonSteward" end
-  end
-  				
-  if IsViable(S.Fleshcraft) and Everyone.TargetIsValid() and CovenantsON and Opener1 and not UnitAffectingCombat("player") then
-    if Cast(S.Fleshcraft, nil, nil) then shouldcast = 324631 return "Precombat Fleshcraft" end
-  end
-  if not StopDPS and EnemiesCount10ySplash >= 3 and not UnitIsBlackListed("target") and Everyone.TargetIsValid() and Opener1 and not UnitAffectingCombat("player") and IsViable(S.ChainLightning) and not Player:IsCasting(S.ChainLightning) then
-    if Cast(S.ChainLightning, nil, nil, not Target:IsSpellInRange(S.ChainLightning)) then shouldcast = 188443 return "Precombat Chain Lightning" end
-  end
-  if not StopDPS and IsViable(S.LavaBurst) and not UnitIsBlackListed("target") and Everyone.TargetIsValid() and Opener1 and not UnitAffectingCombat("player") and not Player:IsCasting(S.LavaBurst) then
-    if Cast(S.LavaBurst, nil, nil, not Target:IsSpellInRange(S.LavaBurst)) then shouldcast = 51505 return "Precombat Lavaburst" end
-  end
-  if not StopDPS and Player:IsCasting(S.LavaBurst) and not UnitIsBlackListed("target") and Everyone.TargetIsValid() and Opener1 and not UnitAffectingCombat("player") and S.FlameShock:CooldownRemains() == 0 then 
-    if Cast(S.FlameShock, nil, nil, not Target:IsSpellInRange(S.FlameShock)) then return "Precombat Flameshock" end
-  end
+        end
+
+    end
+
+    W = GetInventoryItemID("player", 13)
+    M = GetInventoryItemID("player", 14)
+            if not i.Commons.Enabled.TopTrinket and not i.Commons.Enabled.BotTrinket then
+        F = { W, M }
+    elseif not i.Commons.Enabled.TopTrinket and i.Commons.Enabled.BotTrinket then
+        F = { W }
+    elseif not i.Commons.Enabled.BotTrinket and i.Commons.Enabled.TopTrinket then
+        F = { M }
+    end
+
 end
 
-local function OhShitR()
+local function q()
+    U = s:GetEnemiesInRange(40)
+        if J() and i.Commons.AoeMode == "Conservative" then
+        EnemiesCount8ySplash = h:GetEnemiesInSplashRangeCount(8)
+        EnemiesCount10ySplash = h:GetEnemiesInSplashRangeCount(15)
+    elseif J() and i.Commons.AoeMode == "Aggresive" then
+        local a = 0
+        for e = 1, 20 do
+            local e = "nameplate" .. e
+            if UnitExists(e) then
+                if UnitCanAttack("player", e) then
+                    if (UnitCanAttack("player", e) and UnitAffectingCombat(e) and IsItemInRange(32698, e) and UnitDetailedThreatSituation("player", e) ~= nil) or t(e):IsDummy() or string.find(UnitGUID(e), 153285) or string.find(UnitGUID(e), 31146) or string.find(UnitGUID(e), 176581) or string.find(UnitGUID(e), 179124) or string.find(UnitGUID(e), 179010) or string.find(UnitGUID(e), 180323) or string.find(UnitGUID(e), 179010) or string.find(UnitGUID(e), 179942) or string.find(UnitGUID(e), 176521) or string.find(UnitGUID(e), 177594) or string.find(UnitGUID(e), 177117) or string.find(UnitGUID(e), 176581) or string.find(UnitGUID(e), 180840) or string.find(UnitGUID(e), 176605) or UnitName(e) == "Glacial Spike" or string.find(UnitGUID(e), 180473) or string.find(UnitGUID(e), 180474) or string.find(UnitGUID(e), 176929) or string.find(UnitGUID(e), 176920) or string.find(UnitGUID(e), 177154) or string.find(UnitGUID(e), 177787) or string.find(UnitGUID(e), 177889) or string.find(UnitGUID(e), 177891) or string.find(UnitGUID(e), 177892) or string.find(UnitGUID(e), 168326) then
+                        a = (a + 1)
+                    end
 
-	if UnitExists("focus") and not UnitCanAttack("player","focus") then
-		if Unit("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and S.CloudBurstTotem:IsCastable() and S.CloudBurstTotem:IsAvailable() and not IsMoving() then
-			if Cast(S.CloudBurstTotem) then shouldcast = 157153 return "CloudBurst Totem before Ascendance" end
-		end
-		
-		if Unit("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and S.Ascendance:IsAvailable() and S.Ascendance:IsCastable() and (S.HealingTideTotem:TimeSinceLastCast() > 10 and S.SpiritLinkTotem:TimeSinceLastCast() > 6) then
-			if Cast(S.Ascendance) then shouldcast = 114050 return "Oh S**** Ascendance" end
-		end
+                end
 
-		if Unit("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and S.SpiritLinkTotem:IsAvailable() and S.SpiritLinkTotem:IsCastable() and (S.HealingTideTotem:TimeSinceLastCast() > 10 and S.Ascendance:TimeSinceLastCast() > 15) then
-			if Cast(S.SpiritLinkTotem) then shouldcast = 98008 return "Oh S**** SpiritLinkTotem" end
-		end
+            end
 
-		if Unit("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and S.HealingTideTotem:IsAvailable() and S.HealingTideTotem:IsCastable() and (S.SpiritLinkTotem:TimeSinceLastCast() > 6 and S.Ascendance:TimeSinceLastCast() > 15) then
-			if Cast(S.HealingTideTotem) then shouldcast = 108280 return "Oh S**** HealingTideTotem" end
-		end
-		
-	end
-				
+        end
+
+        EnemiesCount8ySplash = a
+        EnemiesCount10ySplash = a
+    end
+
+    if not J() then
+        EnemiesCount8ySplash = 1
+        EnemiesCount10ySplash = 1
+    end
+
+    if ie then
+        EnemiesCount10ySplash = 10
+        EnemiesCount8ySplash = 10
+    end
+
+    if not BotOn then
+        k = 0
+        a = 0
+    end
+
+    if x ~= nil and P and P <= GetTime() - 10 then
+        x = nil
+        se = nil
+    end
+
+    if k > 0 then
+        k = 0
+    end
+
+    if a > 0 then
+        a = 0
+    end
+
+    ye()
+    j()
+    me()
+    if i.Commons.DBMSupport then
+        b, O, A, I, S, E, D = n.RaidDamageInc()
+    end
+
+    if UnitAffectingCombat("player") and EnemiesCount10ySplash >= 1 and i.Restoration.TargetSwap == "AutoSwap" and not X and not g then
+        if not UnitExists("target") or UnitReaction("player", "target") == 8 or UnitReaction("player", "target") == 7 or UnitReaction("player", "target") == 6 or UnitReaction("player", "target") == 5 then
+            k = 999
+        end
+
+    end
+
+    if s:IsChanneling() or s:IsChanneling(e.FaeTransfusion) then
+        if o(e.Pool, nil) then
+            a = 99999
+            return "Trinket Channel"
+        end
+
+    end
+
+    if UnitExists("mouseover") and string.find(UnitGUID("mouseover"), 120651) then
+        if e.FrostShock:IsCastable() then
+            if o(e.FrostShock, nil) then
+                k = 1196840
+                return "explosive MO FS"
+            end
+
+        end
+
+    end
+
+    if UnitExists("target") and string.find(UnitGUID("target"), 120651) then
+        if e.FrostShock:IsCastable() then
+            if o(e.FrostShock, nil) then
+                a = 196840
+                return "explosive  FS"
+            end
+
+        end
+
+    end
+
+        if n.GUISettings.General.OpenerReset > 0 and not HeroRotationCharDB.Toggles[6] then
+        starttime = GetTime()
+        endtime = starttime + (n.GUISettings.General.OpenerReset)
+    elseif n.GUISettings.General.OpenerReset > 0 and endtime ~= nil and GetTime() > endtime and HeroRotationCharDB.Toggles[6] then
+        HeroRotationCharDB.Toggles[6] = not HeroRotationCharDB.Toggles[6]
+        n.ToggleIconFrame:UpdateButtonText(6)
+        n.Print("Opener is now " .. (HeroRotationCharDB.Toggles[6] and "|cff00ff00enabled|r." or "|cffff0000disabled|r."))
+    end
+
+    local i
+    if GetNumGroupMembers() >= 0 and GetNumGroupMembers() <= 5 then
+        if UnitGUID("focus") == t("party" .. (u / 100)):GUID() and u ~= 500 then
+            u = 0
+        end
+
+        if UnitGUID("focus") == UnitGUID("player") and u == 500 then
+            u = 0
+        end
+
+    end
+
+    if GetNumGroupMembers() > 5 then
+        if UnitGUID("focus") == t("raid" .. (u / 1000)):GUID() then
+            u = 0
+        end
+
+    end
+
+    if GetNumGroupMembers() >= 0 then
+        if f <= GetTime() then
+            fe()
+            if (r ~= nil) and UnitGUID("focus") ~= r and f <= GetTime() then
+                u = c * 100
+            end
+
+            f = GetTime() + .5
+        end
+
+    end
+
+        if (K and e.PurifySpirit:IsUsableP() and e.PurifySpirit:CooldownRemains(BypassRecovery) <= 0 and UnitExists("mouseover")) then
+        if n.Cast(e.PurifySpirit, nil, nil, nil) then
+            if UnitExists("mouseover") and t("mouseover"):IsInRange(40) and not UnitIsEnemy("mouseover", "player") then
+                a = 177130
+                return "queue PurifySpirit MO"
+            end
+
+        end
+
+    elseif ((not e.PurifySpirit:IsUsableP() or e.PurifySpirit:CooldownRemains() > 0) and K) then
+        HeroRotationCharDB.Toggles[164] = not HeroRotationCharDB.Toggles[164]
+        n.Print("PurifySpirit Queue is now " .. (HeroRotationCharDB.Toggles[164] and "|cff00ff00on|r." or "|cffff0000off|r."))
+    end
+
+        if (Z and e.CapacitorTotem:IsUsableP() and e.CapacitorTotem:CooldownRemains(BypassRecovery) <= 0) then
+        if n.Cast(e.CapacitorTotem, nil, nil, nil) then
+            a = 1192058
+            return "queue CapacitorTotem"
+        end
+
+    elseif ((not e.CapacitorTotem:IsUsableP() or e.CapacitorTotem:CooldownRemains(BypassRecovery) > 0) and Z) then
+        HeroRotationCharDB.Toggles[91] = not HeroRotationCharDB.Toggles[91]
+        n.Print("Capacitor Totem Queue is now " .. (HeroRotationCharDB.Toggles[91] and "|cff00ff00on|r." or "|cffff0000off|r."))
+    end
+
+        if (G and e.VesperTotem:IsUsableP() and (e.VesperTotem:CooldownRemains(BypassRecovery) <= 0 or m(324519):IsCastable())) then
+        if n.Cast(e.VesperTotem, nil, nil, nil) then
+            a = 324386
+            return "queue VesperTotem"
+        end
+
+    elseif ((not e.VesperTotem:IsUsableP() or (e.VesperTotem:CooldownRemains(BypassRecovery) > 0 and not m(324519):IsCastable())) and G) then
+        HeroRotationCharDB.Toggles[162] = not HeroRotationCharDB.Toggles[162]
+        n.Print("Capacitor Totem Queue is now " .. (HeroRotationCharDB.Toggles[162] and "|cff00ff00on|r." or "|cffff0000off|r."))
+    end
+
+        if (B and e.WindRushTotem:IsUsableP() and e.WindRushTotem:IsAvailable() and e.WindRushTotem:CooldownRemains(BypassRecovery) <= 0) then
+        if n.Cast(e.WindRushTotem, nil, nil, nil) then
+            a = 192077
+            return "queue WindRushTotem"
+        end
+
+    elseif ((not e.WindRushTotem:IsUsableP() or not e.WindRushTotem:IsAvailable() or e.WindRushTotem:CooldownRemains(BypassRecovery) > 0) and B) then
+        HeroRotationCharDB.Toggles[94] = not HeroRotationCharDB.Toggles[94]
+        n.Print("Wind Rush Totem Queue is now " .. (HeroRotationCharDB.Toggles[94] and "|cff00ff00on|r." or "|cffff0000off|r."))
+    end
+
+        if (V and e.Hex:IsUsableP() and e.Hex:CooldownRemains(BypassRecovery) <= 0 and UnitExists("mouseover")) then
+        if n.Cast(e.Hex, nil, nil, nil) then
+            if UnitExists("mouseover") and t("mouseover"):IsInRange(40) then
+                k = 151514
+                return "queue Hex MO"
+            end
+
+        end
+
+    elseif ((not e.Hex:IsUsableP() or e.Hex:CooldownRemains() > 0) and V) then
+        HeroRotationCharDB.Toggles[95] = not HeroRotationCharDB.Toggles[95]
+        n.Print("Hex Queue is now " .. (HeroRotationCharDB.Toggles[95] and "|cff00ff00on|r." or "|cffff0000off|r."))
+    end
+
+        if (Q and e.TremorTotem:IsUsableP() and e.TremorTotem:CooldownRemains(BypassRecovery) <= 0) then
+        if n.Cast(e.TremorTotem, nil, nil, nil) then
+            a = 8143
+            return "queue TremorTotem"
+        end
+
+    elseif ((not e.TremorTotem:IsUsableP() or e.TremorTotem:CooldownRemains(BypassRecovery) > 0) and Q) then
+        HeroRotationCharDB.Toggles[93] = not HeroRotationCharDB.Toggles[93]
+        n.Print("Tremor Totem Queue is now " .. (HeroRotationCharDB.Toggles[93] and "|cff00ff00on|r." or "|cffff0000off|r."))
+    end
+
+    if de and not UnitAffectingCombat("player") and not _ then
+        i = y()
+        if i then
+            return i
+        end
+
+    end
+
+    i = he()
+    if i then
+        return i
+    end
+
+    if e.CloudBurstTotem:IsCastable() and not _ and e.CloudBurstTotem:IsAvailable() and not l() and UnitAffectingCombat("player") and e.CloudBurstTotem:Charges() >= 1 and (e.HealingTideTotem:TimeSinceLastCast() <= 7 or e.Ascendance:TimeSinceLastCast() <= 10 or e.SpiritLinkTotem:TimeSinceLastCast() <= 3) then
+        if o(e.CloudBurstTotem) then
+            a = 157153
+            return "CloudBurst Totem for Burst"
+        end
+
+    end
+
+    if (UnitAffectingCombat("player") or N) then
+        if oe then
+            i = re()
+            if i then
+                return i
+            end
+
+        end
+
+        if w.TargetIsValid() and not _ then
+            i = we()
+            if i then
+                return i
+            end
+
+        end
+
+        i = p()
+        if i then
+            return i
+        end
+
+        if w.TargetIsValid() and d("target") and not g then
+            n.CastAnnotated(e.Pool, false, "LoS")
+        end
+
+    end
+
 end
 
-local function Cooldowns()
-	local TrinketToUse = Player:GetUseableTrinkets(OnUseExcludes)
-	if TrinketToUse and CDsON() then
-	  if Cast(TrinketToUse, nil, nil) then
-		if TrinketToUse:ID() == TopTrinketID and Settings.Commons.Enabled.TopTrinket then
-			shouldcast = 24 
-			return "top trinket 1"; 
-		elseif TrinketToUse:ID() == BotTrinketID and Settings.Commons.Enabled.BottomTrinket then
-			shouldcast = 30 
-			return "Bot trinket 2"; 
-		end
-	  end
-	end
-	
-  -- if Player:IsMoving() and S.SpiritwalkersGrace:IsCastable() then
-    -- if Cast(S.SpiritwalkersGrace, nil, Settings.Commons.DisplayStyle.SpiritwalkersGrace) then return "Suggest SWG" end
-  -- endz
-  if S.ChainHarvest:IsCastable() and not IsMoving() and CovenantsON then
-    if Cast(S.ChainHarvest, nil, nil) then shouldcast = 320674 return "Chain Harvest CD" end
-  end
-
-  if ((S.VesperTotem:IsCastable() and CovenantsON) or (VesperUp and not VesperPlaced and S.RecallVesperTotem:IsReady())) then
-    if Cast(S.VesperTotem, nil, nil) then shouldcast = 324386 return "Vesper Totem CD" end
-  end
-end
-
-local function NumFlameShocksToMaintain()
-  -- On AOE, don't maintain flame shock.
-  if EnemiesCount10ySplash >= 3 then return 0 end
-  -- On ST or 2T, return 1 or 2.
-  return EnemiesCount10ySplash
-end
-
-local function ApplyFlameShock()
-  if IsViable(S.FlameShock) and Everyone.TargetIsValid() then
-	if Everyone.CastTargetIf(S.FlameShock, Enemies40y, "min", EvaluateTargetIfFilterFlameShock100, EvaluateTargetIfFlameShock108) then return "Flame Shock 108"; end
-    if EvaluateTargetIfFilterFlameShock100(Target) and EvaluateTargetIfFlameShock108(Target) then
-      if Cast(S.FlameShock, nil, nil, not Target:IsSpellInRange(S.FlameShock)) then shouldcast = 188389 return "FlameShock 108"; end
-	end
-  end
-end
-
-local function SingleTargetAndSpreadCleaveBuilder()
-  if IsViable(S.LavaBurst) and Everyone.TargetIsValid() and not UnitIsBlackListed("target") then
-	shouldcast = 51505
-    return S.LavaBurst, false
-  elseif IsViable(S.LightningBolt) and Everyone.TargetIsValid() and not UnitIsBlackListed("target") then
-	shouldcast = 188196
-    return S.LightningBolt, true
-  end
-  -- End up here when there are no castable builders for a st/spread cleave situation (on the move, no LB charges)
-  return nil, false
-end
-
-local function AOEBuilder()
-  if IsViable(S.LavaBurst) and Everyone.TargetIsValid() and not UnitIsBlackListed("target") and (EnemiesCount10ySplash < 3) then 
-	shouldcast = 51505
-    return S.LavaBurst, true
-  elseif IsViable(S.ChainLightning) and Everyone.TargetIsValid() and not UnitIsBlackListed("target") then
-	shouldcast = 188443
-    return S.ChainLightning, true
-  end
-  -- End up here when there are no castable builders for a stacked cleave situation (on the move, no LB charges)
-  return nil, false
-end
-
-local function FriendlyRotation()
-	if GetNumGroupMembers() > 0 then
-		-- Start Dungeon Healing Logic
-		if GetNumGroupMembers() > 0 and GetNumGroupMembers() <= 5 then
-			-- Target (@focus) lowest HP party member
-			-- BattlefieldSnapshot()
-			-- if LowestHealthGUID and UnitGUID("focus") ~= LowestHealthGUID and SwapTimer <= GetTime() then
-				-- shouldcastfocus = LowestHealthIndex * 100
-				-- SwapTimer = GetTime() + 0.5
-			-- end
-			--DBM overrides
-			if ShouldCancel and not Player:IsCasting(S.Wellspring) then
-				shouldcast = 1999
-			end
-			if Unit("focus"):IsInMeleeRange(40) and S.RecallCloudburstTotem:IsCastable() and not ShamanCBT and CloudBurstHP() >= 10000 and (ShamanCBTPop) then
-				if Cast(S.RecallCloudburstTotem) then shouldcast = 201764 return "CloudBurst Release under %" end
-			end
-			if Unit("focus"):IsInMeleeRange(40)  and UnitAffectingCombat("player") and not ShamanHoldCBT and ShamanCBT and S.CloudBurstTotem:IsCastable() and S.CloudBurstTotem:IsAvailable() then
-				if Cast(S.CloudBurstTotem) then shouldcast = 157153 return "CloudBurst Totem under %" end
-			end
-			if Unit("focus"):IsInMeleeRange(40)  and UnitAffectingCombat("player") and not IsMoving() and UnitAffectingCombat("player") and S.Wellspring:IsReady() and not HoldWellspring and (WellspringPop) then
-				if Cast(S.Wellspring) then shouldcast = 197995 return "Wellspring under %" end
-			end	
-			
-			--Purify Spirit
-			if S.PurifySpirit:IsCastable() and UnitExists("focus") and not UnitCanAttack("player","focus") and not UnitIsBlackListed("focus") and not HoldPurify and Unit("focus"):IsInRange(40) and Unit("focus"):DebuffDown(Spell(362075)) and Unit("focus"):DebuffDown(Spell(362397)) and Unit("focus"):DebuffDown(Spell(191587)) and Unit("focus"):DebuffDown(Spell(228578)) then
-				for i= 1, 40 do
-					local name, icon, count, dispelType, duration, expirationTime, source, isStealable, nameplateShowPersonal,spellId, canApplyAura, isBossDebuff, castByPlayer, nameplateShowAll, timeMod = UnitDebuff("focus", i)
-					if (dispelType == "Curse" or dispelType == "Magic") and spellId ~= 320788 and ((spellId ~= 323347) or (spellId == 323347 and count >= 2)) and spellId ~= 350469 and spellId ~= 350541 and spellId ~= 351117 and spellId ~= 229159 and spellId ~= 227404 then
-						if (expirationTime - duration) + (Settings.Restoration.PurifyDelay/1000) <= GetTime() then
-							if Cast(S.PurifySpirit) then shouldcast = 77130 return "Purify Spirit" end
-						elseif spellId == 227404 and MidnightGUID and MidnightGUID == UnitGUID("focus") then
-							if Cast(S.PurifySpirit) then shouldcast = 77130 return "Purify Spirit" end
-						end
-					end
-				end
-			end
-				
-			if (UnitExists("focus") and not UnitCanAttack("player","focus") and not UnitIsBlackListed("focus") and (MembersUnderX(Settings.RestorationM.DPSThreshold) > 0))  then
-				if Target:IsInMeleeRange(40) and UnitAffectingCombat("player") and CovenantsON and (S.VesperTotem:IsCastable()  or (VesperUp and not VesperPlaced and S.RecallVesperTotem:IsReady())) then
-					if Cast(S.VesperTotem) then shouldcast = 324386 return "Vesper Totem Heal" end
-				end
-				if Target:IsInMeleeRange(40) and UnitAffectingCombat("player") and CovenantsON and S.ChainHarvest:IsCastable() then
-					if Cast(S.ChainHarvest, nil, nil) then shouldcast = 320674 return "Chain Harvest Heal" end
-				end
-				if Unit("focus"):IsInMeleeRange(40) 
-				and S.RecallCloudburstTotem:IsCastable() 
-				and not ShamanCBT and CloudBurstHP() >= 10000 
-				and (MembersUnderX(Settings.RestorationM.CloudburstReleaseHP) >= Settings.RestorationM.CloudburstReleaseParty or not UnitAffectingCombat("player") or ShamanCBTPop) then
-					if Cast(S.RecallCloudburstTotem) then shouldcast = 201764 return "CloudBurst Release under %" end
-				end
-				if Unit("focus"):IsInMeleeRange(40)  and UnitAffectingCombat("player") and (Unit("focus"):HealthPercentage() <= Settings.RestorationM.HealingStreamHP or ShamanCBT) and not ShamanHoldCBT and S.CloudBurstTotem:IsCastable() and S.CloudBurstTotem:IsAvailable() and ((S.CloudBurstTotem:Charges() >= 2 and not IsMoving()) or ShamanCBT) then
-					if Cast(S.CloudBurstTotem) then shouldcast = 157153 return "CloudBurst Totem under %" end
-				end
-				if Unit("focus"):IsInMeleeRange(40) and Unit("focus"):HealthPercentage() <= Settings.RestorationM.RiptideHP and S.Riptide:IsCastable() then
-					if Cast(S.Riptide) then shouldcast = 61295 return "Riptide under %" end
-				end
-				if Unit("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and S.UnleashLife:IsReady() and Unit("focus"):HealthPercentage() <= Settings.RestorationM.UnleashLifeHP then
-					if Cast(S.UnleashLife) then shouldcast = 73685 return "UnleashLife under %" end
-				end
-				if Unit("focus"):IsInMeleeRange(40)  and UnitAffectingCombat("player") and not IsMoving() and UnitAffectingCombat("player") and S.Wellspring:IsReady() and not HoldWellspring and (Unit("focus"):HealthPercentage() <= Settings.RestorationM.WellspringHP or WellspringPop) then
-					if Cast(S.Wellspring) then shouldcast = 197995 return "Wellspring under %" end
-				end					
-				if Unit("focus"):IsInMeleeRange(40) and ((Unit("focus"):HealthPercentage() <= Settings.RestorationM.HealingSurgeHP2 and Player:BuffStack(S.TidalWaves) >= 1) or (Unit("focus"):HealthPercentage() <= Settings.RestorationM.HealingSurgeHP)) and S.HealingSurge:IsCastable() and not IsMoving() then
-					if Cast(S.HealingSurge) then shouldcast = 8004 return "Healing Surge under %" end
-				end
-				if Unit("focus"):IsInMeleeRange(40) and ((Unit("focus"):HealthPercentage() <= Settings.RestorationM.HealingWaveHP2 and Player:BuffStack(S.TidalWaves) >= 1) or (Unit("focus"):HealthPercentage() <= Settings.RestorationM.HealingWaveHP)) and S.HealingWave:IsCastable() and not IsMoving() then
-					if Cast(S.HealingWave) then shouldcast = 77472 return "Healing Wave under %" end
-				end
-				if Unit("focus"):IsInMeleeRange(40)  and UnitAffectingCombat("player") and not IsMoving() and S.EarthenWallTotem:IsReady() and not HoldHealingRain and MembersUnderX(Settings.RestorationM.EarthenWallTotemHP) >= Settings.RestorationM.EarthenWallTotemParty and UnitAffectingCombat("player") then
-					if Cast(S.EarthenWallTotem) then shouldcast = 198838 return "EarthenWallTotem under %" end
-				end					
-				if Unit("focus"):IsInMeleeRange(40) and S.ChainHeal:IsCastable() and not IsMoving() and MembersUnderX(Settings.RestorationM.ChainHealHP) >= Settings.RestorationM.ChainHealParty then
-					if Cast(S.ChainHeal) then shouldcast = 1064 return "Chain Heal under %" end
-				end
-				if Unit("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and S.HealingRain:IsCastable() and not HoldHealingRain and not Player:IsCasting(S.HealingRain) and not IsMoving() and MembersUnderX(Settings.RestorationM.HealingRainHP) >= Settings.RestorationM.HealingRainParty then
-					if Cast(S.HealingRain) then shouldcast = 73920 return "Healing Rain under %" end
-				end
-				if Unit("focus"):IsInMeleeRange(40)  and UnitAffectingCombat("player") and Unit("focus"):HealthPercentage() <= Settings.RestorationM.HealingStreamHP and S.HealingStreamTotem:IsCastable() and not S.CloudBurstTotem:IsAvailable() and not IsMoving() then
-					if Cast(S.HealingStreamTotem) then shouldcast = 5394 return "Healing Stream Totem under %" end
-				end
-				-- if Unit("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and Unit("focus"):HealthPercentage() <= Settings.RestorationM.HealingStreamHP and S.CloudBurstTotem:IsCastable() and S.CloudBurstTotem:IsAvailable() and S.CloudBurstTotem:Charges() >= 2 and not IsMoving() then
-					-- if Cast(S.CloudBurstTotem) then shouldcast = 157153 return "CloudBurst Totem under %" end
-				-- end
-			end
-
-				if Unit("focus"):IsInMeleeRange(40) and Settings.RestorationM.RainIgnoreCheck and UnitAffectingCombat("player") and S.HealingRain:IsCastable() and not HoldHealingRain and HL.FightRemains(Enemies40y, false) > 10 and MembersUnderX(Settings.RestorationM.DPSThreshold) <= 0 and not Player:IsCasting(S.HealingRain) and not IsMoving() and MembersUnderX(Settings.RestorationM.HealingRainHP) >= Settings.RestorationM.HealingRainParty then
-					if Cast(S.HealingRain) then shouldcast = 73920 return "Healing Rain under % 1" end
-				end
-				
-		end
-		if GetNumGroupMembers() > 5 then
-			-- Target (@focus) lowest HP party member
-			-- BattlefieldSnapshot()
-			-- if LowestHealthGUID and UnitGUID("focus") ~= LowestHealthGUID and SwapTimer <= GetTime() then
-				-- shouldcastfocus = LowestHealthIndex * 100
-				-- SwapTimer = GetTime() + 0.5
-			-- end
-			--print("ShouldPop", Unit("focus"):IsInMeleeRange(40), S.RecallCloudburstTotem:IsCastable(), ShamanCBT, (CloudBurstHP() >= 10000), (ShamanCBTPop))
-
-			--DBM overrides
-			if ShouldCancel and not Player:IsCasting(S.Wellspring) then
-				shouldcast = 1999
-			end			
-			if Unit("focus"):IsInMeleeRange(40) and S.RecallCloudburstTotem:IsCastable() and not ShamanCBT and CloudBurstHP() >= 10000 and (ShamanCBTPop) then
-				if Cast(S.RecallCloudburstTotem) then shouldcast = 201764 return "CloudBurst Release DBM" end
-			end
-			if Unit("focus"):IsInMeleeRange(40)  and UnitAffectingCombat("player") and not ShamanHoldCBT and ShamanCBT and S.CloudBurstTotem:IsCastable() and S.CloudBurstTotem:IsAvailable() then
-				if Cast(S.CloudBurstTotem) then shouldcast = 157153 return "CloudBurst Totem DBM" end
-			end
-			if Unit("focus"):IsInMeleeRange(40)  and UnitAffectingCombat("player") and not IsMoving() and UnitAffectingCombat("player") and S.Wellspring:IsReady() and not HoldWellspring and (WellspringPop) then
-				if Cast(S.Wellspring) then shouldcast = 197995 return "Wellspring DBM" end
-			end	
-
-			if UnitExists("focus") and not UnitCanAttack("player","focus") and not UnitIsBlackListed("focus") and (MembersUnderX(Settings.RestorationR.DPSThreshold) > 0 or not UnitExists("target") or not UnitAffectingCombat("player")) then
-				if Target:IsInMeleeRange(40) and CovenantsON and ( S.VesperTotem:IsReady() or (VesperUp and not VesperPlaced and S.RecallVesperTotem:IsReady())) then
-					if Cast(S.VesperTotem) then shouldcast = 324386 return "Vesper Totem" end
-				end
-				if Unit("focus"):IsInMeleeRange(40) and S.RecallCloudburstTotem:IsReady()  and CloudBurstHP() >= 10000 and not ShamanCBT and ((MembersUnderX(Settings.RestorationR.CloudburstReleaseHP) >= Settings.RestorationR.CloudburstReleaseRaid) or not UnitAffectingCombat("player") or ShamanCBTPop) then
-					if Cast(S.RecallCloudburstTotem) then shouldcast = 201764 return "CloudBurst Release under %" end
-				end
-				if Unit("focus"):IsInMeleeRange(40) and Unit("focus"):HealthPercentage() <= Settings.RestorationR.RiptideHP and S.Riptide:IsReady() then
-					if Cast(S.Riptide) then shouldcast = 61295 return "Riptide under %" end
-				end
-				if Unit("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and S.HealingRain:IsReady() and not HoldHealingRain and not HoldHealingRain and not Player:IsCasting(S.HealingRain) and not IsMoving() and MembersUnderX(Settings.RestorationR.HealingRainHP) >= Settings.RestorationR.HealingRainRaid then
-					if Cast(S.HealingRain) then shouldcast = 73920 return "Healing Rain under %" end
-				end					
-				if Unit("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and S.UnleashLife:IsReady() and Unit("focus"):HealthPercentage() <= Settings.RestorationR.UnleashLifeHP then
-					if Cast(S.UnleashLife) then shouldcast = 73685 return "UnleashLife under %" end
-				end
-				if Unit("focus"):IsInMeleeRange(40) and not IsMoving() and UnitAffectingCombat("player") and S.Wellspring:IsReady() and not HoldWellspring and (Unit("focus"):HealthPercentage() <= Settings.RestorationR.WellspringHP or WellspringPop) then
-					if Cast(S.Wellspring) then shouldcast = 197995 return "Wellspring under %" end
-				end						
-				if Unit("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and not ShamanHoldCBT and (Unit("focus"):HealthPercentage() <= Settings.RestorationR.HealingStreamHP or ShamanCBT) and S.CloudBurstTotem:IsReady() and S.CloudBurstTotem:IsAvailable() and ((S.CloudBurstTotem:Charges() >= 2 and not IsMoving()) or ShamanCBT) then
-					if Cast(S.CloudBurstTotem) then shouldcast = 157153 return "CloudBurst Totem under %" end
-				end
-				if Unit("focus"):IsInMeleeRange(40) and Unit("focus"):HealthPercentage() <= Settings.RestorationR.HealingStreamHP and S.HealingStreamTotem:IsReady() and not S.CloudBurstTotem:IsAvailable() and not IsMoving() then
-					if Cast(S.HealingStreamTotem) then shouldcast = 5394 return "Healing Stream Totem under %" end
-				end
-				if Unit("focus"):IsInMeleeRange(40) and S.EarthenWallTotem:IsReady() and not HoldHealingRain and MembersUnderX(Settings.RestorationR.EarthenWallTotemHP) >= Settings.RestorationR.EarthenWallTotemRaid and UnitAffectingCombat("player") then
-					if Cast(S.EarthenWallTotem) then shouldcast = 198838 return "EarthenWallTotem under %" end
-				end				
-				if Unit("focus"):IsInMeleeRange(40) and S.ChainHeal:IsReady() and not IsMoving() and MembersUnderX(Settings.RestorationR.ChainHealHP) >= Settings.RestorationR.ChainHealRaid then
-					if Cast(S.ChainHeal) then shouldcast = 1064 return "Chain Heal under %" end
-				end
-				if Unit("focus"):IsInMeleeRange(40) and ((Unit("focus"):HealthPercentage() <= Settings.RestorationR.HealingSurgeHP2 and Player:BuffStack(S.TidalWaves) >= 1) or (Unit("focus"):HealthPercentage() <= Settings.RestorationR.HealingSurgeHP)) and S.HealingSurge:IsReady() and not IsMoving() then
-					if Cast(S.HealingSurge) then shouldcast = 8004 return "Healing Surge under %" end
-				end
-				if Unit("focus"):IsInMeleeRange(40) and ((Unit("focus"):HealthPercentage() <= Settings.RestorationR.HealingWaveHP2 and Player:BuffStack(S.TidalWaves) >= 1) or (Unit("focus"):HealthPercentage() <= Settings.RestorationR.HealingWaveHP)) and S.HealingWave:IsReady() and not IsMoving() then
-					if Cast(S.HealingWave) then shouldcast = 77472 return "Healing Wave under %" end
-				end
-				-- if Unit("focus"):IsInMeleeRange(40) and UnitAffectingCombat("player") and Unit("focus"):HealthPercentage() <= Settings.RestorationR.HealingStreamHP and S.CloudBurstTotem:IsCastable() and S.CloudBurstTotem:IsAvailable() and S.CloudBurstTotem:Charges() >= 2 and not IsMoving() then
-					-- if Cast(S.CloudBurstTotem) then shouldcast = 157153 return "CloudBurst Totem under %" end
-				-- end
-			end
-
-		end
-
-	-- Start Solo Healing Logic
-	else
-		if Player:BuffDown(S.LightningShieldBuff) then
-			if Cast(S.LightningShield) then shouldcast = 192106 return "Lightning Shield Self" end
-		end
-	end
-end
-
-local function CoreRotation()
-  local DebugMessage
-  
-  if GetNumGroupMembers() > 0  and not StopHeal then
-    DebugMessage = FriendlyRotation()
-    if DebugMessage then return DebugMessage end;
-  end
-  if GetNumGroupMembers() > 5 and not StopHeal then
-    DebugMessage = FriendlyRotation()
-    if DebugMessage then return DebugMessage end;
-  end
-  
-  -- Keep minimum number of flameshocks up
-  if UnitsRefreshFS(Enemies40y) < NumFlameShocksToMaintain() and not StopDPS then
-    DebugMessage = ApplyFlameShock()
-    if DebugMessage then return DebugMessage end;
-  end
-
-  local builder, prefer_fs_refresh = nil, false
-	if not StopDPS then
-	  if EnemiesCount10ySplash < 2 then 
-		builder, prefer_fs_refresh = SingleTargetAndSpreadCleaveBuilder() 
-	  else
-		builder, prefer_fs_refresh = AOEBuilder() 
-	  end
-	end
-  -- Refresh flameshocks when the builder is low priority.
-  -- if prefer_fs_refresh and RefreshableFlameshocks > 0 and UnitsRefreshFS(Enemies40y) <= NumFlameShocksToMaintain() then
-    -- DebugMessage = ApplyFlameShock()
-    -- if DebugMessage then return DebugMessage end;
-  -- end
-  
-  -- If you have a non-nil + viable builder, then you should cast it!
-  if builder ~= nil and IsViable(builder) and Everyone.TargetIsValid() and not UnitIsBlackListed("target") and not StopDPS then
-    if Cast(builder) then return "Building Maelstrom with optimal Builder (AOE)" end
-  end
-  if builder == nil and Everyone.TargetIsValid() and not UnitIsBlackListed("target") and not StopDPS then
-    -- Try to refresh flameshocks
-    DebugMessage = ApplyFlameShock()
-    if DebugMessage then return "Refreshing Flame Shock because we cannot build or spend" end
-    if Cast(S.FrostShock) then shouldcast = 196840 return "Casting Frost Shock because we cannot build or spend or refresh flame shock" end
-  end
-
-  return nil
-end
-
-local function Reset()
-	Opener1 = HeroRotationCharDB.Toggles[6]
-	CovenantsON = HeroRotationCharDB.Toggles[4]
-	SmallCDsOn = HeroRotationCharDB.Toggles[5]
-	StopAutoSwap = HeroRotationCharDB.Toggles[12]
-	UsePots = HeroRotationCharDB.Toggles[15]
-	ForceAoE = HeroRotationCharDB.Toggles[60]
-	CDsON      = HR.CDsON
-	HoldEarthEle = HeroRotationCharDB.Toggles[90]
-	QTremorTotem = HeroRotationCharDB.Toggles[93] 
-	QWindRushTotem = HeroRotationCharDB.Toggles[94] 
-	QHex = HeroRotationCharDB.Toggles[95] 
-	UsePurge = HeroRotationCharDB.Toggles[97] 
-	HealOOC = HeroRotationCharDB.Toggles[160] 
-	OhShit = HeroRotationCharDB.Toggles[161] 
-	QCapTotem = HeroRotationCharDB.Toggles[91] 
-	QVesperTotem = HeroRotationCharDB.Toggles[162] 
-	HoldPurify = HeroRotationCharDB.Toggles[163] 
-	QPurify = HeroRotationCharDB.Toggles[164]
-	StopDPS = HeroRotationCharDB.Toggles[165]
-	StopHeal = HeroRotationCharDB.Toggles[166]
-	ShamanCBT, ShamanCBTPop, ShamanHoldCBT, HoldWellspring, WellspringPop, HoldHealingRain, ShouldCancel = nil, nil, nil, nil, nil, nil, nil
-	LowestHealthIndex = 0
-	QuakingR = 0
-	--Quaking
-	for i=1,20 do
-		if select(10, UnitDebuff("player", i)) == 240447 then
-			if select(6, UnitDebuff("player", i)) ~= nil then
-				QuakingR = (select(6, UnitDebuff("player", i)) - (GetTime()))
-			end
-		end
-	end
-	
-  TopTrinketID = GetInventoryItemID("player", 13)
-  BotTrinketID = GetInventoryItemID("player", 14)
-  if not Settings.Commons.Enabled.TopTrinket and not Settings.Commons.Enabled.BotTrinket then
-	  OnUseExcludes = {--  I.TrinketName:ID(),
-	  TopTrinketID,
-	  BotTrinketID,
-	}
-  elseif not Settings.Commons.Enabled.TopTrinket and Settings.Commons.Enabled.BotTrinket then
-	  OnUseExcludes = {--  I.TrinketName:ID(),
-	  TopTrinketID,
-	}  
-  elseif not Settings.Commons.Enabled.BotTrinket and Settings.Commons.Enabled.TopTrinket then
-	  OnUseExcludes = {--  I.TrinketName:ID(),
-	  BotTrinketID,
-	}
-	
-  end
-  
-end
-
-
---- ======= MAIN =======
-local function APL()
-  Enemies40y = Player:GetEnemiesInRange(40) -- Multiple CastCycle Spells
-  if AoEON() and Settings.Commons.AoeMode == "Conservative" then
-    EnemiesCount8ySplash = Target:GetEnemiesInSplashRangeCount(8)
-    EnemiesCount10ySplash = Target:GetEnemiesInSplashRangeCount(15)
-  elseif AoEON() and Settings.Commons.AoeMode == "Aggresive" then
-	local enemiesCheckCount = 0
-	for ienemiesCheckCount=1,20 do
-		local unit = "nameplate"..ienemiesCheckCount
-		if UnitExists(unit) then
-			if UnitCanAttack("player", unit) then
-				if (UnitCanAttack("player", unit) and UnitAffectingCombat(unit) and IsItemInRange(32698, unit) and UnitDetailedThreatSituation("player", unit) ~= nil) or Unit(unit):IsDummy() or string.find(UnitGUID(unit), 153285) or string.find(UnitGUID(unit), 31146) or string.find(UnitGUID(unit), 176581)
-					or string.find(UnitGUID(unit), 179124) or string.find(UnitGUID(unit), 179010) or string.find(UnitGUID(unit), 180323) or string.find(UnitGUID(unit), 179010) or string.find(UnitGUID(unit), 179942) or string.find(UnitGUID(unit), 176521) or string.find(UnitGUID(unit), 177594) or string.find(UnitGUID(unit), 177117) or string.find(UnitGUID(unit), 176581) or string.find(UnitGUID(unit), 180840) or string.find(UnitGUID(unit), 176605)
-					or UnitName(unit) == "Glacial Spike" or string.find(UnitGUID(unit), 180473) or string.find(UnitGUID(unit), 180474) or string.find(UnitGUID(unit), 176929) or string.find(UnitGUID(unit), 176920) or string.find(UnitGUID(unit), 177154) or string.find(UnitGUID(unit), 177787) or string.find(UnitGUID(unit), 177889) or string.find(UnitGUID(unit), 177891) or string.find(UnitGUID(unit), 177892) or string.find(UnitGUID(unit), 168326) then
-						enemiesCheckCount = (enemiesCheckCount + 1)
-				end
-			end
-		end
-	end
-    EnemiesCount8ySplash = enemiesCheckCount
-    EnemiesCount10ySplash = enemiesCheckCount
-  end
-	
-  if not AoEON() then
-    EnemiesCount8ySplash = 1
-    EnemiesCount10ySplash = 1
-  end
-
-  if ForceAoE then
-	EnemiesCount10ySplash = 10
-	EnemiesCount8ySplash = 10
-  end
-  
-  if not BotOn then
-	MOshouldcast = 0
-	shouldcast = 0
-  end
-
-  if MidnightGUID ~= nil and MidnightTime and MidnightTime <= GetTime() - 10 then
-	MidnightGUID = nil
-	MidnightName = nil
-  end
-  
-	if MOshouldcast > 0 then
-		MOshouldcast = 0
-	end
-	
-	if shouldcast > 0 then
-		shouldcast = 0
-	end
-	
-  -- Generalized Data Updates (per frame)
-  --BattlefieldSnapshot()
-  VesperCounter()
-  Reset()
-  Blacklist()
-  if Settings.Commons.DBMSupport then
-	ShamanCBT, ShamanCBTPop, ShamanHoldCBT, HoldWellspring, WellspringPop, HoldHealingRain, ShouldCancel = HR.RaidDamageInc()
-  end
-  --print(ShamanCBT, ShamanCBTPop, ShamanHoldCBT, HoldWellspring, WellspringPop, HoldHealingRain, ShouldCancel)
-	--print(Spell(197995):CastTime())
-	if UnitAffectingCombat("player") and EnemiesCount10ySplash >= 1 and Settings.Restoration.TargetSwap == "AutoSwap" and not StopAutoSwap and not StopDPS then
-		if not UnitExists("target") or UnitReaction("player", "target") == 8 or UnitReaction("player", "target") == 7 or UnitReaction("player", "target") == 6 or UnitReaction("player", "target") == 5 then
-			MOshouldcast = 999	
-		end
-	end
-	
-  --Dont cancel FaeTransfusion
-  if Player:IsChanneling() or Player:IsChanneling(S.FaeTransfusion) then
-    if Cast(S.Pool, nil) then shouldcast = 99999 return "Trinket Channel"; end
-  end
-
-    --explosives
-  if UnitExists("mouseover") and string.find(UnitGUID("mouseover"), 120651) then
-	if S.FrostShock:IsCastable() then
-		if Cast(S.FrostShock, nil) then MOshouldcast = 1196840 return "explosive MO FS"; end
-	end
-  end
-  
-  if UnitExists("target") and string.find(UnitGUID("target"), 120651) then
-	if S.FrostShock:IsCastable() then
-		if Cast(S.FrostShock, nil) then shouldcast = 196840 return "explosive  FS"; end
-	end
-	
-  end
-  
-  --Resets
-	if HR.GUISettings.General.OpenerReset > 0 and not HeroRotationCharDB.Toggles[6] then
-		starttime = GetTime()
-		endtime = starttime + (HR.GUISettings.General.OpenerReset)
-	elseif HR.GUISettings.General.OpenerReset > 0 and endtime ~= nil and GetTime() > endtime and HeroRotationCharDB.Toggles[6] then
-		HeroRotationCharDB.Toggles[6] = not HeroRotationCharDB.Toggles[6];
-		HR.ToggleIconFrame:UpdateButtonText(6);
-		HR.Print("Opener is now "..(HeroRotationCharDB.Toggles[6] and "|cff00ff00enabled|r." or "|cffff0000disabled|r."));
-	end
-	
-  local DebugMessage
-		if GetNumGroupMembers() >= 0 and GetNumGroupMembers() <= 5 then
-			if UnitGUID("focus") == Unit("party"..(shouldcastfocus/100)):GUID() and shouldcastfocus ~= 500 then	
-				shouldcastfocus = 0
-			end
-			if UnitGUID("focus") == UnitGUID("player") and shouldcastfocus == 500 then	
-				shouldcastfocus = 0
-			end
-		end
-		if GetNumGroupMembers() > 5 then
-			if UnitGUID("focus") == Unit("raid"..(shouldcastfocus/1000)):GUID() then	
-				shouldcastfocus = 0
-			end
-		end		
-	if GetNumGroupMembers() >= 0 then
-			-- Target (@focus) lowest HP party member
-		if SwapTimer <= GetTime() then 
-			BattlefieldSnapshot()
-			if (LowestHealthGUID ~= nil) and UnitGUID("focus") ~= LowestHealthGUID and SwapTimer <= GetTime() then
-				shouldcastfocus = LowestHealthIndex * 100
-			end
-			SwapTimer = GetTime() + 0.5
-		end
-	end	
---Queues
-  if (QPurify and S.PurifySpirit:IsUsableP() and S.PurifySpirit:CooldownRemains(BypassRecovery) <= 0 and UnitExists("mouseover")) then
-	if HR.Cast(S.PurifySpirit, nil, nil, nil) then 
-		if UnitExists("mouseover") and Unit("mouseover"):IsInRange(40) and not UnitIsEnemy("mouseover", "player") then
-			shouldcast = 177130 return "queue PurifySpirit MO"; 
-		end
-	end
-  elseif ((not S.PurifySpirit:IsUsableP() or S.PurifySpirit:CooldownRemains() > 0) and QPurify) then
-	  HeroRotationCharDB.Toggles[164] = not HeroRotationCharDB.Toggles[164];
-      HR.Print("PurifySpirit Queue is now "..(HeroRotationCharDB.Toggles[164] and "|cff00ff00on|r." or "|cffff0000off|r."));
-  end
-  
-  if (QCapTotem and S.CapacitorTotem:IsUsableP() and S.CapacitorTotem:CooldownRemains(BypassRecovery) <= 0) then
-	if HR.Cast(S.CapacitorTotem, nil, nil, nil) then	
-		shouldcast = 1192058 return "queue CapacitorTotem"; end
-  elseif ((not S.CapacitorTotem:IsUsableP() or S.CapacitorTotem:CooldownRemains(BypassRecovery) > 0) and QCapTotem) then
-	  HeroRotationCharDB.Toggles[91] = not HeroRotationCharDB.Toggles[91];
-      HR.Print("Capacitor Totem Queue is now "..(HeroRotationCharDB.Toggles[91] and "|cff00ff00on|r." or "|cffff0000off|r."));
-  end
-
-  if (QVesperTotem and S.VesperTotem:IsUsableP() and (S.VesperTotem:CooldownRemains(BypassRecovery) <= 0 or Spell(324519):IsCastable())) then
-	if HR.Cast(S.VesperTotem, nil, nil, nil) then	
-		shouldcast = 324386 return "queue VesperTotem"; end
-  elseif ((not S.VesperTotem:IsUsableP() or (S.VesperTotem:CooldownRemains(BypassRecovery) > 0 and not Spell(324519):IsCastable())) and QVesperTotem) then
-	  HeroRotationCharDB.Toggles[162] = not HeroRotationCharDB.Toggles[162];
-      HR.Print("Capacitor Totem Queue is now "..(HeroRotationCharDB.Toggles[162] and "|cff00ff00on|r." or "|cffff0000off|r."));
-  end
-
-  if (QWindRushTotem and S.WindRushTotem:IsUsableP() and S.WindRushTotem:IsAvailable() and S.WindRushTotem:CooldownRemains(BypassRecovery) <= 0) then
-	if HR.Cast(S.WindRushTotem, nil, nil, nil) then	
-		shouldcast = 192077 return "queue WindRushTotem"; end
-  elseif ((not S.WindRushTotem:IsUsableP() or not S.WindRushTotem:IsAvailable() or S.WindRushTotem:CooldownRemains(BypassRecovery) > 0) and QWindRushTotem) then
-	  HeroRotationCharDB.Toggles[94] = not HeroRotationCharDB.Toggles[94];
-      HR.Print("Wind Rush Totem Queue is now "..(HeroRotationCharDB.Toggles[94] and "|cff00ff00on|r." or "|cffff0000off|r."));
-  end  
-
-  if (QHex and S.Hex:IsUsableP() and S.Hex:CooldownRemains(BypassRecovery) <= 0 and UnitExists("mouseover")) then
-	if HR.Cast(S.Hex, nil, nil, nil) then 
-		if UnitExists("mouseover") and Unit("mouseover"):IsInRange(40) then
-			MOshouldcast = 151514 return "queue Hex MO"; 
-		end
-	end
-  elseif ((not S.Hex:IsUsableP() or S.Hex:CooldownRemains() > 0) and QHex) then
-	  HeroRotationCharDB.Toggles[95] = not HeroRotationCharDB.Toggles[95];
-      HR.Print("Hex Queue is now "..(HeroRotationCharDB.Toggles[95] and "|cff00ff00on|r." or "|cffff0000off|r."));
-  end
-
-  if (QTremorTotem and S.TremorTotem:IsUsableP() and S.TremorTotem:CooldownRemains(BypassRecovery) <= 0) then
-	if HR.Cast(S.TremorTotem, nil, nil, nil) then	
-		shouldcast = 8143 return "queue TremorTotem"; end
-  elseif ((not S.TremorTotem:IsUsableP() or S.TremorTotem:CooldownRemains(BypassRecovery) > 0) and QTremorTotem) then
-	  HeroRotationCharDB.Toggles[93] = not HeroRotationCharDB.Toggles[93];
-      HR.Print("Tremor Totem Queue is now "..(HeroRotationCharDB.Toggles[93] and "|cff00ff00on|r." or "|cffff0000off|r."));
-  end
-  
-  if HealOOC and not UnitAffectingCombat("player") and not StopHeal then
-    DebugMessage = FriendlyRotation()
-    if DebugMessage then return DebugMessage end;
-  end		
-  
-  DebugMessage = Precombat();
-  if DebugMessage then return DebugMessage end;
-    -- Everyone.Interrupt(30, S.WindShear, Settings.Commons.OffGCDasOffGCD.WindShear, false);
-
-  if S.CloudBurstTotem:IsCastable() and not StopHeal and S.CloudBurstTotem:IsAvailable() and not IsMoving() and UnitAffectingCombat("player") and S.CloudBurstTotem:Charges() >= 1 and (S.HealingTideTotem:TimeSinceLastCast() <= 7 or S.Ascendance:TimeSinceLastCast() <= 10 or S.SpiritLinkTotem:TimeSinceLastCast() <= 3) then
-	if Cast(S.CloudBurstTotem) then shouldcast = 157153 return "CloudBurst Totem for Burst" end
-  end
-  
-  if (UnitAffectingCombat("player") or Opener1) then
-    if OhShit then 
-		DebugMessage = OhShitR()
-		if DebugMessage then return DebugMessage end;
-	end
-	
-	if Everyone.TargetIsValid() and not StopHeal then
-		DebugMessage = Cooldowns()
-		if DebugMessage then return DebugMessage end;
-	end
-	
-    DebugMessage = CoreRotation()
-    if DebugMessage then return DebugMessage end;
-
-    -- This is actually an "error" state, we should always be able to frost shock.
-    if Everyone.TargetIsValid() and UnitIsBlackListed("target") and not StopDPS then
-		HR.CastAnnotated(S.Pool, false, "LoS");
-	end
-  end
-end
-
-local function Init()
-  HR.Print("Restoration Shaman rotation is currently a work in progress.")
+local function o()
+    n.Print("Restoration Shaman rotation is currently a work in progress.")
 end
 
 function ReturnSpell3()
-	if shouldcast == 0 then
-		return 0
-	else
-		return shouldcast
-	end
+    if a == 0 then
+        return 0
+    else
+        return a
+    end
+
 end
-	
+
 function ReturnSpellMO3()
-	if MOshouldcast == 0 then
-		return 0
-	else
-		return MOshouldcast
-	end
+    if k == 0 then
+        return 0
+    else
+        return k
+    end
+
 end
 
 function ReturnSpellF3()
-	if shouldcastfocus == 0 then
-		return 0
-	else
-		return shouldcastfocus
-	end
+    if u == 0 then
+        return 0
+    else
+        return u
+    end
+
 end
 
 function BlacklistExport()
-local BLexport = nil
-	if table.getn(BlacklistTable) > 0 then
-	   for i=1, table.getn(BlacklistTable) do
-		  for w in string.gmatch(BlacklistTable[i], "([^%s]+)") do
-			 if tonumber(w) ~= nil then
-				w = tonumber(w)
-			 end
-			 if type(w) == "string" then
-				BLexport = FindUnitFor(w)
-			 end
-		  end
-	   end
-	end
-return BLexport
+    local t = nil
+    if table.getn(v) > 0 then
+        for e = 1, table.getn(v) do
+            for e in string.gmatch(v[e], "([^%s]+)") do
+                if tonumber(e) ~= nil then
+                    e = tonumber(e)
+                end
+
+                if type(e) == "string" then
+                    t = le(e)
+                end
+
+            end
+
+        end
+
+    end
+
+    return t
 end
 
-HR.SetAPL(264, APL, Init)
+n.SetAPL(264, q, o)
+

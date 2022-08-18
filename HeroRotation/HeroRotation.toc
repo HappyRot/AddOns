@@ -17,6 +17,14 @@ Lib\LibStub\LibStub.lua
 Lib\CallbackHandler-1.0\CallbackHandler-1.0.xml
 Lib\LibDataBroker-1.1\LibDataBroker-1.1.lua
 Lib\LibDBIcon-1.0\LibDBIcon-1.0.lua
+Lib\AceAddon-3.0\AceAddon-3.0.xml
+Lib\AceSerializer-3.0\AceSerializer-3.0.xml
+Lib\AceEvent-3.0\AceEvent-3.0.xml
+Lib\AceComm-3.0\AceComm-3.0.xml
+Lib\AceConsole-3.0\AceConsole-3.0.xml
+Lib\AceDB-3.0\AceDB-3.0.xml
+Lib\AceLocale-3.0\AceLocale-3.0.xml
+Lib\AceGUI-3.0\AceGUI-3.0.xml
 
 # GUI
 Panels.lua
