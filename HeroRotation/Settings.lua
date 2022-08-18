@@ -4,7 +4,7 @@ local t = t.GUI
 local o = t.CreatePanel
 local a = t.CreateChildPanel
 local t = t.CreatePanelOption
-e.GUISettings = { General = { MainFrameStrata = "BACKGROUND", NamePlateIconAnchor = "Clickable Area", BlackBorderIcon = false, HideKeyBinds = false, SoloMode = false, HideToggleIcons = false, NotEnoughManaEnabled = false, RotationDebugOutput = false, OpenerReset = 0, ScaleUI = 1, ScaleButtons = 1.1, ScaleHotkey = 1, SetAlpha = 1, TickRate = 0, HoldPotforBL = false, SilentMode = false, AdaptivePerformance = true, TargetFrames = 60 }, APL = {  } }
+e.GUISettings = { General = { MainFrameStrata = "BACKGROUND", NamePlateIconAnchor = "Clickable Area", BlackBorderIcon = false, HideKeyBinds = false, SoloMode = false, HideToggleIcons = false, NotEnoughManaEnabled = false, RotationDebugOutput = false, OpenerReset = 0, ScaleUI = 1, ScaleButtons = 1.1, ScaleHotkey = 1, SetAlpha = 1, TickRate = 0, HoldPotforBL = false, SilentMode = false, MiniMap = true, AdaptivePerformance = true, TargetFrames = 60 }, APL = {  } }
 function e.GUI.CorePanelSettingsInit()
     local e = o(e.GUI, "HeroRotation", "PanelFrame", e.GUISettings, HeroRotationDB.GUISettings)
     local e = a(e, "General")

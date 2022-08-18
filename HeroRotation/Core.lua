@@ -3,28 +3,120 @@ local a = HeroLib
 local o, t = HeroCache, a.Utils
 local t = a.Unit
 local i = t.Player
-local c = t.Target
-local h = a.Spell
+local u = t.Target
+local r = a.Spell
 local t = a.Item
-local l = math.min
-local t = print
-local n = select
-local u = string.lower
-local m = strsplit
-local n = tostring
-local s = { General = e.GUISettings.General }
+local t = LibStub:GetLibrary("LibDataBroker-1.1")
+local t = LibStub("LibDBIcon-1.0")
+local t = a.GUI
+local m = math.min
+local h = print
+local t = select
+local c = string.lower
+local l = strsplit
+local s = tostring
+local t = { General = e.GUISettings.General }
+LibStub("AceAddon-3.0"):NewAddon(e, "HeroRotation", "AceConsole-3.0")
+local n = LibStub("LibDataBroker-1.1"):NewDataObject("HeroRotation", { type = "launcher", text = "HeroRotation", label = "HeroRotation", icon = "Interface\\AddOns\\HeroRotation\\Media\\999901", OnClick = function()
+    local e = GetSpecialization()
+    o.Persistent.Player.Spec = { GetSpecializationInfo(e) }
+    local e = o.Persistent.Player.Spec[1]
+                                                                if e == 577 then
+        InterfaceOptionsFrame_Show()
+        InterfaceOptionsFrame_OpenToCategory("HeroRotation")
+        InterfaceOptionsFrame_OpenToCategory("      Havoc")
+    elseif e == 250 then
+        InterfaceOptionsFrame_Show()
+        InterfaceOptionsFrame_OpenToCategory("HeroRotation")
+        InterfaceOptionsFrame_OpenToCategory("      Blood")
+    elseif e == 252 then
+        InterfaceOptionsFrame_Show()
+        InterfaceOptionsFrame_OpenToCategory("HeroRotation")
+        InterfaceOptionsFrame_OpenToCategory("      Unholy")
+    elseif e == 72 then
+        InterfaceOptionsFrame_Show()
+        InterfaceOptionsFrame_OpenToCategory("HeroRotation")
+        InterfaceOptionsFrame_OpenToCategory("      Fury")
+    elseif e == 267 then
+        InterfaceOptionsFrame_Show()
+        InterfaceOptionsFrame_OpenToCategory("HeroRotation")
+        InterfaceOptionsFrame_OpenToCategory("      Destruction")
+    elseif e == 264 then
+        InterfaceOptionsFrame_Show()
+        InterfaceOptionsFrame_OpenToCategory("HeroRotation")
+        InterfaceOptionsFrame_OpenToCategory("      Restoration")
+    elseif e == 263 then
+        InterfaceOptionsFrame_Show()
+        InterfaceOptionsFrame_OpenToCategory("HeroRotation")
+        InterfaceOptionsFrame_OpenToCategory("      Enhancement")
+    elseif e == 262 then
+        InterfaceOptionsFrame_Show()
+        InterfaceOptionsFrame_OpenToCategory("HeroRotation")
+        InterfaceOptionsFrame_OpenToCategory("      Elemental")
+    elseif e == 261 then
+        InterfaceOptionsFrame_Show()
+        InterfaceOptionsFrame_OpenToCategory("HeroRotation")
+        InterfaceOptionsFrame_OpenToCategory("      Subtlety")
+    elseif e == 260 then
+        InterfaceOptionsFrame_Show()
+        InterfaceOptionsFrame_OpenToCategory("HeroRotation")
+        InterfaceOptionsFrame_OpenToCategory("      Outlaw")
+    elseif e == 258 then
+        InterfaceOptionsFrame_Show()
+        InterfaceOptionsFrame_OpenToCategory("HeroRotation")
+        InterfaceOptionsFrame_OpenToCategory("      Shadow")
+    elseif e == 269 then
+        InterfaceOptionsFrame_Show()
+        InterfaceOptionsFrame_OpenToCategory("HeroRotation")
+        InterfaceOptionsFrame_OpenToCategory("      Windwalker")
+    elseif e == 62 or e == 251 then
+        InterfaceOptionsFrame_Show()
+        InterfaceOptionsFrame_OpenToCategory("HeroRotation")
+        InterfaceOptionsFrame_OpenToCategory("      Frost")
+    elseif e == 255 then
+        InterfaceOptionsFrame_Show()
+        InterfaceOptionsFrame_OpenToCategory("HeroRotation")
+        InterfaceOptionsFrame_OpenToCategory("      Survival")
+    elseif e == 253 then
+        InterfaceOptionsFrame_Show()
+        InterfaceOptionsFrame_OpenToCategory("HeroRotation")
+        InterfaceOptionsFrame_OpenToCategory("      BeastMastery")
+    elseif e == 104 then
+        InterfaceOptionsFrame_Show()
+        InterfaceOptionsFrame_OpenToCategory("HeroRotation")
+        InterfaceOptionsFrame_OpenToCategory("      Guardian")
+    end
+
+end, OnTooltipShow = function(e)
+    e:AddLine("HeroRotation", 1, 1, 1)
+end })
+function e.CoreInit()
+    HeroRotationDB.db = LibStub("AceDB-3.0"):New("HeroRotationDB", { profile = { minimap = { hide = false } } })
+    HRDBIcon = LibStub("LibDBIcon-1.0")
+    HRDBIcon:Register("HeroRotation", n, HeroRotationDB.db.profile.minimap)
+end
+
+function HideMiniMapHR()
+    if not (t.General.MiniMap) then
+        HRDBIcon:Hide("HeroRotation")
+    else
+        HRDBIcon:Show("HeroRotation")
+    end
+
+end
+
 function e.Print(...)
-    if not s.General.SilentMode then
-        t("[|cFFFF6600Hero Rotation|r]", ...)
+    if not t.General.SilentMode then
+        h("[|cFFFF6600Hero Rotation|r]", ...)
     end
 
 end
 
 e.APLs = {  }
 e.APLInits = {  }
-function e.SetAPL(t, a, o)
-    e.APLs[t] = a
-    e.APLInits[t] = o
+function e.SetAPL(t, o, a)
+    e.APLs[t] = o
+    e.APLInits[t] = a
 end
 
 function e.GetTexture(a)
@@ -33,7 +125,7 @@ function e.GetTexture(a)
         local t = o.Persistent.Texture.Spell
         if not t[e] then
                         if e >= 999900 then
-                t[e] = "Interface\\Addons\\HeroRotation\\Textures\\" .. n(e)
+                t[e] = "Interface\\Addons\\HeroRotation\\Textures\\" .. s(e)
             elseif a.TextureSpellID then
                 t[e] = GetSpellTexture(a.TextureSpellID)
             else
@@ -58,21 +150,21 @@ function e.GetTexture(a)
 
 end
 
-local f = h(61304)
-local h, r, o
-local function s(n, l, d)
-    local a, t
-    local s = GetTime()
+local f = r(61304)
+local r, h, o
+local function s(s, l, d)
+    local t, a
+    local n = GetTime()
     if i:IsCasting() or i:IsChanneling() then
-        a = i:CastStart()
-        t = i:CastDuration()
+        t = i:CastStart()
+        a = i:CastDuration()
     else
-        a, t = f:CooldownInfo()
+        t, a = f:CooldownInfo()
     end
 
-    if h ~= n then
-        h = n
+    if r ~= s then
         r = s
+        h = n
         o = 0
     end
 
@@ -81,31 +173,31 @@ local function s(n, l, d)
         if d then
             e = d
         else
-            e = i.TimeToXResourceMap[n:CostInfo(nil, "type")](n:Cost())
+            e = i.TimeToXResourceMap[s:CostInfo(nil, "type")](s:Cost())
         end
 
         if e and e > 0 then
-            if e > ((a + t) - s) then
-                local e = s - r + e
+            if e > ((t + a) - n) then
+                local e = n - h + e
                 if (o == 0 and e > .25) or o > e or (e - o) > .5 then
                     o = e
                 end
 
-                a = r
-                t = o
+                t = h
+                a = o
             end
 
         end
 
     end
 
-    if ((a + t) < s) then
-        a = 0
+    if ((t + a) < n) then
         t = 0
-        h = nil
+        a = 0
+        r = nil
     end
 
-    e.MainIconFrame:SetCooldown(a, t)
+    e.MainIconFrame:SetCooldown(t, a)
 end
 
 e.CastOffGCDOffset = 1
@@ -151,21 +243,21 @@ function e.CastPooling(a, o, t)
     return e.Cast(a, false, "Pooling", t, o)
 end
 
-local t, i, o, n
+local t, o, i, n
 e.MaxQueuedCasts = 3
 local function h(...)
     t = { ... }
-    i = l(#t, e.MaxQueuedCasts)
-    o = {  }
+    o = m(#t, e.MaxQueuedCasts)
+    i = {  }
     n = {  }
-    for i = 1, i do
-        o[i] = e.GetTexture(t[i])
-        t[i].LastDisplayTime = GetTime()
-        n[i] = not e.GUISettings.General.HideKeyBinds and a.Action.TextureHotKey(o[i])
+    for o = 1, o do
+        i[o] = e.GetTexture(t[o])
+        t[o].LastDisplayTime = GetTime()
+        n[o] = not e.GUISettings.General.HideKeyBinds and a.Action.TextureHotKey(i[o])
     end
 
-    e.MainIconFrame:ChangeIcon(o[1], n[1], t[1]:IsUsable())
-    e.MainIconFrame:SetupParts(o, n)
+    e.MainIconFrame:ChangeIcon(i[1], n[1], t[1]:IsUsable())
+    e.MainIconFrame:SetupParts(i, n)
 end
 
 function e.CastQueue(...)
@@ -246,7 +338,7 @@ function e.CastRightSuggested(t, i)
 end
 
 function e.CmdHandler(t)
-    local t, o, a = m(" ", u(t))
+    local t, o, a = l(" ", c(t))
                                                                                                                                                                                                                                                                                                                                                                                                             if t == "cds" then
         HeroRotationCharDB.Toggles[1] = not HeroRotationCharDB.Toggles[1]
         e.ToggleIconFrame:UpdateButtonText(1)
@@ -602,7 +694,7 @@ end
 do
     local t = { [120651] = true }
     function e.AoEON()
-        return HeroRotationCharDB.Toggles[2] and not t[c:NPCID()]
+        return HeroRotationCharDB.Toggles[2] and not t[u:NPCID()]
     end
 
 end
