@@ -308,6 +308,7 @@ e.MainFrame:SetScript("OnEvent", function(h, t, i)
 end)
 function e.PulsePreInit()
     e.MainFrame:Lock()
+    e.CoreInit()
 end
 
 local u = { [250] = "HeroRotation_DeathKnight", [251] = "HeroRotation_DeathKnight", [252] = "HeroRotation_DeathKnight", [577] = "HeroRotation_DemonHunter", [581] = "HeroRotation_DemonHunter", [102] = "HeroRotation_Druid", [103] = "HeroRotation_Druid", [104] = "HeroRotation_Druid", [105] = "HeroRotation_Druid", [253] = "HeroRotation_Hunter", [254] = "HeroRotation_Hunter", [255] = "HeroRotation_Hunter", [62] = "HeroRotation_Mage", [63] = "HeroRotation_Mage", [64] = "HeroRotation_Mage", [268] = "HeroRotation_Monk", [269] = "HeroRotation_Monk", [270] = "HeroRotation_Monk", [65] = "HeroRotation_Paladin", [66] = "HeroRotation_Paladin", [70] = "HeroRotation_Paladin", [256] = "HeroRotation_Priest", [257] = "HeroRotation_Priest", [258] = "HeroRotation_Priest", [259] = "HeroRotation_Rogue", [260] = "HeroRotation_Rogue", [261] = "HeroRotation_Rogue", [262] = "HeroRotation_Shaman", [263] = "HeroRotation_Shaman", [264] = "HeroRotation_Shaman", [265] = "HeroRotation_Warlock", [266] = "HeroRotation_Warlock", [267] = "HeroRotation_Warlock", [71] = "HeroRotation_Warrior", [72] = "HeroRotation_Warrior", [73] = "HeroRotation_Warrior" }
@@ -315,7 +316,6 @@ local m = 0
 local r = GetTime()
 local o = 0
 function e.PulseInit()
-    e.CoreInit()
     local t = GetSpecialization()
     if t == nil then
         i.PulseInitialized = false

@@ -69,7 +69,7 @@ local n = LibStub("LibDataBroker-1.1"):NewDataObject("HeroRotation", { type = "l
         InterfaceOptionsFrame_Show()
         InterfaceOptionsFrame_OpenToCategory("HeroRotation")
         InterfaceOptionsFrame_OpenToCategory("      Windwalker")
-    elseif e == 62 or e == 251 then
+    elseif e == 64 or e == 251 then
         InterfaceOptionsFrame_Show()
         InterfaceOptionsFrame_OpenToCategory("HeroRotation")
         InterfaceOptionsFrame_OpenToCategory("      Frost")
