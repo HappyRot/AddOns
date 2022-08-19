@@ -6,7 +6,7 @@ local k = b.Unit
 local a = k.Player
 local i = k.Target
 local r = k.Pet
-local y = b.Spell
+local f = b.Spell
 local h = b.Item
 local T = b.Action
 local s = HeroRotation
@@ -30,15 +30,15 @@ local x
 local I
 local l
 local N
-local B = { 355782, 333875, 344739, 228318, 332158, 321764, 324914, 326046, 324776, 340544, 324736, 328015, 322433, 334324, 317936, 327332, 328288, 343470, 333293, 320272, 342139, 355888, 349933, 356549, 355934, 353706, 347775, 357284, 335141, 327155, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 344739, 368477, 368396, 355057, 356133 }
+local B = { 355782, 333875, 344739, 228318, 332158, 321764, 324914, 326046, 324776, 340544, 324736, 328015, 322433, 334324, 317936, 327332, 328288, 343470, 333293, 320272, 342139, 355888, 349933, 356549, 355934, 353706, 347775, 357284, 335141, 327155, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 344739, 368477, 368396, 355057, 356133, 158337, 164426 }
 local M = math.max
 local e, H, e, e, G, e = _G, pairs, type, table, string, error
 local j = s.Commons.Everyone
 local e = s.Commons.Hunter
 local n = { General = s.GUISettings.General, Commons = s.GUISettings.APL.Hunter.Commons, BeastMastery = s.GUISettings.APL.Hunter.BeastMastery }
-local e = y.Hunter.BeastMastery
-local w = { e.SummonPet, e.SummonPet2, e.SummonPet3, e.SummonPet4, e.SummonPet5 }
-local f = h.Hunter.BeastMastery
+local e = f.Hunter.BeastMastery
+local y = { e.SummonPet, e.SummonPet2, e.SummonPet3, e.SummonPet4, e.SummonPet5 }
+local w = h.Hunter.BeastMastery
 local re = {  }
 local t
 local t = a:GetEquipment()
@@ -128,7 +128,7 @@ local function P(e)
     if e ~= nil then
         for a in H(e) do
             local e = e[a]
-            if e:IsInRange(40) and (e:AffectingCombat() or e:IsDummy() or e:NPCID() == 153285) and e:DebuffUp(y(257284)) then
+            if e:IsInRange(40) and (e:AffectingCombat() or e:IsDummy() or e:NPCID() == 153285) and e:DebuffUp(f(257284)) then
                 t = t + 1
             end
 
@@ -230,7 +230,7 @@ end
 
 local function ie()
     if j.TargetIsValid() and h then
-        if y(257284):IsCastable() and y(339264):ConduitEnabled() and i:DebuffDown(y(257284)) and P(v) <= 0 and (UnitName("target") == "Nalthor the Rimebinder" or UnitName("target") == "Tirnenn Villager" or UnitName("target") == "Drust Boughbreaker" or UnitName("target") == "Ingra Maloch" or UnitName("target") == "Mistveil Stalker" or UnitName("target") == "Mistcaller" or UnitName("target") == "Blightbone" or UnitName("target") == "Rotspew" or UnitName("target") == "Amarth" or UnitName("target") == "Surgeon Stitchflesh" or UnitName("target") == "Lubricator" or UnitName("target") == "Tred'ova" or UnitName("target") == "Azules" or UnitName("target") == "Ventunax" or UnitName("target") == "Oryphion" or UnitName("target") == "Astronos" or UnitName("target") == "Lakesis" or UnitName("target") == "Klotos" or UnitName("target") == "Devos" or UnitName("target") == "Halkias" or UnitName("target") == "High Adjudicator Aleez" or UnitName("target") == "Wo Drifter" or UnitName("target") == "Lord Chamberlain" or UnitName("target") == "Enraged Spirit" or UnitName("target") == "Hakkar The Soulflayer" or UnitName("target") == "Sentient Oil" or UnitName("target") == "Millhouse Manastorm" or UnitName("target") == "Millificent Manastorm" or UnitName("target") == "Dealer Xy’exa" or UnitName("target") == "Mueh'zala" or UnitName("target") == "Fungi Stormer" or UnitName("target") == "Globgrog" or UnitName("target") == "Slime Tentacle" or UnitName("target") == "Virulax Blightweaver" or UnitName("target") == "Doctor Ickus" or UnitName("target") == "Domina Venomblade" or UnitName("target") == "Margrave Stradama" or UnitName("target") == "Dreadful Huntmaster" or UnitName("target") == "Insatiable Brute" or UnitName("target") == "Kryxis the Voracious" or UnitName("target") == "Grand Overseer" or UnitName("target") == "Research Scribe" or UnitName("target") == "Executor Tarvold" or UnitName("target") == "Grand Proctor Beryllia" or UnitName("target") == "General Kaal" or UnitName("target") == "Paceran the Virulent" or UnitName("target") == "Shard of Halkias" or UnitName("target") == "Shambling Arbalest" or UnitName("target") == "Nekthara the Mangler" or UnitName("target") == "Harugia the Bloodthirtsy" or UnitName("target") == "Heavin the Breaker" or UnitName("target") == "Echelon" or UnitName("target") == "Advent Nevermore" or UnitName("target") == "Xav the Unfallen" or UnitName("target") == "Portal Guardian" or UnitName("target") == "Kul'Tharok" or UnitName("target") == "Gorechop" or UnitName("target") == "Mordretha, the Endless Empress" or UnitName("target") == "Gatewarden Zo'mazz" or UnitName("target") == "Zophex" or UnitName("target") == "Alcruux" or UnitName("target") == "Achillite" or UnitName("target") == "Venza Goldfuse" or UnitName("target") == "Zo'gron" or UnitName("target") == "P.O.S.T Master" or UnitName("target") == "So'azmi" or UnitName("target") == "Portalmancer Zo'dahh" or (IsInRaid() and UnitName("boss1") == UnitName("boss1"))) then
+        if f(257284):IsCastable() and f(339264):ConduitEnabled() and i:DebuffDown(f(257284)) and P(v) <= 0 and (UnitName("target") == "Nalthor the Rimebinder" or UnitName("target") == "Tirnenn Villager" or UnitName("target") == "Drust Boughbreaker" or UnitName("target") == "Ingra Maloch" or UnitName("target") == "Mistveil Stalker" or UnitName("target") == "Mistcaller" or UnitName("target") == "Blightbone" or UnitName("target") == "Rotspew" or UnitName("target") == "Amarth" or UnitName("target") == "Surgeon Stitchflesh" or UnitName("target") == "Lubricator" or UnitName("target") == "Tred'ova" or UnitName("target") == "Azules" or UnitName("target") == "Ventunax" or UnitName("target") == "Oryphion" or UnitName("target") == "Astronos" or UnitName("target") == "Lakesis" or UnitName("target") == "Klotos" or UnitName("target") == "Devos" or UnitName("target") == "Halkias" or UnitName("target") == "High Adjudicator Aleez" or UnitName("target") == "Wo Drifter" or UnitName("target") == "Lord Chamberlain" or UnitName("target") == "Enraged Spirit" or UnitName("target") == "Hakkar The Soulflayer" or UnitName("target") == "Sentient Oil" or UnitName("target") == "Millhouse Manastorm" or UnitName("target") == "Millificent Manastorm" or UnitName("target") == "Dealer Xy’exa" or UnitName("target") == "Mueh'zala" or UnitName("target") == "Fungi Stormer" or UnitName("target") == "Globgrog" or UnitName("target") == "Slime Tentacle" or UnitName("target") == "Virulax Blightweaver" or UnitName("target") == "Doctor Ickus" or UnitName("target") == "Domina Venomblade" or UnitName("target") == "Margrave Stradama" or UnitName("target") == "Dreadful Huntmaster" or UnitName("target") == "Insatiable Brute" or UnitName("target") == "Kryxis the Voracious" or UnitName("target") == "Grand Overseer" or UnitName("target") == "Research Scribe" or UnitName("target") == "Executor Tarvold" or UnitName("target") == "Grand Proctor Beryllia" or UnitName("target") == "General Kaal" or UnitName("target") == "Paceran the Virulent" or UnitName("target") == "Shard of Halkias" or UnitName("target") == "Shambling Arbalest" or UnitName("target") == "Nekthara the Mangler" or UnitName("target") == "Harugia the Bloodthirtsy" or UnitName("target") == "Heavin the Breaker" or UnitName("target") == "Echelon" or UnitName("target") == "Advent Nevermore" or UnitName("target") == "Xav the Unfallen" or UnitName("target") == "Portal Guardian" or UnitName("target") == "Kul'Tharok" or UnitName("target") == "Gorechop" or UnitName("target") == "Mordretha, the Endless Empress" or UnitName("target") == "Gatewarden Zo'mazz" or UnitName("target") == "Zophex" or UnitName("target") == "Alcruux" or UnitName("target") == "Achillite" or UnitName("target") == "Venza Goldfuse" or UnitName("target") == "Zo'gron" or UnitName("target") == "P.O.S.T Master" or UnitName("target") == "So'azmi" or UnitName("target") == "Portalmancer Zo'dahh" or (IsInRaid() and UnitName("boss1") == UnitName("boss1"))) then
             if o(e.HuntersMark, nil) then
                 t = 257284
                 return "HuntersMark M+"
@@ -335,8 +335,8 @@ local function ae()
 
     end
 
-    if n.Commons.Enabled.Potions and f.PotionOfSpectralAgility:IsReady() and X and (((a:BuffUp(e.AspectoftheWildBuff) or i:TimeToDie() < 26) and not s.GUISettings.General.HoldPotforBL) or (a:BloodlustUp() and s.GUISettings.General.HoldPotforBL)) then
-        if o(f.PotionOfSpectralAgility, nil) then
+    if n.Commons.Enabled.Potions and w.PotionOfSpectralAgility:IsReady() and X and (((a:BuffUp(e.AspectoftheWildBuff) or i:TimeToDie() < 26) and not s.GUISettings.General.HoldPotforBL) or (a:BloodlustUp() and s.GUISettings.General.HoldPotforBL)) then
+        if o(w.PotionOfSpectralAgility, nil) then
             t = 50
             return "Potion of Spectral Agility"
         end
@@ -851,6 +851,11 @@ local function g()
     R = i:IsInRange(30)
     O = (m and i:IsSpellInActionRange(m)) or (not m and i:IsInRange(30))
     _()
+    if s.QueuedCast() then
+        t = s.QueuedCast()
+        return "Custom Queue " .. f(t):ID()
+    end
+
     if e.Exhilaration:IsCastable() and a:HealthPercentage() <= n.Commons.ExhilarationHP then
         if o(e.Exhilaration, nil) then
             t = 109304
@@ -859,24 +864,24 @@ local function g()
 
     end
 
-    if a:HealthPercentage() < n.Commons.HealthstoneHP and f.Healthstone:IsReady() and f.Healthstone:CooldownRemains() <= 0 then
-        if s.Cast(f.Healthstone, nil) then
+    if a:HealthPercentage() < n.Commons.HealthstoneHP and w.Healthstone:IsReady() and w.Healthstone:CooldownRemains() <= 0 then
+        if s.Cast(w.Healthstone, nil) then
             t = 40
             return "Healthstone HP"
         end
 
     end
 
-    if a:HealthPercentage() < n.Commons.HealPotHP and f.CosmicHealPot:IsReady() and f.CosmicHealPot:CooldownRemains() <= 0 then
-        if s.Cast(f.CosmicHealPot, nil) then
+    if a:HealthPercentage() < n.Commons.HealPotHP and w.CosmicHealPot:IsReady() and w.CosmicHealPot:CooldownRemains() <= 0 then
+        if s.Cast(w.CosmicHealPot, nil) then
             t = 45
             return "CosmicHealPot HP"
         end
 
     end
 
-    if a:HealthPercentage() < n.Commons.HealPotHP and f.HealPot:IsReady() and f.HealPot:CooldownRemains() <= 0 then
-        if s.Cast(f.HealPot, nil) then
+    if a:HealthPercentage() < n.Commons.HealPotHP and w.HealPot:IsReady() and w.HealPot:CooldownRemains() <= 0 then
+        if s.Cast(w.HealPot, nil) then
             t = 41
             return "HealPot HP"
         end
@@ -891,7 +896,7 @@ local function g()
 
     end
 
-    if a:BuffUp(y(5384)) then
+    if a:BuffUp(f(5384)) then
         return false
     end
 
@@ -917,7 +922,7 @@ local function g()
 
     end
 
-    B = { 333875, 344739, 228318, 332158, 321764, 324914, 326046, 324776, 340544, 324736, 328015, 322433, 334324, 317936, 327332, 328288, 195181, 333293, 320272, 342139, 355888, 349933, 356549, 355934, 353706, 347775, 357284, 335141, 327155, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 344739, 368477, 368396, 355057, 356133 }
+    B = { 333875, 344739, 228318, 332158, 321764, 324914, 326046, 324776, 340544, 324736, 328015, 322433, 334324, 317936, 327332, 328288, 195181, 333293, 320272, 342139, 355888, 349933, 356549, 355934, 353706, 347775, 357284, 335141, 327155, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 344739, 368477, 368396, 355057, 356133, 158337, 164426 }
     if UnitExists("target") and e.TranqualizingShot:IsCastable() and not Q then
         if UnitCanAttack("player", "target") and UnitAffectingCombat("target") and UnitIsDead("target") ~= true and e.TranqualizingShot:IsCastable() and e.TranqualizingShot:CooldownRemains(BypassRecovery) <= 0 then
             for a = 0, 40 do
@@ -1003,7 +1008,7 @@ local function g()
         s.Print("Tar Trap Queue is now " .. (HeroRotationCharDB.Toggles[124] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-    if a:BuffUp(y(5384)) then
+    if a:BuffUp(f(5384)) then
         return false
     end
 
@@ -1024,32 +1029,32 @@ local function g()
     end
 
     if e.SummonPet:IsCastable() and (not r:IsActive()) and n.Commons.SummonPetSlot ~= 0 then
-                                        if n.Commons.SummonPetSlot == 1 and not a:PrevGCD(1, w[n.Commons.SummonPetSlot]) then
-            if o(w[n.Commons.SummonPetSlot], nil) then
+                                        if n.Commons.SummonPetSlot == 1 and not a:PrevGCD(1, y[n.Commons.SummonPetSlot]) then
+            if o(y[n.Commons.SummonPetSlot], nil) then
                 t = 883
                 return "Summon Pet"
             end
 
-        elseif n.Commons.SummonPetSlot == 2 and not a:PrevGCD(1, w[n.Commons.SummonPetSlot]) then
-            if o(w[n.Commons.SummonPetSlot], nil) then
+        elseif n.Commons.SummonPetSlot == 2 and not a:PrevGCD(1, y[n.Commons.SummonPetSlot]) then
+            if o(y[n.Commons.SummonPetSlot], nil) then
                 t = 83242
                 return "Summon Pet"
             end
 
-        elseif n.Commons.SummonPetSlot == 3 and not a:PrevGCD(1, w[n.Commons.SummonPetSlot]) then
-            if o(w[n.Commons.SummonPetSlot], nil) then
+        elseif n.Commons.SummonPetSlot == 3 and not a:PrevGCD(1, y[n.Commons.SummonPetSlot]) then
+            if o(y[n.Commons.SummonPetSlot], nil) then
                 t = 83243
                 return "Summon Pet"
             end
 
-        elseif n.Commons.SummonPetSlot == 4 and not a:PrevGCD(1, w[n.Commons.SummonPetSlot]) then
-            if o(w[n.Commons.SummonPetSlot], nil) then
+        elseif n.Commons.SummonPetSlot == 4 and not a:PrevGCD(1, y[n.Commons.SummonPetSlot]) then
+            if o(y[n.Commons.SummonPetSlot], nil) then
                 t = 83244
                 return "Summon Pet"
             end
 
-        elseif n.Commons.SummonPetSlot == 5 and not a:PrevGCD(1, w[n.Commons.SummonPetSlot]) then
-            if o(w[n.Commons.SummonPetSlot], nil) then
+        elseif n.Commons.SummonPetSlot == 5 and not a:PrevGCD(1, y[n.Commons.SummonPetSlot]) then
+            if o(y[n.Commons.SummonPetSlot], nil) then
                 t = 83245
                 return "Summon Pet"
             end
@@ -1066,7 +1071,7 @@ local function g()
 
     end
 
-    local m, h, f = GetSpellCooldown(34477)
+    local m, h, w = GetSpellCooldown(34477)
     if a:AffectingCombat() and n.Commons.AutoMisdirect and not J then
         if (m + h - GetTime()) <= 0 and e.Misdirection:IsAvailable() and e.Misdirection:CooldownRemains(BypassRecovery) <= 0 and UnitExists("focus") and (UnitInParty("focus") or UnitInRaid("focus") or UnitIsUnit("focus", "pet")) and IsItemInRange(32698, "focus") then
             if s.Cast(e.Misdirection) then
@@ -1095,7 +1100,7 @@ local function g()
     end
 
     if j.TargetIsValid() and (a:AffectingCombat() or Y) then
-        if y(257284):IsCastable() and y(339264):ConduitEnabled() and i:DebuffDown(y(257284)) and (P(v) <= 0 or UnitName("target") == "Fleeting Manifestation") and (UnitName("target") == "Nalthor the Rimebinder" or UnitName("target") == "Tirnenn Villager" or UnitName("target") == "Drust Boughbreaker" or UnitName("target") == "Ingra Maloch" or UnitName("target") == "Mistveil Stalker" or UnitName("target") == "Mistcaller" or UnitName("target") == "Blightbone" or UnitName("target") == "Rotspew" or UnitName("target") == "Amarth" or UnitName("target") == "Surgeon Stitchflesh" or UnitName("target") == "Lubricator" or UnitName("target") == "Tred'ova" or UnitName("target") == "Azules" or UnitName("target") == "Ventunax" or UnitName("target") == "Oryphion" or UnitName("target") == "Astronos" or UnitName("target") == "Lakesis" or UnitName("target") == "Klotos" or UnitName("target") == "Devos" or UnitName("target") == "Halkias" or UnitName("target") == "High Adjudicator Aleez" or UnitName("target") == "Wo Drifter" or UnitName("target") == "Lord Chamberlain" or UnitName("target") == "Enraged Spirit" or UnitName("target") == "Hakkar The Soulflayer" or UnitName("target") == "Sentient Oil" or UnitName("target") == "Millhouse Manastorm" or UnitName("target") == "Millificent Manastorm" or UnitName("target") == "Dealer Xy’exa" or UnitName("target") == "Mueh'zala" or UnitName("target") == "Fungi Stormer" or UnitName("target") == "Globgrog" or UnitName("target") == "Slime Tentacle" or UnitName("target") == "Virulax Blightweaver" or UnitName("target") == "Doctor Ickus" or UnitName("target") == "Domina Venomblade" or UnitName("target") == "Margrave Stradama" or UnitName("target") == "Dreadful Huntmaster" or UnitName("target") == "Insatiable Brute" or UnitName("target") == "Kryxis the Voracious" or UnitName("target") == "Grand Overseer" or UnitName("target") == "Research Scribe" or UnitName("target") == "Executor Tarvold" or UnitName("target") == "Grand Proctor Beryllia" or UnitName("target") == "General Kaal" or UnitName("target") == "Paceran the Virulent" or UnitName("target") == "Shard of Halkias" or UnitName("target") == "Shambling Arbalest" or UnitName("target") == "Nekthara the Mangler" or UnitName("target") == "Harugia the Bloodthirtsy" or UnitName("target") == "Heavin the Breaker" or UnitName("target") == "Echelon" or UnitName("target") == "Advent Nevermore" or UnitName("target") == "Xav the Unfallen" or UnitName("target") == "Portal Guardian" or UnitName("target") == "Kul'Tharok" or UnitName("target") == "Gorechop" or UnitName("target") == "Mordretha, the Endless Empress" or UnitName("target") == "Gatewarden Zo'mazz" or UnitName("target") == "Zophex" or UnitName("target") == "Alcruux" or UnitName("target") == "Achillite" or UnitName("target") == "Venza Goldfuse" or UnitName("target") == "Zo'gron" or UnitName("target") == "P.O.S.T Master" or UnitName("target") == "So'azmi" or UnitName("target") == "Portalmancer Zo'dahh" or UnitName("target") == "4.RF-4.RF" or UnitName("target") == "Inquisitor Sigar" or UnitName("target") == "Fleeting Manifestation" or UnitName("target") == "Corpse Harvester" or UnitName("target") == "Zolramus Necromancer" or UnitName("target") == "Nar'zudah" or UnitName("target") == "Raging Bloodhorn" or UnitName("target") == "Harugia the Bloodthirsty" or UnitName("target") == "Portalmancer Zo'honn" or UnitName("target") == "Enraged Direhorn" or UnitName("target") == "Coastwalker Goliath" or UnitName("target") == "Adorned Starseer" or UnitName("target") == "Wandering Pulsar" or (IsInRaid() and UnitName("target") == UnitName("boss1"))) then
+        if f(257284):IsCastable() and f(339264):ConduitEnabled() and i:DebuffDown(f(257284)) and (P(v) <= 0 or UnitName("target") == "Fleeting Manifestation") and (UnitName("target") == "Nalthor the Rimebinder" or UnitName("target") == "Tirnenn Villager" or UnitName("target") == "Drust Boughbreaker" or UnitName("target") == "Ingra Maloch" or UnitName("target") == "Mistveil Stalker" or UnitName("target") == "Mistcaller" or UnitName("target") == "Blightbone" or UnitName("target") == "Rotspew" or UnitName("target") == "Amarth" or UnitName("target") == "Surgeon Stitchflesh" or UnitName("target") == "Lubricator" or UnitName("target") == "Tred'ova" or UnitName("target") == "Azules" or UnitName("target") == "Ventunax" or UnitName("target") == "Oryphion" or UnitName("target") == "Astronos" or UnitName("target") == "Lakesis" or UnitName("target") == "Klotos" or UnitName("target") == "Devos" or UnitName("target") == "Halkias" or UnitName("target") == "High Adjudicator Aleez" or UnitName("target") == "Wo Drifter" or UnitName("target") == "Lord Chamberlain" or UnitName("target") == "Enraged Spirit" or UnitName("target") == "Hakkar The Soulflayer" or UnitName("target") == "Sentient Oil" or UnitName("target") == "Millhouse Manastorm" or UnitName("target") == "Millificent Manastorm" or UnitName("target") == "Dealer Xy’exa" or UnitName("target") == "Mueh'zala" or UnitName("target") == "Fungi Stormer" or UnitName("target") == "Globgrog" or UnitName("target") == "Slime Tentacle" or UnitName("target") == "Virulax Blightweaver" or UnitName("target") == "Doctor Ickus" or UnitName("target") == "Domina Venomblade" or UnitName("target") == "Margrave Stradama" or UnitName("target") == "Dreadful Huntmaster" or UnitName("target") == "Insatiable Brute" or UnitName("target") == "Kryxis the Voracious" or UnitName("target") == "Grand Overseer" or UnitName("target") == "Research Scribe" or UnitName("target") == "Executor Tarvold" or UnitName("target") == "Grand Proctor Beryllia" or UnitName("target") == "General Kaal" or UnitName("target") == "Paceran the Virulent" or UnitName("target") == "Shard of Halkias" or UnitName("target") == "Shambling Arbalest" or UnitName("target") == "Nekthara the Mangler" or UnitName("target") == "Harugia the Bloodthirtsy" or UnitName("target") == "Heavin the Breaker" or UnitName("target") == "Echelon" or UnitName("target") == "Advent Nevermore" or UnitName("target") == "Xav the Unfallen" or UnitName("target") == "Portal Guardian" or UnitName("target") == "Kul'Tharok" or UnitName("target") == "Gorechop" or UnitName("target") == "Mordretha, the Endless Empress" or UnitName("target") == "Gatewarden Zo'mazz" or UnitName("target") == "Zophex" or UnitName("target") == "Alcruux" or UnitName("target") == "Achillite" or UnitName("target") == "Venza Goldfuse" or UnitName("target") == "Zo'gron" or UnitName("target") == "P.O.S.T Master" or UnitName("target") == "So'azmi" or UnitName("target") == "Portalmancer Zo'dahh" or UnitName("target") == "4.RF-4.RF" or UnitName("target") == "Inquisitor Sigar" or UnitName("target") == "Fleeting Manifestation" or UnitName("target") == "Corpse Harvester" or UnitName("target") == "Zolramus Necromancer" or UnitName("target") == "Nar'zudah" or UnitName("target") == "Raging Bloodhorn" or UnitName("target") == "Harugia the Bloodthirsty" or UnitName("target") == "Portalmancer Zo'honn" or UnitName("target") == "Enraged Direhorn" or UnitName("target") == "Coastwalker Goliath" or UnitName("target") == "Adorned Starseer" or UnitName("target") == "Wandering Pulsar" or (IsInRaid() and UnitName("target") == UnitName("boss1"))) then
             if o(e.HuntersMark, nil) then
                 t = 257284
                 return "HuntersMark M+"
