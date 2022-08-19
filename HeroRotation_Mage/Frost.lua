@@ -2,65 +2,65 @@ local e, e = ...
 local e = HeroDBC.DBC
 local c = HeroLib
 local e = HeroCache
-local z = c.Unit
-local t = z.Player
-local a = z.Target
-local e = z.Pet
-local x = c.Spell
+local j = c.Unit
+local t = j.Player
+local a = j.Target
+local e = j.Pet
+local q = c.Spell
 local e = c.MultiSpell
 local o = c.Item
-local s = HeroRotation
-local i = s.Cast
-local e = s.CastLeft
-local n = s.CDsON
-local A = s.AoEON
-local e = s.CastSuggested
-local d = HeroRotationCharDB.Toggles[4]
-local p = HeroRotationCharDB.Toggles[5]
-local I = HeroRotationCharDB.Toggles[6]
+local n = HeroRotation
+local i = n.Cast
+local e = n.CastLeft
+local s = n.CDsON
+local S = n.AoEON
+local e = n.CastSuggested
+local l = HeroRotationCharDB.Toggles[4]
+local w = HeroRotationCharDB.Toggles[5]
+local N = HeroRotationCharDB.Toggles[6]
 local C = HeroRotationCharDB.Toggles[15]
 local P = HeroRotationCharDB.Toggles[12]
 local U = HeroRotationCharDB.Toggles[60]
-local N = HeroRotationCharDB.Toggles[100]
+local H = HeroRotationCharDB.Toggles[100]
 local e = false
-local b = s.Commons.Mage
+local k = n.Commons.Mage
 local R = math.max
-local e = x.Mage.Frost
-local h = o.Mage.Frost
-local r = t:GetEquipment()
+local e = q.Mage.Frost
+local r = o.Mage.Frost
+local h = t:GetEquipment()
 local u = o(0)
-local l = o(0)
-local q = { h.ShadowedOrbofTorment:ID() }
-local w = GetInventoryItemID("player", 13)
+local d = o(0)
+local T = { r.ShadowedOrbofTorment:ID() }
+local m = GetInventoryItemID("player", 13)
 local f = GetInventoryItemID("player", 14)
-if r[13] then
-    u = o(r[13])
+if h[13] then
+    u = o(h[13])
 end
 
-if r[14] then
-    l = o(r[14])
+if h[14] then
+    d = o(h[14])
 end
 
-local j, u, l
-local _, k
+local E, u, d
+local x, g
 local D
 local v
 local L
 local o
 local y = t:HasLegendaryEquipped(2)
-local m = t:HasLegendaryEquipped(3)
-local T = t:HasLegendaryEquipped(4)
-local S = t:HasLegendaryEquipped(5)
-local E = t:HasLegendaryEquipped(7)
+local p = t:HasLegendaryEquipped(3)
+local _ = t:HasLegendaryEquipped(4)
+local O = t:HasLegendaryEquipped(5)
+local z = t:HasLegendaryEquipped(7)
 local F = t:HasLegendaryEquipped(8)
 local M = t:HasLegendaryEquipped(9)
-local g = t:HasLegendaryEquipped(221) or (t:HasUnity() and e.Deathborne:IsAvailable())
+local b = t:HasLegendaryEquipped(221) or (t:HasUnity() and e.Deathborne:IsAvailable())
 local W = t:HasLegendaryEquipped(260) or (t:HasUnity() and e.ShiftingPower:IsAvailable())
-local O = 0
+local A = 0
 local o = 0
-local r = 0
-local H = s.Commons.Everyone
-local r = { General = s.GUISettings.General, Commons = s.GUISettings.APL.Mage.Commons, Frost = s.GUISettings.APL.Mage.Frost }
+local h = 0
+local I = n.Commons.Everyone
+local h = { General = n.GUISettings.General, Commons = n.GUISettings.APL.Mage.Commons, Frost = n.GUISettings.APL.Mage.Frost }
 e.FrozenOrb:RegisterInFlightEffect(84721)
 e.FrozenOrb:RegisterInFlight()
 c:RegisterForEvent(function()
@@ -74,13 +74,13 @@ e.IceLance:RegisterInFlightEffect(228598)
 e.IceLance:RegisterInFlight()
 c:RegisterForEvent(function()
     y = t:HasLegendaryEquipped(2)
-    m = t:HasLegendaryEquipped(3)
-    T = t:HasLegendaryEquipped(4)
-    S = t:HasLegendaryEquipped(5)
-    E = t:HasLegendaryEquipped(7)
+    p = t:HasLegendaryEquipped(3)
+    _ = t:HasLegendaryEquipped(4)
+    O = t:HasLegendaryEquipped(5)
+    z = t:HasLegendaryEquipped(7)
     F = t:HasLegendaryEquipped(8)
     M = t:HasLegendaryEquipped(9)
-    g = t:HasLegendaryEquipped(221) or (t:HasUnity() and e.Deathborne:IsAvailable())
+    b = t:HasLegendaryEquipped(221) or (t:HasUnity() and e.Deathborne:IsAvailable())
     W = t:HasLegendaryEquipped(260) or (t:HasUnity() and e.ShiftingPower:IsAvailable())
 end, "PLAYER_EQUIPMENT_CHANGED")
 local F = t:CovenantID()
@@ -129,8 +129,8 @@ local function R()
 
     end
 
-    if H.TargetIsValid() then
-        if e.Fleshcraft:IsCastable() and d and not t:IsMoving() then
+    if I.TargetIsValid() then
+        if e.Fleshcraft:IsCastable() and l and not t:IsMoving() then
             if i(e.Fleshcraft, nil) then
                 o = 324631
                 return "fleshcraft precombat 5"
@@ -138,12 +138,12 @@ local function R()
 
         end
 
-        if h.TomeofMonstruousConstructions:IsEquippedAndReady() and t:BuffDown(e.TomeofMonstruousConstructionsBuff) and not t:IsMoving() then
-            if i(h.TomeofMonstruousConstructions, nil, nil) then
-                                if h.TomeofMonstruousConstructions:ID() == w then
+        if r.TomeofMonstruousConstructions:IsEquippedAndReady() and t:BuffDown(e.TomeofMonstruousConstructionsBuff) and not t:IsMoving() then
+            if i(r.TomeofMonstruousConstructions, nil, nil) then
+                                if r.TomeofMonstruousConstructions:ID() == m then
                     o = 24
                     return "tome_of_monstruous_constructions precombat 3 top"
-                elseif h.TomeofMonstruousConstructions:ID() == f then
+                elseif r.TomeofMonstruousConstructions:ID() == f then
                     o = 30
                     return "tome_of_monstruous_constructions precombat 3 bot"
                 end
@@ -152,12 +152,12 @@ local function R()
 
         end
 
-        if h.ShadowedOrbofTorment:IsEquippedAndReady() and t:BuffDown(e.RuneofPowerBuff) and not t:IsMoving() then
-            if i(h.ShadowedOrbofTorment, nil, nil) then
-                                if h.ShadowedOrbofTorment:ID() == w then
+        if r.ShadowedOrbofTorment:IsEquippedAndReady() and t:BuffDown(e.RuneofPowerBuff) and not t:IsMoving() then
+            if i(r.ShadowedOrbofTorment, nil, nil) then
+                                if r.ShadowedOrbofTorment:ID() == m then
                     o = 24
                     return "Orb of Torment 3 top"
-                elseif h.ShadowedOrbofTorment:ID() == f then
+                elseif r.ShadowedOrbofTorment:ID() == f then
                     o = 30
                     return "Orb of Torment 3 top"
                 end
@@ -179,7 +179,7 @@ local function R()
 end
 
 local function V()
-    if FrozenOrb:IsCastable() and not N and (p or n()) then
+    if FrozenOrb:IsCastable() and not H and (w or s()) then
         if i(FrozenOrb, nil, nil, not a:IsInRange(40)) then
             o = 198149
             return "frozen_orb aoe 1"
@@ -187,7 +187,7 @@ local function V()
 
     end
 
-    if e.Blizzard:IsCastable() and not t:IsMoving() and (t:BuffDown(e.Deathborne) or (not g) or t:BuffUp(e.FreezingRainBuff) or l >= 6) then
+    if e.Blizzard:IsCastable() and not t:IsMoving() and (t:BuffDown(e.Deathborne) or (not b) or t:BuffUp(e.FreezingRainBuff) or d >= 6) then
         if i(e.Blizzard, nil, nil, not a:IsInRange(40)) then
             o = 190356
             return "blizzard aoe 11"
@@ -196,7 +196,7 @@ local function V()
     end
 
     if e.Blizzard:IsCastable() and not t:IsMoving() and t:BuffUp(e.Deathborne) then
-        if (l == 5 and (e.FreezingRain:IsAvailable() or e.BoneChilling:IsAvailable() or e.ShiveringCore:ConduitEnabled() or not m)) then
+        if (d == 5 and (e.FreezingRain:IsAvailable() or e.BoneChilling:IsAvailable() or e.ShiveringCore:ConduitEnabled() or not p)) then
             if i(e.Blizzard, nil, nil, not a:IsInRange(40)) then
                 o = 190356
                 return "blizzard aoe 12"
@@ -204,7 +204,7 @@ local function V()
 
         end
 
-        if (l == 4 and (e.FreezingRain:IsAvailable() or (e.BoneChilling:IsAvailable() and e.ShiveringCore:ConduitEnabled()) or ((not m) and not y))) then
+        if (d == 4 and (e.FreezingRain:IsAvailable() or (e.BoneChilling:IsAvailable() and e.ShiveringCore:ConduitEnabled()) or ((not p) and not y))) then
             if i(e.Blizzard, nil, nil, not a:IsInRange(40)) then
                 o = 190356
                 return "blizzard aoe 22"
@@ -212,7 +212,7 @@ local function V()
 
         end
 
-        if (l <= 3 and (not y) and (not m) and e.ShiveringCore:ConduitEnabled() and (e.FreezingRain:IsAvailable() or e.BoneChilling:IsAvailable())) then
+        if (d <= 3 and (not y) and (not p) and e.ShiveringCore:ConduitEnabled() and (e.FreezingRain:IsAvailable() or e.BoneChilling:IsAvailable())) then
             if i(e.Blizzard, nil, nil, not a:IsInRange(40)) then
                 o = 190356
                 return "blizzard aoe 32"
@@ -222,7 +222,7 @@ local function V()
 
     end
 
-    if e.Flurry:IsCastable() and (not t:IsMoving() or t:BuffUp(e.BrainFreezeBuff)) and (a:DebuffDown(e.WintersChillDebuff) and (t:IsCasting(e.Ebonbolt) or (t:BuffUp(e.BrainFreezeBuff) and (t:BuffDownP(e.FingersofFrostBuff) or (g and (t:PrevGCD(1, e.Frostbolt) or t:IsCasting(e.Frostbolt)) and (m or y) and t:BuffUp(e.Deathborne)))))) then
+    if e.Flurry:IsCastable() and (not t:IsMoving() or t:BuffUp(e.BrainFreezeBuff)) and (a:DebuffDown(e.WintersChillDebuff) and (t:IsCasting(e.Ebonbolt) or (t:BuffUp(e.BrainFreezeBuff) and (t:BuffDownP(e.FingersofFrostBuff) or (b and (t:PrevGCD(1, e.Frostbolt) or t:IsCasting(e.Frostbolt)) and (p or y) and t:BuffUp(e.Deathborne)))))) then
         if i(e.Flurry, nil, nil, not a:IsSpellInRange(e.Flurry)) then
             o = 44614
             return "flurry aoe 3"
@@ -238,7 +238,7 @@ local function V()
 
     end
 
-    if e.CometStorm:IsCastable() and not (p or n) then
+    if e.CometStorm:IsCastable() and not (w or s) then
         if i(e.CometStorm, nil, nil, not a:IsSpellInRange(e.CometStorm)) then
             o = 153595
             return "comet_storm aoe 5"
@@ -246,7 +246,7 @@ local function V()
 
     end
 
-    if e.Frostbolt:IsCastable() and not t:IsMoving() and (g and (m or y) and t:BuffRemains(e.Deathborne) > e.Frostbolt:CastTime() + e.Frostbolt:TravelTime()) then
+    if e.Frostbolt:IsCastable() and not t:IsMoving() and (b and (p or y) and t:BuffRemains(e.Deathborne) > e.Frostbolt:CastTime() + e.Frostbolt:TravelTime()) then
         if i(e.Frostbolt, nil, nil, not a:IsSpellInRange(e.Frostbolt)) then
             o = 116
             return "frostbolt aoe 15"
@@ -270,7 +270,7 @@ local function V()
 
     end
 
-    if e.RadiantSpark:IsCastable() and not t:IsMoving() and d and (e.CombatMeditation:SoulbindEnabled()) then
+    if e.RadiantSpark:IsCastable() and not t:IsMoving() and l and (e.CombatMeditation:SoulbindEnabled()) then
         if i(e.RadiantSpark, nil, nil, not a:IsSpellInRange(e.RadiantSpark)) then
             o = 307443
             return "radiant_spark aoe 7"
@@ -278,8 +278,8 @@ local function V()
 
     end
 
-    if d then
-        if e.MirrorsofTorment:IsCastable() and not t:IsMoving() and d then
+    if l then
+        if e.MirrorsofTorment:IsCastable() and not t:IsMoving() and l then
             if i(e.MirrorsofTorment, nil, nil, not a:IsSpellInRange(e.MirrorsofTorment)) then
                 o = 314793
                 return "mirrors_of_torment aoe 8"
@@ -287,7 +287,7 @@ local function V()
 
         end
 
-        if e.ShiftingPower:IsCastable() and not t:IsMoving() and d then
+        if e.ShiftingPower:IsCastable() and not t:IsMoving() and l then
             if i(e.ShiftingPower, nil, nil, not a:IsInRange(18)) then
                 o = 314791
                 return "shifting_power aoe 9"
@@ -297,7 +297,7 @@ local function V()
 
     end
 
-    if e.FireBlast:IsCastable() and (E and v <= 0 and b.DC.Fire == 0) then
+    if e.FireBlast:IsCastable() and (z and v <= 0 and k.DC.Fire == 0) then
         if i(e.FireBlast) then
             o = 319836
             return "fire_blast aoe 11"
@@ -305,7 +305,7 @@ local function V()
 
     end
 
-    if e.ArcaneExplosion:IsCastable() and (t:ManaPercentageP() > 30 and u >= 6 and not S) then
+    if e.ArcaneExplosion:IsCastable() and (t:ManaPercentageP() > 30 and g >= 6 and not O) then
         if i(e.ArcaneExplosion) then
             o = 1449
             return "arcane_explosion aoe 12"
@@ -313,7 +313,7 @@ local function V()
 
     end
 
-    if e.Ebonbolt:IsCastable() and not t:IsMoving() and (p or n()) and (u >= 2) then
+    if e.Ebonbolt:IsCastable() and not t:IsMoving() and (w or s()) and (u >= 2) then
         if i(e.Ebonbolt, nil, nil, not a:IsSpellInRange(e.Ebonbolt)) then
             o = 257537
             return "ebonbolt aoe 13"
@@ -326,7 +326,7 @@ local function V()
         n = 0
     end
 
-    if e.IceLance:IsCastable() and (S and (e.SplittingIce:IsAvailable() or u >= 5) and e.IceLance:TravelTime() < n) then
+    if e.IceLance:IsCastable() and (O and (e.SplittingIce:IsAvailable() or u >= 5) and e.IceLance:TravelTime() < n) then
         if i(e.IceLance, nil, nil, not a:IsSpellInRange(e.IceLance)) then
             o = 30455
             return "ice_lance aoe 14"
@@ -352,13 +352,13 @@ local function V()
 
 end
 
-local function S()
-    if h.ShadowedOrbofTorment:IsEquippedAndReady() and t:BuffDown(e.RuneofPowerBuff) and not t:IsMoving() then
-        if i(h.ShadowedOrbofTorment, nil, nil) then
-                        if h.ShadowedOrbofTorment:ID() == w then
+local function O()
+    if r.ShadowedOrbofTorment:IsEquippedAndReady() and t:BuffDown(e.RuneofPowerBuff) and not t:IsMoving() then
+        if i(r.ShadowedOrbofTorment, nil, nil) then
+                        if r.ShadowedOrbofTorment:ID() == m then
                 o = 24
                 return "Orb of Torment 3 top"
-            elseif h.ShadowedOrbofTorment:ID() == f then
+            elseif r.ShadowedOrbofTorment:ID() == f then
                 o = 30
                 return "Orb of Torment 3 top"
             end
@@ -367,15 +367,15 @@ local function S()
 
     end
 
-    if h.PotionofSpectralIntellect:IsReady() and n() and r.Commons.Enabled.Potions and C and ((t:BloodlustUp() and s.GUISettings.General.HoldPotforBL) or ((t:PrevGCDP(1, e.IcyVeins) or FightRemains < 30) and not s.GUISettings.General.HoldPotforBL)) then
-        if i(h.PotionofSpectralIntellect, nil, nil) then
+    if r.PotionofSpectralIntellect:IsReady() and s() and h.Commons.Enabled.Potions and C and ((t:BloodlustUp() and n.GUISettings.General.HoldPotforBL) or ((t:PrevGCDP(1, e.IcyVeins) or FightRemains < 30) and not n.GUISettings.General.HoldPotforBL)) then
+        if i(r.PotionofSpectralIntellect, nil, nil) then
             o = 50
             return "potion cd 2"
         end
 
     end
 
-    if e.Deathborne:IsCastable() and d and not t:IsMoving() then
+    if e.Deathborne:IsCastable() and l and not t:IsMoving() then
         if i(e.Deathborne, nil, nil) then
             o = 324220
             return "deathborne cd 3"
@@ -383,7 +383,7 @@ local function S()
 
     end
 
-    if e.MirrorsofTorment:IsCastable() and d and not t:IsMoving() and (u < 3 and (e.SiphonedMalice:ConduitEnabled() or e.WastelandPropriety:SoulbindEnabled()) and t:BuffDown(e.BrainFreezeBuff)) then
+    if e.MirrorsofTorment:IsCastable() and l and not t:IsMoving() and (u < 3 and (e.SiphonedMalice:ConduitEnabled() or e.WastelandPropriety:SoulbindEnabled()) and t:BuffDown(e.BrainFreezeBuff)) then
         if i(e.MirrorsofTorment, nil, nil) then
             o = 314793
             return "mirrors_of_torment cd 4"
@@ -391,7 +391,7 @@ local function S()
 
     end
 
-    if e.RuneofPower:IsCastable() and not t:IsMoving() and (p or n()) and not t:IsMoving() and (e.IcyVeins:CooldownRemains() > 12 and t:BuffDown(e.RuneofPowerBuff)) then
+    if e.RuneofPower:IsCastable() and not t:IsMoving() and (w or s()) and not t:IsMoving() and (e.IcyVeins:CooldownRemains() > 12 and t:BuffDown(e.RuneofPowerBuff)) then
         if i(e.RuneofPower, nil) then
             o = 116011
             return "rune_of_power cd 5"
@@ -399,7 +399,7 @@ local function S()
 
     end
 
-    if e.IcyVeins:IsCastable() and n() and (t:BuffDown(e.RuneofPowerBuff) and (t:BuffDown(e.IcyVeins) or e.RuneofPower:IsAvailable()) and (t:BuffDown(e.SlickIceBuff) or (e.IcyPropulsion:ConduitEnabled() and (e.CometStorm:IsAvailable() or t:HasTier(28, 2))) or u >= 2)) then
+    if e.IcyVeins:IsCastable() and s() and (t:BuffDown(e.RuneofPowerBuff) and (t:BuffDown(e.IcyVeins) or e.RuneofPower:IsAvailable()) and (t:BuffDown(e.SlickIceBuff) or (e.IcyPropulsion:ConduitEnabled() and (e.CometStorm:IsAvailable() or t:HasTier(28, 2))) or u >= 2)) then
         if i(e.IcyVeins, nil) then
             o = 12472
             return "icy_veins cd 6"
@@ -407,7 +407,7 @@ local function S()
 
     end
 
-    if e.TimeWarp:IsCastable() and n() and r.Frost.UseTemporalWarp and (M and t:BloodlustExhaustUp() and t:BloodlustDown() and (t:BuffUp(e.IcyVeins) or FightRemains < 40)) then
+    if e.TimeWarp:IsCastable() and s() and h.Frost.UseTemporalWarp and (M and t:BloodlustExhaustUp() and t:BloodlustDown() and (t:BuffUp(e.IcyVeins) or FightRemains < 40)) then
         if i(e.TimeWarp, nil) then
             o = 80353
             return "time_warp cd 7"
@@ -415,14 +415,14 @@ local function S()
 
     end
 
-    if (r.Commons.Enabled.TopTrinket or r.Commons.Enabled.BotTrinket) and n() then
-        local e = t:GetUseableTrinkets(q)
+    if (h.Commons.Enabled.TopTrinket or h.Commons.Enabled.BotTrinket) and s() then
+        local e = t:GetUseableTrinkets(T)
         if e then
             if i(e, nil, nil) then
-                                if e:ID() == w and r.Commons.Enabled.TopTrinket then
+                                if e:ID() == m and h.Commons.Enabled.TopTrinket then
                     o = 24
                     return "top trinket 1"
-                elseif e:ID() == f and r.Commons.Enabled.BotTrinket then
+                elseif e:ID() == f and h.Commons.Enabled.BotTrinket then
                     o = 30
                     return "top trinket 2"
                 end
@@ -433,7 +433,7 @@ local function S()
 
     end
 
-    if e.BloodFury:IsCastable() and n() then
+    if e.BloodFury:IsCastable() and s() then
         if i(e.BloodFury, nil) then
             o = 20572
             return "blood_fury cd 9"
@@ -441,7 +441,7 @@ local function S()
 
     end
 
-    if e.Berserking:IsCastable() and n() then
+    if e.Berserking:IsCastable() and s() then
         if i(e.Berserking, nil) then
             o = 26297
             return "berserking cd 10"
@@ -449,7 +449,7 @@ local function S()
 
     end
 
-    if e.LightsJudgment:IsCastable() and n() then
+    if e.LightsJudgment:IsCastable() and s() then
         if i(e.LightsJudgment, nil, nil, not a:IsSpellInRange(e.LightsJudgment)) then
             o = 255647
             return "lights_judgment cd 11"
@@ -457,7 +457,7 @@ local function S()
 
     end
 
-    if e.Fireblood:IsCastable() and n() then
+    if e.Fireblood:IsCastable() and s() then
         if i(e.Fireblood, nil) then
             o = 265221
             return "fireblood cd 12"
@@ -465,7 +465,7 @@ local function S()
 
     end
 
-    if e.AncestralCall:IsCastable() and n() then
+    if e.AncestralCall:IsCastable() and s() then
         if i(e.AncestralCall, nil) then
             o = 274738
             return "ancestral_call cd 13"
@@ -473,7 +473,7 @@ local function S()
 
     end
 
-    if e.BagofTricks:IsCastable() and n() then
+    if e.BagofTricks:IsCastable() and s() then
         if i(e.BagofTricks, nil, nil, not a:IsSpellInRange(e.BagofTricks)) then
             o = 312411
             return "bag_of_tricks cd 14"
@@ -484,7 +484,7 @@ local function S()
 end
 
 local function M()
-    if e.ArcaneExplosion:IsCastable() and t:ManaPercentageP() > 30 and k >= 2 then
+    if e.ArcaneExplosion:IsCastable() and t:ManaPercentageP() > 30 and g >= 2 then
         if i(e.ArcaneExplosion) then
             o = 1449
             return "arcane_explosion move 16"
@@ -510,8 +510,8 @@ local function M()
 
 end
 
-local function h()
-    if e.Flurry:IsCastable() and (not t:IsMoving() or t:BuffUp(e.BrainFreezeBuff)) and (a:DebuffDown(e.WintersChillDebuff) and ((t:IsCasting(e.Ebonbolt) or t:PrevGCD(1, e.Ebonbolt)) or (t:BuffUp(e.BrainFreezeBuff) and ((t:IsCasting(e.GlacialSpike) or t:PrevGCD(1, e.GlacialSpike)) or ((t:IsCasting(e.Frostbolt) or t:PrevGCD(1, e.Frostbolt)) and (not e.IreOfTheAscended:ConduitEnabled() or e.RadiantSpark:CooldownRemains() > 0 or T)) or (t:IsCasting(e.RadiantSpark) or t:PrevGCD(1, e.RadiantSpark)) or (t:BuffDownP(e.FingersofFrostBuff) and (a:DebuffUp(e.MirrorsofTorment) or t:BuffUp(e.FreezingWindsBuff) or t:BuffUp(e.ExpandedPotentialBuff))))))) then
+local function r()
+    if e.Flurry:IsCastable() and (not t:IsMoving() or t:BuffUp(e.BrainFreezeBuff)) and (a:DebuffDown(e.WintersChillDebuff) and ((t:IsCasting(e.Ebonbolt) or t:PrevGCD(1, e.Ebonbolt)) or (t:BuffUp(e.BrainFreezeBuff) and ((t:IsCasting(e.GlacialSpike) or t:PrevGCD(1, e.GlacialSpike)) or ((t:IsCasting(e.Frostbolt) or t:PrevGCD(1, e.Frostbolt)) and (not e.IreOfTheAscended:ConduitEnabled() or e.RadiantSpark:CooldownRemains() > 0 or _)) or (t:IsCasting(e.RadiantSpark) or t:PrevGCD(1, e.RadiantSpark)) or (t:BuffDownP(e.FingersofFrostBuff) and (a:DebuffUp(e.MirrorsofTorment) or t:BuffUp(e.FreezingWindsBuff) or t:BuffUp(e.ExpandedPotentialBuff))))))) then
         if i(e.Flurry, nil, nil, not a:IsSpellInRange(e.Flurry)) then
             o = 44614
             return "flurry single 1"
@@ -519,7 +519,7 @@ local function h()
 
     end
 
-    if FrozenOrb:IsCastable() and not N and (p or n()) then
+    if FrozenOrb:IsCastable() and not H and (w or s()) then
         if i(FrozenOrb, nil, nil, not a:IsInRange(40)) then
             o = 198149
             return "frozen_orb single 2"
@@ -543,7 +543,7 @@ local function h()
 
     end
 
-    if e.Frostbolt:IsCastable() and not t:IsMoving() and (g and (m or y) and t:BuffRemains(e.Deathborne) > (e.Frostbolt:CastTime() + e.Frostbolt:TravelTime()) and l >= 2) then
+    if e.Frostbolt:IsCastable() and not t:IsMoving() and (b and (p or y) and t:BuffRemains(e.Deathborne) > (e.Frostbolt:CastTime() + e.Frostbolt:TravelTime()) and d >= 2) then
         if i(e.Frostbolt, nil, nil, not a:IsSpellInRange(e.Frostbolt)) then
             o = 116
             return "frostbolt single 8"
@@ -551,7 +551,7 @@ local function h()
 
     end
 
-    if e.Blizzard:IsCastable() and not t:IsMoving() and ((not y or (not e.IcyPropulsion:ConduitEnabled() and t:BuffDown(e.Deathborne))) and l >= 2) then
+    if e.Blizzard:IsCastable() and not t:IsMoving() and ((not y or (not e.IcyPropulsion:ConduitEnabled() and t:BuffDown(e.Deathborne))) and d >= 2) then
         if i(e.Blizzard, nil, nil, not a:IsInRange(40)) then
             o = 190356
             return "blizzard single 3"
@@ -559,7 +559,7 @@ local function h()
 
     end
 
-    if e.RayofFrost:IsCastable() and not t:IsMoving() and n() and (a:DebuffStack(e.WintersChillDebuff) == 1) then
+    if e.RayofFrost:IsCastable() and not t:IsMoving() and s() and (a:DebuffStack(e.WintersChillDebuff) == 1) then
         if i(e.RayofFrost, nil, nil, not a:IsSpellInRange(e.RayofFrost)) then
             o = 205021
             return "ray_of_frost single 4"
@@ -599,7 +599,7 @@ local function h()
 
     end
 
-    if e.RadiantSpark:IsCastable() and not t:IsMoving() and d and (t:BuffUp(e.FreezingWindsBuff) and l == 1) then
+    if e.RadiantSpark:IsCastable() and not t:IsMoving() and l and (t:BuffUp(e.FreezingWindsBuff) and d == 1) then
         if i(e.RadiantSpark, nil, nil, not a:IsSpellInRange(e.RadiantSpark)) then
             o = 307443
             return "radiant_spark single 9"
@@ -607,7 +607,7 @@ local function h()
 
     end
 
-    if e.RadiantSpark:IsCastable() and not t:IsMoving() and d and (t:BuffUp(e.BrainFreezeBuff) and e.GlacialSpike:IsAvailable() and e.IreOfTheAscended:ConduitEnabled() and t:BuffStack(e.IciclesBuff) >= 4) then
+    if e.RadiantSpark:IsCastable() and not t:IsMoving() and l and (t:BuffUp(e.BrainFreezeBuff) and e.GlacialSpike:IsAvailable() and e.IreOfTheAscended:ConduitEnabled() and t:BuffStack(e.IciclesBuff) >= 4) then
         if i(e.RadiantSpark, nil, nil, not a:IsSpellInRange(e.RadiantSpark)) then
             o = 307443
             return "radiant_spark single 10"
@@ -623,7 +623,7 @@ local function h()
 
     end
 
-    if e.Ebonbolt:IsCastable() and not t:IsMoving() and (p or n()) then
+    if e.Ebonbolt:IsCastable() and not t:IsMoving() and (w or s()) then
         if i(e.Ebonbolt, nil, nil, not a:IsSpellInRange(e.Ebonbolt)) then
             o = 257537
             return "ebonbolt single 12"
@@ -631,7 +631,7 @@ local function h()
 
     end
 
-    if e.RadiantSpark:IsCastable() and not t:IsMoving() and d and ((not e.GlacialSpike:IsAvailable() or not e.IreOfTheAscended:ConduitEnabled()) and (not T or _ >= 2) and t:BuffUp(e.BrainFreezeBuff)) then
+    if e.RadiantSpark:IsCastable() and not t:IsMoving() and l and ((not e.GlacialSpike:IsAvailable() or not e.IreOfTheAscended:ConduitEnabled()) and (not _ or x >= 2) and t:BuffUp(e.BrainFreezeBuff)) then
         if i(e.RadiantSpark, nil, nil, not a:IsSpellInRange(e.RadiantSpark)) then
             o = 307443
             return "radiant_spark single 13"
@@ -639,8 +639,8 @@ local function h()
 
     end
 
-    if d then
-        if e.MirrorsofTorment:IsCastable() and not t:IsMoving() and d then
+    if l then
+        if e.MirrorsofTorment:IsCastable() and not t:IsMoving() and l then
             if i(e.MirrorsofTorment, nil, nil) then
                 o = 314793
                 return "mirrors_of_torment single 14"
@@ -648,7 +648,7 @@ local function h()
 
         end
 
-        if e.ShiftingPower:IsCastable() and not t:IsMoving() and d and (t:BuffDown(e.RuneofPowerBuff) and (W or e.GroveInvigoration:IsAvailable() or e.FieldOfBlossoms:IsAvailable() or (T and t:BuffDown(e.FreezingWindsBuff)) or l >= 2)) then
+        if e.ShiftingPower:IsCastable() and not t:IsMoving() and l and (t:BuffDown(e.RuneofPowerBuff) and (W or e.GroveInvigoration:IsAvailable() or e.FieldOfBlossoms:IsAvailable() or (_ and t:BuffDown(e.FreezingWindsBuff)) or d >= 2)) then
             if i(e.ShiftingPower, nil, nil, not a:IsInRange(18)) then
                 o = 314791
                 return "shifting_power single 15"
@@ -658,7 +658,7 @@ local function h()
 
     end
 
-    if e.ArcaneExplosion:IsCastable() and (E and v <= 0 and b.DC.Arcane == 0) then
+    if e.ArcaneExplosion:IsCastable() and (z and v <= 0 and k.DC.Arcane == 0) then
         if i(e.ArcaneExplosion) then
             o = 1449
             return "arcane_explosion single 16"
@@ -666,7 +666,7 @@ local function h()
 
     end
 
-    if e.FireBlast:IsCastable() and (E and v <= 0 and b.DC.Fire == 0) then
+    if e.FireBlast:IsCastable() and (z and v <= 0 and k.DC.Fire == 0) then
         if i(e.FireBlast) then
             o = 319836
             return "fire_blast single 17"
@@ -700,42 +700,42 @@ local function h()
 
 end
 
-local function n()
-    I = HeroRotationCharDB.Toggles[6]
-    d = HeroRotationCharDB.Toggles[4]
-    p = HeroRotationCharDB.Toggles[5]
+local function s()
+    N = HeroRotationCharDB.Toggles[6]
+    l = HeroRotationCharDB.Toggles[4]
+    w = HeroRotationCharDB.Toggles[5]
     P = HeroRotationCharDB.Toggles[12]
     C = HeroRotationCharDB.Toggles[15]
     U = HeroRotationCharDB.Toggles[60]
-    N = HeroRotationCharDB.Toggles[100]
-    w = GetInventoryItemID("player", 13)
+    H = HeroRotationCharDB.Toggles[100]
+    m = GetInventoryItemID("player", 13)
     f = GetInventoryItemID("player", 14)
-            if not r.Commons.Enabled.TopTrinket and not r.Commons.Enabled.BotTrinket then
-        q = { w, f }
-    elseif not r.Commons.Enabled.TopTrinket then
-        q = { w }
-    elseif not r.Commons.Enabled.BotTrinket then
-        q = { f }
+            if not h.Commons.Enabled.TopTrinket and not h.Commons.Enabled.BotTrinket then
+        T = { m, f }
+    elseif not h.Commons.Enabled.TopTrinket then
+        T = { m }
+    elseif not h.Commons.Enabled.BotTrinket then
+        T = { f }
     end
 
 end
 
-local function d()
+local function l()
     FrozenOrb = e.FrozenOrb
     D = a:GetEnemiesInSplashRange(8)
-        if A() and r.Commons.AoeMode == "Conservative" then
-        j = a:GetEnemiesInSplashRangeCount(6)
+        if S() and h.Commons.AoeMode == "Conservative" then
+        E = a:GetEnemiesInSplashRangeCount(6)
         u = a:GetEnemiesInSplashRangeCount(8)
-        l = a:GetEnemiesInSplashRangeCount(16)
-        _ = #t:GetEnemiesInMeleeRange(15)
-        k = #t:GetEnemiesInMeleeRange(8)
-    elseif A() and r.Commons.AoeMode == "Aggresive" then
+        d = a:GetEnemiesInSplashRangeCount(16)
+        x = #t:GetEnemiesInMeleeRange(15)
+        g = #t:GetEnemiesInMeleeRange(8)
+    elseif S() and h.Commons.AoeMode == "Aggresive" then
         local a = 0
         for e = 1, 20 do
             local e = "nameplate" .. e
             if UnitExists(e) then
                 if UnitCanAttack("player", e) then
-                    if (UnitCanAttack("player", e) and UnitAffectingCombat("target") and IsItemInRange(32698, e) and UnitDetailedThreatSituation("player", e) ~= nil) or z(e):IsDummy() or string.find(UnitGUID(e), 153285) or string.find(UnitGUID(e), 31146) or string.find(UnitGUID(e), 176581) or string.find(UnitGUID(e), 179124) or string.find(UnitGUID(e), 179010) or string.find(UnitGUID(e), 180323) or string.find(UnitGUID(e), 179010) or string.find(UnitGUID(e), 179942) or string.find(UnitGUID(e), 176521) or string.find(UnitGUID(e), 177594) or string.find(UnitGUID(e), 177117) or string.find(UnitGUID(e), 176581) or string.find(UnitGUID(e), 180840) or string.find(UnitGUID(e), 176605) or UnitName(e) == "Glacial Spike" or string.find(UnitGUID(e), 180473) or string.find(UnitGUID(e), 180474) or string.find(UnitGUID(e), 176929) or string.find(UnitGUID(e), 176920) or string.find(UnitGUID(e), 177154) or string.find(UnitGUID(e), 177787) or string.find(UnitGUID(e), 177889) or string.find(UnitGUID(e), 177891) or string.find(UnitGUID(e), 177892) or string.find(UnitGUID(e), 168326) or string.find(UnitGUID(e), 182778) or string.find(UnitGUID(e), 183945) then
+                    if (UnitCanAttack("player", e) and UnitAffectingCombat("target") and IsItemInRange(32698, e) and UnitDetailedThreatSituation("player", e) ~= nil) or j(e):IsDummy() or string.find(UnitGUID(e), 153285) or string.find(UnitGUID(e), 31146) or string.find(UnitGUID(e), 176581) or string.find(UnitGUID(e), 179124) or string.find(UnitGUID(e), 179010) or string.find(UnitGUID(e), 180323) or string.find(UnitGUID(e), 179010) or string.find(UnitGUID(e), 179942) or string.find(UnitGUID(e), 176521) or string.find(UnitGUID(e), 177594) or string.find(UnitGUID(e), 177117) or string.find(UnitGUID(e), 176581) or string.find(UnitGUID(e), 180840) or string.find(UnitGUID(e), 176605) or UnitName(e) == "Glacial Spike" or string.find(UnitGUID(e), 180473) or string.find(UnitGUID(e), 180474) or string.find(UnitGUID(e), 176929) or string.find(UnitGUID(e), 176920) or string.find(UnitGUID(e), 177154) or string.find(UnitGUID(e), 177787) or string.find(UnitGUID(e), 177889) or string.find(UnitGUID(e), 177891) or string.find(UnitGUID(e), 177892) or string.find(UnitGUID(e), 168326) or string.find(UnitGUID(e), 182778) or string.find(UnitGUID(e), 183945) then
                         a = (a + 1)
                     end
 
@@ -745,51 +745,51 @@ local function d()
 
         end
 
-        _ = #t:GetEnemiesInMeleeRange(15)
-        k = #t:GetEnemiesInMeleeRange(15)
-        j = a
+        x = #t:GetEnemiesInMeleeRange(15)
+        g = #t:GetEnemiesInMeleeRange(15)
+        E = a
         u = a
-        l = a
+        d = a
     end
 
-    if not A() then
-        _ = 1
-        k = 1
-        j = 1
+    if not S() then
+        x = 1
+        g = 1
+        E = 1
         u = 1
-        l = 1
+        d = 1
     end
 
     if U then
-        j = 10
-        l = 10
+        E = 10
+        d = 10
         u = 10
     end
 
     if not BotOn then
-        O = 0
+        A = 0
         o = 0
     end
 
-    if O > 0 then
-        O = 0
+    if A > 0 then
+        A = 0
     end
 
     if o > 0 then
         o = 0
     end
 
-    ShouldReturn = n()
-        if s.GUISettings.General.OpenerReset > 0 and not HeroRotationCharDB.Toggles[6] then
+    ShouldReturn = s()
+        if n.GUISettings.General.OpenerReset > 0 and not HeroRotationCharDB.Toggles[6] then
         starttime = GetTime()
-        endtime = starttime + (s.GUISettings.General.OpenerReset)
-    elseif s.GUISettings.General.OpenerReset > 0 and endtime ~= nil and GetTime() > endtime and HeroRotationCharDB.Toggles[6] then
+        endtime = starttime + (n.GUISettings.General.OpenerReset)
+    elseif n.GUISettings.General.OpenerReset > 0 and endtime ~= nil and GetTime() > endtime and HeroRotationCharDB.Toggles[6] then
         HeroRotationCharDB.Toggles[6] = not HeroRotationCharDB.Toggles[6]
-        s.ToggleIconFrame:UpdateButtonText(6)
-        s.Print("Opener is now " .. (HeroRotationCharDB.Toggles[6] and "|cff00ff00enabled|r." or "|cffff0000disabled|r."))
+        n.ToggleIconFrame:UpdateButtonText(6)
+        n.Print("Opener is now " .. (HeroRotationCharDB.Toggles[6] and "|cff00ff00enabled|r." or "|cffff0000disabled|r."))
     end
 
-    if t:IsChanneling(x(314791)) then
+    if t:IsChanneling(q(314791)) then
         if i(e.Pool) then
             o = 999999
             return "channeling"
@@ -797,7 +797,7 @@ local function d()
 
     end
 
-    if t:IsChanneling(x(324631)) then
+    if t:IsChanneling(q(324631)) then
         if i(e.Pool) then
             o = 999999
             return "channeling"
@@ -813,7 +813,7 @@ local function d()
 
     end
 
-    if t:IsChanneling(x(324631)) then
+    if t:IsChanneling(q(324631)) then
         if i(e.Pool) then
             o = 999999
             return "channeling"
@@ -821,7 +821,7 @@ local function d()
 
     end
 
-    b.IFTracker()
+    k.IFTracker()
     FightRemains = c.FightRemains(D, false)
     L = e.DisciplinaryCommandBuff:TimeSinceLastAppliedOnPlayer()
     v = 30 - L
@@ -829,8 +829,8 @@ local function d()
         v = 0
     end
 
-    b.DCCheck()
-    if not t:AffectingCombat() and H.TargetIsValid() and I then
+    k.DCCheck()
+    if not t:AffectingCombat() and I.TargetIsValid() and N then
         local e = R()
         if e then
             return e
@@ -838,8 +838,8 @@ local function d()
 
     end
 
-    if H.TargetIsValid() and t:AffectingCombat() and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285 or a:NPCID() == 168326 or a:NPCID() == 176581 or a:NPCID() == 176920 or a:NPCID() == 177892 or a:NPCID() == 182778 or a:NPCID() == 185402 or a:NPCID() == 183945 or a:NPCID() == 182074 or a:NPCID() == 184737 or a:NPCID() == 179733 or a:NPCID() == 115402 or a:NPCID() == 115406 or a:NPCID() == 115395 or UnitExists("boss1") or a:NPCID() == 115388 or I) and not t:IsDeadOrGhost() then
-        if t:HealthPercentage() < r.Frost.IceBlockHP and e.IceBlock:IsReady() then
+    if I.TargetIsValid() and t:AffectingCombat() and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285 or a:NPCID() == 168326 or a:NPCID() == 176581 or a:NPCID() == 176920 or a:NPCID() == 177892 or a:NPCID() == 182778 or a:NPCID() == 185402 or a:NPCID() == 183945 or a:NPCID() == 182074 or a:NPCID() == 184737 or a:NPCID() == 179733 or a:NPCID() == 115402 or a:NPCID() == 115406 or a:NPCID() == 115395 or UnitExists("boss1") or a:NPCID() == 115388 or N) and not t:IsDeadOrGhost() then
+        if t:HealthPercentage() < h.Frost.IceBlockHP and e.IceBlock:IsReady() then
             if i(e.IceBlock, nil) then
                 o = 45438
                 return "IceBlock HP"
@@ -847,7 +847,7 @@ local function d()
 
         end
 
-        if t:HealthPercentage() < r.Frost.IceBarrierHP and e.IceBarrier:IsReady() then
+        if t:HealthPercentage() < h.Frost.IceBarrierHP and e.IceBarrier:IsReady() then
             if i(e.IceBarrier, nil) then
                 o = 11426
                 return "IceBarrier HP"
@@ -855,7 +855,7 @@ local function d()
 
         end
 
-        if t:HealthPercentage() < r.Frost.MirrorImageHP and e.MirrorImage:IsReady() then
+        if t:HealthPercentage() < h.Frost.MirrorImageHP and e.MirrorImage:IsReady() then
             if i(e.MirrorImage, nil) then
                 o = 55342
                 return "MirrorImage HP"
@@ -872,14 +872,14 @@ local function d()
         end
 
         if true then
-            local e = S()
+            local e = O()
             if e then
                 return e
             end
 
         end
 
-        if l >= 3 then
+        if d >= 3 then
             local e = V()
             if e then
                 return e
@@ -887,8 +887,8 @@ local function d()
 
         end
 
-        if l < 3 then
-            local e = h()
+        if d < 3 then
+            local e = r()
             if e then
                 return e
             end
@@ -904,70 +904,70 @@ end
 
 local e, e = ...
 local e = HeroDBC.DBC
-local c = HeroLib
+local u = HeroLib
 local e = HeroCache
-local T = c.Unit
-local t = T.Player
-local o = T.Target
-local e = T.Pet
-local k = c.Spell
-local e = c.MultiSpell
-local a = c.Item
+local x = u.Unit
+local t = x.Player
+local o = x.Target
+local e = x.Pet
+local b = u.Spell
+local e = u.MultiSpell
+local a = u.Item
 local n = HeroRotation
 local i = n.Cast
 local e = n.CastLeft
 local s = n.CDsON
-local S = n.AoEON
+local I = n.AoEON
 local e = n.CastSuggested
-local l = HeroRotationCharDB.Toggles[4]
-local p = HeroRotationCharDB.Toggles[5]
-local I = HeroRotationCharDB.Toggles[6]
+local d = HeroRotationCharDB.Toggles[4]
+local y = HeroRotationCharDB.Toggles[5]
+local N = HeroRotationCharDB.Toggles[6]
 local D = HeroRotationCharDB.Toggles[15]
 local P = HeroRotationCharDB.Toggles[12]
 local U = HeroRotationCharDB.Toggles[60]
-local H = HeroRotationCharDB.Toggles[100]
+local O = HeroRotationCharDB.Toggles[100]
 local e = false
-local b = n.Commons.Mage
+local q = n.Commons.Mage
 local R = math.max
-local e = k.Mage.Frost
+local e = b.Mage.Frost
 local h = a.Mage.Frost
 local r = t:GetEquipment()
-local u = a(0)
-local d = a(0)
+local c = a(0)
+local l = a(0)
 local A = { h.ShadowedOrbofTorment:ID() }
-local y = GetInventoryItemID("player", 13)
-local w = GetInventoryItemID("player", 14)
+local m = GetInventoryItemID("player", 13)
+local f = GetInventoryItemID("player", 14)
 if r[13] then
-    u = a(r[13])
+    c = a(r[13])
 end
 
 if r[14] then
-    d = a(r[14])
+    l = a(r[14])
 end
 
-local x, u, d
-local _, j
+local _, c, l
+local z, g
 local W
 local v
 local Y
 local a
-local m = t:HasLegendaryEquipped(2)
-local f = t:HasLegendaryEquipped(3)
+local p = t:HasLegendaryEquipped(2)
+local w = t:HasLegendaryEquipped(3)
 local E = t:HasLegendaryEquipped(4)
-local O = t:HasLegendaryEquipped(5)
-local z = t:HasLegendaryEquipped(7)
+local H = t:HasLegendaryEquipped(5)
+local T = t:HasLegendaryEquipped(7)
 local L = t:HasLegendaryEquipped(8)
 local F = t:HasLegendaryEquipped(9)
-local q = t:HasLegendaryEquipped(221) or (t:HasUnity() and e.Deathborne:IsAvailable())
+local k = t:HasLegendaryEquipped(221) or (t:HasUnity() and e.Deathborne:IsAvailable())
 local M = t:HasLegendaryEquipped(260) or (t:HasUnity() and e.ShiftingPower:IsAvailable())
-local g = 0
+local j = 0
 local a = 0
 local r = 0
-local N = n.Commons.Everyone
+local S = n.Commons.Everyone
 local r = { General = n.GUISettings.General, Commons = n.GUISettings.APL.Mage.Commons, Frost = n.GUISettings.APL.Mage.Frost }
 e.FrozenOrb:RegisterInFlightEffect(84721)
 e.FrozenOrb:RegisterInFlight()
-c:RegisterForEvent(function()
+u:RegisterForEvent(function()
     e.FrozenOrb:RegisterInFlight()
 end, "LEARNED_SPELL_IN_TAB")
 e.Frostbolt:RegisterInFlightEffect(228597)
@@ -976,19 +976,19 @@ e.Flurry:RegisterInFlightEffect(228354)
 e.Flurry:RegisterInFlight()
 e.IceLance:RegisterInFlightEffect(228598)
 e.IceLance:RegisterInFlight()
-c:RegisterForEvent(function()
-    m = t:HasLegendaryEquipped(2)
-    f = t:HasLegendaryEquipped(3)
+u:RegisterForEvent(function()
+    p = t:HasLegendaryEquipped(2)
+    w = t:HasLegendaryEquipped(3)
     E = t:HasLegendaryEquipped(4)
-    O = t:HasLegendaryEquipped(5)
-    z = t:HasLegendaryEquipped(7)
+    H = t:HasLegendaryEquipped(5)
+    T = t:HasLegendaryEquipped(7)
     L = t:HasLegendaryEquipped(8)
     F = t:HasLegendaryEquipped(9)
-    q = t:HasLegendaryEquipped(221) or (t:HasUnity() and e.Deathborne:IsAvailable())
+    k = t:HasLegendaryEquipped(221) or (t:HasUnity() and e.Deathborne:IsAvailable())
     M = t:HasLegendaryEquipped(260) or (t:HasUnity() and e.ShiftingPower:IsAvailable())
 end, "PLAYER_EQUIPMENT_CHANGED")
 local L = t:CovenantID()
-c:RegisterForEvent(function()
+u:RegisterForEvent(function()
     L = t:CovenantID()
 end, "COVENANT_CHOSEN")
 local function L(e)
@@ -1033,8 +1033,8 @@ local function R()
 
     end
 
-    if N.TargetIsValid() then
-        if e.Fleshcraft:IsCastable() and l and not t:IsMoving() then
+    if S.TargetIsValid() then
+        if e.Fleshcraft:IsCastable() and d and not t:IsMoving() then
             if i(e.Fleshcraft, nil) then
                 a = 324631
                 return "fleshcraft precombat 5"
@@ -1044,10 +1044,10 @@ local function R()
 
         if h.TomeofMonstruousConstructions:IsEquippedAndReady() and t:BuffDown(e.TomeofMonstruousConstructionsBuff) and not t:IsMoving() then
             if i(h.TomeofMonstruousConstructions, nil, nil) then
-                                if h.TomeofMonstruousConstructions:ID() == y then
+                                if h.TomeofMonstruousConstructions:ID() == m then
                     a = 24
                     return "tome_of_monstruous_constructions precombat 3 top"
-                elseif h.TomeofMonstruousConstructions:ID() == w then
+                elseif h.TomeofMonstruousConstructions:ID() == f then
                     a = 30
                     return "tome_of_monstruous_constructions precombat 3 bot"
                 end
@@ -1058,10 +1058,10 @@ local function R()
 
         if h.ShadowedOrbofTorment:IsEquippedAndReady() and t:BuffDown(e.RuneofPowerBuff) and not t:IsMoving() then
             if i(h.ShadowedOrbofTorment, nil, nil) then
-                                if h.ShadowedOrbofTorment:ID() == y then
+                                if h.ShadowedOrbofTorment:ID() == m then
                     a = 24
                     return "Orb of Torment 3 top"
-                elseif h.ShadowedOrbofTorment:ID() == w then
+                elseif h.ShadowedOrbofTorment:ID() == f then
                     a = 30
                     return "Orb of Torment 3 top"
                 end
@@ -1083,7 +1083,7 @@ local function R()
 end
 
 local function V()
-    if FrozenOrb:IsCastable() and not H and (p or s()) then
+    if FrozenOrb:IsCastable() and not O and (y or s()) then
         if i(FrozenOrb, nil, nil, not o:IsInRange(40)) then
             a = 198149
             return "frozen_orb aoe 1"
@@ -1091,7 +1091,7 @@ local function V()
 
     end
 
-    if e.Blizzard:IsCastable() and not t:IsMoving() and (t:BuffDown(e.Deathborne) or (not q) or t:BuffUp(e.FreezingRainBuff) or d >= 6) then
+    if e.Blizzard:IsCastable() and not t:IsMoving() and (t:BuffDown(e.Deathborne) or (not k) or t:BuffUp(e.FreezingRainBuff) or l >= 6) then
         if i(e.Blizzard, nil, nil, not o:IsInRange(40)) then
             a = 190356
             return "blizzard aoe 11"
@@ -1100,7 +1100,7 @@ local function V()
     end
 
     if e.Blizzard:IsCastable() and not t:IsMoving() and t:BuffUp(e.Deathborne) then
-        if (d == 5 and (e.FreezingRain:IsAvailable() or e.BoneChilling:IsAvailable() or e.ShiveringCore:ConduitEnabled() or not f)) then
+        if (l == 5 and (e.FreezingRain:IsAvailable() or e.BoneChilling:IsAvailable() or e.ShiveringCore:ConduitEnabled() or not w)) then
             if i(e.Blizzard, nil, nil, not o:IsInRange(40)) then
                 a = 190356
                 return "blizzard aoe 12"
@@ -1108,7 +1108,7 @@ local function V()
 
         end
 
-        if (d == 4 and (e.FreezingRain:IsAvailable() or (e.BoneChilling:IsAvailable() and e.ShiveringCore:ConduitEnabled()) or ((not f) and not m))) then
+        if (l == 4 and (e.FreezingRain:IsAvailable() or (e.BoneChilling:IsAvailable() and e.ShiveringCore:ConduitEnabled()) or ((not w) and not p))) then
             if i(e.Blizzard, nil, nil, not o:IsInRange(40)) then
                 a = 190356
                 return "blizzard aoe 22"
@@ -1116,7 +1116,7 @@ local function V()
 
         end
 
-        if (d <= 3 and (not m) and (not f) and e.ShiveringCore:ConduitEnabled() and (e.FreezingRain:IsAvailable() or e.BoneChilling:IsAvailable())) then
+        if (l <= 3 and (not p) and (not w) and e.ShiveringCore:ConduitEnabled() and (e.FreezingRain:IsAvailable() or e.BoneChilling:IsAvailable())) then
             if i(e.Blizzard, nil, nil, not o:IsInRange(40)) then
                 a = 190356
                 return "blizzard aoe 32"
@@ -1126,7 +1126,7 @@ local function V()
 
     end
 
-    if e.Flurry:IsCastable() and (not t:IsMoving() or t:BuffUp(e.BrainFreezeBuff)) and (o:DebuffDown(e.WintersChillDebuff) and (t:IsCasting(e.Ebonbolt) or (t:BuffUp(e.BrainFreezeBuff) and (t:BuffDownP(e.FingersofFrostBuff) or (q and (t:PrevGCD(1, e.Frostbolt) or t:IsCasting(e.Frostbolt)) and (f or m) and t:BuffUp(e.Deathborne)))))) then
+    if e.Flurry:IsCastable() and (not t:IsMoving() or t:BuffUp(e.BrainFreezeBuff)) and (o:DebuffDown(e.WintersChillDebuff) and (t:IsCasting(e.Ebonbolt) or (t:BuffUp(e.BrainFreezeBuff) and (t:BuffDownP(e.FingersofFrostBuff) or (k and (t:PrevGCD(1, e.Frostbolt) or t:IsCasting(e.Frostbolt)) and (w or p) and t:BuffUp(e.Deathborne)))))) then
         if i(e.Flurry, nil, nil, not o:IsSpellInRange(e.Flurry)) then
             a = 44614
             return "flurry aoe 3"
@@ -1142,7 +1142,7 @@ local function V()
 
     end
 
-    if e.CometStorm:IsCastable() and not (p or s) then
+    if e.CometStorm:IsCastable() and not (y or s) then
         if i(e.CometStorm, nil, nil, not o:IsSpellInRange(e.CometStorm)) then
             a = 153595
             return "comet_storm aoe 5"
@@ -1150,7 +1150,7 @@ local function V()
 
     end
 
-    if e.Frostbolt:IsCastable() and not t:IsMoving() and (q and (f or m) and t:BuffRemains(e.Deathborne) > e.Frostbolt:CastTime() + e.Frostbolt:TravelTime()) then
+    if e.Frostbolt:IsCastable() and not t:IsMoving() and (k and (w or p) and t:BuffRemains(e.Deathborne) > e.Frostbolt:CastTime() + e.Frostbolt:TravelTime()) then
         if i(e.Frostbolt, nil, nil, not o:IsSpellInRange(e.Frostbolt)) then
             a = 116
             return "frostbolt aoe 15"
@@ -1174,7 +1174,7 @@ local function V()
 
     end
 
-    if e.RadiantSpark:IsCastable() and not t:IsMoving() and l and (e.CombatMeditation:SoulbindEnabled()) then
+    if e.RadiantSpark:IsCastable() and not t:IsMoving() and d and (e.CombatMeditation:SoulbindEnabled()) then
         if i(e.RadiantSpark, nil, nil, not o:IsSpellInRange(e.RadiantSpark)) then
             a = 307443
             return "radiant_spark aoe 7"
@@ -1182,8 +1182,8 @@ local function V()
 
     end
 
-    if l then
-        if e.MirrorsofTorment:IsCastable() and not t:IsMoving() and l then
+    if d then
+        if e.MirrorsofTorment:IsCastable() and not t:IsMoving() and d then
             if i(e.MirrorsofTorment, nil, nil, not o:IsSpellInRange(e.MirrorsofTorment)) then
                 a = 314793
                 return "mirrors_of_torment aoe 8"
@@ -1191,7 +1191,7 @@ local function V()
 
         end
 
-        if e.ShiftingPower:IsCastable() and not t:IsMoving() and l then
+        if e.ShiftingPower:IsCastable() and not t:IsMoving() and d then
             if i(e.ShiftingPower, nil, nil, not o:IsInRange(18)) then
                 a = 314791
                 return "shifting_power aoe 9"
@@ -1201,7 +1201,7 @@ local function V()
 
     end
 
-    if e.FireBlast:IsCastable() and (z and v <= 0 and b.DC.Fire == 0) then
+    if e.FireBlast:IsCastable() and (T and v <= 0 and q.DC.Fire == 0) then
         if i(e.FireBlast) then
             a = 319836
             return "fire_blast aoe 11"
@@ -1209,7 +1209,7 @@ local function V()
 
     end
 
-    if e.ArcaneExplosion:IsCastable() and (t:ManaPercentageP() > 30 and u >= 6 and not O) then
+    if e.ArcaneExplosion:IsCastable() and (t:ManaPercentageP() > 30 and g >= 6 and not H) then
         if i(e.ArcaneExplosion) then
             a = 1449
             return "arcane_explosion aoe 12"
@@ -1217,7 +1217,7 @@ local function V()
 
     end
 
-    if e.Ebonbolt:IsCastable() and not t:IsMoving() and (p or s()) and (u >= 2) then
+    if e.Ebonbolt:IsCastable() and not t:IsMoving() and (y or s()) and (c >= 2) then
         if i(e.Ebonbolt, nil, nil, not o:IsSpellInRange(e.Ebonbolt)) then
             a = 257537
             return "ebonbolt aoe 13"
@@ -1230,7 +1230,7 @@ local function V()
         n = 0
     end
 
-    if e.IceLance:IsCastable() and (O and (e.SplittingIce:IsAvailable() or u >= 5) and e.IceLance:TravelTime() < n) then
+    if e.IceLance:IsCastable() and (H and (e.SplittingIce:IsAvailable() or c >= 5) and e.IceLance:TravelTime() < n) then
         if i(e.IceLance, nil, nil, not o:IsSpellInRange(e.IceLance)) then
             a = 30455
             return "ice_lance aoe 14"
@@ -1259,10 +1259,10 @@ end
 local function B()
     if h.ShadowedOrbofTorment:IsEquippedAndReady() and t:BuffDown(e.RuneofPowerBuff) and not t:IsMoving() then
         if i(h.ShadowedOrbofTorment, nil, nil) then
-                        if h.ShadowedOrbofTorment:ID() == y then
+                        if h.ShadowedOrbofTorment:ID() == m then
                 a = 24
                 return "Orb of Torment 3 top"
-            elseif h.ShadowedOrbofTorment:ID() == w then
+            elseif h.ShadowedOrbofTorment:ID() == f then
                 a = 30
                 return "Orb of Torment 3 top"
             end
@@ -1279,7 +1279,7 @@ local function B()
 
     end
 
-    if e.Deathborne:IsCastable() and l and not t:IsMoving() then
+    if e.Deathborne:IsCastable() and d and not t:IsMoving() then
         if i(e.Deathborne, nil, nil) then
             a = 324220
             return "deathborne cd 3"
@@ -1287,7 +1287,7 @@ local function B()
 
     end
 
-    if e.MirrorsofTorment:IsCastable() and l and not t:IsMoving() and (u < 3 and (e.SiphonedMalice:ConduitEnabled() or e.WastelandPropriety:SoulbindEnabled()) and t:BuffDown(e.BrainFreezeBuff)) then
+    if e.MirrorsofTorment:IsCastable() and d and not t:IsMoving() and (c < 3 and (e.SiphonedMalice:ConduitEnabled() or e.WastelandPropriety:SoulbindEnabled()) and t:BuffDown(e.BrainFreezeBuff)) then
         if i(e.MirrorsofTorment, nil, nil) then
             a = 314793
             return "mirrors_of_torment cd 4"
@@ -1295,7 +1295,7 @@ local function B()
 
     end
 
-    if e.RuneofPower:IsCastable() and not t:IsMoving() and (p or s()) and not t:IsMoving() and (e.IcyVeins:CooldownRemains() > 12 and t:BuffDown(e.RuneofPowerBuff)) then
+    if e.RuneofPower:IsCastable() and not t:IsMoving() and (y or s()) and not t:IsMoving() and (e.IcyVeins:CooldownRemains() > 12 and t:BuffDown(e.RuneofPowerBuff)) then
         if i(e.RuneofPower, nil) then
             a = 116011
             return "rune_of_power cd 5"
@@ -1303,7 +1303,7 @@ local function B()
 
     end
 
-    if e.IcyVeins:IsCastable() and s() and (t:BuffDown(e.RuneofPowerBuff) and (t:BuffDown(e.IcyVeins) or e.RuneofPower:IsAvailable()) and (t:BuffDown(e.SlickIceBuff) or (e.IcyPropulsion:ConduitEnabled() and (e.CometStorm:IsAvailable() or t:HasTier(28, 2))) or u >= 2)) then
+    if e.IcyVeins:IsCastable() and s() and (t:BuffDown(e.RuneofPowerBuff) and (t:BuffDown(e.IcyVeins) or e.RuneofPower:IsAvailable()) and (t:BuffDown(e.SlickIceBuff) or (e.IcyPropulsion:ConduitEnabled() and (e.CometStorm:IsAvailable() or t:HasTier(28, 2))) or c >= 2)) then
         if i(e.IcyVeins, nil) then
             a = 12472
             return "icy_veins cd 6"
@@ -1323,10 +1323,10 @@ local function B()
         local e = t:GetUseableTrinkets(A)
         if e then
             if i(e, nil, nil) then
-                                if e:ID() == y and r.Commons.Enabled.TopTrinket then
+                                if e:ID() == m and r.Commons.Enabled.TopTrinket then
                     a = 24
                     return "top trinket 1"
-                elseif e:ID() == w and r.Commons.Enabled.BotTrinket then
+                elseif e:ID() == f and r.Commons.Enabled.BotTrinket then
                     a = 30
                     return "top trinket 2"
                 end
@@ -1388,7 +1388,7 @@ local function B()
 end
 
 local function h()
-    if e.ArcaneExplosion:IsCastable() and t:ManaPercentageP() > 30 and j >= 2 then
+    if e.ArcaneExplosion:IsCastable() and t:ManaPercentageP() > 30 and g >= 2 then
         if i(e.ArcaneExplosion) then
             a = 1449
             return "arcane_explosion move 16"
@@ -1414,7 +1414,7 @@ local function h()
 
 end
 
-local function O()
+local function H()
     if e.Flurry:IsCastable() and (not t:IsMoving() or t:BuffUp(e.BrainFreezeBuff)) and (o:DebuffDown(e.WintersChillDebuff) and ((t:IsCasting(e.Ebonbolt) or t:PrevGCD(1, e.Ebonbolt)) or (t:BuffUp(e.BrainFreezeBuff) and ((t:IsCasting(e.GlacialSpike) or t:PrevGCD(1, e.GlacialSpike)) or ((t:IsCasting(e.Frostbolt) or t:PrevGCD(1, e.Frostbolt)) and (not e.IreOfTheAscended:ConduitEnabled() or e.RadiantSpark:CooldownRemains() > 0 or E)) or (t:IsCasting(e.RadiantSpark) or t:PrevGCD(1, e.RadiantSpark)) or (t:BuffDownP(e.FingersofFrostBuff) and (o:DebuffUp(e.MirrorsofTorment) or t:BuffUp(e.FreezingWindsBuff) or t:BuffUp(e.ExpandedPotentialBuff))))))) then
         if i(e.Flurry, nil, nil, not o:IsSpellInRange(e.Flurry)) then
             a = 44614
@@ -1423,7 +1423,7 @@ local function O()
 
     end
 
-    if FrozenOrb:IsCastable() and not H and (p or s()) then
+    if FrozenOrb:IsCastable() and not O and (y or s()) then
         if i(FrozenOrb, nil, nil, not o:IsInRange(40)) then
             a = 198149
             return "frozen_orb single 2"
@@ -1447,7 +1447,7 @@ local function O()
 
     end
 
-    if e.Frostbolt:IsCastable() and not t:IsMoving() and (q and (f or m) and t:BuffRemains(e.Deathborne) > (e.Frostbolt:CastTime() + e.Frostbolt:TravelTime()) and d >= 2) then
+    if e.Frostbolt:IsCastable() and not t:IsMoving() and (k and (w or p) and t:BuffRemains(e.Deathborne) > (e.Frostbolt:CastTime() + e.Frostbolt:TravelTime()) and l >= 2) then
         if i(e.Frostbolt, nil, nil, not o:IsSpellInRange(e.Frostbolt)) then
             a = 116
             return "frostbolt single 8"
@@ -1455,7 +1455,7 @@ local function O()
 
     end
 
-    if e.Blizzard:IsCastable() and not t:IsMoving() and ((not m or (not e.IcyPropulsion:ConduitEnabled() and t:BuffDown(e.Deathborne))) and d >= 2) then
+    if e.Blizzard:IsCastable() and not t:IsMoving() and ((not p or (not e.IcyPropulsion:ConduitEnabled() and t:BuffDown(e.Deathborne))) and l >= 2) then
         if i(e.Blizzard, nil, nil, not o:IsInRange(40)) then
             a = 190356
             return "blizzard single 3"
@@ -1503,7 +1503,7 @@ local function O()
 
     end
 
-    if e.RadiantSpark:IsCastable() and not t:IsMoving() and l and (t:BuffUp(e.FreezingWindsBuff) and d == 1) then
+    if e.RadiantSpark:IsCastable() and not t:IsMoving() and d and (t:BuffUp(e.FreezingWindsBuff) and l == 1) then
         if i(e.RadiantSpark, nil, nil, not o:IsSpellInRange(e.RadiantSpark)) then
             a = 307443
             return "radiant_spark single 9"
@@ -1511,7 +1511,7 @@ local function O()
 
     end
 
-    if e.RadiantSpark:IsCastable() and not t:IsMoving() and l and (t:BuffUp(e.BrainFreezeBuff) and e.GlacialSpike:IsAvailable() and e.IreOfTheAscended:ConduitEnabled() and t:BuffStack(e.IciclesBuff) >= 4) then
+    if e.RadiantSpark:IsCastable() and not t:IsMoving() and d and (t:BuffUp(e.BrainFreezeBuff) and e.GlacialSpike:IsAvailable() and e.IreOfTheAscended:ConduitEnabled() and t:BuffStack(e.IciclesBuff) >= 4) then
         if i(e.RadiantSpark, nil, nil, not o:IsSpellInRange(e.RadiantSpark)) then
             a = 307443
             return "radiant_spark single 10"
@@ -1527,7 +1527,7 @@ local function O()
 
     end
 
-    if e.Ebonbolt:IsCastable() and not t:IsMoving() and (p or s()) then
+    if e.Ebonbolt:IsCastable() and not t:IsMoving() and (y or s()) then
         if i(e.Ebonbolt, nil, nil, not o:IsSpellInRange(e.Ebonbolt)) then
             a = 257537
             return "ebonbolt single 12"
@@ -1535,7 +1535,7 @@ local function O()
 
     end
 
-    if e.RadiantSpark:IsCastable() and not t:IsMoving() and l and ((not e.GlacialSpike:IsAvailable() or not e.IreOfTheAscended:ConduitEnabled()) and (not E or _ >= 2) and t:BuffUp(e.BrainFreezeBuff)) then
+    if e.RadiantSpark:IsCastable() and not t:IsMoving() and d and ((not e.GlacialSpike:IsAvailable() or not e.IreOfTheAscended:ConduitEnabled()) and (not E or z >= 2) and t:BuffUp(e.BrainFreezeBuff)) then
         if i(e.RadiantSpark, nil, nil, not o:IsSpellInRange(e.RadiantSpark)) then
             a = 307443
             return "radiant_spark single 13"
@@ -1543,8 +1543,8 @@ local function O()
 
     end
 
-    if l then
-        if e.MirrorsofTorment:IsCastable() and not t:IsMoving() and l then
+    if d then
+        if e.MirrorsofTorment:IsCastable() and not t:IsMoving() and d then
             if i(e.MirrorsofTorment, nil, nil) then
                 a = 314793
                 return "mirrors_of_torment single 14"
@@ -1552,7 +1552,7 @@ local function O()
 
         end
 
-        if e.ShiftingPower:IsCastable() and not t:IsMoving() and l and (t:BuffDown(e.RuneofPowerBuff) and (M or e.GroveInvigoration:IsAvailable() or e.FieldOfBlossoms:IsAvailable() or (E and t:BuffDown(e.FreezingWindsBuff)) or d >= 2)) then
+        if e.ShiftingPower:IsCastable() and not t:IsMoving() and d and (t:BuffDown(e.RuneofPowerBuff) and (M or e.GroveInvigoration:IsAvailable() or e.FieldOfBlossoms:IsAvailable() or (E and t:BuffDown(e.FreezingWindsBuff)) or l >= 2)) then
             if i(e.ShiftingPower, nil, nil, not o:IsInRange(18)) then
                 a = 314791
                 return "shifting_power single 15"
@@ -1562,7 +1562,7 @@ local function O()
 
     end
 
-    if e.ArcaneExplosion:IsCastable() and (z and v <= 0 and b.DC.Arcane == 0) then
+    if e.ArcaneExplosion:IsCastable() and (T and v <= 0 and q.DC.Arcane == 0) then
         if i(e.ArcaneExplosion) then
             a = 1449
             return "arcane_explosion single 16"
@@ -1570,7 +1570,7 @@ local function O()
 
     end
 
-    if e.FireBlast:IsCastable() and (z and v <= 0 and b.DC.Fire == 0) then
+    if e.FireBlast:IsCastable() and (T and v <= 0 and q.DC.Fire == 0) then
         if i(e.FireBlast) then
             a = 319836
             return "fire_blast single 17"
@@ -1605,41 +1605,41 @@ local function O()
 end
 
 local function s()
-    I = HeroRotationCharDB.Toggles[6]
-    l = HeroRotationCharDB.Toggles[4]
-    p = HeroRotationCharDB.Toggles[5]
+    N = HeroRotationCharDB.Toggles[6]
+    d = HeroRotationCharDB.Toggles[4]
+    y = HeroRotationCharDB.Toggles[5]
     P = HeroRotationCharDB.Toggles[12]
     D = HeroRotationCharDB.Toggles[15]
     U = HeroRotationCharDB.Toggles[60]
-    H = HeroRotationCharDB.Toggles[100]
-    y = GetInventoryItemID("player", 13)
-    w = GetInventoryItemID("player", 14)
+    O = HeroRotationCharDB.Toggles[100]
+    m = GetInventoryItemID("player", 13)
+    f = GetInventoryItemID("player", 14)
             if not r.Commons.Enabled.TopTrinket and not r.Commons.Enabled.BotTrinket then
-        A = { y, w }
+        A = { m, f }
     elseif not r.Commons.Enabled.TopTrinket then
-        A = { y }
+        A = { m }
     elseif not r.Commons.Enabled.BotTrinket then
-        A = { w }
+        A = { f }
     end
 
 end
 
-local function l()
+local function d()
     FrozenOrb = e.FrozenOrb
     W = o:GetEnemiesInSplashRange(8)
-        if S() and r.Commons.AoeMode == "Conservative" then
-        x = o:GetEnemiesInSplashRangeCount(6)
-        u = o:GetEnemiesInSplashRangeCount(8)
-        d = o:GetEnemiesInSplashRangeCount(16)
-        _ = #t:GetEnemiesInMeleeRange(15)
-        j = #t:GetEnemiesInMeleeRange(8)
-    elseif S() and r.Commons.AoeMode == "Aggresive" then
+        if I() and r.Commons.AoeMode == "Conservative" then
+        _ = o:GetEnemiesInSplashRangeCount(6)
+        c = o:GetEnemiesInSplashRangeCount(8)
+        l = o:GetEnemiesInSplashRangeCount(16)
+        z = #t:GetEnemiesInMeleeRange(15)
+        g = #t:GetEnemiesInMeleeRange(8)
+    elseif I() and r.Commons.AoeMode == "Aggresive" then
         local a = 0
         for e = 1, 20 do
             local e = "nameplate" .. e
             if UnitExists(e) then
                 if UnitCanAttack("player", e) then
-                    if (UnitCanAttack("player", e) and UnitAffectingCombat("target") and IsItemInRange(32698, e) and UnitDetailedThreatSituation("player", e) ~= nil) or T(e):IsDummy() or string.find(UnitGUID(e), 153285) or string.find(UnitGUID(e), 31146) or string.find(UnitGUID(e), 176581) or string.find(UnitGUID(e), 179124) or string.find(UnitGUID(e), 179010) or string.find(UnitGUID(e), 180323) or string.find(UnitGUID(e), 179010) or string.find(UnitGUID(e), 179942) or string.find(UnitGUID(e), 176521) or string.find(UnitGUID(e), 177594) or string.find(UnitGUID(e), 177117) or string.find(UnitGUID(e), 176581) or string.find(UnitGUID(e), 180840) or string.find(UnitGUID(e), 176605) or UnitName(e) == "Glacial Spike" or string.find(UnitGUID(e), 180473) or string.find(UnitGUID(e), 180474) or string.find(UnitGUID(e), 176929) or string.find(UnitGUID(e), 176920) or string.find(UnitGUID(e), 177154) or string.find(UnitGUID(e), 177787) or string.find(UnitGUID(e), 177889) or string.find(UnitGUID(e), 177891) or string.find(UnitGUID(e), 177892) or string.find(UnitGUID(e), 168326) or string.find(UnitGUID(e), 182778) or string.find(UnitGUID(e), 183945) then
+                    if (UnitCanAttack("player", e) and UnitAffectingCombat("target") and IsItemInRange(32698, e) and UnitDetailedThreatSituation("player", e) ~= nil) or x(e):IsDummy() or string.find(UnitGUID(e), 153285) or string.find(UnitGUID(e), 31146) or string.find(UnitGUID(e), 176581) or string.find(UnitGUID(e), 179124) or string.find(UnitGUID(e), 179010) or string.find(UnitGUID(e), 180323) or string.find(UnitGUID(e), 179010) or string.find(UnitGUID(e), 179942) or string.find(UnitGUID(e), 176521) or string.find(UnitGUID(e), 177594) or string.find(UnitGUID(e), 177117) or string.find(UnitGUID(e), 176581) or string.find(UnitGUID(e), 180840) or string.find(UnitGUID(e), 176605) or UnitName(e) == "Glacial Spike" or string.find(UnitGUID(e), 180473) or string.find(UnitGUID(e), 180474) or string.find(UnitGUID(e), 176929) or string.find(UnitGUID(e), 176920) or string.find(UnitGUID(e), 177154) or string.find(UnitGUID(e), 177787) or string.find(UnitGUID(e), 177889) or string.find(UnitGUID(e), 177891) or string.find(UnitGUID(e), 177892) or string.find(UnitGUID(e), 168326) or string.find(UnitGUID(e), 182778) or string.find(UnitGUID(e), 183945) then
                         a = (a + 1)
                     end
 
@@ -1649,34 +1649,34 @@ local function l()
 
         end
 
-        _ = #t:GetEnemiesInMeleeRange(15)
-        j = #t:GetEnemiesInMeleeRange(15)
-        x = a
-        u = a
-        d = a
+        z = #t:GetEnemiesInMeleeRange(15)
+        g = #t:GetEnemiesInMeleeRange(15)
+        _ = a
+        c = a
+        l = a
     end
 
-    if not S() then
+    if not I() then
+        z = 1
+        g = 1
         _ = 1
-        j = 1
-        x = 1
-        u = 1
-        d = 1
+        c = 1
+        l = 1
     end
 
     if U then
-        x = 10
-        d = 10
-        u = 10
+        _ = 10
+        l = 10
+        c = 10
     end
 
     if not BotOn then
-        g = 0
+        j = 0
         a = 0
     end
 
-    if g > 0 then
-        g = 0
+    if j > 0 then
+        j = 0
     end
 
     if a > 0 then
@@ -1686,7 +1686,7 @@ local function l()
     ShouldReturn = s()
     if n.QueuedCast() then
         a = n.QueuedCast()
-        return "Custom Queue " .. k(a):ID()
+        return "Custom Queue " .. b(a):ID()
     end
 
         if n.GUISettings.General.OpenerReset > 0 and not HeroRotationCharDB.Toggles[6] then
@@ -1698,7 +1698,7 @@ local function l()
         n.Print("Opener is now " .. (HeroRotationCharDB.Toggles[6] and "|cff00ff00enabled|r." or "|cffff0000disabled|r."))
     end
 
-    if t:IsChanneling(k(314791)) then
+    if t:IsChanneling(b(314791)) then
         if i(e.Pool) then
             a = 999999
             return "channeling"
@@ -1706,7 +1706,7 @@ local function l()
 
     end
 
-    if t:IsChanneling(k(324631)) then
+    if t:IsChanneling(b(324631)) then
         if i(e.Pool) then
             a = 999999
             return "channeling"
@@ -1722,7 +1722,7 @@ local function l()
 
     end
 
-    if t:IsChanneling(k(324631)) then
+    if t:IsChanneling(b(324631)) then
         if i(e.Pool) then
             a = 999999
             return "channeling"
@@ -1730,16 +1730,16 @@ local function l()
 
     end
 
-    b.IFTracker()
-    FightRemains = c.FightRemains(W, false)
+    q.IFTracker()
+    FightRemains = u.FightRemains(W, false)
     Y = e.DisciplinaryCommandBuff:TimeSinceLastAppliedOnPlayer()
     v = 30 - Y
     if v < 0 then
         v = 0
     end
 
-    b.DCCheck()
-    if not t:AffectingCombat() and N.TargetIsValid() and I then
+    q.DCCheck()
+    if not t:AffectingCombat() and S.TargetIsValid() and N then
         local e = R()
         if e then
             return e
@@ -1747,7 +1747,7 @@ local function l()
 
     end
 
-    if N.TargetIsValid() and t:AffectingCombat() and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285 or o:NPCID() == 168326 or o:NPCID() == 176581 or o:NPCID() == 176920 or o:NPCID() == 177892 or o:NPCID() == 182778 or o:NPCID() == 185402 or o:NPCID() == 183945 or o:NPCID() == 182074 or o:NPCID() == 184737 or o:NPCID() == 179733 or o:NPCID() == 115402 or o:NPCID() == 115406 or o:NPCID() == 115395 or UnitExists("boss1") or o:NPCID() == 115388 or I) and not t:IsDeadOrGhost() then
+    if S.TargetIsValid() and t:AffectingCombat() and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285 or o:NPCID() == 168326 or o:NPCID() == 176581 or o:NPCID() == 176920 or o:NPCID() == 177892 or o:NPCID() == 182778 or o:NPCID() == 185402 or o:NPCID() == 183945 or o:NPCID() == 182074 or o:NPCID() == 184737 or o:NPCID() == 179733 or o:NPCID() == 115402 or o:NPCID() == 115406 or o:NPCID() == 115395 or UnitExists("boss1") or o:NPCID() == 115388 or N) and not t:IsDeadOrGhost() then
         if t:HealthPercentage() < r.Frost.IceBlockHP and e.IceBlock:IsReady() then
             if i(e.IceBlock, nil) then
                 a = 45438
@@ -1788,7 +1788,7 @@ local function l()
 
         end
 
-        if d >= 3 then
+        if l >= 3 then
             local e = V()
             if e then
                 return e
@@ -1796,8 +1796,8 @@ local function l()
 
         end
 
-        if d < 3 then
-            local e = O()
+        if l < 3 then
+            local e = H()
             if e then
                 return e
             end
@@ -1821,13 +1821,13 @@ function ReturnSpell1()
 end
 
 function ReturnSpellMO1()
-    if g == 0 then
+    if j == 0 then
         return 0
     else
-        return g
+        return j
     end
 
 end
 
-n.SetAPL(64, l, e)
+n.SetAPL(64, d, e)
 
