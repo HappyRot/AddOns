@@ -800,6 +800,11 @@ local function g()
     end
 
     ShouldReturn = x()
+    if s.QueuedCast() then
+        shouldcast = s.QueuedCast()
+        return "Custom Queue " .. h(shouldcast):ID()
+    end
+
     L, G, q = V(v)
     if a:IsDeadOrGhost() then
         MOshouldcast = 999

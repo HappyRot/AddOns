@@ -7,16 +7,16 @@ local i = w.Player
 local a = w.Target
 local e = w.Boss
 local E = w.Pet
-local P = d.Spell
+local F = d.Spell
 local _ = d.Item
-local c = HeroRotation
-local o = c.Cast
-local f = c.CDsON
-local D = c.AoEON
+local u = HeroRotation
+local o = u.Cast
+local f = u.CDsON
+local D = u.AoEON
 local j = HeroRotationCharDB.Toggles[4]
 local R = HeroRotationCharDB.Toggles[5]
 local ne = HeroRotationCharDB.Toggles[6]
-local Y = HeroRotationCharDB.Toggles[10]
+local P = HeroRotationCharDB.Toggles[10]
 local se = HeroRotationCharDB.Toggles[11]
 local q = HeroRotationCharDB.Toggles[12]
 local B = HeroRotationCharDB.Toggles[13]
@@ -35,7 +35,7 @@ local ye = false
 local e = 0
 local v = false
 local he = table.insert
-local e = P.DeathKnight.Unholy
+local e = F.DeathKnight.Unholy
 local s = _.DeathKnight.Unholy
 local pe = { s.DarkmoonDeckVoracity:ID(), s.DreadfireVessel:ID(), s.InscrutableQuantumDevice:ID(), s.MacabreSheetMusic:ID() }
 local z = i:GetEquipment()
@@ -53,15 +53,15 @@ end
 
 local we
 local ee
-local y = c.Commons.Everyone
-local n = { General = c.GUISettings.General, Commons = c.GUISettings.APL.DeathKnight.Commons, Unholy = c.GUISettings.APL.DeathKnight.Unholy }
+local y = u.Commons.Everyone
+local n = { General = u.GUISettings.General, Commons = u.GUISettings.APL.DeathKnight.Commons, Unholy = u.GUISettings.APL.DeathKnight.Unholy }
 local g
 local I
 local T
 local H
 local x
-local F
-local u
+local Y
+local c
 local m
 local t, t
 local t
@@ -292,7 +292,7 @@ end
 local function le()
     if e.RaiseDead:IsCastable() then
         if n.Unholy.RaiseDeadCastLeft then
-            if c.CastLeft(e.RaiseDead) then
+            if u.CastLeft(e.RaiseDead) then
                 t = 1
                 return "raise_dead precombat 2 left"
             end
@@ -307,7 +307,7 @@ local function le()
 
     end
 
-    if e.ArmyoftheDead:IsReady() and C and not Y and not n.Unholy.DisableAotD and (not e.SummonGargoyle:IsAvailable()) then
+    if e.ArmyoftheDead:IsReady() and C and not P and not n.Unholy.DisableAotD and (not e.SummonGargoyle:IsAvailable()) then
         if o(e.ArmyoftheDead, nil, nil) then
             t = 400
             return "army_of_the_dead precombat 4"
@@ -424,8 +424,8 @@ local function de()
 
     end
 
-    if u:IsReady() and (e.BurstingSores:IsAvailable() and (e.FesteringWoundDebuff:AuraActiveCount() == h or e.FesteringWoundDebuff:AuraActiveCount() >= 3) or e.BurstingSores:IsAvailable() and e.ClawingShadows:IsAvailable() and e.FesteringWoundDebuff:AuraActiveCount() >= 1) then
-        if o(u, nil, nil, not a:IsSpellInRange(u)) then
+    if c:IsReady() and (e.BurstingSores:IsAvailable() and (e.FesteringWoundDebuff:AuraActiveCount() == h or e.FesteringWoundDebuff:AuraActiveCount() >= 3) or e.BurstingSores:IsAvailable() and e.ClawingShadows:IsAvailable() and e.FesteringWoundDebuff:AuraActiveCount() >= 1) then
+        if o(c, nil, nil, not a:IsSpellInRange(c)) then
             t = 7
             return "wound_spender aoe_burst 6"
         end
@@ -464,8 +464,8 @@ local function de()
 
     end
 
-    if u:IsReady() then
-        if o(u, nil, nil, not a:IsSpellInRange(u)) then
+    if c:IsReady() then
+        if o(c, nil, nil, not a:IsSpellInRange(c)) then
             t = 7
             return "wound_spender aoe_burst 16"
         end
@@ -499,8 +499,8 @@ local function he()
 
     end
 
-    if u:IsReady() then
-        if y.CastTargetIf(u, r, "max", z, X) then
+    if c:IsReady() then
+        if y.CastTargetIf(c, r, "max", z, X) then
             t = 7
             return "wound_spender aoe_generic 6"
         end
@@ -542,7 +542,7 @@ local function he()
 end
 
 local function W()
-    if s.PotionofSpectralStrength:IsReady() and f() and n.Commons.Enabled.Potions and oe and (((H or x and e.SummonGargoyle:TimeSinceLastCast() >= 9 or d.FilteredFightRemains(r, "<", 26)) and not c.GUISettings.General.HoldPotforBL) or (c.GUISettings.General.HoldPotforBL and i:BloodlustUp())) then
+    if s.PotionofSpectralStrength:IsReady() and f() and n.Commons.Enabled.Potions and oe and (((H or x and e.SummonGargoyle:TimeSinceLastCast() >= 9 or d.FilteredFightRemains(r, "<", 26)) and not u.GUISettings.General.HoldPotforBL) or (u.GUISettings.General.HoldPotforBL and i:BloodlustUp())) then
         if o(s.PotionofSpectralStrength, nil) then
             t = 9
             return "potion cooldowns 2"
@@ -550,7 +550,7 @@ local function W()
 
     end
 
-    if e.ArmyoftheDead:IsReady() and C and not Y and not n.Unholy.DisableAotD and ((e.UnholyBlight:CooldownRemains() < 7 and k) and (e.DarkTransformation:CooldownRemains() < 7 and b) and e.UnholyBlight:IsAvailable() and ((e.Apocalypse:CooldownRemains() < 7 and p) and L or not L) or not e.UnholyBlight:IsAvailable() or d.FilteredFightRemains(r, "<", 35)) then
+    if e.ArmyoftheDead:IsReady() and C and not P and not n.Unholy.DisableAotD and ((e.UnholyBlight:CooldownRemains() < 7 and k) and (e.DarkTransformation:CooldownRemains() < 7 and b) and e.UnholyBlight:IsAvailable() and ((e.Apocalypse:CooldownRemains() < 7 and p) and L or not L) or not e.UnholyBlight:IsAvailable() or d.FilteredFightRemains(r, "<", 35)) then
         if o(e.ArmyoftheDead, nil, nil) then
             t = 400
             return "army_of_the_dead cooldowns 4"
@@ -639,7 +639,7 @@ local function W()
 
     end
 
-    if e.UnholyAssault:IsCastable() and T and a:DebuffStack(e.FesteringWoundDebuff) < 2 and (F or E:BuffUp(e.DarkTransformation) and (e.Apocalypse:CooldownRemains() > 10 or not p)) then
+    if e.UnholyAssault:IsCastable() and T and a:DebuffStack(e.FesteringWoundDebuff) < 2 and (Y or E:BuffUp(e.DarkTransformation) and (e.Apocalypse:CooldownRemains() > 10 or not p)) then
         if o(e.UnholyAssault, n.Unholy.GCDasOffGCD.UnholyAssault) then
             t = 17
             return "unholy_assault cooldowns 22"
@@ -657,7 +657,7 @@ local function W()
 
     if e.RaiseDead:IsCastable() then
         if n.Unholy.RaiseDeadCastLeft then
-            if c.CastLeft(e.RaiseDead) then
+            if u.CastLeft(e.RaiseDead) then
                 t = 1
                 return "raise_dead cooldowns 26 left"
             end
@@ -672,7 +672,7 @@ local function W()
 
     end
 
-    if e.SacrificialPact:IsReady() and not E:DebuffUp(P(111673)) and not se and K and (h >= 2 and E:BuffDown(e.DarkTransformation) and (e.DarkTransformation:CooldownRemains() > 5 or not b) or d.FilteredFightRemains(r, "<", i:GCD())) then
+    if e.SacrificialPact:IsReady() and not E:DebuffUp(F(111673)) and not se and K and (h >= 2 and E:BuffDown(e.DarkTransformation) and (e.DarkTransformation:CooldownRemains() > 5 or not b) or d.FilteredFightRemains(r, "<", i:GCD())) then
         if o(e.SacrificialPact, nil, nil, not a:IsInRange(8)) then
             t = 18
             return "sacrificial_pact cooldowns 28"
@@ -842,16 +842,16 @@ local function V()
 
     end
 
-    if u:IsReady() and (VarMajorProcsActive and a:DebuffStack(e.FesteringWoundDebuff) >= 1 and (e.Apocalypse:CooldownRemains() > 5 or not p) and not I) then
-        if o(u, nil, nil, not a:IsSpellInRange(u)) then
+    if c:IsReady() and (VarMajorProcsActive and a:DebuffStack(e.FesteringWoundDebuff) >= 1 and (e.Apocalypse:CooldownRemains() > 5 or not p) and not I) then
+        if o(c, nil, nil, not a:IsSpellInRange(c)) then
             t = 7
             return "wound_spender generic 10"
         end
 
     end
 
-    if u:IsReady() and (a:DebuffStack(e.FesteringWoundDebuff) > 3 and not I or a:DebuffUp(e.FesteringWoundDebuff) and d.FilteredFightRemains(r, "<", (a:DebuffStack(e.FesteringWoundDebuff) * i:GCD()))) then
-        if o(u, nil, nil, not a:IsSpellInRange(u)) then
+    if c:IsReady() and (a:DebuffStack(e.FesteringWoundDebuff) > 3 and not I or a:DebuffUp(e.FesteringWoundDebuff) and d.FilteredFightRemains(r, "<", (a:DebuffStack(e.FesteringWoundDebuff) * i:GCD()))) then
+        if o(c, nil, nil, not a:IsSpellInRange(c)) then
             t = 7
             return "wound_spender generic 12"
         end
@@ -882,8 +882,8 @@ local function V()
 
     end
 
-    if u:IsReady() and (a:DebuffStack(e.FesteringWoundDebuff) >= 1 and i:Rune() < 2 and not I and (e.Apocalypse:CooldownRemains() > 5 or not p)) then
-        if o(u, nil, nil, not a:IsSpellInRange(u)) then
+    if c:IsReady() and (a:DebuffStack(e.FesteringWoundDebuff) >= 1 and i:Rune() < 2 and not I and (e.Apocalypse:CooldownRemains() > 5 or not p)) then
+        if o(c, nil, nil, not a:IsSpellInRange(c)) then
             t = 7
             return "wound_spender generic 20"
         end
@@ -893,7 +893,7 @@ local function V()
 end
 
 local function X()
-    if s.InscrutableQuantumDevice:IsEquippedAndReady() and (((e.UnholyBlight:CooldownRemains() > 20 or not k) or (e.DarkTransformation:CooldownRemains() > 20 or not b)) and (h >= 2 or e.ArmyoftheDead:TimeSinceLastCast() <= 30 or F and (e.UnholyAssault:IsAvailable() or n.Unholy.DisableAotD) or x) or d.FilteredFightRemains(r, "<", 21) or a:TimeToX(20) < 5) then
+    if s.InscrutableQuantumDevice:IsEquippedAndReady() and (((e.UnholyBlight:CooldownRemains() > 20 or not k) or (e.DarkTransformation:CooldownRemains() > 20 or not b)) and (h >= 2 or e.ArmyoftheDead:TimeSinceLastCast() <= 30 or Y and (e.UnholyAssault:IsAvailable() or n.Unholy.DisableAotD) or x) or d.FilteredFightRemains(r, "<", 21) or a:TimeToX(20) < 5) then
         if o(s.InscrutableQuantumDevice, nil, nil) then
                         if s.InscrutableQuantumDevice:ID() == N and n.Commons.Enabled.TopTrinket == true then
                 t = 30
@@ -989,7 +989,7 @@ local function _()
     ne = HeroRotationCharDB.Toggles[6]
     j = HeroRotationCharDB.Toggles[4]
     R = HeroRotationCharDB.Toggles[5]
-    Y = HeroRotationCharDB.Toggles[10]
+    P = HeroRotationCharDB.Toggles[10]
     se = HeroRotationCharDB.Toggles[11]
     q = HeroRotationCharDB.Toggles[12]
     B = HeroRotationCharDB.Toggles[13]
@@ -1041,8 +1041,8 @@ local function p()
 
     G = ve(S)
     x = e.SummonGargoyle:TimeSinceLastCast() <= 35
-    F = e.Apocalypse:TimeSinceLastCast() <= 15
-    u = (e.ClawingShadows:IsAvailable() and e.ClawingShadows or e.ScourgeStrike)
+    Y = e.Apocalypse:TimeSinceLastCast() <= 15
+    c = (e.ClawingShadows:IsAvailable() and e.ClawingShadows or e.ScourgeStrike)
     m = e.DeathAndDecay
     if i:CovenantID() == 3 then
         m = e.DeathsDue
@@ -1066,13 +1066,18 @@ local function p()
     end
 
     we = _()
-        if c.GUISettings.General.OpenerReset > 0 and not HeroRotationCharDB.Toggles[6] then
+    if u.QueuedCast() then
+        t = u.QueuedCast()
+        return "Custom Queue " .. F(t):ID()
+    end
+
+        if u.GUISettings.General.OpenerReset > 0 and not HeroRotationCharDB.Toggles[6] then
         ie = GetTime()
-        J = ie + (c.GUISettings.General.OpenerReset)
-    elseif c.GUISettings.General.OpenerReset > 0 and J ~= nil and GetTime() > J and HeroRotationCharDB.Toggles[6] then
+        J = ie + (u.GUISettings.General.OpenerReset)
+    elseif u.GUISettings.General.OpenerReset > 0 and J ~= nil and GetTime() > J and HeroRotationCharDB.Toggles[6] then
         HeroRotationCharDB.Toggles[6] = not HeroRotationCharDB.Toggles[6]
-        c.ToggleIconFrame:UpdateButtonText(6)
-        c.Print("Opener is now " .. (HeroRotationCharDB.Toggles[6] and "|cff00ff00enabled|r." or "|cffff0000disabled|r."))
+        u.ToggleIconFrame:UpdateButtonText(6)
+        u.Print("Opener is now " .. (HeroRotationCharDB.Toggles[6] and "|cff00ff00enabled|r." or "|cffff0000disabled|r."))
     end
 
         if (B and e.AntiMagicZone:IsUsableP() and i:AffectingCombat() and e.AntiMagicZone:CooldownRemains(BypassRecovery) <= 0) then
@@ -1083,7 +1088,7 @@ local function p()
 
     elseif ((not e.AntiMagicZone:IsUsableP() or e.AntiMagicZone:CooldownRemains() > 0 or not i:AffectingCombat()) and B) then
         HeroRotationCharDB.Toggles[13] = not HeroRotationCharDB.Toggles[13]
-        c.Print("Anti-Magic Zone Queue is now " .. (HeroRotationCharDB.Toggles[13] and "|cff00ff00on|r." or "|cffff0000off|r."))
+        u.Print("Anti-Magic Zone Queue is now " .. (HeroRotationCharDB.Toggles[13] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
             if (M and e.DeathGrip:IsUsableP() and e.DeathGrip:CooldownRemains(BypassRecovery) <= 0 and y.TargetIsValid() and w("mouseover"):GUID() ~= nil) then
@@ -1100,7 +1105,7 @@ local function p()
 
     elseif ((not e.DeathGrip:IsUsableP() or e.DeathGrip:CooldownRemains() > 0 or not y.TargetIsValid()) and M) then
         HeroRotationCharDB.Toggles[14] = not HeroRotationCharDB.Toggles[14]
-        c.Print("Death Grip Queue is now " .. (HeroRotationCharDB.Toggles[14] and "|cff00ff00on|r." or "|cffff0000off|r."))
+        u.Print("Death Grip Queue is now " .. (HeroRotationCharDB.Toggles[14] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
             if (U and e.Asphyxiate:IsUsableP() and e.Asphyxiate:CooldownRemains(BypassRecovery) <= 0 and w("mouseover"):GUID() ~= nil) then
@@ -1117,10 +1122,10 @@ local function p()
 
     elseif ((not e.Asphyxiate:IsUsableP() or e.Asphyxiate:CooldownRemains() > 0) and U) then
         HeroRotationCharDB.Toggles[16] = not HeroRotationCharDB.Toggles[16]
-        c.Print("Asphyxiate Queue is now " .. (HeroRotationCharDB.Toggles[16] and "|cff00ff00on|r." or "|cffff0000off|r."))
+        u.Print("Asphyxiate Queue is now " .. (HeroRotationCharDB.Toggles[16] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-    if i:IsChanneling(P(324631)) then
+    if i:IsChanneling(F(324631)) then
         if o(e.PoolResources, nil, nil, nil) then
             l = 36
             return "Raise Ally MO"
@@ -1130,7 +1135,7 @@ local function p()
 
     if e.RaiseDead:IsCastable() then
         if n.Unholy.RaiseDeadCastLeft then
-            if c.CastLeft(e.RaiseDead) then
+            if u.CastLeft(e.RaiseDead) then
                 t = 1
                 return "raise_dead precombat 2 left"
             end
@@ -1262,7 +1267,7 @@ local function p()
         g = (e.SummonGargoyle:IsAvailable() and e.SummonGargoyle:CooldownRemains() < 5 and (e.UnholyBlight:IsAvailable() and (e.UnholyBlight:CooldownRemains() < 13 and k) and (e.DarkTransformation:CooldownRemains() < 13 and b) or not e.UnholyBlight:IsAvailable()))
         I = (e.SoulReaper:IsAvailable() and i:Rune() < 2 and a:TimeToX(35) < 5 and d.FilteredFightRemains(r, ">", 5))
         T = (h == 1 or not D())
-        H = ((e.SummonGargoyle:IsAvailable() and not x and not e.SummonGargoyle:CooldownUp() or not e.SummonGargoyle:IsAvailable()) and (i:BuffUp(e.UnholyAssault) or e.ArmyoftheDamned:IsAvailable() and F or i:BuffUp(e.DarkTransformation)))
+        H = ((e.SummonGargoyle:IsAvailable() and not x and not e.SummonGargoyle:CooldownUp() or not e.SummonGargoyle:IsAvailable()) and (i:BuffUp(e.UnholyAssault) or e.ArmyoftheDamned:IsAvailable() and Y or i:BuffUp(e.DarkTransformation)))
         VarMajorProcsActive = (i:Covenant() == "Night Fae" and i:BuffUp(e.DeathAndDecayBuff) and i:BuffStack(e.DeathsDueBuff) < 4 or i:BuffUp(e.MarrowedGemstoneEnhancement) or i:BuffUp(e.ThrillSeeker) or i:BuffUp(e.FrenziedMonstrosity) or i:BuffUp(e.LeadByExample))
         if e.Outbreak:IsReady() and (G > 0 and h == 0) then
             if o(e.Outbreak, nil, nil, not a:IsSpellInRange(e.Outbreak)) then
@@ -1312,8 +1317,8 @@ local function p()
 
         end
 
-        if u:IsReady() and (i:Covenant() == "Night Fae" and i:BuffRemains(e.DeathAndDecayBuff) < (i:GCD() * 1.5) and i:BuffUp(e.DeathAndDecayBuff)) then
-            if o(u, nil, nil, not a:IsSpellInRange(u)) then
+        if c:IsReady() and (i:Covenant() == "Night Fae" and i:BuffRemains(e.DeathAndDecayBuff) < (i:GCD() * 1.5) and i:BuffUp(e.DeathAndDecayBuff)) then
+            if o(c, nil, nil, not a:IsSpellInRange(c)) then
                 t = 7
                 return "wound_spender main 24"
             end
@@ -1396,7 +1401,7 @@ local function p()
         end
 
         if e.ClawingShadows:IsReady() and e.ClawingShadows:IsAvailable() and a:IsInMeleeRange(30) and not a:IsInMeleeRange(10) and a:DebuffUp(e.FesteringWoundDebuff) then
-            if o(u, nil, nil, not a:IsSpellInRange(u)) then
+            if o(c, nil, nil, not a:IsSpellInRange(c)) then
                 t = 7
                 return "wound_spender main 99"
             end
@@ -1420,7 +1425,7 @@ local function a()
     e.FesteringWoundDebuff:RegisterAuraTracking()
     if HeroRotationCharDB.Toggles[6] then
         HeroRotationCharDB.Toggles[6] = not HeroRotationCharDB.Toggles[6]
-        c.ToggleIconFrame:UpdateButtonText(6)
+        u.ToggleIconFrame:UpdateButtonText(6)
     end
 
 end
@@ -1443,5 +1448,5 @@ function ReturnSpellMO()
 
 end
 
-c.SetAPL(252, p, a)
+u.SetAPL(252, p, a)
 

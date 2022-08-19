@@ -1,26 +1,26 @@
 local t, e = ...
-local a = HeroLib
-local o, t = HeroCache, a.Utils
-local t = a.Unit
-local i = t.Player
-local u = t.Target
-local r = a.Spell
-local t = a.Item
-local t = LibStub:GetLibrary("LibDataBroker-1.1")
-local t = LibStub("LibDBIcon-1.0")
-local t = a.GUI
-local m = math.min
-local h = print
-local t = select
+local t = HeroLib
+local i, a = HeroCache, t.Utils
+local a = t.Unit
+local o = a.Player
+local f = a.Target
+local l = t.Spell
+local a = t.Item
+local a = LibStub:GetLibrary("LibDataBroker-1.1")
+local a = LibStub("LibDBIcon-1.0")
+local a = t.GUI
+local w = math.min
+local u = print
+local a = select
 local c = string.lower
-local l = strsplit
+local m = strsplit
 local s = tostring
-local t = { General = e.GUISettings.General }
+local a = { General = e.GUISettings.General }
 LibStub("AceAddon-3.0"):NewAddon(e, "HeroRotation", "AceConsole-3.0")
 local n = LibStub("LibDataBroker-1.1"):NewDataObject("HeroRotation", { type = "launcher", text = "HeroRotation", label = "HeroRotation", icon = "Interface\\AddOns\\HeroRotation\\Media\\999901", OnClick = function()
     local e = GetSpecialization()
-    o.Persistent.Player.Spec = { GetSpecializationInfo(e) }
-    local e = o.Persistent.Player.Spec[1]
+    i.Persistent.Player.Spec = { GetSpecializationInfo(e) }
+    local e = i.Persistent.Player.Spec[1]
                                                                 if e == 577 then
         InterfaceOptionsFrame_Show()
         InterfaceOptionsFrame_OpenToCategory("HeroRotation")
@@ -97,7 +97,7 @@ function e.CoreInit()
 end
 
 function HideMiniMapHR()
-    if not (t.General.MiniMap) then
+    if not (a.General.MiniMap) then
         HRDBIcon:Hide("HeroRotation")
     else
         HRDBIcon:Show("HeroRotation")
@@ -106,23 +106,23 @@ function HideMiniMapHR()
 end
 
 function e.Print(...)
-    if not t.General.SilentMode then
-        h("[|cFFFF6600Hero Rotation|r]", ...)
+    if not a.General.SilentMode then
+        u("[|cFFFF6600Hero Rotation|r]", ...)
     end
 
 end
 
 e.APLs = {  }
 e.APLInits = {  }
-function e.SetAPL(t, o, a)
-    e.APLs[t] = o
-    e.APLInits[t] = a
+function e.SetAPL(t, a, o)
+    e.APLs[t] = a
+    e.APLInits[t] = o
 end
 
 function e.GetTexture(a)
     local e = a.SpellID
     if e then
-        local t = o.Persistent.Texture.Spell
+        local t = i.Persistent.Texture.Spell
         if not t[e] then
                         if e >= 999900 then
                 t[e] = "Interface\\Addons\\HeroRotation\\Textures\\" .. s(e)
@@ -139,7 +139,7 @@ function e.GetTexture(a)
 
     local e = a.ItemID
     if e then
-        local t = o.Persistent.Texture.Item
+        local t = i.Persistent.Texture.Item
         if not t[e] then
             local o, o, o, o, o, o, o, o, o, a = GetItemInfo(e)
             t[e] = a
@@ -150,22 +150,22 @@ function e.GetTexture(a)
 
 end
 
-local f = r(61304)
-local r, h, o
-local function s(s, l, d)
-    local t, a
-    local n = GetTime()
-    if i:IsCasting() or i:IsChanneling() then
-        t = i:CastStart()
-        a = i:CastDuration()
+local y = l(61304)
+local r, h, i
+local function s(n, l, d)
+    local a, t
+    local s = GetTime()
+    if o:IsCasting() or o:IsChanneling() then
+        a = o:CastStart()
+        t = o:CastDuration()
     else
-        t, a = f:CooldownInfo()
+        a, t = y:CooldownInfo()
     end
 
-    if r ~= s then
-        r = s
-        h = n
-        o = 0
+    if r ~= n then
+        r = n
+        h = s
+        i = 0
     end
 
     if l then
@@ -173,57 +173,57 @@ local function s(s, l, d)
         if d then
             e = d
         else
-            e = i.TimeToXResourceMap[s:CostInfo(nil, "type")](s:Cost())
+            e = o.TimeToXResourceMap[n:CostInfo(nil, "type")](n:Cost())
         end
 
         if e and e > 0 then
-            if e > ((t + a) - n) then
-                local e = n - h + e
-                if (o == 0 and e > .25) or o > e or (e - o) > .5 then
-                    o = e
+            if e > ((a + t) - s) then
+                local e = s - h + e
+                if (i == 0 and e > .25) or i > e or (e - i) > .5 then
+                    i = e
                 end
 
-                t = h
-                a = o
+                a = h
+                t = i
             end
 
         end
 
     end
 
-    if ((t + a) < n) then
-        t = 0
+    if ((a + t) < s) then
         a = 0
+        t = 0
         r = nil
     end
 
-    e.MainIconFrame:SetCooldown(t, a)
+    e.MainIconFrame:SetCooldown(a, t)
 end
 
 e.CastOffGCDOffset = 1
-function e.Cast(t, h, n, i, r)
-    local o = e.GetTexture(t)
-    local a = not e.GUISettings.General.HideKeyBinds and a.Action.TextureHotKey(o)
-            if h or n == "Cooldown" then
+function e.Cast(a, h, i, n, r)
+    local o = e.GetTexture(a)
+    local t = not e.GUISettings.General.HideKeyBinds and t.Action.TextureHotKey(o)
+            if h or i == "Cooldown" then
         if e.CastOffGCDOffset == 1 or (e.CastOffGCDOffset == 2 and e.SmallIconFrame:GetIcon(1) ~= o) then
-            e.SmallIconFrame:ChangeIcon(e.CastOffGCDOffset, o, a, i)
+            e.SmallIconFrame:ChangeIcon(e.CastOffGCDOffset, o, t, n)
             e.CastOffGCDOffset = e.CastOffGCDOffset + 1
-            t.LastDisplayTime = GetTime()
+            a.LastDisplayTime = GetTime()
             return false
         end
 
-    elseif n == "Suggested" then
-        e.CastSuggested(t, i)
-    elseif n == "SuggestedRight" then
-        e.CastRightSuggested(t, i)
+    elseif i == "Suggested" then
+        e.CastSuggested(a, n)
+    elseif i == "SuggestedRight" then
+        e.CastRightSuggested(a, n)
     else
         local h = 999910
-        local h = t.SpellID == h or t:IsUsable()
-        local n = n == "Pooling"
-        local i = i or false
-        e.MainIconFrame:ChangeIcon(o, a, h, i)
-        s(t, n, r)
-        t.LastDisplayTime = GetTime()
+        local h = a.SpellID == h or a:IsUsable()
+        local i = i == "Pooling"
+        local n = n or false
+        e.MainIconFrame:ChangeIcon(o, t, h, n)
+        s(a, i, r)
+        a.LastDisplayTime = GetTime()
         return true
     end
 
@@ -239,25 +239,26 @@ function e.CastAnnotated(o, t, a)
     return o
 end
 
-function e.CastPooling(a, o, t)
-    return e.Cast(a, false, "Pooling", t, o)
+function e.CastPooling(t, a, o)
+    return e.Cast(t, false, "Pooling", o, a)
 end
 
-local t, o, i, n
+local a, r, n, i
 e.MaxQueuedCasts = 3
 local function h(...)
-    t = { ... }
-    o = m(#t, e.MaxQueuedCasts)
-    i = {  }
+    a = { ... }
+    r = w(#a, e.MaxQueuedCasts)
     n = {  }
-    for o = 1, o do
-        i[o] = e.GetTexture(t[o])
-        t[o].LastDisplayTime = GetTime()
-        n[o] = not e.GUISettings.General.HideKeyBinds and a.Action.TextureHotKey(i[o])
+    i = {  }
+    for o = 1, r do
+        n[o] = e.GetTexture(a[o])
+        a[o].LastDisplayTime = GetTime()
+        i[o] = not e.GUISettings.General.HideKeyBinds and t.Action.TextureHotKey(n[o])
+        u("1", i[o])
     end
 
-    e.MainIconFrame:ChangeIcon(i[1], n[1], t[1]:IsUsable())
-    e.MainIconFrame:SetupParts(i, n)
+    e.MainIconFrame:ChangeIcon(n[1], i[1], a[1]:IsUsable())
+    e.MainIconFrame:SetupParts(n, i)
 end
 
 function e.CastQueue(...)
@@ -266,16 +267,16 @@ function e.CastQueue(...)
     return "Should Return"
 end
 
-function e.CastQueuePooling(a,...)
+function e.CastQueuePooling(e,...)
     h(...)
-    if a then
-        s(t[1], true, a)
+    if e then
+        s(a[1], true, e)
     else
-        local o, a = nil, 0
-        for e = 1, #t do
-            if t[e]:Cost() > a then
-                a = t[e]:Cost()
-                o = t[e]
+        local o, t = nil, 0
+        for e = 1, #a do
+            if a[e]:Cost() > t then
+                t = a[e]:Cost()
+                o = a[e]
             end
 
         end
@@ -286,13 +287,32 @@ function e.CastQueuePooling(a,...)
     return "Should Return"
 end
 
+function e.QueuedCast()
+    if HeroRotationCharDB.Toggles[999] and QueuedS and e.Commons.Everyone.TargetIsValid() then
+                if (QueuedS:IsUsableP() and QueuedS:CooldownRemains(BypassRecovery) <= 0) and not o:PrevGCD(1, QueuedS) then
+            if e.Cast(QueuedS, nil, nil, nil) then
+                return QueuedS:ID()
+            end
+
+        elseif ((not QueuedS:IsUsableP() or QueuedS:CooldownRemains() > 0) or o:PrevGCD(1, QueuedS)) then
+            HeroRotationCharDB.Toggles[999] = not HeroRotationCharDB.Toggles[999]
+            e.Print("Queue for " .. QueuedS:Name() .. " is now " .. (HeroRotationCharDB.Toggles[999] and "|cff00ff00on|r." or "|cffff0000off|r."))
+            QueuedS = nil
+        end
+
+    else
+        return nil
+    end
+
+end
+
 e.CastLeftOffset = 1
-function e.CastLeftCommon(t)
-    local o = e.GetTexture(t)
-    local a = not e.GUISettings.General.HideKeyBinds and a.Action.TextureHotKey(o)
-    e.LeftIconFrame:ChangeIcon(o, a)
+function e.CastLeftCommon(a)
+    local o = e.GetTexture(a)
+    local t = not e.GUISettings.General.HideKeyBinds and t.Action.TextureHotKey(o)
+    e.LeftIconFrame:ChangeIcon(o, t)
     e.CastLeftOffset = e.CastLeftOffset + 1
-    t.LastDisplayTime = GetTime()
+    a.LastDisplayTime = GetTime()
 end
 
 function e.CastLeft(t)
@@ -314,9 +334,9 @@ end
 e.CastSuggestedOffset = 1
 function e.CastSuggested(o, i)
     if e.CastSuggestedOffset == 1 then
-        local t = e.GetTexture(o)
-        local a = not e.GUISettings.General.HideKeyBinds and a.Action.TextureHotKey(t)
-        e.SuggestedIconFrame:ChangeIcon(t, a, i)
+        local a = e.GetTexture(o)
+        local t = not e.GUISettings.General.HideKeyBinds and t.Action.TextureHotKey(a)
+        e.SuggestedIconFrame:ChangeIcon(a, t, i)
         e.CastSuggestedOffset = e.CastSuggestedOffset + 1
         o.LastDisplayTime = GetTime()
     end
@@ -325,21 +345,21 @@ function e.CastSuggested(o, i)
 end
 
 e.CastRightSuggestedOffset = 1
-function e.CastRightSuggested(t, i)
+function e.CastRightSuggested(o, i)
     if e.CastRightSuggestedOffset == 1 then
-        local o = e.GetTexture(t)
-        local a = not e.GUISettings.General.HideKeyBinds and a.Action.TextureHotKey(o)
-        e.RightSuggestedIconFrame:ChangeIcon(o, a, i)
+        local a = e.GetTexture(o)
+        local t = not e.GUISettings.General.HideKeyBinds and t.Action.TextureHotKey(a)
+        e.RightSuggestedIconFrame:ChangeIcon(a, t, i)
         e.CastRightSuggestedOffset = e.CastRightSuggestedOffset + 1
-        t.LastDisplayTime = GetTime()
+        o.LastDisplayTime = GetTime()
     end
 
     return false
 end
 
 function e.CmdHandler(t)
-    local t, o, a = l(" ", c(t))
-                                                                                                                                                                                                                                                                                                                                                                                                            if t == "cds" then
+    local t, o, a = m(" ", c(t))
+                                                                                                                                                                                                                                                                                                                                                                                                                    if t == "cds" then
         HeroRotationCharDB.Toggles[1] = not HeroRotationCharDB.Toggles[1]
         e.ToggleIconFrame:UpdateButtonText(1)
         e.Print("CDs are now " .. (HeroRotationCharDB.Toggles[1] and "|cff00ff00enabled|r." or "|cffff0000disabled|r."))
@@ -626,6 +646,9 @@ function e.CmdHandler(t)
     elseif t == "holdfrostwyrm" then
         HeroRotationCharDB.Toggles[110] = not HeroRotationCharDB.Toggles[110]
         e.Print("Frostwyrm's Fury is now " .. (HeroRotationCharDB.Toggles[110] and "|cffff0000disabled|r." or "|cff00ff00enabled|r."))
+    elseif t == "holdbos" then
+        HeroRotationCharDB.Toggles[111] = not HeroRotationCharDB.Toggles[111]
+        e.Print("Frostwyrm's Fury is now " .. (HeroRotationCharDB.Toggles[111] and "|cffff0000disabled|r." or "|cff00ff00enabled|r."))
     elseif t == "bindingshot" then
         HeroRotationCharDB.Toggles[120] = not HeroRotationCharDB.Toggles[120]
         e.Print("Binding Shot Queue is now " .. (HeroRotationCharDB.Toggles[120] and "|cff00ff00on|r." or "|cffff0000off|r."))
@@ -677,6 +700,10 @@ function e.CmdHandler(t)
     elseif t == "stopheals" then
         HeroRotationCharDB.Toggles[166] = not HeroRotationCharDB.Toggles[166]
         e.Print("Healing Rotation has " .. (HeroRotationCharDB.Toggles[166] and "|cffff0000off|r." or "|cff00ff00on|r."))
+    elseif tonumber(t) then
+        HeroRotationCharDB.Toggles[999] = not HeroRotationCharDB.Toggles[999]
+        QueuedS = l(tonumber(t))
+        e.Print("Queue for " .. QueuedS:Name() .. " is now " .. (HeroRotationCharDB.Toggles[999] and "|cff00ff00on|r." or "|cffff0000off|r."))
     else
         e.Print("Invalid arguments.")
         e.Print("Type |cff8888ff/hr help|r for more infos.")
@@ -694,7 +721,7 @@ end
 do
     local t = { [120651] = true }
     function e.AoEON()
-        return HeroRotationCharDB.Toggles[2] and not t[u:NPCID()]
+        return HeroRotationCharDB.Toggles[2] and not t[f:NPCID()]
     end
 
 end

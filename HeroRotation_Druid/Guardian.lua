@@ -1111,6 +1111,11 @@ local function x()
     end
 
     ShouldReturn = O()
+    if s.QueuedCast() then
+        a = s.QueuedCast()
+        return "Custom Queue " .. h(a):ID()
+    end
+
     L()
         if s.GUISettings.General.OpenerReset > 0 and not HeroRotationCharDB.Toggles[6] then
         starttime = GetTime()

@@ -6,7 +6,7 @@ local t = j.Unit
 local s = t.Player
 local e = t.Pet
 local h = t.Target
-local f = j.Spell
+local m = j.Spell
 local e = j.MultiSpell
 local a = j.Item
 local n = HeroRotation
@@ -34,7 +34,7 @@ local k = HeroRotationCharDB.Toggles[165]
 local _ = HeroRotationCharDB.Toggles[166]
 local ne = 0
 local e = math.min
-local e = f.Shaman.Restoration
+local e = m.Shaman.Restoration
 local i = a.Shaman.Restoration
 local G = e.PurifySpirit:IsCastable()
 local i = s:GetEquipment()
@@ -43,7 +43,7 @@ local a = a(0)
 local M, a = GetInventoryItemID("player", 13)
 local C, a = GetInventoryItemID("player", 14)
 local Y = {  }
-local m = n.Commons.Everyone
+local f = n.Commons.Everyone
 local a = n.Commons.Shaman
 local i = { General = n.GUISettings.General, Commons = n.GUISettings.APL.Shaman.Commons, Restoration = n.GUISettings.APL.Shaman.Restoration, RestorationM = n.GUISettings.APL.Shaman.RestorationM, RestorationR = n.GUISettings.APL.Shaman.RestorationR }
 j:RegisterForEvent(function()
@@ -247,7 +247,7 @@ local function u(e)
 end
 
 local function q(e)
-    if (t(e):BuffUp(f(365153))) then
+    if (t(e):BuffUp(m(365153))) then
         for t = 1, 40 do
             if select(10, UnitBuff(e, t)) == 365153 then
                 return select(16, UnitBuff(e, t))
@@ -377,7 +377,7 @@ local function p(o)
     local a = 0
     if GetNumGroupMembers() > 0 and GetNumGroupMembers() <= 5 then
         for e = 1, GetNumGroupMembers() do
-            if UnitExists("party" .. e) and not t("party" .. e):IsDeadOrGhost() and t("party" .. e):DebuffDown(f(228578)) then
+            if UnitExists("party" .. e) and not t("party" .. e):IsDeadOrGhost() and t("party" .. e):DebuffDown(m(228578)) then
                 local i = UnitHealth("party" .. e) + (UnitGetIncomingHeals("party" .. e) or 0) - q("party" .. e)
                 local t = UnitHealthMax("party" .. e)
                 if i / t <= o or (UnitHealth("party" .. e) / t == 1 and o == 1) then
@@ -396,7 +396,7 @@ local function p(o)
 
     if GetNumGroupMembers() > 5 then
         for e = 1, GetNumGroupMembers() do
-            if UnitExists("raid" .. e) and not UnitIsDead("raid" .. e) and t("raid" .. e):DebuffDown(f(362075)) and t("raid" .. e):DebuffDown(f(362397)) and t("raid" .. e):DebuffDown(f(191587)) then
+            if UnitExists("raid" .. e) and not UnitIsDead("raid" .. e) and t("raid" .. e):DebuffDown(m(362075)) and t("raid" .. e):DebuffDown(m(362397)) and t("raid" .. e):DebuffDown(m(191587)) then
                 local t = 0
                 local t = UnitHealth("raid" .. e) + (UnitGetIncomingHeals("raid" .. e) or 0) - q("raid" .. e)
                 local e = UnitHealthMax("raid" .. e)
@@ -470,7 +470,7 @@ end
 
 local function W()
     local t = 0
-    if s:BuffUp(f(157504)) then
+    if s:BuffUp(m(157504)) then
         for e = 1, 40 do
             if select(10, UnitBuff("player", e)) == 157504 then
                 t = select(16, UnitBuff("player", e))
@@ -585,13 +585,13 @@ local function ue()
 
             end
 
-            if ((UnitHealth("player") + (UnitGetIncomingHeals("player") or 0)) / UnitHealthMax("player")) - (0) < y and w <= GetTime() and t("player"):DebuffDown(f(228578)) then
+            if ((UnitHealth("player") + (UnitGetIncomingHeals("player") or 0)) / UnitHealthMax("player")) - (0) < y and w <= GetTime() and t("player"):DebuffDown(m(228578)) then
                 y = ((UnitHealth("player") + (UnitGetIncomingHeals("player") or 0)) / UnitHealthMax("player")) - (0)
                 r = UnitGUID("player")
                 c = 5
             end
 
-            if not t("player"):IsDeadOrGhost() and t("player"):DebuffDown(f(228578)) then
+            if not t("player"):IsDeadOrGhost() and t("player"):DebuffDown(m(228578)) then
                 for e = 1, 40 do
                     local s, s, a, t, o, n, s, s, s, e, s, s, s, s, s = UnitDebuff("player", e)
                     if (t == "Curse" or t == "Magic") and e ~= 320788 and ((e ~= 323347) or (e == 323347 and a >= 2)) and e ~= 350469 and e ~= 350541 and e ~= 351117 and e ~= 229159 and e ~= 227404 then
@@ -711,7 +711,7 @@ local function ue()
 end
 
 local function q(t)
-    if t == nil or not m.TargetIsValid() then
+    if t == nil or not f.TargetIsValid() then
         return nil
     end
 
@@ -726,7 +726,7 @@ local function q(t)
         local i = (not s:IsCasting(e.LavaBurst) and e.LavaBurst:Charges() >= 1)
         local n = (s:IsCasting(e.LavaBurst) and e.LavaBurst:Charges() == 2)
         return a and (o or s:BuffUp(e.LavaSurgeBuff)) and (t or i or n)
-    elseif m.TargetIsValid() then
+    elseif f.TargetIsValid() then
         return a
     end
 
@@ -826,7 +826,7 @@ local function G()
 
     end
 
-    if q(e.Fleshcraft) and m.TargetIsValid() and T and N and not UnitAffectingCombat("player") then
+    if q(e.Fleshcraft) and f.TargetIsValid() and T and N and not UnitAffectingCombat("player") then
         if o(e.Fleshcraft, nil, nil) then
             a = 324631
             return "Precombat Fleshcraft"
@@ -834,7 +834,7 @@ local function G()
 
     end
 
-    if not k and EnemiesCount10ySplash >= 3 and not u("target") and m.TargetIsValid() and N and not UnitAffectingCombat("player") and q(e.ChainLightning) and not s:IsCasting(e.ChainLightning) then
+    if not k and EnemiesCount10ySplash >= 3 and not u("target") and f.TargetIsValid() and N and not UnitAffectingCombat("player") and q(e.ChainLightning) and not s:IsCasting(e.ChainLightning) then
         if o(e.ChainLightning, nil, nil, not h:IsSpellInRange(e.ChainLightning)) then
             a = 188443
             return "Precombat Chain Lightning"
@@ -842,7 +842,7 @@ local function G()
 
     end
 
-    if not k and q(e.LavaBurst) and not u("target") and m.TargetIsValid() and N and not UnitAffectingCombat("player") and not s:IsCasting(e.LavaBurst) then
+    if not k and q(e.LavaBurst) and not u("target") and f.TargetIsValid() and N and not UnitAffectingCombat("player") and not s:IsCasting(e.LavaBurst) then
         if o(e.LavaBurst, nil, nil, not h:IsSpellInRange(e.LavaBurst)) then
             a = 51505
             return "Precombat Lavaburst"
@@ -850,7 +850,7 @@ local function G()
 
     end
 
-    if not k and s:IsCasting(e.LavaBurst) and not u("target") and m.TargetIsValid() and N and not UnitAffectingCombat("player") and e.FlameShock:CooldownRemains() == 0 then
+    if not k and s:IsCasting(e.LavaBurst) and not u("target") and f.TargetIsValid() and N and not UnitAffectingCombat("player") and e.FlameShock:CooldownRemains() == 0 then
         if o(e.FlameShock, nil, nil, not h:IsSpellInRange(e.FlameShock)) then
             return "Precombat Flameshock"
         end
@@ -940,8 +940,8 @@ local function ye()
 end
 
 local function R()
-    if q(e.FlameShock) and m.TargetIsValid() then
-        if m.CastTargetIf(e.FlameShock, L, "min", te, ae) then
+    if q(e.FlameShock) and f.TargetIsValid() then
+        if f.CastTargetIf(e.FlameShock, L, "min", te, ae) then
             return "Flame Shock 108"
         end
 
@@ -958,10 +958,10 @@ local function R()
 end
 
 local function te()
-        if q(e.LavaBurst) and m.TargetIsValid() and not u("target") then
+        if q(e.LavaBurst) and f.TargetIsValid() and not u("target") then
         a = 51505
         return e.LavaBurst, false
-    elseif q(e.LightningBolt) and m.TargetIsValid() and not u("target") then
+    elseif q(e.LightningBolt) and f.TargetIsValid() and not u("target") then
         a = 188196
         return e.LightningBolt, true
     end
@@ -970,10 +970,10 @@ local function te()
 end
 
 local function ae()
-        if q(e.LavaBurst) and m.TargetIsValid() and not u("target") and (EnemiesCount10ySplash < 3) then
+        if q(e.LavaBurst) and f.TargetIsValid() and not u("target") and (EnemiesCount10ySplash < 3) then
         a = 51505
         return e.LavaBurst, true
-    elseif q(e.ChainLightning) and m.TargetIsValid() and not u("target") then
+    elseif q(e.ChainLightning) and f.TargetIsValid() and not u("target") then
         a = 188443
         return e.ChainLightning, true
     end
@@ -1012,7 +1012,7 @@ local function y()
 
             end
 
-            if e.PurifySpirit:IsCastable() and UnitExists("focus") and not UnitCanAttack("player", "focus") and not u("focus") and not U and t("focus"):IsInRange(40) and t("focus"):DebuffDown(f(362075)) and t("focus"):DebuffDown(f(362397)) and t("focus"):DebuffDown(f(191587)) and t("focus"):DebuffDown(f(228578)) then
+            if e.PurifySpirit:IsCastable() and UnitExists("focus") and not UnitCanAttack("player", "focus") and not u("focus") and not U and t("focus"):IsInRange(40) and t("focus"):DebuffDown(m(362075)) and t("focus"):DebuffDown(m(362397)) and t("focus"):DebuffDown(m(191587)) and t("focus"):DebuffDown(m(228578)) then
                 for t = 1, 40 do
                     local d, d, r, n, h, s, d, d, d, t, d, d, d, d, d = UnitDebuff("focus", t)
                     if (n == "Curse" or n == "Magic") and t ~= 320788 and ((t ~= 323347) or (t == 323347 and r >= 2)) and t ~= 350469 and t ~= 350541 and t ~= 351117 and t ~= 229159 and t ~= 227404 then
@@ -1332,14 +1332,14 @@ local function p()
 
     end
 
-    if i ~= nil and q(i) and m.TargetIsValid() and not u("target") and not k then
+    if i ~= nil and q(i) and f.TargetIsValid() and not u("target") and not k then
         if o(i) then
             return "Building Maelstrom with optimal Builder (AOE)"
         end
 
     end
 
-    if i == nil and m.TargetIsValid() and not u("target") and not k then
+    if i == nil and f.TargetIsValid() and not u("target") and not k then
         t = R()
         if t then
             return "Refreshing Flame Shock because we cannot build or spend"
@@ -1457,6 +1457,11 @@ local function q()
     be()
     j()
     ce()
+    if n.QueuedCast() then
+        a = n.QueuedCast()
+        return "Custom Queue " .. m(a):ID()
+    end
+
     if i.Commons.DBMSupport then
         v, I, O, A, S, E, D = n.RaidDamageInc()
     end
@@ -1563,13 +1568,13 @@ local function q()
         n.Print("Capacitor Totem Queue is now " .. (HeroRotationCharDB.Toggles[91] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-        if (J and e.VesperTotem:IsUsableP() and (e.VesperTotem:CooldownRemains(BypassRecovery) <= 0 or f(324519):IsCastable())) then
+        if (J and e.VesperTotem:IsUsableP() and (e.VesperTotem:CooldownRemains(BypassRecovery) <= 0 or m(324519):IsCastable())) then
         if n.Cast(e.VesperTotem, nil, nil, nil) then
             a = 324386
             return "queue VesperTotem"
         end
 
-    elseif ((not e.VesperTotem:IsUsableP() or (e.VesperTotem:CooldownRemains(BypassRecovery) > 0 and not f(324519):IsCastable())) and J) then
+    elseif ((not e.VesperTotem:IsUsableP() or (e.VesperTotem:CooldownRemains(BypassRecovery) > 0 and not m(324519):IsCastable())) and J) then
         HeroRotationCharDB.Toggles[162] = not HeroRotationCharDB.Toggles[162]
         n.Print("Capacitor Totem Queue is now " .. (HeroRotationCharDB.Toggles[162] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
@@ -1640,7 +1645,7 @@ local function q()
 
         end
 
-        if m.TargetIsValid() and not _ then
+        if f.TargetIsValid() and not _ then
             i = oe()
             if i then
                 return i
@@ -1653,7 +1658,7 @@ local function q()
             return i
         end
 
-        if m.TargetIsValid() and u("target") and not k then
+        if f.TargetIsValid() and u("target") and not k then
             n.CastAnnotated(e.Pool, false, "LoS")
         end
 

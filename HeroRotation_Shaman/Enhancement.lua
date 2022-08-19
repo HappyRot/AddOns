@@ -5,7 +5,7 @@ local e = HeroCache
 local l = g.Unit
 local o = l.Player
 local t = l.Target
-local L = g.Spell
+local I = g.Spell
 local e = g.MultiSpell
 local a = g.Item
 local h = HeroRotation
@@ -18,18 +18,18 @@ local j = HeroRotationCharDB.Toggles[6]
 local Y = HeroRotationCharDB.Toggles[15]
 local b = HeroRotationCharDB.Toggles[12]
 local ie = HeroRotationCharDB.Toggles[60]
-local O = HeroRotationCharDB.Toggles[90]
-local T = HeroRotationCharDB.Toggles[91]
+local T = HeroRotationCharDB.Toggles[90]
+local A = HeroRotationCharDB.Toggles[91]
 local E = HeroRotationCharDB.Toggles[92]
-local N = HeroRotationCharDB.Toggles[93]
-local I = HeroRotationCharDB.Toggles[94]
-local H = HeroRotationCharDB.Toggles[96]
-local A = HeroRotationCharDB.Toggles[95]
+local H = HeroRotationCharDB.Toggles[93]
+local S = HeroRotationCharDB.Toggles[94]
+local N = HeroRotationCharDB.Toggles[96]
+local O = HeroRotationCharDB.Toggles[95]
 local W = HeroRotationCharDB.Toggles[97]
 local G = 0
 local ae = GetWeaponEnchantInfo
 local e = math.max
-local e = L.Shaman.Enhancement
+local e = I.Shaman.Enhancement
 local n = a.Shaman.Enhancement
 local z = { n.CacheofAcquiredTreasures:ID(), n.ScarsofFraternalStrife:ID(), n.TheFirstSigil:ID() }
 local s = o:GetEquipment()
@@ -49,12 +49,12 @@ local a = 0
 local s = 0
 local f = h.Commons.Everyone
 local s = { General = h.GUISettings.General, Commons = h.GUISettings.APL.Shaman.Commons, Enhancement = h.GUISettings.APL.Shaman.Enhancement }
-local R = o:HasLegendaryEquipped(132)
+local D = o:HasLegendaryEquipped(132)
 local c = o:HasLegendaryEquipped(138)
 local F = o:HasLegendaryEquipped(141)
 local _ = (o:HasLegendaryEquipped(246) or (o:HasUnity() and e.FaeTransfusion:IsAvailable()))
 g:RegisterForEvent(function()
-    R = o:HasLegendaryEquipped(132)
+    D = o:HasLegendaryEquipped(132)
     c = o:HasLegendaryEquipped(138)
     F = o:HasLegendaryEquipped(141)
     _ = (o:HasLegendaryEquipped(246) or (o:HasUnity() and e.FaeTransfusion:IsAvailable()))
@@ -101,7 +101,7 @@ local function x(a, t)
 
 end
 
-local function S(o)
+local function R(o)
                 if ((o:DebuffRefreshable(e.FlameShockDebuff) or o:DebuffDown(e.FlameShockDebuff)) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285 or o:NPCID() == 168326 or UnitExists("boss1")) and (o:IsInMeleeRange(8)) and o:GUID() == l("mouseover"):GUID()) then
         r = 1188389
         return true
@@ -137,7 +137,7 @@ local function V(t)
     return (t:DebuffRemains(e.FlameShockDebuff))
 end
 
-local function D(i)
+local function L(i)
                 if (o:BuffDown(e.PrimordialWaveBuff) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and (i:IsInMeleeRange(8)) and i:GUID() == l("mouseover"):GUID()) then
         r = 1326059
         return true
@@ -460,7 +460,7 @@ local function ee()
 
     end
 
-    if e.EarthElemental:IsCastable() and t:IsInMeleeRange(40) and m() and not O then
+    if e.EarthElemental:IsCastable() and t:IsInMeleeRange(40) and m() and not T then
         if i(e.EarthElemental, nil) then
             a = 198103
             return "earth_elemental single 56"
@@ -523,11 +523,11 @@ local function F()
     end
 
     if e.PrimordialWave:IsReady() and t:IsInMeleeRange(40) and u and (o:BuffDown(e.PrimordialWaveBuff)) then
-        if f.CastTargetIf(e.PrimordialWave, w, "min", V, D, not t:IsSpellInRange(e.PrimordialWave), nil, nil) then
+        if f.CastTargetIf(e.PrimordialWave, w, "min", V, L, not t:IsSpellInRange(e.PrimordialWave), nil, nil) then
             return "primordial_wave aoe 14"
         end
 
-        if V(t) and D(t) then
+        if V(t) and L(t) then
             if i(e.PrimordialWave, nil, nil, not t:IsSpellInRange(e.PrimordialWave)) then
                 a = 326059
                 return "primordial_wave aoe 14"
@@ -537,7 +537,7 @@ local function F()
 
     end
 
-    if (R and o:BuffUp(e.CrashLightningBuff)) then
+    if (D and o:BuffUp(e.CrashLightningBuff)) then
         if e.Windstrike:IsReady() and t:IsInMeleeRange(10) then
             if i(e.Windstrike, nil, nil, not t:IsSpellInRange(e.Windstrike)) then
                 a = 115356
@@ -580,11 +580,11 @@ local function F()
     end
 
     if e.FlameShock:IsReady() and t:IsInMeleeRange(40) and ((not e.Hailstorm:IsAvailable()) and e.FlameShockDebuff:AuraActiveCount() < d and e.FlameShockDebuff:AuraActiveCount() < 6) then
-        if f.CastCycle(e.FlameShock, w, S, not t:IsSpellInRange(e.FlameShock)) then
+        if f.CastCycle(e.FlameShock, w, R, not t:IsSpellInRange(e.FlameShock)) then
             return "flame_shock aoe 24"
         end
 
-        if S(t) then
+        if R(t) then
             if i(e.FlameShock, nil, nil, not t:IsSpellInRange(e.FlameShock)) then
                 a = 188389
                 return "flame_shock aoe 24"
@@ -792,7 +792,7 @@ local function F()
     end
 
     if e.FlameShock:IsReady() and t:IsInMeleeRange(40) then
-        if f.CastCycle(e.FlameShock, w, S, not t:IsSpellInRange(e.FlameShock)) then
+        if f.CastCycle(e.FlameShock, w, R, not t:IsSpellInRange(e.FlameShock)) then
             return "flame_shock aoe 48"
         end
 
@@ -830,7 +830,7 @@ local function F()
 
     end
 
-    if e.EarthElemental:IsCastable() and t:IsInMeleeRange(40) and m() and not O then
+    if e.EarthElemental:IsCastable() and t:IsInMeleeRange(40) and m() and not T then
         if i(e.EarthElemental, nil) then
             a = 198103
             return "earth_elemental aoe 62"
@@ -856,13 +856,13 @@ local function x()
     Y = HeroRotationCharDB.Toggles[15]
     ie = HeroRotationCharDB.Toggles[60]
     m = h.CDsON
-    O = HeroRotationCharDB.Toggles[90]
-    T = HeroRotationCharDB.Toggles[91]
+    T = HeroRotationCharDB.Toggles[90]
+    A = HeroRotationCharDB.Toggles[91]
     E = HeroRotationCharDB.Toggles[92]
-    N = HeroRotationCharDB.Toggles[93]
-    I = HeroRotationCharDB.Toggles[94]
-    H = HeroRotationCharDB.Toggles[96]
-    A = HeroRotationCharDB.Toggles[95]
+    H = HeroRotationCharDB.Toggles[93]
+    S = HeroRotationCharDB.Toggles[94]
+    N = HeroRotationCharDB.Toggles[96]
+    O = HeroRotationCharDB.Toggles[95]
     W = HeroRotationCharDB.Toggles[97]
     G = 0
     for e = 1, 20 do
@@ -916,6 +916,11 @@ local function k()
     end
 
     oe = x()
+    if h.QueuedCast() then
+        a = h.QueuedCast()
+        return "Custom Queue " .. I(a):ID()
+    end
+
     if o:IsChanneling(e.FaeTransfusion) then
         if h.CastAnnotated(e.Pool, false, "WAIT") then
             a = 99999
@@ -1001,13 +1006,13 @@ local function k()
 
     end
 
-        if (T and e.CapacitorTotem:IsUsableP() and e.CapacitorTotem:CooldownRemains(BypassRecovery) <= 0) then
+        if (A and e.CapacitorTotem:IsUsableP() and e.CapacitorTotem:CooldownRemains(BypassRecovery) <= 0) then
         if h.Cast(e.CapacitorTotem, nil, nil, nil) then
             a = 1192058
             return "queue CapacitorTotem"
         end
 
-    elseif ((not e.CapacitorTotem:IsUsableP() or e.CapacitorTotem:CooldownRemains(BypassRecovery) > 0) and T) then
+    elseif ((not e.CapacitorTotem:IsUsableP() or e.CapacitorTotem:CooldownRemains(BypassRecovery) > 0) and A) then
         HeroRotationCharDB.Toggles[91] = not HeroRotationCharDB.Toggles[91]
         h.Print("Capacitor Totem Queue is now " .. (HeroRotationCharDB.Toggles[91] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
@@ -1023,40 +1028,40 @@ local function k()
         h.Print("Healing Stream Totem Queue is now " .. (HeroRotationCharDB.Toggles[92] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-        if (N and e.TremorTotem:IsUsableP() and e.TremorTotem:CooldownRemains(BypassRecovery) <= 0) then
+        if (H and e.TremorTotem:IsUsableP() and e.TremorTotem:CooldownRemains(BypassRecovery) <= 0) then
         if h.Cast(e.TremorTotem, nil, nil, nil) then
             a = 8143
             return "queue TremorTotem"
         end
 
-    elseif ((not e.TremorTotem:IsUsableP() or e.TremorTotem:CooldownRemains(BypassRecovery) > 0) and N) then
+    elseif ((not e.TremorTotem:IsUsableP() or e.TremorTotem:CooldownRemains(BypassRecovery) > 0) and H) then
         HeroRotationCharDB.Toggles[93] = not HeroRotationCharDB.Toggles[93]
         h.Print("Tremor Totem Queue is now " .. (HeroRotationCharDB.Toggles[93] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-        if (I and e.WindRushTotem:IsUsableP() and e.WindRushTotem:CooldownRemains(BypassRecovery) <= 0) then
+        if (S and e.WindRushTotem:IsUsableP() and e.WindRushTotem:CooldownRemains(BypassRecovery) <= 0) then
         if h.Cast(e.WindRushTotem, nil, nil, nil) then
             a = 192077
             return "queue WindRushTotem"
         end
 
-    elseif ((not e.WindRushTotem:IsUsableP() or e.WindRushTotem:CooldownRemains(BypassRecovery) > 0) and I) then
+    elseif ((not e.WindRushTotem:IsUsableP() or e.WindRushTotem:CooldownRemains(BypassRecovery) > 0) and S) then
         HeroRotationCharDB.Toggles[94] = not HeroRotationCharDB.Toggles[94]
         h.Print("Wind Rush Totem Queue is now " .. (HeroRotationCharDB.Toggles[94] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-        if (H and e.FaeTransfusion:IsUsableP() and e.FaeTransfusion:CooldownRemains(BypassRecovery) <= 0 and e.FaeTransfusion:IsAvailable()) then
+        if (N and e.FaeTransfusion:IsUsableP() and e.FaeTransfusion:CooldownRemains(BypassRecovery) <= 0 and e.FaeTransfusion:IsAvailable()) then
         if i(e.FaeTransfusion, nil) then
             a = 328923
             return "FaeTransfusion 1"
         end
 
-    elseif ((not e.FaeTransfusion:IsUsableP() or e.FaeTransfusion:CooldownRemains(BypassRecovery) > 0 or not e.FaeTransfusion:IsAvailable()) and H) then
+    elseif ((not e.FaeTransfusion:IsUsableP() or e.FaeTransfusion:CooldownRemains(BypassRecovery) > 0 or not e.FaeTransfusion:IsAvailable()) and N) then
         HeroRotationCharDB.Toggles[96] = not HeroRotationCharDB.Toggles[96]
         h.Print("Fae Transfusion Queue is now" .. (HeroRotationCharDB.Toggles[96] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-        if (A and e.Hex:IsUsableP() and e.Hex:CooldownRemains(BypassRecovery) <= 0 and UnitExists("mouseover")) then
+        if (O and e.Hex:IsUsableP() and e.Hex:CooldownRemains(BypassRecovery) <= 0 and UnitExists("mouseover")) then
         if h.Cast(e.Hex, nil, nil, nil) then
             if UnitExists("mouseover") and l("mouseover"):IsInRange(40) then
                 r = 151514
@@ -1065,7 +1070,7 @@ local function k()
 
         end
 
-    elseif ((not e.Hex:IsUsableP() or e.Hex:CooldownRemains() > 0) and A) then
+    elseif ((not e.Hex:IsUsableP() or e.Hex:CooldownRemains() > 0) and O) then
         HeroRotationCharDB.Toggles[95] = not HeroRotationCharDB.Toggles[95]
         h.Print("Hex Queue is now " .. (HeroRotationCharDB.Toggles[95] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
@@ -1168,7 +1173,7 @@ local function k()
 
         end
 
-        if ((f / w) * 100) <= s.Enhancement.FaeTransfusionHealHP and o:BuffUp(L(328933)) then
+        if ((f / w) * 100) <= s.Enhancement.FaeTransfusionHealHP and o:BuffUp(I(328933)) then
             if i(e.FaeTransfusion, nil) then
                 a = 328923
                 return "FaeTransfusion Heal"

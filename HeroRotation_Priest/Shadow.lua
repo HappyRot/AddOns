@@ -1,41 +1,41 @@
 local e, e = ...
 local e = HeroDBC.DBC
-local g = HeroLib
+local b = HeroLib
 local e = HeroCache
-local f = g.Unit
+local f = b.Unit
 local t = f.Player
 local a = f.Target
 local e = f.Pet
-local j = g.Spell
-local o = g.Item
+local v = b.Spell
+local o = b.Item
 local l = HeroRotation
 local G = l.AoEON
 local c = l.CDsON
 local s = l.Cast
 local e = l.CastSuggested
 local T = HeroRotationCharDB.Toggles[4]
-local S = HeroRotationCharDB.Toggles[5]
-local P = HeroRotationCharDB.Toggles[6]
+local D = HeroRotationCharDB.Toggles[5]
+local Y = HeroRotationCharDB.Toggles[6]
 local te = not HeroRotationCharDB.Toggles[15]
-local _ = HeroRotationCharDB.Toggles[12]
+local z = HeroRotationCharDB.Toggles[12]
 local ie = HeroRotationCharDB.Toggles[60]
 local Q = HeroRotationCharDB.Toggles[61]
 local K = HeroRotationCharDB.Toggles[62]
-local N = false
+local O = false
 local u = false
-local D = false
+local H = false
 local X = false
-local R = false
+local S = false
 local r = 0
 local we = math.min
-local e = j.Priest.Shadow
+local e = v.Priest.Shadow
 local n = o.Priest.Shadow
 local de = { n.ArchitectsIngenuityCore:ID(), n.EmpyrealOrdinance:ID(), n.InscrutableQuantumDevice:ID(), n.MacabreSheetMusic:ID(), n.ShadowedOrbofTorment:ID(), n.SinfulGladiatorsBadgeofFerocity:ID(), n.SoullettingRuby:ID(), n.TheFirstSigil:ID(), n.ScarsofFraternalStrife:ID() }
 local i = t:GetEquipment()
 local h = o(0)
 local d = o(0)
 local k, m = GetInventoryItemID("player", 13)
-local v, oe = GetInventoryItemID("player", 14)
+local q, oe = GetInventoryItemID("player", 14)
 if i[13] then
     h = o(i[13])
 end
@@ -45,55 +45,55 @@ if i[14] then
 end
 
 local fe
-local ne, ye, L, W
-local F, h
+local ne, ye, R, P
+local V, h
 local ee
 local Z
 local d = 0
 local o = 0
 local i = 0
 local i
-local b
+local g
 local E = l.Commons.Everyone
 local i = { General = l.GUISettings.General, Commons = l.GUISettings.APL.Priest.Commons, Shadow = l.GUISettings.APL.Priest.Shadow }
 local m = 0
 local m = 0
-local U = 0
-local z = 0
-local V = 0
+local M = 0
+local _ = 0
+local F = 0
 local A = false
 local ae = false
 local m = 1
-local M = false
+local C = false
 local J = false
 local w = false
 local B = false
 local p = 0
-local O = false
-local Y = 2
-local q = t:HasLegendaryEquipped(202)
-local C = t:HasLegendaryEquipped(161)
+local N = false
+local W = 2
+local j = t:HasLegendaryEquipped(202)
+local U = t:HasLegendaryEquipped(161)
 local se = t:HasLegendaryEquipped(158)
 local y = t:HasLegendaryEquipped(159)
-local H = j(200174)
-g:RegisterForEvent(function()
+local L = v(200174)
+b:RegisterForEvent(function()
     A = false
     ae = false
     m = 1
-    M = false
-    O = false
+    C = false
+    N = false
 end, "PLAYER_REGEN_ENABLED")
 local I = t:CovenantID()
-g:RegisterForEvent(function()
+b:RegisterForEvent(function()
     I = t:CovenantID()
 end, "COVENANT_CHOSEN")
-g:RegisterForEvent(function()
-    q = t:HasLegendaryEquipped(202)
-    C = t:HasLegendaryEquipped(161)
+b:RegisterForEvent(function()
+    j = t:HasLegendaryEquipped(202)
+    U = t:HasLegendaryEquipped(161)
     se = t:HasLegendaryEquipped(158)
     y = t:HasLegendaryEquipped(159)
 end, "PLAYER_EQUIPMENT_CHANGED")
-g:RegisterForEvent(function()
+b:RegisterForEvent(function()
     e.ShadowCrash:RegisterInFlight()
 end, "LEARNED_SPELL_IN_TAB")
 e.ShadowCrash:RegisterInFlight()
@@ -106,11 +106,11 @@ local function x(e)
 
 end
 
-local function q(e)
+local function j(e)
     return e ~= 0
 end
 
-local function q(t, a)
+local function j(t, a)
     if a then
         return (t:DebuffUp(e.ShadowWordPainDebuff) and (t:DebuffUp(e.VampiricTouchDebuff) or t:TimeToDie() < 18) and t:DebuffUp(e.DevouringPlagueDebuff))
     else
@@ -119,28 +119,12 @@ local function q(t, a)
 
 end
 
-local function pe(a)
-    local t = 0
-    if a ~= nil then
-        for o in pairs(a) do
-            local a = a[o]
-            if a:DebuffDown(e.ShadowWordPainDebuff) then
-                t = t + 1
-            end
-
-        end
-
-    end
-
-    return t
-end
-
-local function ge(t)
+local function pe(t)
     local a = 0
     if t ~= nil then
         for o in pairs(t) do
             local t = t[o]
-            if t:DebuffRefreshable(e.ShadowWordPainDebuff) then
+            if t:DebuffDown(e.ShadowWordPainDebuff) then
                 a = a + 1
             end
 
@@ -151,11 +135,27 @@ local function ge(t)
     return a
 end
 
+local function ge(a)
+    local t = 0
+    if a ~= nil then
+        for o in pairs(a) do
+            local a = a[o]
+            if a:DebuffRefreshable(e.ShadowWordPainDebuff) then
+                t = t + 1
+            end
+
+        end
+
+    end
+
+    return t
+end
+
 local function ve(n)
-                if (((n:DebuffRefreshable(e.VampiricTouchDebuff) or n:DebuffRefreshable(e.ShadowWordPainDebuff) or (t:BuffDown(e.MindDevourerBuff) and t:Insanity() < 50)) and (t:BuffStack(e.DarkThoughtBuff) < Y or not t:HasTier(28, 2))) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and n:GUID() == f("mouseover"):GUID() and i.Shadow.TargetSwap == "Mouseover") then
+                if (((n:DebuffRefreshable(e.VampiricTouchDebuff) or n:DebuffRefreshable(e.ShadowWordPainDebuff) or (t:BuffDown(e.MindDevourerBuff) and t:Insanity() < 50)) and (t:BuffStack(e.DarkThoughtBuff) < W or not t:HasTier(28, 2))) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and n:GUID() == f("mouseover"):GUID() and i.Shadow.TargetSwap == "Mouseover") then
         d = 1136149
         return true
-    elseif (((n:DebuffRefreshable(e.VampiricTouchDebuff) or n:DebuffRefreshable(e.ShadowWordPainDebuff) or (t:BuffDown(e.MindDevourerBuff) and t:Insanity() < 50)) and (t:BuffStack(e.DarkThoughtBuff) < Y or not t:HasTier(28, 2))) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and i.Shadow.TargetSwap == "AutoSwap" and n:GUID() ~= a:GUID() and not _) then
+    elseif (((n:DebuffRefreshable(e.VampiricTouchDebuff) or n:DebuffRefreshable(e.ShadowWordPainDebuff) or (t:BuffDown(e.MindDevourerBuff) and t:Insanity() < 50)) and (t:BuffStack(e.DarkThoughtBuff) < W or not t:HasTier(28, 2))) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and i.Shadow.TargetSwap == "AutoSwap" and n:GUID() ~= a:GUID() and not z) then
         d = 999
                 if d == 999 then
             starttime = GetTime()
@@ -165,10 +165,10 @@ local function ve(n)
         end
 
         return true
-    elseif (((n:DebuffRefreshable(e.VampiricTouchDebuff) or n:DebuffRefreshable(e.ShadowWordPainDebuff) or (t:BuffDown(e.MindDevourerBuff) and t:Insanity() < 50)) and (t:BuffStack(e.DarkThoughtBuff) < Y or not t:HasTier(28, 2))) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and n:GUID() == a:GUID()) then
+    elseif (((n:DebuffRefreshable(e.VampiricTouchDebuff) or n:DebuffRefreshable(e.ShadowWordPainDebuff) or (t:BuffDown(e.MindDevourerBuff) and t:Insanity() < 50)) and (t:BuffStack(e.DarkThoughtBuff) < W or not t:HasTier(28, 2))) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and n:GUID() == a:GUID()) then
         o = 136149
         return true
-    elseif ((n:DebuffRefreshable(e.VampiricTouchDebuff) or n:DebuffRefreshable(e.ShadowWordPainDebuff) or (t:BuffDown(e.MindDevourerBuff) and t:Insanity() < 50)) and (t:BuffStack(e.DarkThoughtBuff) < Y or not t:HasTier(28, 2))) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) then
+    elseif ((n:DebuffRefreshable(e.VampiricTouchDebuff) or n:DebuffRefreshable(e.ShadowWordPainDebuff) or (t:BuffDown(e.MindDevourerBuff) and t:Insanity() < 50)) and (t:BuffStack(e.DarkThoughtBuff) < W or not t:HasTier(28, 2))) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) then
         return true
     end
 
@@ -178,7 +178,7 @@ local function be(t)
                 if (((t:HealthPercentage() < 20 and h < 4) or (e.Mindbender:TimeSinceLastCast() <= 15 and y and h <= 7)) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285 or t:NPCID() == 168326) and t:GUID() == f("mouseover"):GUID() and i.Shadow.TargetSwap == "Mouseover") then
         d = 1136149
         return true
-    elseif (((t:HealthPercentage() < 20 and h < 4) or (e.Mindbender:TimeSinceLastCast() <= 15 and y and h <= 7)) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285 or t:NPCID() == 168326) and i.Shadow.TargetSwap == "AutoSwap" and t:GUID() ~= a:GUID() and not _) then
+    elseif (((t:HealthPercentage() < 20 and h < 4) or (e.Mindbender:TimeSinceLastCast() <= 15 and y and h <= 7)) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285 or t:NPCID() == 168326) and i.Shadow.TargetSwap == "AutoSwap" and t:GUID() ~= a:GUID() and not z) then
         d = 999
                 if d == 999 then
             starttime = GetTime()
@@ -201,7 +201,7 @@ local function me(n)
                 if ((n:TimeToDie() < 20 and t:BuffDown(e.VoidformBuff)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and n:GUID() == f("mouseover"):GUID() and i.Shadow.TargetSwap == "Mouseover") then
         d = 1319952
         return true
-    elseif ((n:TimeToDie() < 20 and t:BuffDown(e.VoidformBuff)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and i.Shadow.TargetSwap == "AutoSwap" and n:GUID() ~= a:GUID() and not _) then
+    elseif ((n:TimeToDie() < 20 and t:BuffDown(e.VoidformBuff)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and i.Shadow.TargetSwap == "AutoSwap" and n:GUID() ~= a:GUID() and not z) then
         d = 999
                 if d == 999 then
             starttime = GetTime()
@@ -220,11 +220,11 @@ local function me(n)
 
 end
 
-local function Y(n)
-                if (((q(n, false) and n:TimeToDie() >= 18 and ((n:DebuffUp(e.VampiricTouchDebuff) or not p) and w > 0)) or (e.Misery:IsAvailable() and n:DebuffRefreshable(e.ShadowWordPainDebuff)) or t:BuffUp(e.UnfurlingDarknessBuff)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and n:GUID() == f("mouseover"):GUID() and i.Shadow.TargetSwap == "Mouseover") then
+local function W(n)
+                if (((j(n, false) and n:TimeToDie() >= 18 and ((n:DebuffUp(e.VampiricTouchDebuff) or not p) and w > 0)) or (e.Misery:IsAvailable() and n:DebuffRefreshable(e.ShadowWordPainDebuff)) or t:BuffUp(e.UnfurlingDarknessBuff)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and n:GUID() == f("mouseover"):GUID() and i.Shadow.TargetSwap == "Mouseover") then
         d = 1263165
         return true
-    elseif (((q(n, false) and n:TimeToDie() >= 18 and ((n:DebuffUp(e.VampiricTouchDebuff) or not p) and w > 0)) or (e.Misery:IsAvailable() and n:DebuffRefreshable(e.ShadowWordPainDebuff)) or t:BuffUp(e.UnfurlingDarknessBuff)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and i.Shadow.TargetSwap == "AutoSwap" and n:GUID() ~= a:GUID() and not _) then
+    elseif (((j(n, false) and n:TimeToDie() >= 18 and ((n:DebuffUp(e.VampiricTouchDebuff) or not p) and w > 0)) or (e.Misery:IsAvailable() and n:DebuffRefreshable(e.ShadowWordPainDebuff)) or t:BuffUp(e.UnfurlingDarknessBuff)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and i.Shadow.TargetSwap == "AutoSwap" and n:GUID() ~= a:GUID() and not z) then
         d = 999
                 if d == 999 then
             starttime = GetTime()
@@ -234,10 +234,10 @@ local function Y(n)
         end
 
         return true
-    elseif (((q(n, false) and n:TimeToDie() >= 18 and ((n:DebuffUp(e.VampiricTouchDebuff) or not p) and w > 0)) or (e.Misery:IsAvailable() and n:DebuffRefreshable(e.ShadowWordPainDebuff)) or t:BuffUp(e.UnfurlingDarknessBuff)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and n:GUID() == a:GUID()) then
+    elseif (((j(n, false) and n:TimeToDie() >= 18 and ((n:DebuffUp(e.VampiricTouchDebuff) or not p) and w > 0)) or (e.Misery:IsAvailable() and n:DebuffRefreshable(e.ShadowWordPainDebuff)) or t:BuffUp(e.UnfurlingDarknessBuff)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and n:GUID() == a:GUID()) then
         o = 263165
         return true
-    elseif ((q(n, false) and n:TimeToDie() >= 18 and ((n:DebuffUp(e.VampiricTouchDebuff) or not p) and w > 0)) or (e.Misery:IsAvailable() and n:DebuffRefreshable(e.ShadowWordPainDebuff)) or t:BuffUp(e.UnfurlingDarknessBuff)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) then
+    elseif ((j(n, false) and n:TimeToDie() >= 18 and ((n:DebuffUp(e.VampiricTouchDebuff) or not p) and w > 0)) or (e.Misery:IsAvailable() and n:DebuffRefreshable(e.ShadowWordPainDebuff)) or t:BuffUp(e.UnfurlingDarknessBuff)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) then
         return true
     end
 
@@ -247,7 +247,7 @@ local function re(n)
                 if (((n:DebuffRefreshable(e.VampiricTouchDebuff) and (n:TimeToDie() > 18 or n:IsDummy() or n:NPCID() == 153285) and (n:DebuffUp(e.VampiricTouchDebuff) or not p) and w > 0) or (e.Misery:IsAvailable() and n:DebuffRefreshable(e.ShadowWordPainDebuff)) or t:BuffUp(e.UnfurlingDarknessBuff)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and n:GUID() == f("mouseover"):GUID() and i.Shadow.TargetSwap == "Mouseover") then
         d = 134914
         return true
-    elseif (((n:DebuffRefreshable(e.VampiricTouchDebuff) and (n:TimeToDie() > 18 or n:IsDummy() or n:NPCID() == 153285) and (n:DebuffUp(e.VampiricTouchDebuff) or not p) and w > 0) or (e.Misery:IsAvailable() and n:DebuffRefreshable(e.ShadowWordPainDebuff)) or t:BuffUp(e.UnfurlingDarknessBuff)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and i.Shadow.TargetSwap == "AutoSwap" and n:GUID() ~= a:GUID() and not _) then
+    elseif (((n:DebuffRefreshable(e.VampiricTouchDebuff) and (n:TimeToDie() > 18 or n:IsDummy() or n:NPCID() == 153285) and (n:DebuffUp(e.VampiricTouchDebuff) or not p) and w > 0) or (e.Misery:IsAvailable() and n:DebuffRefreshable(e.ShadowWordPainDebuff)) or t:BuffUp(e.UnfurlingDarknessBuff)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and i.Shadow.TargetSwap == "AutoSwap" and n:GUID() ~= a:GUID() and not z) then
         d = 999
                 if d == 999 then
             starttime = GetTime()
@@ -270,7 +270,7 @@ local function he(t)
                 if ((t:DebuffRefreshable(e.ShadowWordPainDebuff) and t:TimeToDie() > 4 and not e.Misery:IsAvailable() and not (e.SearingNightmare:IsAvailable() and h > m) and (not e.PsychicLink:IsAvailable() or (e.PsychicLink:IsAvailable() and h <= 2))) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285 or t:NPCID() == 168326) and t:GUID() == f("mouseover"):GUID() and i.Shadow.TargetSwap == "Mouseover") then
         d = 1589
         return true
-    elseif ((t:DebuffRefreshable(e.ShadowWordPainDebuff) and t:TimeToDie() > 4 and not e.Misery:IsAvailable() and not (e.SearingNightmare:IsAvailable() and h > m) and (not e.PsychicLink:IsAvailable() or (e.PsychicLink:IsAvailable() and h <= 2))) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285 or t:NPCID() == 168326) and i.Shadow.TargetSwap == "AutoSwap" and t:GUID() ~= a:GUID() and not _) then
+    elseif ((t:DebuffRefreshable(e.ShadowWordPainDebuff) and t:TimeToDie() > 4 and not e.Misery:IsAvailable() and not (e.SearingNightmare:IsAvailable() and h > m) and (not e.PsychicLink:IsAvailable() or (e.PsychicLink:IsAvailable() and h <= 2))) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285 or t:NPCID() == 168326) and i.Shadow.TargetSwap == "AutoSwap" and t:GUID() ~= a:GUID() and not z) then
         d = 999
                 if d == 999 then
             starttime = GetTime()
@@ -289,11 +289,11 @@ local function he(t)
 
 end
 
-local function Y(t)
+local function W(t)
                 if ((e.SearingNightmare:IsAvailable() and t:DebuffRefreshable(e.ShadowWordPainDebuff) and h > 2) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285 or t:NPCID() == 168326) and t:GUID() == f("mouseover"):GUID() and i.Shadow.TargetSwap == "Mouseover") then
         d = 148045
         return true
-    elseif ((e.SearingNightmare:IsAvailable() and t:DebuffRefreshable(e.ShadowWordPainDebuff) and h > 2) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285 or t:NPCID() == 168326) and i.Shadow.TargetSwap == "AutoSwap" and t:GUID() ~= a:GUID() and not _) then
+    elseif ((e.SearingNightmare:IsAvailable() and t:DebuffRefreshable(e.ShadowWordPainDebuff) and h > 2) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285 or t:NPCID() == 168326) and i.Shadow.TargetSwap == "AutoSwap" and t:GUID() ~= a:GUID() and not z) then
         d = 999
                 if d == 999 then
             starttime = GetTime()
@@ -312,11 +312,11 @@ local function Y(t)
 
 end
 
-local function Y(n)
-                if ((t:Insanity() < 90 and ((q(n, true) and ((not e.VoidEruption:CooldownUp() or not u) or not e.HungeringVoid:IsAvailable())) or t:BuffUp(e.VoidformBuff)) and (not e.HungeringVoid:IsAvailable() or n:DebuffUp(e.HungeringVoidDebuff) or t:BuffDown(e.VoidformBuff)) and (not e.SearingNightmare:IsAvailable() or h < 5)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and n:GUID() == f("mouseover"):GUID() and i.Shadow.TargetSwap == "Mouseover") then
+local function W(n)
+                if ((t:Insanity() < 90 and ((j(n, true) and ((not e.VoidEruption:CooldownUp() or not u) or not e.HungeringVoid:IsAvailable())) or t:BuffUp(e.VoidformBuff)) and (not e.HungeringVoid:IsAvailable() or n:DebuffUp(e.HungeringVoidDebuff) or t:BuffDown(e.VoidformBuff)) and (not e.SearingNightmare:IsAvailable() or h < 5)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and n:GUID() == f("mouseover"):GUID() and i.Shadow.TargetSwap == "Mouseover") then
         d = 1323673
         return true
-    elseif ((t:Insanity() < 90 and ((q(n, true) and ((not e.VoidEruption:CooldownUp() or not u) or not e.HungeringVoid:IsAvailable())) or t:BuffUp(e.VoidformBuff)) and (not e.HungeringVoid:IsAvailable() or n:DebuffUp(e.HungeringVoidDebuff) or t:BuffDown(e.VoidformBuff)) and (not e.SearingNightmare:IsAvailable() or h < 5)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and i.Shadow.TargetSwap == "AutoSwap" and n:GUID() ~= a:GUID() and not _) then
+    elseif ((t:Insanity() < 90 and ((j(n, true) and ((not e.VoidEruption:CooldownUp() or not u) or not e.HungeringVoid:IsAvailable())) or t:BuffUp(e.VoidformBuff)) and (not e.HungeringVoid:IsAvailable() or n:DebuffUp(e.HungeringVoidDebuff) or t:BuffDown(e.VoidformBuff)) and (not e.SearingNightmare:IsAvailable() or h < 5)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and i.Shadow.TargetSwap == "AutoSwap" and n:GUID() ~= a:GUID() and not z) then
         d = 999
                 if d == 999 then
             starttime = GetTime()
@@ -326,20 +326,20 @@ local function Y(n)
         end
 
         return true
-    elseif ((t:Insanity() < 90 and ((q(n, true) and ((not e.VoidEruption:CooldownUp() or not u) or not e.HungeringVoid:IsAvailable())) or t:BuffUp(e.VoidformBuff)) and (not e.HungeringVoid:IsAvailable() or n:DebuffUp(e.HungeringVoidDebuff) or t:BuffDown(e.VoidformBuff)) and (not e.SearingNightmare:IsAvailable() or h < 5)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and n:GUID() == a:GUID()) then
+    elseif ((t:Insanity() < 90 and ((j(n, true) and ((not e.VoidEruption:CooldownUp() or not u) or not e.HungeringVoid:IsAvailable())) or t:BuffUp(e.VoidformBuff)) and (not e.HungeringVoid:IsAvailable() or n:DebuffUp(e.HungeringVoidDebuff) or t:BuffDown(e.VoidformBuff)) and (not e.SearingNightmare:IsAvailable() or h < 5)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) and n:GUID() == a:GUID()) then
         o = 323673
         return true
-    elseif (t:Insanity() < 90 and ((q(n, true) and ((not e.VoidEruption:CooldownUp() or not u) or not e.HungeringVoid:IsAvailable())) or t:BuffUp(e.VoidformBuff)) and (not e.HungeringVoid:IsAvailable() or n:DebuffUp(e.HungeringVoidDebuff) or t:BuffDown(e.VoidformBuff)) and (not e.SearingNightmare:IsAvailable() or h < 5)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) then
+    elseif (t:Insanity() < 90 and ((j(n, true) and ((not e.VoidEruption:CooldownUp() or not u) or not e.HungeringVoid:IsAvailable())) or t:BuffUp(e.VoidformBuff)) and (not e.HungeringVoid:IsAvailable() or n:DebuffUp(e.HungeringVoidDebuff) or t:BuffDown(e.VoidformBuff)) and (not e.SearingNightmare:IsAvailable() or h < 5)) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285 or n:NPCID() == 168326) then
         return true
     end
 
 end
 
-local function Y(e)
+local function W(e)
     return e:HealthPercentage()
 end
 
-local function Y(o)
+local function W(o)
                 if ((t:BuffUp(e.PowerInfusionBuff) or not i.Shadow.SelfPI or n.ShadowedOrbofTorment:IsEquipped()) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285 or o:NPCID() == 168326) and o:GUID() == f("mouseover"):GUID() and i.Shadow.TargetSwap == "Mouseover") then
                 if n.SoullettingRuby:ID() == GetInventoryItemID("player", 13) then
             d = 241
@@ -349,7 +349,7 @@ local function Y(o)
             return true
         end
 
-    elseif ((t:BuffUp(e.PowerInfusionBuff) or not i.Shadow.SelfPI or n.ShadowedOrbofTorment:IsEquipped()) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285 or o:NPCID() == 168326) and i.Shadow.TargetSwap == "AutoSwap" and o:GUID() ~= a:GUID() and not _) then
+    elseif ((t:BuffUp(e.PowerInfusionBuff) or not i.Shadow.SelfPI or n.ShadowedOrbofTorment:IsEquipped()) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285 or o:NPCID() == 168326) and i.Shadow.TargetSwap == "AutoSwap" and o:GUID() ~= a:GUID() and not z) then
         d = 999
         return true
     elseif ((t:BuffUp(e.PowerInfusionBuff) or not i.Shadow.SelfPI or n.ShadowedOrbofTorment:IsEquipped()) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285 or o:NPCID() == 168326) and o:GUID() == a:GUID()) then
@@ -368,7 +368,7 @@ local function Y(o)
 end
 
 local function ce()
-    if E.TargetIsValid() and not t:IsDeadOrGhost() and not t:AffectingCombat() and ((P) or (i.Commons.DBMSupport and l.BossMods:GetPullTimer() < b + t:GCD() and l.BossMods:GetPullTimer() > 0)) and not t:IsMoving() then
+    if E.TargetIsValid() and not t:IsDeadOrGhost() and not t:AffectingCombat() and ((Y) or (i.Commons.DBMSupport and l.BossMods:GetPullTimer() < g + t:GCD() and l.BossMods:GetPullTimer() > 0)) and not t:IsMoving() then
         if e.Fleshcraft:IsCastable() and (r == 0 or r > e.Fleshcraft:ExecuteTime()) and T and not t:IsMoving() and (e.PustuleEruption:SoulbindEnabled() or e.VolatileSolvent:SoulbindEnabled()) then
             if s(e.Fleshcraft, nil, nil) then
                 o = 324631
@@ -390,7 +390,7 @@ local function ce()
                                 if n.ShadowedOrbofTorment:ID() == k and i.Commons.Enabled.TopTrinket then
                     o = 24
                     return "top trinket 1"
-                elseif n.ShadowedOrbofTorment:ID() == v and i.Commons.Enabled.BottomTrinket then
+                elseif n.ShadowedOrbofTorment:ID() == q and i.Commons.Enabled.BottomTrinket then
                     o = 30
                     return "top trinket 2"
                 end
@@ -416,7 +416,7 @@ local function ce()
 
         end
 
-        if e.MindBlast:IsCastable() and (r == 0 or r > e.MindBlast:CastTime() + .5) and (e.Misery:IsAvailable() and (not C or not e.VoidTorrent:IsAvailable())) then
+        if e.MindBlast:IsCastable() and (r == 0 or r > e.MindBlast:CastTime() + .5) and (e.Misery:IsAvailable() and (not U or not e.VoidTorrent:IsAvailable())) then
             if s(e.MindBlast, nil, nil, not a:IsSpellInRange(e.MindBlast)) then
                 o = 8092
                 return "mind_blast 12"
@@ -424,7 +424,7 @@ local function ce()
 
         end
 
-        if e.VoidTorrent:IsCastable() and (r == 0 or r > 3 + .5) and D and (e.Misery:IsAvailable() and C) then
+        if e.VoidTorrent:IsCastable() and (r == 0 or r > 3 + .5) and H and (e.Misery:IsAvailable() and U) then
             if s(e.VoidTorrent, nil, nil, not a:IsSpellInRange(e.VoidTorrent)) then
                 o = 263165
                 return "void_torrent 14"
@@ -432,7 +432,7 @@ local function ce()
 
         end
 
-        if e.MindFlay:IsCastable() and (r == 0 or r > 1) and not t:IsChanneling(e.MindFlay) and h <= m and (e.Misery:IsAvailable() and C and not e.VoidTorrent:IsAvailable()) then
+        if e.MindFlay:IsCastable() and (r == 0 or r > 1) and not t:IsChanneling(e.MindFlay) and h <= m and (e.Misery:IsAvailable() and U and not e.VoidTorrent:IsAvailable()) then
             if s(e.MindFlay, nil, nil, not a:IsSpellInRange(e.MindFlay)) then
                 o = 15407
                 return "mind_flay 15"
@@ -452,13 +452,13 @@ local function ce()
 
 end
 
-local function Y()
-    if n.ScarsofFraternalStrife:IsEquippedAndReady() and c() and ((t:BuffDown(e.ScarsofFraternalStrifeBuff4) and U > 1) or (t:BuffUp(e.VoidformBuff) or t:BuffUp(e.PowerInfusionBuff) or e.VoidEruption:CooldownRemains() > 10)) then
+local function W()
+    if n.ScarsofFraternalStrife:IsEquippedAndReady() and c() and ((t:BuffDown(e.ScarsofFraternalStrifeBuff4) and M > 1) or (t:BuffUp(e.VoidformBuff) or t:BuffUp(e.PowerInfusionBuff) or e.VoidEruption:CooldownRemains() > 10)) then
         if s(n.ScarsofFraternalStrife, nil, nil) then
                         if n.ScarsofFraternalStrife:ID() == k and i.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket 1"
-            elseif n.ScarsofFraternalStrife:ID() == v and i.Commons.Enabled.BottomTrinket then
+            elseif n.ScarsofFraternalStrife:ID() == q and i.Commons.Enabled.BottomTrinket then
                 o = 30
                 return "top trinket 2"
             end
@@ -472,7 +472,7 @@ local function Y()
                         if n.EmpyrealOrdinance:ID() == k and i.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket 1"
-            elseif n.EmpyrealOrdinance:ID() == v and i.Commons.Enabled.BottomTrinket then
+            elseif n.EmpyrealOrdinance:ID() == q and i.Commons.Enabled.BottomTrinket then
                 o = 30
                 return "top trinket 2"
             end
@@ -481,12 +481,12 @@ local function Y()
 
     end
 
-    if n.InscrutableQuantumDevice:IsEquippedAndReady() and c() and (t:BuffUp(e.VoidformBuff) and t:BuffUp(e.PowerInfusionBuff) or g.BossFilteredFightRemains("<=", 20) or t:BuffUp(e.PowerInfusionBuff) and (g.BossFilteredFightRemains("<", e.VoidEruption:CooldownRemains() + 15) or not u) or t:BuffUp(e.VoidformBuff) and (g.BossFilteredFightRemains("<", e.PowerInfusion:CooldownRemains() + 15) or not N) or ((e.PowerInfusion:CooldownRemains() >= 10 or not N) and (e.VoidEruption:CooldownRemains() >= 10 or not u)) and g.BossFilteredFightRemains(">=", 190)) then
+    if n.InscrutableQuantumDevice:IsEquippedAndReady() and c() and (t:BuffUp(e.VoidformBuff) and t:BuffUp(e.PowerInfusionBuff) or b.BossFilteredFightRemains("<=", 20) or t:BuffUp(e.PowerInfusionBuff) and (b.BossFilteredFightRemains("<", e.VoidEruption:CooldownRemains() + 15) or not u) or t:BuffUp(e.VoidformBuff) and (b.BossFilteredFightRemains("<", e.PowerInfusion:CooldownRemains() + 15) or not O) or ((e.PowerInfusion:CooldownRemains() >= 10 or not O) and (e.VoidEruption:CooldownRemains() >= 10 or not u)) and b.BossFilteredFightRemains(">=", 190)) then
         if s(n.InscrutableQuantumDevice, nil, nil) then
                         if n.InscrutableQuantumDevice:ID() == k and i.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket 1"
-            elseif n.InscrutableQuantumDevice:ID() == v and i.Commons.Enabled.BottomTrinket then
+            elseif n.InscrutableQuantumDevice:ID() == q and i.Commons.Enabled.BottomTrinket then
                 o = 30
                 return "top trinket 2"
             end
@@ -500,7 +500,7 @@ local function Y()
                         if n.MacabreSheetMusic:ID() == k and i.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket 1"
-            elseif n.MacabreSheetMusic:ID() == v and i.Commons.Enabled.BottomTrinket then
+            elseif n.MacabreSheetMusic:ID() == q and i.Commons.Enabled.BottomTrinket then
                 o = 30
                 return "top trinket 2"
             end
@@ -514,7 +514,7 @@ local function Y()
                         if n.SoullettingRuby:ID() == k and i.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket 1"
-            elseif n.SoullettingRuby:ID() == v and i.Commons.Enabled.BottomTrinket then
+            elseif n.SoullettingRuby:ID() == q and i.Commons.Enabled.BottomTrinket then
                 o = 30
                 return "top trinket 2"
             end
@@ -523,12 +523,12 @@ local function Y()
 
     end
 
-    if n.TheFirstSigil:IsEquippedAndReady() and c() and (t:BuffUp(e.VoidformBuff) or t:BuffUp(e.PowerInfusionBuff) or (not i.Shadow.SelfPI) or e.VoidEruption:CooldownRemains() > 10 or (n.SoullettingRuby:IsEquipped() and not n.SoullettingRuby:IsReady()) or z < 20) then
+    if n.TheFirstSigil:IsEquippedAndReady() and c() and (t:BuffUp(e.VoidformBuff) or t:BuffUp(e.PowerInfusionBuff) or (not i.Shadow.SelfPI) or e.VoidEruption:CooldownRemains() > 10 or (n.SoullettingRuby:IsEquipped() and not n.SoullettingRuby:IsReady()) or _ < 20) then
         if s(n.TheFirstSigil, nil, nil) then
                         if n.TheFirstSigil:ID() == k and i.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket 1"
-            elseif n.TheFirstSigil:ID() == v and i.Commons.Enabled.BottomTrinket then
+            elseif n.TheFirstSigil:ID() == q and i.Commons.Enabled.BottomTrinket then
                 o = 30
                 return "top trinket 2"
             end
@@ -542,7 +542,7 @@ local function Y()
                         if n.SinfulGladiatorsBadgeofFerocity:ID() == k and i.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket 1"
-            elseif n.SinfulGladiatorsBadgeofFerocity:ID() == v and i.Commons.Enabled.BottomTrinket then
+            elseif n.SinfulGladiatorsBadgeofFerocity:ID() == q and i.Commons.Enabled.BottomTrinket then
                 o = 30
                 return "top trinket 2"
             end
@@ -551,12 +551,12 @@ local function Y()
 
     end
 
-    if n.ShadowedOrbofTorment:IsEquippedAndReady() and c() and (r == 0 or r > 2.5) and ((e.PowerInfusion:CooldownRemains() <= 10 and N and e.VoidEruption:CooldownRemains() <= 10 and u and (I == 4 or I == 1)) or ((I == 2 or I == 3) and (t:BuffDown(e.VoidformBuff) or t:PrevGCD(1, e.VoidBolt)))) then
+    if n.ShadowedOrbofTorment:IsEquippedAndReady() and c() and (r == 0 or r > 2.5) and ((e.PowerInfusion:CooldownRemains() <= 10 and O and e.VoidEruption:CooldownRemains() <= 10 and u and (I == 4 or I == 1)) or ((I == 2 or I == 3) and (t:BuffDown(e.VoidformBuff) or t:PrevGCD(1, e.VoidBolt)))) then
         if s(n.ShadowedOrbofTorment, nil, nil) then
                         if n.ShadowedOrbofTorment:ID() == k and i.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket 1"
-            elseif n.ShadowedOrbofTorment:ID() == v and i.Commons.Enabled.BottomTrinket then
+            elseif n.ShadowedOrbofTorment:ID() == q and i.Commons.Enabled.BottomTrinket then
                 o = 30
                 return "top trinket 2"
             end
@@ -570,7 +570,7 @@ local function Y()
                         if n.ArchitectsIngenuityCore:ID() == k and i.Commons.Enabled.TopTrinket then
                 o = 24
                 return "top trinket 1"
-            elseif n.ArchitectsIngenuityCore:ID() == v and i.Commons.Enabled.BottomTrinket then
+            elseif n.ArchitectsIngenuityCore:ID() == q and i.Commons.Enabled.BottomTrinket then
                 o = 30
                 return "top trinket 2"
             end
@@ -586,7 +586,7 @@ local function Y()
                                 if e:ID() == k and i.Commons.Enabled.TopTrinket then
                     o = 24
                     return "top trinket 1"
-                elseif e:ID() == v and i.Commons.Enabled.BottomTrinket then
+                elseif e:ID() == q and i.Commons.Enabled.BottomTrinket then
                     o = 30
                     return "top trinket 2"
                 end
@@ -600,7 +600,7 @@ local function Y()
 end
 
 local function ue()
-    if e.PowerInfusion:IsCastable() and N and not t:IsMoving() and (i.Shadow.SelfPI and (t:BuffUp(e.VoidformBuff) or (t:Covenant() ~= "Kyrian" and t:Covenant() ~= "Necrolord" and (e.VoidEruption:CooldownRemains() >= 10 or not u)) or (z < e.VoidEruption:CooldownRemains()) or not u) and (((z >= e.VoidEruption:CooldownRemains() + 15 and u) and (e.VoidEruption:CooldownRemains() <= t:GCD() * 4 and u)) or (z > e.PowerInfusion:Cooldown() and N) or (z < (e.VoidEruption:CooldownRemains() + 15) or not u) or I == 1 or t:BloodlustUp())) then
+    if e.PowerInfusion:IsCastable() and O and not t:IsMoving() and (i.Shadow.SelfPI and (t:BuffUp(e.VoidformBuff) or (t:Covenant() ~= "Kyrian" and t:Covenant() ~= "Necrolord" and (e.VoidEruption:CooldownRemains() >= 10 or not u)) or (_ < e.VoidEruption:CooldownRemains()) or not u) and (((_ >= e.VoidEruption:CooldownRemains() + 15 and u) and (e.VoidEruption:CooldownRemains() <= t:GCD() * 4 and u)) or (_ > e.PowerInfusion:Cooldown() and O) or (_ < (e.VoidEruption:CooldownRemains() + 15) or not u) or I == 1 or t:BloodlustUp())) then
         if s(e.PowerInfusion, nil) then
             o = 10060
             return "power_infusion 50"
@@ -608,7 +608,7 @@ local function ue()
 
     end
 
-    if e.FaeGuardians:IsReady() and T and ((t:BuffDown(e.VoidformBuff) and ((not e.VoidTorrent:CooldownUp() or not D) or not e.VoidTorrent:IsAvailable()) and ((A and h == 1) or (p and h > 1))) or (t:BuffUp(e.VoidformBuff) and (e.GroveInvigoration:IsAvailable() or e.FieldofBlossoms:IsAvailable()))) then
+    if e.FaeGuardians:IsReady() and T and ((t:BuffDown(e.VoidformBuff) and ((not e.VoidTorrent:CooldownUp() or not H) or not e.VoidTorrent:IsAvailable()) and ((A and h == 1) or (p and h > 1))) or (t:BuffUp(e.VoidformBuff) and (e.GroveInvigoration:IsAvailable() or e.FieldofBlossoms:IsAvailable()))) then
         if s(e.FaeGuardians, nil) then
             o = 327661
             return "fae_guardians 52"
@@ -617,7 +617,7 @@ local function ue()
     end
 
     if e.Mindgames:IsReady() and (r == 0 or r > e.Mindgames:CastTime() + .5) and not t:IsMoving() and T then
-        if (t:Insanity() < 90 and ((q(a, true) and ((not e.VoidEruption:CooldownUp() or not u) or not e.HungeringVoid:IsAvailable())) or t:BuffUp(e.VoidformBuff)) and (not e.HungeringVoid:IsAvailable() or a:DebuffRemains(e.HungeringVoidDebuff) > e.Mindgames:CastTime() or t:BuffDown(e.VoidformBuff)) and (not e.SearingNightmare:IsAvailable() or h < 5)) then
+        if (t:Insanity() < 90 and ((j(a, true) and ((not e.VoidEruption:CooldownUp() or not u) or not e.HungeringVoid:IsAvailable())) or t:BuffUp(e.VoidformBuff)) and (not e.HungeringVoid:IsAvailable() or a:DebuffRemains(e.HungeringVoidDebuff) > e.Mindgames:CastTime() or t:BuffDown(e.VoidformBuff)) and (not e.SearingNightmare:IsAvailable() or h < 5)) then
             if s(e.Mindgames, nil, nil, not a:IsSpellInRange(e.Mindgames)) then
                 o = 323673
                 return "mindgames 54"
@@ -627,7 +627,7 @@ local function ue()
 
     end
 
-    if e.UnholyNova:IsReady() and T and ((not e.HungeringVoid:IsAvailable() and A) or (a:DebuffUp(e.HungeringVoidDebuff) and t:BuffUp(e.VoidformBuff)) or (((e.VoidEruption:CooldownRemains() > 10 or not u) or not O) and t:BuffDown(e.VoidformBuff))) then
+    if e.UnholyNova:IsReady() and T and ((not e.HungeringVoid:IsAvailable() and A) or (a:DebuffUp(e.HungeringVoidDebuff) and t:BuffUp(e.VoidformBuff)) or (((e.VoidEruption:CooldownRemains() > 10 or not u) or not N) and t:BuffDown(e.VoidformBuff))) then
         if s(e.UnholyNova, nil, nil, not a:IsSpellInRange(e.UnholyNova)) then
             o = 324724
             return "Shadow_nova 56"
@@ -644,7 +644,7 @@ local function ue()
     end
 
     if (true) then
-        local e = Y()
+        local e = W()
         if e then
             return e
         end
@@ -680,9 +680,9 @@ local function de()
 
 end
 
-local function Y()
+local function W()
     if e.MindBlast:IsCastable() and (t:IsChanneling()) then
-        if ((t:HasTier(28, 4) and t:BuffUp(e.DarkThoughtBuff) and e.Mindbender:TimeSinceLastCast() < 15 and y and t:BuffDown(e.VoidformBuff) and t:BuffRemains(e.LivingShadowBuff) < z) or (t:BuffUp(e.DarkThoughtBuff) and t:BuffRemains(e.LivingShadowBuff) < t:GCD() * (3 + x(t:BuffDown(e.VoidformBuff)) * 16) and t:BuffRemains(e.LivingShadowBuff) < z)) then
+        if ((t:HasTier(28, 4) and t:BuffUp(e.DarkThoughtBuff) and e.Mindbender:TimeSinceLastCast() < 15 and y and t:BuffDown(e.VoidformBuff) and t:BuffRemains(e.LivingShadowBuff) < _) or (t:BuffUp(e.DarkThoughtBuff) and t:BuffRemains(e.LivingShadowBuff) < t:GCD() * (3 + x(t:BuffDown(e.VoidformBuff)) * 16) and t:BuffRemains(e.LivingShadowBuff) < _)) then
             if s(e.MindBlast, nil, nil, not a:IsSpellInRange(e.MindBlast)) then
                 o = 8092
                 return "mind_blast 84"
@@ -692,7 +692,7 @@ local function Y()
 
     end
 
-    if e.SearingNightmare:IsReady() and t:IsChanneling(e.MindSear) and ((M and not O) or (Z > 0 and h > 1) or t:Insanity() > 85) then
+    if e.SearingNightmare:IsReady() and t:IsChanneling(e.MindSear) and ((C and not N) or (Z > 0 and h > 1) or t:Insanity() > 85) then
         if s(e.SearingNightmare, nil, nil, not a:IsInRange(40)) then
             o = 341385
             return "searing_nightmare 80"
@@ -735,7 +735,7 @@ local function le()
 
     end
 
-    if e.VoidEruption:IsReady() and (r == 0 or r > e.VoidEruption:CastTime() + .5) and u and not t:IsMoving() and (O and (t:Insanity() >= 25 + (15 * (x(t:Race() == "BloodElf" and U < 30))) or (e.Mindbender:TimeSinceLastCast() <= 15 and y and (not e.MindBlast:CooldownUp() or t:IsCasting(e.MindBlast)) and not e.ShadowWordDeath:CooldownUp())) and (t:Insanity() <= 85 or (e.SearingNightmare:IsAvailable() and M))) then
+    if e.VoidEruption:IsReady() and (r == 0 or r > e.VoidEruption:CastTime() + .5) and u and not t:IsMoving() and (N and (t:Insanity() >= 25 + (15 * (x(t:Race() == "BloodElf" and M < 30))) or (e.Mindbender:TimeSinceLastCast() <= 15 and y and (not e.MindBlast:CooldownUp() or t:IsCasting(e.MindBlast)) and not e.ShadowWordDeath:CooldownUp())) and (t:Insanity() <= 85 or (e.SearingNightmare:IsAvailable() and C))) then
         if s(e.VoidEruption, nil, nil, not a:IsSpellInRange(e.VoidEruption)) then
             o = 228260
             return "void_eruption 92"
@@ -760,7 +760,7 @@ local function le()
 
     end
 
-    if e.MindSear:IsCastable() and (r == 0 or r > 1) and not t:IsMoving() and not t:IsChanneling(e.MindSear) and (e.SearingNightmare:IsAvailable() and h > m and ee > 0 and (not H:CooldownUp() or not R) and h >= 4) then
+    if e.MindSear:IsCastable() and (r == 0 or r > 1) and not t:IsMoving() and not t:IsChanneling(e.MindSear) and (e.SearingNightmare:IsAvailable() and h > m and ee > 0 and (not L:CooldownUp() or not S) and h >= 4) then
         if s(e.MindSear, nil, nil, not a:IsSpellInRange(e.MindSear)) then
             o = 48045
             return "mind_sear 97"
@@ -776,7 +776,7 @@ local function le()
 
     end
 
-    if e.MindSear:IsCastable() and (r == 0 or r > 1) and not t:IsMoving() and not t:IsChanneling(e.MindSear) and (e.SearingNightmare:IsAvailable() and h > m and ee > 0 and (not H:CooldownUp() or not R)) then
+    if e.MindSear:IsCastable() and (r == 0 or r > 1) and not t:IsMoving() and not t:IsChanneling(e.MindSear) and (e.SearingNightmare:IsAvailable() and h > m and ee > 0 and (not L:CooldownUp() or not S)) then
         if s(e.MindSear, nil, nil, not a:IsSpellInRange(e.MindSear)) then
             o = 48045
             return "mind_sear 97"
@@ -785,7 +785,7 @@ local function le()
     end
 
     if e.Damnation:IsCastable() then
-        if E.CastCycle(e.Damnation, L, ve, not a:IsSpellInRange(e.Damnation)) then
+        if E.CastCycle(e.Damnation, R, ve, not a:IsSpellInRange(e.Damnation)) then
             o = 341374
             return "damnation 98"
         end
@@ -824,7 +824,7 @@ local function le()
 
     end
 
-    if e.DevouringPlague:IsReady() and ((a:DebuffRefreshable(e.DevouringPlagueDebuff) or t:Insanity() > 75 or (h > 3 and e.Misery:IsAvailable()) or (e.VoidTorrent:IsAvailable() and e.VoidTorrent:CooldownRemains() <= (3 * t:GCD()) and D)) and (not O or t:Insanity() >= 85) and (not e.SearingNightmare:IsAvailable() or (e.SearingNightmare:IsAvailable() and not M))) then
+    if e.DevouringPlague:IsReady() and ((a:DebuffRefreshable(e.DevouringPlagueDebuff) or t:Insanity() > 75 or (h > 3 and e.Misery:IsAvailable()) or (e.VoidTorrent:IsAvailable() and e.VoidTorrent:CooldownRemains() <= (3 * t:GCD()) and H)) and (not N or t:Insanity() >= 85) and (not e.SearingNightmare:IsAvailable() or (e.SearingNightmare:IsAvailable() and not C))) then
         if s(e.DevouringPlague, nil, nil, not a:IsSpellInRange(e.DevouringPlague)) then
             o = 335467
             return "devouring_plague 102"
@@ -849,21 +849,21 @@ local function le()
     end
 
     if e.ShadowWordDeath:IsReady() and h < 4 then
-        if E.CastCycle(e.ShadowWordDeath, L, be, not a:IsSpellInRange(e.ShadowWordDeath), nil) then
+        if E.CastCycle(e.ShadowWordDeath, R, be, not a:IsSpellInRange(e.ShadowWordDeath), nil) then
             return "shadow_word_death 104"
         end
 
     end
 
     if e.SurrenderToMadness:IsCastable() then
-        if E.CastCycle(e.SurrenderToMadness, L, me, not a:IsSpellInRange(e.SurrenderToMadness), i.Shadow.OffGCDasOffGCD.SurrenderToMadness) then
+        if E.CastCycle(e.SurrenderToMadness, R, me, not a:IsSpellInRange(e.SurrenderToMadness), i.Shadow.OffGCDasOffGCD.SurrenderToMadness) then
             return "surrender_to_madness 106"
         end
 
     end
 
-    if e.VoidTorrent:IsCastable() and (r == 0 or r > 3 + .5) and D and not t:IsMoving() then
-        if (q(a, false) and a:TimeToDie() > 3 and (t:BuffDown(e.VoidformBuff) or (t:BuffRemains(e.VoidformBuff) < e.VoidBolt:CooldownRemains() + .5) or (t:PrevGCD(1, e.VoidBolt) and 3 <= e.VoidBolt:CooldownRemains()) and not t:BloodlustUp() and h < 3) and p and h < (5 + (6 * x(e.TwistofFate:IsAvailable())))) then
+    if e.VoidTorrent:IsCastable() and (r == 0 or r > 3 + .5) and H and not t:IsMoving() then
+        if (j(a, false) and a:TimeToDie() > 3 and (t:BuffDown(e.VoidformBuff) or (t:BuffRemains(e.VoidformBuff) < e.VoidBolt:CooldownRemains() + .5) or (t:PrevGCD(1, e.VoidBolt) and 3 <= e.VoidBolt:CooldownRemains()) and not t:BloodlustUp() and h < 3) and p and h < (5 + (6 * x(e.TwistofFate:IsAvailable())))) then
             if s(e.VoidTorrent, nil) then
                 o = 263165
                 return "void_torrent 107"
@@ -873,7 +873,7 @@ local function le()
 
     end
 
-    if H:IsCastable() and R and ((e.SearingNightmare:IsAvailable() and h > m) or a:DebuffUp(e.ShadowWordPainDebuff)) and (p) then
+    if L:IsCastable() and S and ((e.SearingNightmare:IsAvailable() and h > m) or a:DebuffUp(e.ShadowWordPainDebuff)) and (p) then
         if s(e.Mindbender, nil, nil, not a:IsSpellInRange(e.Mindbender)) then
             o = 200174
             return "shadowfiend/mindbender 108"
@@ -905,7 +905,7 @@ local function le()
 
     end
 
-    if e.MindFlay:IsCastable() and (r == 0 or r > 1) and h <= m and not t:IsMoving() and not t:IsChanneling(e.MindFlay) and (t:BuffUp(e.DarkThoughtBuff) and A and not (t:BuffUp(e.VoidformBuff) and not O and e.MindBlast:FullRechargeTime() >= t:GCD() + .15)) then
+    if e.MindFlay:IsCastable() and (r == 0 or r > 1) and h <= m and not t:IsMoving() and not t:IsChanneling(e.MindFlay) and (t:BuffUp(e.DarkThoughtBuff) and A and not (t:BuffUp(e.VoidformBuff) and not N and e.MindBlast:FullRechargeTime() >= t:GCD() + .15)) then
         if s(e.MindFlay, nil, nil, not a:IsSpellInRange(e.MindFlay)) then
             o = 15407
             return "mind_flay 120"
@@ -913,7 +913,7 @@ local function le()
 
     end
 
-    if e.DevouringPlague:IsReady() and (h < 3 or t:BuffUp(e.VoidformBuff)) and h < 4 and (C and A and not ae) then
+    if e.DevouringPlague:IsReady() and (h < 3 or t:BuffUp(e.VoidformBuff)) and h < 4 and (U and A and not ae) then
         if s(e.DevouringPlague, nil, nil, not a:IsSpellInRange(e.DevouringPlague)) then
             o = 335467
             return "devouring_plague 121"
@@ -921,7 +921,7 @@ local function le()
 
     end
 
-    if e.MindBlast:IsCastable() and (r == 0 or r > e.MindBlast:CastTime() + .5) and (not t:IsMoving() or t:BuffUp(e.DarkThoughtBuff)) and (e.VoidBolt:CooldownRemains() >= e.MindBlast:CastTime() or not t:BuffUp(e.VoidformBuff)) and (A and h < (4 + 2 * x(e.Misery:IsAvailable()) + e.VampiricTouchDebuff:AuraActiveCount() * x(e.PsychicLink:IsAvailable()) + we(5, h) * x(e.Mindbender:TimeSinceLastCast() <= 15 and y)) and (not y or ((not H:CooldownUp() or not R) and y) or p)) then
+    if e.MindBlast:IsCastable() and (r == 0 or r > e.MindBlast:CastTime() + .5) and (not t:IsMoving() or t:BuffUp(e.DarkThoughtBuff)) and (e.VoidBolt:CooldownRemains() >= e.MindBlast:CastTime() or not t:BuffUp(e.VoidformBuff)) and (A and h < (4 + 2 * x(e.Misery:IsAvailable()) + e.VampiricTouchDebuff:AuraActiveCount() * x(e.PsychicLink:IsAvailable()) + we(5, h) * x(e.Mindbender:TimeSinceLastCast() <= 15 and y)) and (not y or ((not L:CooldownUp() or not S) and y) or p)) then
         if s(e.MindBlast, nil, nil, not a:IsSpellInRange(e.MindBlast)) then
             o = 8092
             return "mind_blast 122"
@@ -938,7 +938,7 @@ local function le()
     end
 
     if e.VampiricTouch:IsCastable() and (r == 0 or r > e.VampiricTouch:CastTime() + .5) and not t:IsMoving() and (h <= 4 or (h < 7 and t:Insanity() < 30 and t:BuffDown(e.DarkThoughtBuff))) then
-        if E.CastCycle(e.VampiricTouch, L, re, not a:IsSpellInRange(e.VampiricTouch)) then
+        if E.CastCycle(e.VampiricTouch, R, re, not a:IsSpellInRange(e.VampiricTouch)) then
             return "vampiric_touch 124"
         end
 
@@ -961,7 +961,7 @@ local function le()
     end
 
     if e.ShadowWordPain:IsCastable() and h <= 4 and (not e.Misery:IsAvailable()) then
-        if E.CastCycle(e.ShadowWordPain, L, he, not a:IsSpellInRange(e.ShadowWordPain)) then
+        if E.CastCycle(e.ShadowWordPain, R, he, not a:IsSpellInRange(e.ShadowWordPain)) then
             return "shadow_word_pain 128"
         end
 
@@ -1001,37 +1001,37 @@ local function le()
 
 end
 
-local function C()
-    P = HeroRotationCharDB.Toggles[6]
+local function U()
+    Y = HeroRotationCharDB.Toggles[6]
     T = HeroRotationCharDB.Toggles[4]
-    S = HeroRotationCharDB.Toggles[5]
-    _ = HeroRotationCharDB.Toggles[12]
+    D = HeroRotationCharDB.Toggles[5]
+    z = HeroRotationCharDB.Toggles[12]
     te = not HeroRotationCharDB.Toggles[15]
     ie = HeroRotationCharDB.Toggles[60]
     Q = HeroRotationCharDB.Toggles[61]
     K = HeroRotationCharDB.Toggles[62]
-    N = false
+    O = false
     u = false
-    D = false
+    H = false
     X = false
-    R = false
-    if ((i.Shadow.PowerInfusion == "CDs" and c()) or (i.Shadow.PowerInfusion == "Small CDs" and (c() or S)) or (i.Shadow.PowerInfusion == "Always")) then
-        N = true
+    S = false
+    if ((i.Shadow.PowerInfusion == "CDs" and c()) or (i.Shadow.PowerInfusion == "Small CDs" and (c() or D)) or (i.Shadow.PowerInfusion == "Always")) then
+        O = true
     end
 
-    if ((i.Shadow.VoidEruption == "CDs" and c()) or (i.Shadow.VoidEruption == "Small CDs" and (c() or S)) or (i.Shadow.VoidEruption == "Always")) then
+    if ((i.Shadow.VoidEruption == "CDs" and c()) or (i.Shadow.VoidEruption == "Small CDs" and (c() or D)) or (i.Shadow.VoidEruption == "Always")) then
         u = true
     end
 
-    if ((i.Shadow.VoidTorrent == "CDs" and c()) or (i.Shadow.VoidTorrent == "Small CDs" and (c() or S)) or (i.Shadow.VoidTorrent == "Always")) then
-        D = true
+    if ((i.Shadow.VoidTorrent == "CDs" and c()) or (i.Shadow.VoidTorrent == "Small CDs" and (c() or D)) or (i.Shadow.VoidTorrent == "Always")) then
+        H = true
     end
 
-    if ((i.Shadow.MindBender == "CDs" and c()) or (i.Shadow.MindBender == "Small CDs" and (c() or S)) or (i.Shadow.MindBender == "Always")) then
-        R = true
+    if ((i.Shadow.MindBender == "CDs" and c()) or (i.Shadow.MindBender == "Small CDs" and (c() or D)) or (i.Shadow.MindBender == "Always")) then
+        S = true
     end
 
-    if ((i.Shadow.ShadowCrash == "CDs" and c()) or (i.Shadow.ShadowCrash == "Small CDs" and (c() or S)) or (i.Shadow.ShadowCrash == "Always")) then
+    if ((i.Shadow.ShadowCrash == "CDs" and c()) or (i.Shadow.ShadowCrash == "Small CDs" and (c() or D)) or (i.Shadow.ShadowCrash == "Always")) then
         X = true
     end
 
@@ -1046,25 +1046,25 @@ local function C()
 
     end
 
-    b = 0
+    g = 0
     if e.Fleshcraft:IsCastable() and (r == 0 or r > e.Fleshcraft:ExecuteTime()) and T and not t:IsMoving() and (e.PustuleEruption:SoulbindEnabled() or e.VolatileSolvent:SoulbindEnabled()) then
-        b = b + 3
+        g = g + 3
     end
 
     if e.ArcaneTorrent:IsCastable() and c() then
-        b = b + t:GCD()
+        g = g + t:GCD()
     end
 
-    if ((n.ShadowedOrbofTorment:ID() == k and i.Commons.Enabled.TopTrinket) or (n.ShadowedOrbofTorment:ID() == v and i.Commons.Enabled.BottomTrinket)) and n.ShadowedOrbofTorment:IsEquippedAndReady() and (r == 0 or r > 2) then
-        b = b + 2
+    if ((n.ShadowedOrbofTorment:ID() == k and i.Commons.Enabled.TopTrinket) or (n.ShadowedOrbofTorment:ID() == q and i.Commons.Enabled.BottomTrinket)) and n.ShadowedOrbofTorment:IsEquippedAndReady() and (r == 0 or r > 2) then
+        g = g + 2
     end
 
     if e.VampiricTouch:IsCastable() and (r == 0 or r > e.VampiricTouch:CastTime() + .5) and (not e.Damnation:IsAvailable()) then
-        b = b + e.VampiricTouch:CastTime()
+        g = g + e.VampiricTouch:CastTime()
     end
 
     if e.MindBlast:IsReady() and (r == 0 or r > e.MindBlast:CastTime() + .5) and (e.Damnation:IsAvailable()) then
-        b = b + e.MindBlast:CastTime()
+        g = g + e.MindBlast:CastTime()
     end
 
 end
@@ -1072,12 +1072,12 @@ end
 local function T()
     ne = t:GetEnemiesInMeleeRange(8)
     ye = t:GetEnemiesInRange(30)
-    L = t:GetEnemiesInRange(40)
-    W = a:GetEnemiesInSplashRange(15)
+    R = t:GetEnemiesInRange(40)
+    P = a:GetEnemiesInSplashRange(15)
     k, oe = GetInventoryItemID("player", 13)
-    v, oe = GetInventoryItemID("player", 14)
+    q, oe = GetInventoryItemID("player", 14)
         if G() and i.Commons.AoeMode == "Conservative" then
-        F = a:GetEnemiesInSplashRangeCount(8)
+        V = a:GetEnemiesInSplashRangeCount(8)
         h = a:GetEnemiesInSplashRangeCount(15)
     elseif G() and i.Commons.AoeMode == "Aggresive" then
         local t = 0
@@ -1095,7 +1095,7 @@ local function T()
 
         end
 
-        F = t
+        V = t
         h = t
     end
 
@@ -1115,18 +1115,18 @@ local function T()
     end
 
     if not G() then
-        F = 1
+        V = 1
         h = 1
         y = 1
     end
 
     if ie then
         h = 10
-        F = 10
+        V = 10
     end
 
-    ee = pe(W)
-    Z = ge(W)
+    ee = pe(P)
+    Z = ge(P)
     if not BotOn then
         d = 0
         o = 0
@@ -1140,11 +1140,16 @@ local function T()
         o = 0
     end
 
-    fe = C()
-    if j(200174):IsAvailable() then
-        H = j(200174)
+    fe = U()
+    if l.QueuedCast() then
+        o = l.QueuedCast()
+        return "Custom Queue " .. v(o):ID()
+    end
+
+    if v(200174):IsAvailable() then
+        L = v(200174)
     else
-        H = j(34433)
+        L = v(34433)
     end
 
         if l.GUISettings.General.OpenerReset > 0 and not HeroRotationCharDB.Toggles[6] then
@@ -1167,13 +1172,13 @@ local function T()
         l.Print("Mass Dispel Queue is now " .. (HeroRotationCharDB.Toggles[61] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-        if (K and j(9484):IsUsableP() and j(9484):CooldownRemains(BypassRecovery) <= 0) then
+        if (K and v(9484):IsUsableP() and v(9484):CooldownRemains(BypassRecovery) <= 0) then
         if f("mouseover"):GUID() ~= nil and f("mouseover"):IsInRange(30) then
             d = 19484
             return "queue Shackle MO"
         end
 
-    elseif ((not j(9484):IsUsableP() or j(9484):CooldownRemains() > 0 or t:PrevGCD(1, j(9484))) and K) then
+    elseif ((not v(9484):IsUsableP() or v(9484):CooldownRemains() > 0 or t:PrevGCD(1, v(9484))) and K) then
         HeroRotationCharDB.Toggles[62] = not HeroRotationCharDB.Toggles[62]
         l.Print("Shackle Undead Queue is now " .. (HeroRotationCharDB.Toggles[62] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
@@ -1191,7 +1196,7 @@ local function T()
         o = 999
     end
 
-    if t:IsChanneling(j(355321)) then
+    if t:IsChanneling(v(355321)) then
         if s(e.Pool, nil) then
             o = 999
             return "Trinket Channel"
@@ -1216,7 +1221,7 @@ local function T()
     end
 
     if t:IsChanneling(e.VoidTorrent) then
-        local t = Y()
+        local t = W()
         if t then
             return t
         end
@@ -1228,7 +1233,7 @@ local function T()
 
     end
 
-    if t:IsChanneling(j(324631)) then
+    if t:IsChanneling(v(324631)) then
                 if t:AffectingCombat() and i.Shadow.CastCancelFC then
             o = 1999
         elseif l.CastAnnotated(e.Pool, false, "WAIT") then
@@ -1239,7 +1244,7 @@ local function T()
     end
 
     m = 2
-    if not t:AffectingCombat() and ((P) or (i.Commons.DBMSupport and l.BossMods:GetPullTimer() < b + t:GCD() and l.BossMods:GetPullTimer() > 0)) and E.TargetIsValid() and not t:IsMoving() then
+    if not t:AffectingCombat() and ((Y) or (i.Commons.DBMSupport and l.BossMods:GetPullTimer() < g + t:GCD() and l.BossMods:GetPullTimer() > 0)) and E.TargetIsValid() and not t:IsMoving() then
         local e = ce()
         if e then
             return e
@@ -1285,14 +1290,14 @@ local function T()
 
     end
 
-    if E.TargetIsValid() and t:AffectingCombat() and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285 or a:NPCID() == 168326 or a:NPCID() == 176581 or a:NPCID() == 176920 or a:NPCID() == 177892 or a:NPCID() == 182778 or a:NPCID() == 185402 or a:NPCID() == 183945 or a:NPCID() == 182074 or a:NPCID() == 184737 or a:NPCID() == 179733 or a:NPCID() == 115402 or a:NPCID() == 115406 or a:NPCID() == 115395 or UnitExists("boss1") or a:NPCID() == 115388 or P) and not t:IsDeadOrGhost() then
-        z = g.FightRemains(W, false)
+    if E.TargetIsValid() and t:AffectingCombat() and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285 or a:NPCID() == 168326 or a:NPCID() == 176581 or a:NPCID() == 176920 or a:NPCID() == 177892 or a:NPCID() == 182778 or a:NPCID() == 185402 or a:NPCID() == 183945 or a:NPCID() == 182074 or a:NPCID() == 184737 or a:NPCID() == 179733 or a:NPCID() == 115402 or a:NPCID() == 115406 or a:NPCID() == 115395 or UnitExists("boss1") or a:NPCID() == 115388 or Y) and not t:IsDeadOrGhost() then
+        _ = b.FightRemains(P, false)
         if (a:IsDummy() or a:NPCID() == 153285 or a:NPCID() == 168326 or a:NPCID() == 176581 or a:NPCID() == 176920) then
-            z = 99999999999
+            _ = 99999999999
         end
 
-        U = g.CombatTime()
-        V = z + U
+        M = b.CombatTime()
+        F = _ + M
         if e.Dispersion:IsCastable() and t:HealthPercentage() < i.Shadow.DispersionHP then
             if s(e.Dispersion, nil) then
                 o = 47585
@@ -1350,10 +1355,10 @@ local function T()
         end
 
         m = 2
-        A = q(a, false)
-        ae = q(a, true)
-        M = (h > (2 + x(t:BuffUp(e.VoidformBuff))))
-        J = ((not SpheresHarmonyEquipped) and (I ~= 4 or (V >= 33 and U <= 20 or V <= 25 and V >= 20)) or e.PowerInfusion:CooldownRemains() < t:GCD() * 3 or t:BuffUp(e.PowerInfusionBuff) or z <= 25)
+        A = j(a, false)
+        ae = j(a, true)
+        C = (h > (2 + x(t:BuffUp(e.VoidformBuff))))
+        J = ((not SpheresHarmonyEquipped) and (I ~= 4 or (F >= 33 and M <= 20 or F <= 25 and F >= 20)) or e.PowerInfusion:CooldownRemains() < t:GCD() * 3 or t:BuffUp(e.PowerInfusionBuff) or _ <= 25)
         w = y
         if e.SearingNightmare:IsAvailable() and y == 7 then
             w = 5 + 2 * x((J and e.VoidEruption:CooldownRemains() <= 10) and e.HungeringVoid:IsAvailable())
@@ -1381,7 +1386,7 @@ local function T()
         end
 
         p = (e.VampiricTouchDebuff:AuraActiveCount() >= w or not B)
-        O = (e.VoidEruption:CooldownUp() and u and J)
+        N = (e.VoidEruption:CooldownUp() and u and J)
         if (c()) then
             if e.Fireblood:IsCastable() and (t:BuffUp(e.VoidformBuff)) then
                 if s(e.Fireblood, nil) then
@@ -1426,7 +1431,7 @@ local function T()
         end
 
         if (true) then
-            local e = Y()
+            local e = W()
             if e then
                 return e
             end
@@ -1443,7 +1448,7 @@ local function T()
 
     end
 
-    if E.TargetIsValid() and not UnitIsFriend("target", "player") and t:AffectingCombat() and (not a:AffectingCombat() and not a:IsDummy() and a:NPCID() ~= 153285) and not _ then
+    if E.TargetIsValid() and not UnitIsFriend("target", "player") and t:AffectingCombat() and (not a:AffectingCombat() and not a:IsDummy() and a:NPCID() ~= 153285) and not z then
         d = 999
     end
 
