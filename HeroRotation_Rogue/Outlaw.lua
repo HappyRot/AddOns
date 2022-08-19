@@ -29,7 +29,7 @@ local M = HeroRotationCharDB.Toggles[53]
 local Y = HeroRotationCharDB.Toggles[30]
 local Z = HeroRotationCharDB.Toggles[54]
 local x = 0
-local K = { 324736, 228318, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 331510, 344739, 368477, 368396, 355057, 356133, 342139, 353706, 355782, 327155, 359668 }
+local K = { 324736, 228318, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 331510, 344739, 368477, 368396, 355057, 356133, 342139, 353706, 355782, 327155, 158337 }
 local se = math.min
 local Q = math.abs
 local ee = nil
@@ -656,11 +656,11 @@ local function w()
     Z = HeroRotationCharDB.Toggles[54]
     O = GetInventoryItemID("player", 13)
     T = GetInventoryItemID("player", 14)
-            if not i.Commons.Enabled.TopTrinket and not i.Commons.Enabled.BotTrinket then
+            if not i.Commons.Enabled.TopTrinket and not i.Commons.Enabled.BottomTrinket then
         E = { O, T, s.ComputationDevice:ID(), s.VigorTrinket:ID(), s.FontOfPower:ID(), s.RazorCoral:ID(), s.CacheOfAcquiredTreasures:ID(), s.MistcallerOcarina:ID() }
-    elseif not i.Commons.Enabled.TopTrinket and i.Commons.Enabled.BotTrinket then
+    elseif not i.Commons.Enabled.TopTrinket and i.Commons.Enabled.BottomTrinket then
         E = { O, s.ComputationDevice:ID(), s.VigorTrinket:ID(), s.FontOfPower:ID(), s.RazorCoral:ID(), s.CacheOfAcquiredTreasures:ID(), s.MistcallerOcarina:ID() }
-    elseif not i.Commons.Enabled.BotTrinket and i.Commons.Enabled.TopTrinket then
+    elseif not i.Commons.Enabled.BottomTrinket and i.Commons.Enabled.TopTrinket then
         E = { T, s.ComputationDevice:ID(), s.VigorTrinket:ID(), s.FontOfPower:ID(), s.RazorCoral:ID(), s.CacheOfAcquiredTreasures:ID(), s.MistcallerOcarina:ID() }
     end
 
@@ -692,6 +692,11 @@ local function y()
     end
 
     h = w()
+    if a.QueuedCast() then
+        o = a.QueuedCast()
+        return "Custom Queue " .. l(o):ID()
+    end
+
     if h then
         return h
     end
@@ -953,7 +958,7 @@ local function y()
 
     end
 
-    K = { 324736, 228318, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 331510, 344739, 368477, 368396, 355057, 356133, 342139, 353706, 355782, 327155, 359668 }
+    K = { 324736, 228318, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 331510, 344739, 368477, 368396, 355057, 356133, 342139, 353706, 355782, 327155, 359668, 158337 }
     if UnitExists("target") and e.Shiv:IsReady() and not Z then
         if UnitCanAttack("player", "target") and UnitAffectingCombat("target") and UnitIsDead("target") ~= true then
             for t = 0, 40 do

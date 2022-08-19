@@ -29,7 +29,7 @@ local ne = HeroRotationCharDB.Toggles[28]
 local Y = HeroRotationCharDB.Toggles[29]
 local ie = HeroRotationCharDB.Toggles[30]
 local _e = HeroRotationCharDB.Toggles[54]
-local xe = { 324736, 228318, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 331510, 344739, 368477, 368396, 355057, 356133, 342139, 353706, 355782, 327155, 359668, 321220 }
+local xe = { 324736, 228318, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 331510, 344739, 368477, 368396, 355057, 356133, 342139, 353706, 355782, 327155, 359668, 321220, 158337 }
 local ze = nil
 local ae = nil
 local P = false
@@ -970,6 +970,11 @@ local function b()
     u = t:ComboPointsDeficit()
     v = ve()
     l = W()
+    if a.QueuedCast() then
+        o = a.QueuedCast()
+        return "Custom Queue " .. m(o):ID()
+    end
+
     if l then
         return l
     end
@@ -1242,7 +1247,7 @@ local function b()
 
     end
 
-    xe = { 324736, 228318, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 331510, 344739, 368477, 368396, 355057, 356133, 342139, 353706, 355782, 327155, 359668, 321220 }
+    xe = { 324736, 228318, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 331510, 344739, 368477, 368396, 355057, 356133, 342139, 353706, 355782, 327155, 359668, 321220, 158337 }
     if UnitExists("target") and e.Shiv:IsReady() and not _e then
         if UnitCanAttack("player", "target") and UnitAffectingCombat("target") and UnitIsDead("target") ~= true then
             for t = 0, 40 do
