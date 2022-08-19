@@ -4,20 +4,20 @@ local u = HeroLib
 local e = HeroCache
 local m = u.Unit
 local a = m.Player
-local _ = m.Pet
+local E = m.Pet
 local t = m.Target
 local h = u.Spell
 local e = u.MultiSpell
 local n = u.Item
 local s = HeroRotation
-local A = s.AoEON
-local q = s.CDsON
+local O = s.AoEON
+local x = s.CDsON
 local o = s.Cast
 local d = HeroRotationCharDB.Toggles[4]
 local H = HeroRotationCharDB.Toggles[5]
-local O = HeroRotationCharDB.Toggles[6]
+local _ = HeroRotationCharDB.Toggles[6]
 local D = not HeroRotationCharDB.Toggles[15]
-local E = HeroRotationCharDB.Toggles[12]
+local T = HeroRotationCharDB.Toggles[12]
 local U = HeroRotationCharDB.Toggles[60]
 local S = HeroRotationCharDB.Toggles[150]
 local c = false
@@ -26,7 +26,7 @@ local p = false
 local w = false
 local y = false
 local f = false
-local T = s.Commons.Everyone
+local A = s.Commons.Everyone
 local e = s.Commons.Warlock
 local i = { General = s.GUISettings.General, Commons = s.GUISettings.APL.Warlock.Commons, Destruction = s.GUISettings.APL.Warlock.Destruction }
 local e = h.Warlock.Destruction
@@ -38,12 +38,12 @@ local v, b, r
 local z
 local L
 local G
-local j
+local q
 local l = 11111
-local x = 11111
+local j = 11111
 u:RegisterForEvent(function()
     l = 11111
-    x = 11111
+    j = 11111
 end, "PLAYER_REGEN_ENABLED")
 e.SummonInfernal:RegisterInFlight()
 e.ChaosBolt:RegisterInFlight()
@@ -192,7 +192,7 @@ local function B(a)
         end
 
         return true
-    elseif ((a:DebuffRefreshable(e.ImmolateDebuff) and ((not e.Cataclysm:IsAvailable()) or e.Cataclysm:CooldownRemains() > a:DebuffRemains(e.ImmolateDebuff))) and not a:DebuffUp(e.Havoc) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and i.Destruction.TargetSwap == "AutoSwap" and a:GUID() ~= t:GUID() and not E) then
+    elseif ((a:DebuffRefreshable(e.ImmolateDebuff) and ((not e.Cataclysm:IsAvailable()) or e.Cataclysm:CooldownRemains() > a:DebuffRemains(e.ImmolateDebuff))) and not a:DebuffUp(e.Havoc) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and i.Destruction.TargetSwap == "AutoSwap" and a:GUID() ~= t:GUID() and not T) then
         if a:DebuffUp(e.Havoc) then
             MOshouldcast = 6353
         else
@@ -222,7 +222,7 @@ local function P(n)
         end
 
         return true
-    elseif ((n:DebuffRefreshable(e.ImmolateDebuff) and (not e.Cataclysm:IsAvailable() or e.Cataclysm:CooldownRemains() > n:DebuffRemains(e.ImmolateDebuff))) and not n:DebuffUp(e.Havoc) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285) and i.Destruction.TargetSwap == "AutoSwap" and n:GUID() ~= t:GUID() and not E) then
+    elseif ((n:DebuffRefreshable(e.ImmolateDebuff) and (not e.Cataclysm:IsAvailable() or e.Cataclysm:CooldownRemains() > n:DebuffRemains(e.ImmolateDebuff))) and not n:DebuffUp(e.Havoc) and (n:AffectingCombat() or n:IsDummy() or n:NPCID() == 153285) and i.Destruction.TargetSwap == "AutoSwap" and n:GUID() ~= t:GUID() and not T) then
         if n:DebuffUp(e.Havoc) then
             MOshouldcast = 348
         else
@@ -248,7 +248,7 @@ local function u(a)
         end
 
         return true
-    elseif ((a:DebuffRemains(e.ImmolateDebuff) < 5 and (not e.Cataclysm:IsAvailable() or e.Cataclysm:CooldownRemains() > a:DebuffRemains(e.ImmolateDebuff))) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and i.Destruction.TargetSwap == "AutoSwap" and a:GUID() ~= t:GUID() and not E) then
+    elseif ((a:DebuffRemains(e.ImmolateDebuff) < 5 and (not e.Cataclysm:IsAvailable() or e.Cataclysm:CooldownRemains() > a:DebuffRemains(e.ImmolateDebuff))) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and i.Destruction.TargetSwap == "AutoSwap" and a:GUID() ~= t:GUID() and not T) then
         if a:DebuffUp(e.Havoc) then
             MOshouldcast = 348
         else
@@ -359,7 +359,7 @@ local function Y()
 end
 
 local function C()
-    if (i.Commons.Enabled.TopTrinket or i.Commons.Enabled.BottomTrinket) and n.ShadowedOrbofTorment:IsEquippedAndReady() and (QuakingR == 0 or QuakingR > 2) and (e.SummonInfernal:CooldownRemains() < 3 or x < 42) then
+    if (i.Commons.Enabled.TopTrinket or i.Commons.Enabled.BottomTrinket) and n.ShadowedOrbofTorment:IsEquippedAndReady() and (QuakingR == 0 or QuakingR > 2) and (e.SummonInfernal:CooldownRemains() < 3 or j < 42) then
         if n.ShadowedOrbofTorment:IsEquippedAndReady() then
                         if n.ShadowedOrbofTorment:ID() == k and i.Commons.Enabled.TopTrinket then
                 shouldcast = 24
@@ -373,7 +373,7 @@ local function C()
 
     end
 
-    if e.SummonInfernal:IsCastable() and q() and t:IsInMeleeRange(30) then
+    if e.SummonInfernal:IsCastable() and x() and t:IsInMeleeRange(30) then
         if o(e.SummonInfernal, nil) then
             if s.GUISettings.General.AutoGroundCast and t:NPCID() ~= 169769 and t:NPCID() ~= 168326 and t:NPCID() ~= 180018 and not c and y and (f or p or w) then
                 shouldcast = 11122
@@ -387,7 +387,7 @@ local function C()
 
     end
 
-    if e.DarkSoulInstability:IsCastable() and q() and (l() > 0 or e.SummonInfernal:CooldownRemains() > x) then
+    if e.DarkSoulInstability:IsCastable() and x() and (l() > 0 or e.SummonInfernal:CooldownRemains() > j) then
         if o(e.DarkSoulInstability, nil) then
             shouldcast = 113858
             return "dark_soul_instability cds 2"
@@ -395,7 +395,7 @@ local function C()
 
     end
 
-    if n.PotionofSpectralIntellect:IsReady() and q() and i.Commons.Enabled.Potions and D and ((a:BloodlustUp() and s.GUISettings.General.HoldPotforBL) or (l > 0 and not s.GUISettings.General.HoldPotforBL)) then
+    if n.PotionofSpectralIntellect:IsReady() and x() and i.Commons.Enabled.Potions and D and ((a:BloodlustUp() and s.GUISettings.General.HoldPotforBL) or (l > 0 and not s.GUISettings.General.HoldPotforBL)) then
         if o(n.PotionofSpectralIntellect, nil, nil) then
             shouldcast = 50
             return "potion cd 2"
@@ -403,7 +403,7 @@ local function C()
 
     end
 
-    if e.Berserking:IsCastable() and l() > 0 and q() then
+    if e.Berserking:IsCastable() and l() > 0 and x() then
         if o(e.Berserking, nil) then
             shouldcast = 26297
             return "berserking cds 4"
@@ -411,7 +411,7 @@ local function C()
 
     end
 
-    if e.BloodFury:IsCastable() and l() > 0 and q() then
+    if e.BloodFury:IsCastable() and l() > 0 and x() then
         if o(e.BloodFury, nil) then
             shouldcast = 20572
             return "blood_fury cds 5"
@@ -419,7 +419,7 @@ local function C()
 
     end
 
-    if e.Fireblood:IsCastable() and l() > 0 and q() then
+    if e.Fireblood:IsCastable() and l() > 0 and x() then
         if o(e.Fireblood, nil) then
             shouldcast = 265221
             return "fireblood cds 6"
@@ -521,7 +521,7 @@ local function F()
                 return "immolate aoe 110"
             end
 
-        elseif T.CastCycle(e.Immolate, v, u, not t:IsSpellInRange(e.Immolate)) then
+        elseif A.CastCycle(e.Immolate, v, u, not t:IsSpellInRange(e.Immolate)) then
             return "immolate aoe 10"
         end
 
@@ -656,7 +656,7 @@ local function W()
 
     end
 
-    if e.SoulFire:IsCastable() and (e.SoulFire:CastTime() < j) then
+    if e.SoulFire:IsCastable() and (e.SoulFire:CastTime() < q) then
         if o(e.SoulFire, nil, nil, not t:IsSpellInRange(e.SoulFire)) then
             shouldcast = 6353
             return "soul_fire havoc 4"
@@ -664,7 +664,7 @@ local function W()
 
     end
 
-    if e.DecimatingBolt:IsCastable() and d and (e.DecimatingBolt:CastTime() < j and e.LeadByExample:SoulbindEnabled()) then
+    if e.DecimatingBolt:IsCastable() and d and (e.DecimatingBolt:CastTime() < q and e.LeadByExample:SoulbindEnabled()) then
         if o(e.DecimatingBolt, nil, nil, not t:IsSpellInRange(e.DecimatingBolt)) then
             shouldcast = 325289
             return "decimating_bolt havoc 6"
@@ -672,7 +672,7 @@ local function W()
 
     end
 
-    if e.ScouringTithe:IsCastable() and d and (e.ScouringTithe:CastTime() < j) then
+    if e.ScouringTithe:IsCastable() and d and (e.ScouringTithe:CastTime() < q) then
         if o(e.ScouringTithe, nil, nil, not t:IsSpellInRange(e.ScouringTithe)) then
             shouldcast = 312321
             return "decimating_bolt havoc 8"
@@ -688,7 +688,7 @@ local function W()
 
     end
 
-    if e.ChaosBolt:IsReady() and (a:SoulShardsP() >= 2 or a:BuffUp(e.RitualofRuinBuff)) and (e.ChaosBolt:CastTime() < j) then
+    if e.ChaosBolt:IsReady() and (a:SoulShardsP() >= 2 or a:BuffUp(e.RitualofRuinBuff)) and (e.ChaosBolt:CastTime() < q) then
         if o(e.ChaosBolt, nil, nil, not t:IsSpellInRange(e.ChaosBolt)) then
             shouldcast = 116858
             return "chaos_bolt havoc 12"
@@ -704,7 +704,7 @@ local function W()
 
     end
 
-    if e.Incinerate:IsCastable() and (e.Incinerate:CastTime() < j) then
+    if e.Incinerate:IsCastable() and (e.Incinerate:CastTime() < q) then
         if o(e.Incinerate, nil, nil, not t:IsSpellInRange(e.Incinerate)) then
             shouldcast = 29722
             return "incinerate havoc 16"
@@ -714,11 +714,11 @@ local function W()
 
 end
 
-local function q()
-    O = HeroRotationCharDB.Toggles[6]
+local function x()
+    _ = HeroRotationCharDB.Toggles[6]
     d = HeroRotationCharDB.Toggles[4]
     H = HeroRotationCharDB.Toggles[5]
-    E = HeroRotationCharDB.Toggles[12]
+    T = HeroRotationCharDB.Toggles[12]
     D = not HeroRotationCharDB.Toggles[15]
     U = HeroRotationCharDB.Toggles[60]
     S = HeroRotationCharDB.Toggles[150]
@@ -739,11 +739,11 @@ end
 
 local function g()
     v = a:GetEnemiesInRange(40)
-        if A() and i.Commons.AoeMode == "Conservative" then
+        if O() and i.Commons.AoeMode == "Conservative" then
         r = t:GetEnemiesInSplashRangeCount(8)
         EnemiesCount10ySplash = t:GetEnemiesInSplashRangeCount(15)
         b = t:GetEnemiesInSplashRangeCount(40)
-    elseif A() and i.Commons.AoeMode == "Aggresive" then
+    elseif O() and i.Commons.AoeMode == "Aggresive" then
         local t = 0
         for e = 1, 20 do
             local e = "nameplate" .. e
@@ -778,7 +778,7 @@ local function g()
 
     end
 
-    if not A() then
+    if not O() then
         b = 1
         r = 1
     end
@@ -799,8 +799,8 @@ local function g()
         c = false
     end
 
-    ShouldReturn = q()
-    L, G, j = V(v)
+    ShouldReturn = x()
+    L, G, q = V(v)
     if a:IsDeadOrGhost() then
         MOshouldcast = 999
     end
@@ -839,7 +839,7 @@ local function g()
         u = 184600
     end
 
-    if h ~= nil and h:IsCastable() and not a:IsMoving() and not a:PrevGCD(1, h) and not a:IsCasting(h) and h:TimeSinceLastCast() > 1 and ((not _:IsActive()) or (_:IsActive() and u ~= _:NPCID())) then
+    if h ~= nil and h:IsCastable() and not a:IsMoving() and not a:PrevGCD(1, h) and not a:IsCasting(h) and h:TimeSinceLastCast() > 1 and ((not E:IsActive()) or (E:IsActive() and u ~= E:NPCID())) then
                                 if i.Commons.SummonPetSlot == 1 and not a:PrevGCD(1, h) then
             if o(h, nil) then
                 shouldcast = 688
@@ -868,8 +868,8 @@ local function g()
 
     end
 
-    if T.TargetIsValid() and a:AffectingCombat() and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285 or t:NPCID() == 168326 or t:NPCID() == 176581 or t:NPCID() == 176920 or t:NPCID() == 177892 or t:NPCID() == 182778 or t:NPCID() == 185402 or t:NPCID() == 183945 or t:NPCID() == 182074 or t:NPCID() == 184737 or t:NPCID() == 179733 or t:NPCID() == 115402 or t:NPCID() == 115406 or t:NPCID() == 115395 or UnitExists("boss1") or t:NPCID() == 115388 or O) and not a:IsDeadOrGhost() then
-        if not a:AffectingCombat() and ((O)) and T.TargetIsValid() and not a:IsMoving() then
+    if A.TargetIsValid() and (a:AffectingCombat() or _) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285 or t:NPCID() == 168326 or t:NPCID() == 176581 or t:NPCID() == 176920 or t:NPCID() == 177892 or t:NPCID() == 182778 or t:NPCID() == 185402 or t:NPCID() == 183945 or t:NPCID() == 182074 or t:NPCID() == 184737 or t:NPCID() == 179733 or t:NPCID() == 115402 or t:NPCID() == 115406 or t:NPCID() == 115395 or UnitExists("boss1") or t:NPCID() == 115388 or _) and not a:IsDeadOrGhost() then
+        if not a:AffectingCombat() and ((_)) and A.TargetIsValid() and not a:IsMoving() then
             local e = Y()
             if e then
                 return e
@@ -942,13 +942,13 @@ local function g()
             s.Print("Shadowfury Queue is now " .. (HeroRotationCharDB.Toggles[150] and "|cff00ff00on|r." or "|cffff0000off|r."))
         end
 
-        if a:AffectingCombat() or ((O)) then
-            if t:DebuffUp(e.Havoc) and not E and r > 1 then
+        if a:AffectingCombat() or ((_)) then
+            if t:DebuffUp(e.Havoc) and not T and r > 1 then
                 MOshouldcast = 999
                 return true
             end
 
-            if not _:IsDeadOrGhost() and UnitExists("pet") and e.HealthFunnel:IsCastable() and a:HealthPercentage() >= 35 and _:HealthPercentage() <= i.Commons.HealthFunnelHP and not a:PrevGCD(1, e.HealthFunnel) then
+            if not E:IsDeadOrGhost() and UnitExists("pet") and e.HealthFunnel:IsCastable() and a:HealthPercentage() >= 35 and E:HealthPercentage() <= i.Commons.HealthFunnelHP and not a:PrevGCD(1, e.HealthFunnel) then
                 if o(e.HealthFunnel) then
                     shouldcast = 755
                     return "HealthFunnel Pet High Priority"
@@ -1009,7 +1009,7 @@ local function g()
                         return "SoulFire main 5"
                     end
 
-                elseif T.CastCycle(e.SoulFire, v, B, not t:IsSpellInRange(e.SoulFire)) then
+                elseif A.CastCycle(e.SoulFire, v, B, not t:IsSpellInRange(e.SoulFire)) then
                     return "soul_fire main 5"
                 end
 
@@ -1022,7 +1022,7 @@ local function g()
                         return "Immolate main 6"
                     end
 
-                elseif T.CastCycle(e.Immolate, v, P, not t:IsSpellInRange(e.Immolate)) then
+                elseif A.CastCycle(e.Immolate, v, P, not t:IsSpellInRange(e.Immolate)) then
                     return "immolate main 6"
                 end
 
@@ -1076,7 +1076,7 @@ local function g()
 
             end
 
-            if e.Havoc:IsCastable() and A() and N() <= 0 and r > 1 then
+            if e.Havoc:IsCastable() and O() and N() <= 0 and r > 1 then
                 local i = t:GUID()
                 for n, a in pairs(v) do
                     if a:GUID() ~= i and not a:IsFacingBlacklisted() and not a:IsUserCycleBlacklisted() and (a:DebuffRemains(e.ImmolateDebuff) > e.Immolate:BaseDuration() * .5 or not e.InternalCombustion:IsAvailable()) then
@@ -1165,7 +1165,7 @@ local function g()
 
             end
 
-            if e.ChaosBolt:IsReady() and (x < 5.5 and x > e.ChaosBolt:CastTime() + e.ChaosBolt:TravelTime()) then
+            if e.ChaosBolt:IsReady() and (j < 5.5 and j > e.ChaosBolt:CastTime() + e.ChaosBolt:TravelTime()) then
                 if o(e.ChaosBolt, nil, nil, not t:IsSpellInRange(e.ChaosBolt)) then
                     shouldcast = 116858
                     return "chaos_bolt main 39"
@@ -1173,7 +1173,7 @@ local function g()
 
             end
 
-            if e.Conflagrate:IsCastable() and (e.Conflagrate:Charges() > 1 or x < a:GCD() + .5) then
+            if e.Conflagrate:IsCastable() and (e.Conflagrate:Charges() > 1 or j < a:GCD() + .5) then
                 if o(e.Conflagrate, nil, nil, not t:IsSpellInRange(e.Conflagrate)) then
                     shouldcast = 17962
                     return "conflagrate main 23"
