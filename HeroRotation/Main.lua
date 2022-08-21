@@ -13,11 +13,11 @@ local m = math.min
 local a = pairs
 local t = select
 local u
-local s = {  }
+local n = {  }
 local d
 local r
 local w, h
-local n = { General = e.GUISettings.General }
+local s = { General = e.GUISettings.General }
 local function t(e, t)
     if t then
         e.__MSQ_Normal:Hide()
@@ -40,8 +40,8 @@ local function t(e, t)
 
 end
 
-local function v(n, i, h, h, h, h, h, o)
-    if n == e and s and r then
+local function v(s, i, h, h, h, h, h, o)
+    if s == e and n and r then
         local e = r[i]
         if e then
             if type(e.Icon) == "table" then
@@ -152,21 +152,21 @@ local function m(n)
         HeroRotationDB = {  }
     end
 
-    local o, a, h, s, i, t
-    o, a, h, s, i = n:GetPoint()
+    local o, a, h, i, s, t
+    o, a, h, i, s = n:GetPoint()
     if not a then
         t = "UIParent"
     else
         t = a:GetName()
     end
 
-    HeroRotationDB.IconFramePos = { o, t, h, s, i }
+    HeroRotationDB.IconFramePos = { o, t, h, i, s }
 end
 
 e.MainFrame:SetScript("OnMouseUp", m)
 e.MainFrame:SetScript("OnHide", m)
 e.MainFrame:RegisterEvent("ADDON_LOADED")
-e.MainFrame:SetScript("OnEvent", function(h, t, i)
+e.MainFrame:SetScript("OnEvent", function(s, t, i)
     if t == "ADDON_LOADED" then
         if i == "HeroRotation" then
             r = { ["Main Icon"] = e.MainIconFrame, ["Top Icons"] = e.SmallIconFrame, ["Left Icon"] = e.LeftIconFrame, ["Suggested Icon"] = e.SuggestedIconFrame, ["Right Suggested Icon"] = e.RightSuggestedIconFrame, ["Part Overlay"] = e.MainIconPartOverlayFrame }
@@ -175,7 +175,7 @@ e.MainFrame:SetScript("OnEvent", function(h, t, i)
                 if u then
                     u:Register("HeroRotation", v, e)
                     for e, t in a(r) do
-                        s[t] = u:Group(p, e)
+                        n[t] = u:Group(p, e)
                     end
 
                 end
@@ -244,8 +244,8 @@ e.MainFrame:SetScript("OnEvent", function(h, t, i)
 
             end
 
-            if s then
-                for e, t in a(s) do
+            if n then
+                for e, t in a(n) do
                     if type(e.Icon) == "table" then
                         for a, e in a(e.Icon) do
                             if t then
@@ -263,7 +263,7 @@ e.MainFrame:SetScript("OnEvent", function(h, t, i)
 
                 end
 
-                for t, e in a(s) do
+                for t, e in a(n) do
                     if e then
                         e:ReSkin()
                     end
@@ -288,10 +288,6 @@ e.MainFrame:SetScript("OnEvent", function(h, t, i)
                 end)
                 o("Button", t, "ButtonReset", "Reset Buttons", "Resets the anchor of buttons.", function()
                     e.ToggleIconFrame:ResetAnchor()
-                end)
-                o("Button", t, "button.", "Toggle MiniMap Icon", "Toggle show/hide the minimap icon", function()
-                    n.General.MiniMap = not n.General.MiniMap
-                    HideMiniMapHR()
                 end)
                 t["General.ScaleUI"]:SetPoint("TOPLEFT", 225, -140)
             end
@@ -379,26 +375,26 @@ end
 
 e.Timer = { Pulse = 0 }
 function e.Pulse()
-    if not n.General.AdaptivePerformance then
-        o = n.General.TickRate
+    if not s.General.AdaptivePerformance then
+        o = s.General.TickRate
     else
         local e = GetFramerate()
         if GetTime() > r + 2 then
-            if n.General.TargetFrames - e >= 0 then
-                if o + n.General.TargetFrames - e >= 250 then
+            if s.General.TargetFrames - e >= 0 then
+                if o + s.General.TargetFrames - e >= 250 then
                     o = 250
                     r = GetTime()
                 else
-                    o = o + n.General.TargetFrames - e
+                    o = o + s.General.TargetFrames - e
                     r = GetTime()
                 end
 
             else
-                if o + n.General.TargetFrames - e <= 0 then
+                if o + s.General.TargetFrames - e <= 0 then
                     o = 0
                     r = GetTime()
                 else
-                    o = o + n.General.TargetFrames - e
+                    o = o + s.General.TargetFrames - e
                     r = GetTime()
                 end
 
@@ -429,8 +425,8 @@ function e.Pulse()
 
             end
 
-            if s then
-                for t, e in a(s) do
+            if n then
+                for t, e in a(n) do
                     if e then
                         e:ReSkin()
                     end

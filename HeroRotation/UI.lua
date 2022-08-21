@@ -52,6 +52,12 @@ function e.ResetIcons()
         e.ToggleIconFrame:SetAlpha(e.GUISettings.General.SetAlpha)
     end
 
+    if not (e.GUISettings.General.MiniMap) then
+        HRDBIcon:Hide("HeroRotation")
+    else
+        HRDBIcon:Show("HeroRotation")
+    end
+
 end
 
 function e:CreateBackdrop(a)
