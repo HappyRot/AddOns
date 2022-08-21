@@ -285,7 +285,7 @@ function a.Sepulcher()
 
                 if r + 6 <= 20 and r > e(197995):CastTime() + .5 then
             h = true
-        elseif RelocationExpire and (GetTime() >= RelocationExpire or (GetTime + e(197995):CastTime() < RelocationExpire and GetTime + e(197995):CastTime() > RelocationExpire + .5)) and (GetTime() + e(197995):CastTime() - 5) < RelocationExpire then
+        elseif RelocationExpire and (GetTime() >= RelocationExpire or (GetTime + e(197995):CastTime() < RelocationExpire and GetTime() + e(197995):CastTime() > RelocationExpire + .5)) and (GetTime() + e(197995):CastTime() - 5) < RelocationExpire then
             s = true
         end
 
