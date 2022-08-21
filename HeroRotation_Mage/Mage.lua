@@ -29,7 +29,7 @@ end
 
 a.Mage.Arcane = { ManaGem = a(36799), PotionofSpectralIntellect = a(171273), DarkmoonDeckPutrescence = a(173069), DreadfireVessel = a(184030), EmpyrealOrdnance = a(180117), FlameofBattle = a(181501), GlyphofAssimilation = a(184021), InscrutableQuantumDevice = a(179350), MacabreSheetMusic = a(184024), SinfulGladiatorsBadge = a(175921), SoulIgniter = a(184019), SoullettingRuby = a(178809), SunbloodAmethyst = a(178826), WakenersFrond = a(181457), ShadowedOrbofTorment = a(186428), TomeofMonstruousConstructions = a(186422) }
 a.Mage.Fire = { PotionofSpectralIntellect = a(171273), DreadfireVessel = a(184030), EmpyrealOrdnance = a(180117), FlameofBattle = a(181501), GlyphofAssimilation = a(184021), InscrutableQuantumDevice = a(179350), InstructorsDivineBell = a(184842), MacabreSheetMusic = a(184024), SinfulAspirantsBadge = a(175884), SinfulGladiatorsBadge = a(175921), SoulIgniter = a(184019), SunbloodAmethyst = a(178826), WakenersFrond = a(181457), ShadowedOrbofTorment = a(186428), TomeofMonstruousConstructions = a(186422) }
-a.Mage.Frost = { PotionofSpectralIntellect = a(171273), ShadowedOrbofTorment = a(186428), TomeofMonstruousConstructions = a(186422) }
+a.Mage.Frost = { PotionofSpectralIntellect = a(171273), ShadowedOrbofTorment = a(186428), TomeofMonstruousConstructions = a(186422), Healthstone = a(5512), HealPot = a(171267), CosmicHealPot = a(187802), PhialofSerenity = a(177278) }
 o.IFST = { CurrStacks = 0, CurrStacksTime = 0, OldStacks = 0, OldStacksTime = 0, Direction = 0 }
 local a = {  }
 a.IncantersFlowBuff = e(116267)
