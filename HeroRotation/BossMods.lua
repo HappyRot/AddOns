@@ -2,7 +2,7 @@ local e, a = ...
 local o = HeroLib
 local e, e = HeroCache, o.Utils
 local t = o.Unit
-local m = t.Player
+local y = t.Player
 local e = t.Target
 local e = o.Spell
 local o = o.Item
@@ -13,29 +13,30 @@ local o = string.lower
 local o = strsplit
 local o = tostring
 local d = _G.DBM
-local o = _G.BigWigsLoader
-local u = false
+local l = _G.BigWigsLoader
+local m = false
+local c = false
 HeroRotation = a
 a.BossMods = { EngagedBosses = {  } }
-local r = a.BossMods.EngagedBosses
-local n = false
+local o = a.BossMods.EngagedBosses
 local i = false
-local o = false
-local h = false
+local n = false
 local s = false
-local l = false
-local c = false
+local h = false
+local r = false
+local u = false
+local w = false
 if d then
     local e, a = {  }, {  }
-    local i = 0
-    u = true
+    local n = 0
+    m = true
     DBM_TIMER_PULL = _G.DBM_CORE_L.TIMER_PULL
-    d:RegisterCallback("DBM_TimerStart", function(o, t, s, i, o, o, n, o, o, o, o, o, o)
+    d:RegisterCallback("DBM_TimerStart", function(o, t, s, n, o, o, i, o, o, o, o, o, o)
         local o
-        if type(i) == "string" then
-            o = toNum[i:match("%d+")]
+        if type(n) == "string" then
+            o = toNum[n:match("%d+")]
         else
-            o = i
+            o = n
         end
 
         if not e[t] then
@@ -46,14 +47,14 @@ if d then
             e[t].duration = o
         end
 
-        if n then
-            e[t].spellid = n
-            a[n] = e[t]
+        if i then
+            e[t].spellid = i
+            a[i] = e[t]
         end
 
     end)
     d:RegisterCallback("DBM_SetStage", function(t, t, t, e, t, t)
-        i = e
+        n = e
     end)
     d:RegisterCallback("DBM_TimerStop", function(o, t)
         if e[t] then
@@ -75,7 +76,7 @@ if d then
                         e = 0
                     end
 
-                    return e, t, i
+                    return e, t, n
                 end
 
             end
@@ -94,7 +95,7 @@ if d then
                 e = 0
             end
 
-            return e, t, i
+            return e, t, n
         end
 
         return 0, 0, 0
@@ -104,13 +105,13 @@ if d then
             local t = e.localization.general.name
             local a = e.id
             if t then
-                r[t] = e
-                r[t].AddonBaseName = "DBM"
+                o[t] = e
+                o[t].AddonBaseName = "DBM"
             end
 
             if a then
-                r[a] = e
-                r[a].AddonBaseName = "DBM"
+                o[a] = e
+                o[a].AddonBaseName = "DBM"
             end
 
         end
@@ -119,76 +120,165 @@ if d then
     hooksecurefunc(d, "EndCombat", function(t, e)
         local t = e.localization.general.name or ""
         local e = e.id or ""
-        r[t] = nil
-        r[e] = nil
+        o[t] = nil
+        o[e] = nil
     end)
 end
 
-function a.BossMods:HasAnyAddon()
-    return u or HasBigWigs
-end
-
-function a.BossMods:GetPullTimer()
-    local e, n = 0, 0
-    if self:HasAnyAddon() then
-        local t, i = 0, 0
-        local a, o = 0, 0
-        if u then
-            t, i = DBM_GetTimeRemaining(DBM_TIMER_PULL)
-        end
-
-        if self.HasBigWigs then
-            a, o = BigWigs_GetTimeRemaining(BIGWIGS_TIMER_PULL)
-        end
-
-        if t > a then
-            e = t
-            n = i
-        else
-            e = a
-            n = o
-        end
-
+local f
+if l and not d then
+    c = true
+    local e = "BigWigs_Plugins"
+    if _G.IsAddOnLoaded(e) then
+        BIGWIGS_TIMER_PULL = _G.BigWigsAPI:GetLocale("BigWigs: Plugins").pull
+    else
+        local e = setmetatable({ enUS = "Pull", deDE = "Pull", esES = "Pull", itIT = "Ingaggio", frFR = "Pull", esMS = "Llamado de jefe", koKR = "전투 예정", ptBR = "Pull", zhCN = "拉怪", ruRU = "Атака", zhTW = "開怪倒數" }, { __index = function(e)
+            return e.enUS
+        end })
+        BIGWIGS_TIMER_PULL = e[GetLocale()]
     end
 
-    return e
-end
-
-function a.BossMods:GetTimer(e)
-    local i, n, t = 0, 0, 0
-    if e and self:HasAnyAddon() then
-        local t, o = 0, 0
-        local a, s = 0, 0
-        if u then
-            if type(e) == "string" then
-                t, o, phase = DBM_GetTimeRemaining(e)
-            else
-                t, o, phase = DBM_GetTimeRemainingBySpellID(e)
+    local e, t = {  }, {  }
+    local function a(i, o)
+        local t
+        for a = #e, 1, -1 do
+            t = e[a]
+                        if t.module == i and (not o or t.text == o) then
+                tremove(e, a)
+            elseif t.start + t.duration < GetTime() then
+                tremove(e, a)
             end
 
         end
 
-        if self.HasBigWigs then
-            a, s = BigWigs_GetTimeRemaining(e)
+    end
+
+    l.RegisterMessage(t, "BigWigs_StartBar", function(s, o, i, t, n)
+        a(o, t)
+        tinsert(e, { module = o, key = i, text = t, start = GetTime(), duration = n })
+    end)
+    l.RegisterMessage(t, "BigWigs_StopBar", function(o, t, e)
+        a(t, e)
+    end)
+    l.RegisterMessage(t, "BigWigs_StopBars", function(t, e)
+        a(e)
+    end)
+    l.RegisterMessage(t, "BigWigs_OnPluginDisable", function(t, e)
+        a(e)
+    end)
+    l.RegisterMessage(t, "BigWigs_OnBossDisable", function(t, e)
+        a(e)
+        local t = e.displayName or ""
+        local e = e.moduleName or ""
+        o[t] = nil
+        o[e] = nil
+    end)
+    l.RegisterMessage(t, "BigWigs_OnBossEngage", function(t, e, t)
+        local a = e.displayName
+        local t = e.moduleName
+        if a then
+            o[a] = e
+            o[a].AddonBaseName = "BigWigs"
         end
 
-        if t > a then
-            i = t
-            n = o
+        if t then
+            o[t] = e
+            o[t].AddonBaseName = "BigWigs"
+        end
+
+    end)
+    f = function(a)
+        local t
+        if a then
+            for o = 1, #e do
+                t = e[o]
+                if t.key == a then
+                    local a = t.start + t.duration
+                    local e = a - GetTime()
+                    local o = t.module.stage
+                    local t = t.module:GetStage()
+                    if e < 0 then
+                        e = 0
+                    end
+
+                    return e, a, o
+                end
+
+            end
+
         else
+            error("Bad argument 'text' (nil value) for function BigWigs_GetTimeRemaining")
+        end
+
+        return 0, 0
+    end
+end
+
+function a.BossMods:HasAnyAddon()
+    return m or c
+end
+
+function a.BossMods:GetPullTimer()
+    local o, i = 0, 0
+    if a.BossMods:HasAnyAddon() then
+        local e, n = 0, 0
+        local t, a = 0, 0
+        if m then
+            e, n = DBM_GetTimeRemaining(DBM_TIMER_PULL)
+        end
+
+        if c then
+            t, a, phase = f(BIGWIGS_TIMER_PULL)
+        end
+
+        if e > t then
+            o = e
+            i = n
+        else
+            o = t
             i = a
-            n = s
         end
 
     end
 
-    return i, n, phase
+    return o
+end
+
+function a.BossMods:GetTimer(e)
+    local n, i, t = 0, 0, 0
+    if e and self:HasAnyAddon() then
+        local t, a = 0, 0
+        local o, s = 0, 0
+        if m then
+            if type(e) == "string" then
+                t, a, phase = DBM_GetTimeRemaining(e)
+            else
+                t, a, phase = DBM_GetTimeRemainingBySpellID(e)
+            end
+
+        end
+
+        if c then
+            o, s, phase = f(e)
+        end
+
+        if t > o then
+            n = t
+            i = a
+        else
+            n = o
+            i = s
+        end
+
+    end
+
+    return n, i, phase
 end
 
 function a.BossMods:IsEngage(e)
     if self:HasAnyAddon() then
         local t = e and e
-        for a, e in pairs(r) do
+        for a, e in pairs(o) do
             if (not t or a:match(t)) and ((e.AddonBaseName == "DBM" and e.inCombat) or (e.AddonBaseName == "BigWigs" and e.isEngaged)) then
                 return true, a
             end
@@ -201,8 +291,8 @@ end
 
 function a.Sepulcher()
                                     if t("boss1"):NPCID() == 180773 then
-        local t, a, s = a.BossMods:GetTimer(360412)
-        if s == 1 then
+        local t, a, o = a.BossMods:GetTimer(360412)
+        if o == 1 then
             t = 100 - UnitPower("boss1", 3)
             a = (100 - t) + GetTime()
             if ((t <= 1 and t > 0)) and a ~= 0 then
@@ -211,20 +301,20 @@ function a.Sepulcher()
 
                                     if ((t > 5 and t < 20)) then
                 if ((e(157153):Charges() < 2) or (e(157153):Charges() == 2 and t < 15)) and t ~= 0 then
-                    i = true
+                    n = true
                 end
 
             elseif (t <= 5 and t ~= 0) then
-                n = true
+                i = true
             elseif CoreShieldExpire and GetTime() >= CoreShieldExpire and (GetTime() - 1) < CoreShieldExpire then
-                o = true
+                s = true
             end
 
         end
 
     elseif t("boss1"):NPCID() == 181395 then
-        local r, d, l = a.BossMods:GetTimer(359829)
-        if ((r <= 1 and r > 0)) and d ~= 0 then
+        local o, d, l = a.BossMods:GetTimer(359829)
+        if ((o <= 1 and o > 0)) and d ~= 0 then
             DustFlailExpire = d + 8
         end
 
@@ -232,15 +322,15 @@ function a.Sepulcher()
             DustFlailExpire = GetTime() + t("boss1"):CastRemains()
         end
 
-                if r <= 10 and r > e(197995):CastTime() + .5 then
+                if o <= 10 and o > e(197995):CastTime() + .5 then
             h = true
         elseif DustFlailExpire and GetTime() + e(197995):CastTime() >= DustFlailExpire and (GetTime() + e(197995):CastTime() - 3) < DustFlailExpire then
-            s = true
+            r = true
         end
 
-        local a, s, h = a.BossMods:GetTimer(359770)
-        if ((a <= 1 and a > 0)) and s ~= 0 then
-            RaveningBurrowExpire = s + 8
+        local a, o, h = a.BossMods:GetTimer(359770)
+        if ((a <= 1 and a > 0)) and o ~= 0 then
+            RaveningBurrowExpire = o + 8
         end
 
         if t("boss1"):IsCasting(e(359770)) then
@@ -249,20 +339,20 @@ function a.Sepulcher()
 
                         if a > 3 and a < 18 then
             if ((e(157153):Charges() < 2) or (e(157153):Charges() == 2 and a < 15)) and a ~= 0 then
-                i = true
+                n = true
             end
 
         elseif a <= 3 and a ~= 0 then
-            n = true
+            i = true
         elseif RaveningBurrowExpire and GetTime() >= RaveningBurrowExpire and (GetTime() - 1) < RaveningBurrowExpire then
-            o = true
+            s = true
         end
 
     elseif t("boss1"):NPCID() == 183501 then
-        local r, d, d = a.BossMods:GetTimer(362803)
-        local a, d, l = a.BossMods:GetTimer(362801)
-        if ((a <= 1 and a > 0)) and d ~= 0 then
-            RelocationExpire = d + 6
+        local d, o, o = a.BossMods:GetTimer(362803)
+        local a, o, l = a.BossMods:GetTimer(362801)
+        if ((a <= 1 and a > 0)) and o ~= 0 then
+            RelocationExpire = o + 6
         end
 
         for a = 1, GetNumGroupMembers() do
@@ -274,19 +364,19 @@ function a.Sepulcher()
 
                         if a > 9 and a < 24 then
             if ((e(157153):Charges() < 2) or (e(157153):Charges() == 2 and a < 15)) and a ~= 0 then
-                i = true
+                n = true
             end
 
         elseif a <= 9 and a ~= 0 then
-            n = true
+            i = true
         elseif RelocationExpire and GetTime() >= RelocationExpire and (GetTime() - 1) < RelocationExpire then
-            o = true
+            s = true
         end
 
-                if r + 6 <= 20 and r > e(197995):CastTime() + .5 then
+                if d + 6 <= 20 and d > e(197995):CastTime() + .5 then
             h = true
         elseif RelocationExpire and (GetTime() >= RelocationExpire or (GetTime + e(197995):CastTime() < RelocationExpire and GetTime() + e(197995):CastTime() > RelocationExpire + .5)) and (GetTime() + e(197995):CastTime() - 5) < RelocationExpire then
-            s = true
+            r = true
         end
 
     elseif t("boss1"):NPCID() == 181224 then
@@ -294,14 +384,14 @@ function a.Sepulcher()
                         if (UnitGroupRolesAssigned("raid" .. a) == "TANK") and t("raid" .. a):DebuffRemains(e(361966)) > e(197995):CastTime() and UnitThreatSituation("raid" .. a, "boss1") ~= nil and UnitThreatSituation("raid" .. a, "boss1") < 2 then
                 h = true
             elseif (UnitGroupRolesAssigned("raid" .. a) == "TANK") and t("raid" .. a):DebuffRemains(e(361966)) < e(197995):CastTime() and UnitThreatSituation("raid" .. a, "boss1") ~= nil and UnitThreatSituation("raid" .. a, "boss1") < 2 then
-                s = true
+                r = true
             end
 
         end
 
-        local a, s, h = a.BossMods:GetTimer(361643)
-        if ((a <= 1 and a > 0)) and not t("boss1"):IsCasting(e(361630)) and not t("boss1"):IsCasting(e(361643)) and s ~= 0 then
-            DominionExpire = s + 5
+        local a, o, h = a.BossMods:GetTimer(361643)
+        if ((a <= 1 and a > 0)) and not t("boss1"):IsCasting(e(361630)) and not t("boss1"):IsCasting(e(361643)) and o ~= 0 then
+            DominionExpire = o + 5
         end
 
         if t("boss1"):IsCasting(e(361643)) then
@@ -314,21 +404,21 @@ function a.Sepulcher()
 
                         if a > 8 and a < 23 then
             if ((e(157153):Charges() < 2) or (e(157153):Charges() == 2 and a < 15)) and a ~= 0 then
-                i = true
+                n = true
             end
 
         elseif a <= 8 and a ~= 0 then
-            n = true
+            i = true
             if DominionExpire then
             end
 
         elseif DominionExpire and GetTime() >= DominionExpire and (GetTime() - 1) < DominionExpire then
-            o = true
+            s = true
         end
 
     elseif t("boss1"):NPCID() == 182169 then
-        local r, d, l = a.BossMods:GetTimer(363088)
-        if ((r <= 1 and r > 0)) and d ~= 0 then
+        local o, d, l = a.BossMods:GetTimer(363088)
+        if ((o <= 1 and o > 0)) and d ~= 0 then
             CosmicShiftExpire = d + 3
         end
 
@@ -336,16 +426,16 @@ function a.Sepulcher()
             CosmicShiftExpire = GetTime() + t("boss1"):CastRemains()
         end
 
-                if r <= 20 and r > e(197995):CastTime() + .5 then
+                if o <= 20 and o > e(197995):CastTime() + .5 then
             h = true
         elseif CosmicShiftExpire and GetTime() + e(197995):CastTime() >= CosmicShiftExpire and (GetTime() + e(197995):CastTime() - 1) < CosmicShiftExpire then
-            c = true
-            s = true
+            w = true
+            r = true
         end
 
-        local a, s, h = a.BossMods:GetTimer(363130)
-        if ((a <= 1 and a > 0)) and s ~= 0 then
-            SynthesizeExpire = s + 20
+        local a, o, h = a.BossMods:GetTimer(363130)
+        if ((a <= 1 and a > 0)) and o ~= 0 then
+            SynthesizeExpire = o + 20
         end
 
         if t("boss1"):IsCasting(e(363130)) then
@@ -358,24 +448,24 @@ function a.Sepulcher()
 
                         if a > 10 and a < 25 then
             if ((e(157153):Charges() < 2) or (e(157153):Charges() == 2 and a < 15)) and a ~= 0 then
-                i = true
+                n = true
             end
 
-        elseif t("boss1"):IsChanneling(e(363130)) and t("boss1"):ChannelRemains() > 10 and m:DebuffUp(e(363356)) and a ~= 0 then
-            n = true
+        elseif t("boss1"):IsChanneling(e(363130)) and t("boss1"):ChannelRemains() > 10 and y:DebuffUp(e(363356)) and a ~= 0 then
+            i = true
         elseif SynthesizeExpire and GetTime() >= SynthesizeExpire and (GetTime() - 1) < SynthesizeExpire then
-            o = true
+            s = true
         end
 
     elseif t("boss1"):NPCID() == 180906 then
         local t, t, e = a.BossMods:GetTimer(359236)
         if e == 2 then
-            l = true
+            u = true
         end
 
     elseif t("boss1"):NPCID() == 181954 then
-        local r, d, l = a.BossMods:GetTimer(361815)
-        if ((r <= 1 and r > 0)) and d ~= 0 then
+        local o, d, l = a.BossMods:GetTimer(361815)
+        if ((o <= 1 and o > 0)) and d ~= 0 then
             HopeBreakerExpire = d + 2
         end
 
@@ -383,26 +473,26 @@ function a.Sepulcher()
             HopeBreakerExpire = GetTime() + t("boss1"):CastRemains()
         end
 
-                        if r > 13 and r < 28 then
-            if ((e(157153):Charges() < 2) or (e(157153):Charges() == 2 and r < 15)) and r ~= 0 then
-                i = true
+                        if o > 13 and o < 28 then
+            if ((e(157153):Charges() < 2) or (e(157153):Charges() == 2 and o < 15)) and o ~= 0 then
+                n = true
             end
 
-        elseif r <= 13 and r ~= 0 then
-            n = true
+        elseif o <= 13 and o ~= 0 then
+            i = true
         elseif HopeBreakerExpire and GetTime() >= HopeBreakerExpire and (GetTime() - 1) < HopeBreakerExpire then
-            o = true
-        end
-
-                if r <= 20 and r > e(197995):CastTime() + .5 then
-            h = true
-        elseif HopeBreakerExpire and GetTime() + e(197995):CastTime() >= HopeBreakerExpire and (GetTime() + e(197995):CastTime() - 1) < HopeBreakerExpire then
             s = true
         end
 
-        local a, r, d = a.BossMods:GetTimer(365805)
-        if ((a <= 1 and a > 0)) and r ~= 0 then
-            EmpoweredHopeBreakerExpire = r + 2
+                if o <= 20 and o > e(197995):CastTime() + .5 then
+            h = true
+        elseif HopeBreakerExpire and GetTime() + e(197995):CastTime() >= HopeBreakerExpire and (GetTime() + e(197995):CastTime() - 1) < HopeBreakerExpire then
+            r = true
+        end
+
+        local a, o, d = a.BossMods:GetTimer(365805)
+        if ((a <= 1 and a > 0)) and o ~= 0 then
+            EmpoweredHopeBreakerExpire = o + 2
         end
 
         if t("boss1"):IsCasting(e(365805)) then
@@ -411,28 +501,28 @@ function a.Sepulcher()
 
                         if a > 13 and a < 28 then
             if ((e(157153):Charges() < 2) or (e(157153):Charges() == 2 and a < 15)) and a ~= 0 then
-                i = true
+                n = true
             end
 
         elseif a <= 13 and a ~= 0 then
-            n = true
+            i = true
         elseif EmpoweredHopeBreakerExpire and GetTime() >= EmpoweredHopeBreakerExpire and (GetTime() - 3) < EmpoweredHopeBreakerExpire then
-            o = true
+            s = true
         end
 
                 if a <= 20 and a > e(197995):CastTime() + .5 then
             h = true
         elseif EmpoweredHopeBreakerExpire and (a > 20 or a == 0) and GetTime() + e(197995):CastTime() >= EmpoweredHopeBreakerExpire and (GetTime() + e(197995):CastTime() - 5) < EmpoweredHopeBreakerExpire then
-            s = true
+            r = true
         end
 
     elseif t("boss1"):NPCID() == 181398 or t("boss1"):NPCID() == 181399 then
-        local s, h, r = a.BossMods:GetTimer(360300)
-        local a, r, d = a.BossMods:GetTimer(360304)
-                if ((s <= 1 and s > 0)) and h ~= 0 then
-            SwarmExpire = h + 20
-        elseif ((a <= 1 and a > 0)) and r ~= 0 then
+        local o, r, h = a.BossMods:GetTimer(360300)
+        local a, h, d = a.BossMods:GetTimer(360304)
+                if ((o <= 1 and o > 0)) and r ~= 0 then
             SwarmExpire = r + 20
+        elseif ((a <= 1 and a > 0)) and h ~= 0 then
+            SwarmExpire = h + 20
         end
 
         for e = 1, 2 do
@@ -443,29 +533,29 @@ function a.Sepulcher()
         end
 
                         if SwarmExpire and GetTime() < SwarmExpire - 20 and GetTime() + 15 >= SwarmExpire - 20 then
-            if ((e(157153):Charges() < 2) or (e(157153):Charges() == 2 and s < 15)) and s ~= 0 then
-                i = true
+            if ((e(157153):Charges() < 2) or (e(157153):Charges() == 2 and o < 15)) and o ~= 0 then
+                n = true
             end
 
-        elseif SwarmExpire and GetTime() >= SwarmExpire - 20 and s ~= 0 then
-            n = true
+        elseif SwarmExpire and GetTime() >= SwarmExpire - 20 and o ~= 0 then
+            i = true
         elseif SwarmExpire and (GetTime() - 1) < SwarmExpire - 2 then
-            o = true
+            s = true
         end
 
     elseif t("boss1"):NPCID() == 180990 then
-        local a, s, h = a.BossMods:GetTimer(360281)
+        local a, o, h = a.BossMods:GetTimer(360281)
         if h == 3 then
-            if ((a <= 1 and a > 0)) and s ~= 0 then
-                RuneExpire = s + 8
+            if ((a <= 1 and a > 0)) and o ~= 0 then
+                RuneExpire = o + 8
             end
 
-            local s = nil
+            local o = nil
             for a = 1, GetNumGroupMembers() do
                 if t("raid" .. a):DebuffUp(e(360281)) then
-                    if s == nil or s < t("raid" .. a):DebuffRemains(e(360281)) then
-                        s = t("raid" .. a):DebuffRemains(360281)
-                        RuneExpire = GetTime() + s
+                    if o == nil or o < t("raid" .. a):DebuffRemains(e(360281)) then
+                        o = t("raid" .. a):DebuffRemains(360281)
+                        RuneExpire = GetTime() + o
                     end
 
                 end
@@ -474,36 +564,36 @@ function a.Sepulcher()
 
                                     if a > 5 and a < 20 then
                 if ((e(157153):Charges() < 2) or (e(157153):Charges() == 2 and a < 15)) and a ~= 0 then
-                    i = true
+                    n = true
                 end
 
             elseif a <= 5 and a ~= 0 then
-                n = true
+                i = true
                 if RuneExpire then
                 end
 
             elseif RuneExpire and GetTime() >= RuneExpire and (GetTime() - 1) < RuneExpire and S.RecallCloudburstTotem:IsReady() then
-                o = true
+                s = true
             end
 
         end
 
     end
 
-    return n, o, i, h, s, l, c
+    return i, s, n, h, r, u, w
 end
 
 function a.SpecSelection()
     local a, t = IsAddOnLoaded("HeroRotation_Shaman")
     if a == true and t == true then
         local e = e.Shaman.Restoration
-        n = false
         i = false
-        o = false
-        h = false
+        n = false
         s = false
-        l = false
-        c = false
+        h = false
+        r = false
+        u = false
+        w = false
     end
 
 end
@@ -522,10 +612,10 @@ function a.RaidDamageInc()
     local t = nil
     local t = nil
     a.SpecSelection()
-    local r, r, r, r, r, r, r, t, r, r = GetInstanceInfo()
+    local o, o, o, o, o, o, o, t, o, o = GetInstanceInfo()
     if t == 2481 then
-        n, o, i, h, s, l, e = a.Sepulcher()
-        return n, o, i, h, s, l, e
+        i, s, n, h, r, u, e = a.Sepulcher()
+        return i, s, n, h, r, u, e
     end
 
 end
