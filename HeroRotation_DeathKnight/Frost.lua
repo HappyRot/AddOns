@@ -1769,7 +1769,7 @@ local function b()
 
         end
 
-        if not s.Frost.DisableBoSPooling and e.BreathofSindragosa:IsAvailable() and (e.BreathofSindragosa:CooldownRemains() < 10 and r()) then
+        if not s.Frost.DisableBoSPooling and e.BreathofSindragosa:IsAvailable() and (e.BreathofSindragosa:CooldownRemains() < 10 and r()) and not t:BuffUp(e.BreathofSindragosa) then
             local e = Y()
             if e then
                 return e
@@ -1777,7 +1777,7 @@ local function b()
 
         end
 
-        if (t:BuffUp(e.PillarofFrostBuff) and e.Obliteration:IsAvailable()) then
+        if (t:BuffUp(e.PillarofFrostBuff) and e.Obliteration:IsAvailable()) and not t:BuffUp(e.BreathofSindragosa) then
             local e = I()
             if e then
                 return e
@@ -1785,7 +1785,7 @@ local function b()
 
         end
 
-        if ((not t:HasTier(28, 4)) and (not A) and e.Obliteration:IsAvailable() and e.PillarofFrost:CooldownRemains() < 10) then
+        if ((not t:HasTier(28, 4)) and (not A) and e.Obliteration:IsAvailable() and e.PillarofFrost:CooldownRemains() < 10) and not t:BuffUp(e.BreathofSindragosa) then
             local e = P()
             if e then
                 return e
@@ -1793,7 +1793,7 @@ local function b()
 
         end
 
-        if (EnemiesCount10yd >= 2) then
+        if (EnemiesCount10yd >= 2) and not t:BuffUp(e.BreathofSindragosa) then
             local e = R()
             if e then
                 return e
@@ -1801,7 +1801,7 @@ local function b()
 
         end
 
-        if (true) then
+        if (true) and not t:BuffUp(e.BreathofSindragosa) then
             local e = m()
             if e then
                 return e
