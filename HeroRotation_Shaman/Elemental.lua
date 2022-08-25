@@ -1543,7 +1543,7 @@ local function b()
         if (Y and e.FaeTransfusion:IsUsableP() and e.FaeTransfusion:CooldownRemains(BypassRecovery) <= 0 and e.FaeTransfusion:IsAvailable()) then
         if i(e.FaeTransfusion, nil) then
             o = 328923
-            return "FaeTransfusion 1"
+            return "FaeTransfusion 3"
         end
 
     elseif ((not e.FaeTransfusion:IsUsableP() or e.FaeTransfusion:CooldownRemains(BypassRecovery) > 0 or not e.FaeTransfusion:IsAvailable()) and Y) then
@@ -1609,7 +1609,7 @@ local function b()
 
         end
 
-        if U and e.Meteor:CooldownRemains() <= 0 then
+        if U and UnitExists("pet") and e.Meteor:CooldownRemains(BypassRecovery) == 0 then
             if i(e.Meteor, nil) then
                 o = 117588
                 return "Meteor  Pet"
@@ -1837,7 +1837,7 @@ local function b()
         if s(e.FaeTransfusion) and E and h.Elemental.TTDSetting < a:TimeToDie() and e.FaeTransfusion:IsAvailable() and oe and (not e.MasterOfTheElements:IsAvailable() or v() or r >= 3) and ((e.FireElemental:CooldownRemains() > 20 and not e.StormElemental:IsAvailable()) or (e.StormElemental:CooldownRemains() > 20 and e.StormElemental:IsAvailable())) then
             if i(e.FaeTransfusion, nil) then
                 o = 328923
-                return "FaeTransfusion 1"
+                return "FaeTransfusion 2"
             end
 
         end
