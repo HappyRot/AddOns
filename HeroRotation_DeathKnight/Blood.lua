@@ -383,7 +383,7 @@ local function G()
 end
 
 local function V()
-    if e.DeathsDue:IsReady() and a:IsInMeleeRange(8) and y and (t:BuffDown(e.DeathAndDecayBuff) or t:BuffRemains(e.DeathAndDecayBuff) < 4 or t:BuffUp(e.CrimsonScourgeBuff)) then
+    if e.DeathsDue:IsReady() and a:IsInMeleeRange(8) and y and not t:IsMoving() and (t:BuffDown(e.DeathAndDecayBuff) or t:BuffRemains(e.DeathAndDecayBuff) < 4 or t:BuffUp(e.CrimsonScourgeBuff)) then
         if i(e.DeathsDue, nil, nil, not a:IsSpellInRange(e.DeathsDue)) then
             o = 324128
             return "deaths_due covenants 6"
