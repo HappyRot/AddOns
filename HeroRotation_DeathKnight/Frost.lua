@@ -555,7 +555,7 @@ local function F()
 
     end
 
-    if e.DeathAndDecay:IsReady() and (t:RunicPower() < 32) then
+    if e.DeathAndDecay:IsReady() and not t:IsMoving() and (t:RunicPower() < 32) then
         if o(e.DeathAndDecay) then
             a = 43265
             return "death_and_decay bosticking 6"
@@ -709,7 +709,7 @@ local function B()
 end
 
 local function te()
-    if e.DeathsDue:IsReady() and q and (((not e.Obliteration:IsAvailable()) or (e.Obliteration:IsAvailable() and EnemiesCount10yd >= 2 and e.PillarofFrost:CooldownDown()) or EnemiesCount10yd == 1) and (x or g)) then
+    if e.DeathsDue:IsReady() and q and not t:IsMoving() and (((not e.Obliteration:IsAvailable()) or (e.Obliteration:IsAvailable() and EnemiesCount10yd >= 2 and e.PillarofFrost:CooldownDown()) or EnemiesCount10yd == 1) and (x or g)) then
         if o(e.DeathsDue, nil, nil, not i[10]) then
             a = 324128
             return "deaths_due covenants 2"
@@ -1045,7 +1045,7 @@ local function G()
 
     end
 
-    if e.DeathAndDecay:IsReady() and (EnemiesCount10yd > 5) then
+    if e.DeathAndDecay:IsReady() and not t:IsMoving() and (EnemiesCount10yd > 5) then
         if o(e.DeathAndDecay, nil) then
             a = 43265
             return "death_and_decay cooldowns 30"
