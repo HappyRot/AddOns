@@ -126,11 +126,11 @@ end
 function e.MainIconFrame:ChangeIcon(i, t, o, a)
     self.Texture:SetTexture(i)
         if e.GUISettings.General.NotEnoughManaEnabled and not o then
-        self.Texture:SetGradient("HORIZONTAL", .5, .5, 1., .5, .5, 1.)
+        self.Texture:SetVertexColor(.5, .5, 1.)
     elseif a then
-        self.Texture:SetGradient("HORIZONTAL", 1., .5, .5, 1., .5, .5)
+        self.Texture:SetVertexColor(1., .5, .5)
     else
-        self.Texture:SetGradient("HORIZONTAL", 1., 1., 1., 1., 1., 1.)
+        self.Texture:SetVertexColor(1., 1., 1.)
     end
 
     self.Texture:SetAllPoints(self)
@@ -301,9 +301,9 @@ function e.SmallIconFrame:ChangeIcon(t, i, a, o)
     t.Texture:SetTexture(i)
     t.Texture:SetAllPoints(t)
     if o then
-        t.Texture:SetGradient("HORIZONTAL", 1., .5, .5, 1., .5, .5)
+        t.Texture:SetVertexColor(1., .5, .5)
     else
-        t.Texture:SetGradient("HORIZONTAL", 1., 1., 1., 1., 1., 1.)
+        t.Texture:SetVertexColor(1., 1., 1.)
     end
 
     if a then
@@ -488,9 +488,9 @@ function e.SuggestedIconFrame:ChangeIcon(o, t, a)
     self.Texture:SetTexture(o)
     self.Texture:SetAllPoints(self)
     if a then
-        self.Texture:SetGradient("HORIZONTAL", 1., .5, .5, 1., .5, .5)
+        self.Texture:SetVertexColor(1., .5, .5)
     else
-        self.Texture:SetGradient("HORIZONTAL", 1., 1., 1., 1., 1., 1.)
+        self.Texture:SetVertexColor(1., 1., 1.)
     end
 
     if e.GUISettings.General.BlackBorderIcon and not self.Backdrop:IsVisible() then
@@ -543,9 +543,9 @@ function e.RightSuggestedIconFrame:ChangeIcon(o, t, a)
     self.Texture:SetTexture(o)
     self.Texture:SetAllPoints(self)
     if a then
-        self.Texture:SetGradient("HORIZONTAL", 1., .5, .5, 1., .5, .5)
+        self.Texture:SetVertexColor(1., .5, .5)
     else
-        self.Texture:SetGradient("HORIZONTAL", 1., 1., 1., 1., 1., 1.)
+        self.Texture:SetVertexColor(1., 1., 1.)
     end
 
     if e.GUISettings.General.BlackBorderIcon and not self.Backdrop:IsVisible() then

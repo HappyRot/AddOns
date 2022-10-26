@@ -480,7 +480,7 @@ local function he()
 end
 
 local function A()
-    if false and c() and f and e.EchoingReprimand:IsReady() and n:IsSpellInRange(e.EchoingReprimand) then
+    if false and c() and (f or (e.EchoingReprimand:IsAvailable() and c())) and e.EchoingReprimand:IsReady() and n:IsSpellInRange(e.EchoingReprimand) then
         if a.Cast(e.EchoingReprimand, nil, nil) then
             o = 323547
             return "Cast Echoing Reprimand"
@@ -534,7 +534,7 @@ local function k()
 end
 
 local function O()
-    if e.Sepsis:IsReady() and f and n:IsSpellInRange(e.Sepsis) and d.MasterAssassinsMarkRemains() <= 0 then
+    if e.Sepsis:IsReady() and (f or (e.Sepsis:IsAvailable() and c())) and n:IsSpellInRange(e.Sepsis) and d.MasterAssassinsMarkRemains() <= 0 then
         if a.Cast(e.Sepsis, nil, nil) then
             o = 328305
             return "Cast Sepsis"
@@ -558,7 +558,7 @@ local function O()
 
     end
 
-    if e.EchoingReprimand:IsReady() and f and n:IsSpellInRange(e.EchoingReprimand) and (not e.EffusiveAnimaAccelerator:SoulbindEnabled() or H()) then
+    if e.EchoingReprimand:IsReady() and (f or (e.EchoingReprimand:IsAvailable() and c())) and n:IsSpellInRange(e.EchoingReprimand) and (not e.EffusiveAnimaAccelerator:SoulbindEnabled() or H()) then
         if a.Cast(e.EchoingReprimand, nil, nil) then
             o = 323547
             return "Cast Echoing Reprimand"
