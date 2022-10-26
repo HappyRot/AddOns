@@ -11,7 +11,7 @@ local o = A.Item
 local S = A.Action
 local d = HeroRotation
 local ee = d.AoEON
-local z = d.CDsON
+local q = d.CDsON
 local i = d.Cast
 local e = d.CastSuggested
 local _ = HeroRotationCharDB.Toggles[4]
@@ -42,9 +42,9 @@ local n = { General = d.GUISettings.General, Commons = d.GUISettings.APL.Hunter.
 local e = T.Hunter.Survival
 local g = o.Hunter.Survival
 local s = { g.DreadfireVessel:ID() }
-local q = a:CovenantID()
+local j = a:CovenantID()
 A:RegisterForEvent(function()
-    q = a:CovenantID()
+    j = a:CovenantID()
 end, "COVENANT_CHOSEN")
 A:RegisterForEvent(function(e, ...)
     local e, t, t, t = ...
@@ -88,7 +88,7 @@ A:RegisterForEvent(function()
     U = a:HasLegendaryEquipped(79)
     fe = a:HasLegendaryEquipped(253) or (a:HasUnity() and e.DeathChakram:IsAvailable())
 end, "PLAYER_EQUIPMENT_CHANGED")
-local j = { e.SummonPet, e.SummonPet2, e.SummonPet3, e.SummonPet4, e.SummonPet5 }
+local z = { e.SummonPet, e.SummonPet2, e.SummonPet3, e.SummonPet4, e.SummonPet5 }
 local y, u
 local p = ((e.MongooseBite:IsAvailable() and e.MongooseBite:Cost()) or (e.RaptorStrike:Cost()))
 local o
@@ -589,31 +589,31 @@ local function _e()
 
     if e.SummonPet:IsCastable() and (not I:IsActive() or (I:IsActive() and select(2, GetStablePetInfo(n.Commons.SummonPetSlot)) ~= select(1, UnitName("pet")))) and n.Commons.SummonPetSlot ~= 0 then
                                         if n.Commons.SummonPetSlot == 1 then
-            if i(j[n.Commons.SummonPetSlot], nil) then
+            if i(z[n.Commons.SummonPetSlot], nil) then
                 o = 883
                 return "Summon Pet"
             end
 
         elseif n.Commons.SummonPetSlot == 2 then
-            if i(j[n.Commons.SummonPetSlot], nil) then
+            if i(z[n.Commons.SummonPetSlot], nil) then
                 o = 83242
                 return "Summon Pet"
             end
 
         elseif n.Commons.SummonPetSlot == 3 then
-            if i(j[n.Commons.SummonPetSlot], nil) then
+            if i(z[n.Commons.SummonPetSlot], nil) then
                 o = 83243
                 return "Summon Pet"
             end
 
         elseif n.Commons.SummonPetSlot == 4 then
-            if i(j[n.Commons.SummonPetSlot], nil) then
+            if i(z[n.Commons.SummonPetSlot], nil) then
                 o = 83244
                 return "Summon Pet"
             end
 
         elseif n.Commons.SummonPetSlot == 5 then
-            if i(j[n.Commons.SummonPetSlot], nil) then
+            if i(z[n.Commons.SummonPetSlot], nil) then
                 o = 83245
                 return "Summon Pet"
             end
@@ -670,9 +670,9 @@ end
 
 local function ze()
     VarSyncUp = (t:DebuffUp(e.ResonatingArrowDebuff) or a:BuffUp(e.CoordinatedAssault))
-    VarStrongSyncUp = ((q == 1 and t:DebuffUp(e.ResonatingArrowDebuff) and a:BuffUp(e.CoordinatedAssault)) or (q ~= 1 and a:BuffUp(e.CoordinatedAssault)))
+    VarStrongSyncUp = ((j == 1 and t:DebuffUp(e.ResonatingArrowDebuff) and a:BuffUp(e.CoordinatedAssault)) or (j ~= 1 and a:BuffUp(e.CoordinatedAssault)))
     if (a:BuffDown(e.CoordinatedAssault)) then
-        if (q == 1) then
+        if (j == 1) then
             VarStrongSyncRemains = (e.ResonatingArrow:CooldownRemains() < e.CoordinatedAssault:CooldownRemains()) and e.ResonatingArrow:CooldownRemains() or e.CoordinatedAssault:CooldownRemains()
         else
             VarStrongSyncRemains = e.CoordinatedAssault:CooldownRemains()
@@ -681,7 +681,7 @@ local function ze()
     end
 
     if (a:BuffUp(e.CoordinatedAssault)) then
-        if (q == 1) then
+        if (j == 1) then
             VarStrongSyncRemains = e.ResonatingArrow:CooldownRemains()
         else
             VarStrongSyncRemains = e.CoordinatedAssault:CooldownRemains()
@@ -689,13 +689,13 @@ local function ze()
 
     end
 
-    if (q == 1) then
+    if (j == 1) then
         VarSyncRemains = (e.ResonatingArrow:CooldownRemains() > e.CoordinatedAssault:CooldownRemains()) and e.ResonatingArrow:CooldownRemains() or e.CoordinatedAssault:CooldownRemains()
     else
         VarSyncRemains = e.CoordinatedAssault:CooldownRemains()
     end
 
-    if h:IsReady() and z() and h:ID() ~= g.MistcallerOcarina:ID() and (n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket) and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (((h:TrinketHasUseBuff() or q == 1 and h:HasCooldown()) and (VarStrongSyncUp and (q ~= 1 and (not r:TrinketHasUseBuff()) or q == 1 and (not r:HasCooldown()) or r:CooldownRemains() > 0 or h:TrinketHasUseBuff() and ((not r:TrinketHasUseBuff()) or h:Cooldown() >= r:Cooldown()) or h:HasCooldown() and (not r:TrinketHasUseBuff()) and h:Cooldown() >= r:Cooldown()) or (not VarStrongSyncUp) and ((not r:TrinketHasUseBuff()) and (h:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > h:Cooldown() / 2) or r:TrinketHasUseBuff() and (h:TrinketHasUseBuff() and h:Cooldown() >= r:Cooldown() and (h:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > h:Cooldown() / 2) or ((not h:TrinketHasUseBuff()) or r:Cooldown() >= h:Cooldown()) and (r:IsReady() and r:Cooldown() - 5 > VarSyncRemains and VarSyncRemains < r:Cooldown() / 2 or (not r:IsReady()) and (r:CooldownRemains() - 5 < VarStrongSyncRemains and VarStrongSyncRemains > 20 and (h:Cooldown() - 5 < VarSyncRemains or r:CooldownRemains() - 5 < VarSyncRemains and r:Cooldown() - 10 + VarSyncRemains < VarStrongSyncRemains or VarSyncRemains > h:Cooldown() / 2 or VarSyncUp) or r:CooldownRemains() - 5 > VarStrongSyncRemains and (h:Cooldown() - 5 < VarStrongSyncRemains or h:Cooldown() < FightRemains and VarStrongSyncRemains + h:Cooldown() > FightRemains or (not h:TrinketHasUseBuff()) and (VarSyncRemains > h:Cooldown() / 2 or VarSyncUp)))))) or t:TimeToDie() < VarSyncRemains) or (not h:TrinketHasUseBuff()) and q ~= 1 and (r:TrinketHasUseBuff() and (((not VarSyncUp) or r:CooldownRemains() > 5) and (VarSyncRemains > 20 or r:CooldownRemains() - 5 > VarSyncRemains)) or (not r:TrinketHasUseBuff()) and ((not r:HasCooldown()) or r:CooldownRemains() > 0 or r:Cooldown() >= h:Cooldown()))) and (h:ID() ~= g.CacheofAcquiredTreasures:ID() or y < 2 and a:BuffUp(e.AcquiredWandBuff) or y > 1 and a:BuffDown(e.AcquiredWandBuff))) then
+    if h:IsReady() and q() and h:ID() ~= g.MistcallerOcarina:ID() and (n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket) and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (((h:TrinketHasUseBuff() or j == 1 and h:HasCooldown()) and (VarStrongSyncUp and (j ~= 1 and (not r:TrinketHasUseBuff()) or j == 1 and (not r:HasCooldown()) or r:CooldownRemains() > 0 or h:TrinketHasUseBuff() and ((not r:TrinketHasUseBuff()) or h:Cooldown() >= r:Cooldown()) or h:HasCooldown() and (not r:TrinketHasUseBuff()) and h:Cooldown() >= r:Cooldown()) or (not VarStrongSyncUp) and ((not r:TrinketHasUseBuff()) and (h:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > h:Cooldown() / 2) or r:TrinketHasUseBuff() and (h:TrinketHasUseBuff() and h:Cooldown() >= r:Cooldown() and (h:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > h:Cooldown() / 2) or ((not h:TrinketHasUseBuff()) or r:Cooldown() >= h:Cooldown()) and (r:IsReady() and r:Cooldown() - 5 > VarSyncRemains and VarSyncRemains < r:Cooldown() / 2 or (not r:IsReady()) and (r:CooldownRemains() - 5 < VarStrongSyncRemains and VarStrongSyncRemains > 20 and (h:Cooldown() - 5 < VarSyncRemains or r:CooldownRemains() - 5 < VarSyncRemains and r:Cooldown() - 10 + VarSyncRemains < VarStrongSyncRemains or VarSyncRemains > h:Cooldown() / 2 or VarSyncUp) or r:CooldownRemains() - 5 > VarStrongSyncRemains and (h:Cooldown() - 5 < VarStrongSyncRemains or h:Cooldown() < FightRemains and VarStrongSyncRemains + h:Cooldown() > FightRemains or (not h:TrinketHasUseBuff()) and (VarSyncRemains > h:Cooldown() / 2 or VarSyncUp)))))) or t:TimeToDie() < VarSyncRemains) or (not h:TrinketHasUseBuff()) and j ~= 1 and (r:TrinketHasUseBuff() and (((not VarSyncUp) or r:CooldownRemains() > 5) and (VarSyncRemains > 20 or r:CooldownRemains() - 5 > VarSyncRemains)) or (not r:TrinketHasUseBuff()) and ((not r:HasCooldown()) or r:CooldownRemains() > 0 or r:Cooldown() >= h:Cooldown()))) and (h:ID() ~= g.CacheofAcquiredTreasures:ID() or y < 2 and a:BuffUp(e.AcquiredWandBuff) or y > 1 and a:BuffDown(e.AcquiredWandBuff))) then
         if i(h, nil, nil) then
                         if h:ID() == B and n.Commons.Enabled.TopTrinket then
                 o = 24
@@ -709,7 +709,7 @@ local function ze()
 
     end
 
-    if r:IsReady() and r:ID() ~= g.MistcallerOcarina:ID() and z() and (n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket) and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (((r:TrinketHasUseBuff() or q == 1 and r:HasCooldown()) and (VarStrongSyncUp and (q ~= 1 and (not h:TrinketHasUseBuff()) or q == 1 and (not h:HasCooldown()) or h:CooldownRemains() > 0 or r:TrinketHasUseBuff() and ((not h:TrinketHasUseBuff()) or r:Cooldown() >= h:Cooldown()) or r:HasCooldown() and (not h:TrinketHasUseBuff()) and r:Cooldown() >= h:Cooldown()) or (not VarStrongSyncUp) and ((not h:TrinketHasUseBuff()) and (r:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > r:Cooldown() / 2) or h:TrinketHasUseBuff() and (r:TrinketHasUseBuff() and r:Cooldown() >= h:Cooldown() and (r:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > r:Cooldown() / 2) or ((not r:TrinketHasUseBuff()) or h:Cooldown() >= r:Cooldown()) and (h:IsReady() and h:Cooldown() - 5 > VarSyncRemains and VarSyncRemains < h:Cooldown() / 2 or (not h:IsReady()) and (h:CooldownRemains() - 5 < VarStrongSyncRemains and VarStrongSyncRemains > 20 and (r:Cooldown() - 5 < VarSyncRemains or h:CooldownRemains() - 5 < VarSyncRemains and h:Cooldown() - 10 + VarSyncRemains < VarStrongSyncRemains or VarSyncRemains > r:Cooldown() / 2 or VarSyncUp) or h:CooldownRemains() - 5 > VarStrongSyncRemains and (r:Cooldown() - 5 < VarStrongSyncRemains or r:Cooldown() < FightRemains and VarStrongSyncRemains + r:Cooldown() > FightRemains or (not r:TrinketHasUseBuff()) and (VarSyncRemains > r:Cooldown() / 2 or VarSyncUp)))))) or t:TimeToDie() < VarSyncRemains) or (not r:TrinketHasUseBuff()) and q ~= 1 and (h:TrinketHasUseBuff() and (((not VarSyncUp) or h:CooldownRemains() > 5) and (VarSyncRemains > 20 or h:CooldownRemains() - 5 > VarSyncRemains)) or (not h:TrinketHasUseBuff()) and ((not h:HasCooldown()) or h:CooldownRemains() > 0 or h:Cooldown() >= r:Cooldown()))) and (r:ID() ~= g.CacheofAcquiredTreasures:ID() or y < 2 and a:BuffUp(e.AcquiredWandBuff) or y > 1 and a:BuffDown(e.AcquiredWandBuff))) then
+    if r:IsReady() and r:ID() ~= g.MistcallerOcarina:ID() and q() and (n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket) and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (((r:TrinketHasUseBuff() or j == 1 and r:HasCooldown()) and (VarStrongSyncUp and (j ~= 1 and (not h:TrinketHasUseBuff()) or j == 1 and (not h:HasCooldown()) or h:CooldownRemains() > 0 or r:TrinketHasUseBuff() and ((not h:TrinketHasUseBuff()) or r:Cooldown() >= h:Cooldown()) or r:HasCooldown() and (not h:TrinketHasUseBuff()) and r:Cooldown() >= h:Cooldown()) or (not VarStrongSyncUp) and ((not h:TrinketHasUseBuff()) and (r:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > r:Cooldown() / 2) or h:TrinketHasUseBuff() and (r:TrinketHasUseBuff() and r:Cooldown() >= h:Cooldown() and (r:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > r:Cooldown() / 2) or ((not r:TrinketHasUseBuff()) or h:Cooldown() >= r:Cooldown()) and (h:IsReady() and h:Cooldown() - 5 > VarSyncRemains and VarSyncRemains < h:Cooldown() / 2 or (not h:IsReady()) and (h:CooldownRemains() - 5 < VarStrongSyncRemains and VarStrongSyncRemains > 20 and (r:Cooldown() - 5 < VarSyncRemains or h:CooldownRemains() - 5 < VarSyncRemains and h:Cooldown() - 10 + VarSyncRemains < VarStrongSyncRemains or VarSyncRemains > r:Cooldown() / 2 or VarSyncUp) or h:CooldownRemains() - 5 > VarStrongSyncRemains and (r:Cooldown() - 5 < VarStrongSyncRemains or r:Cooldown() < FightRemains and VarStrongSyncRemains + r:Cooldown() > FightRemains or (not r:TrinketHasUseBuff()) and (VarSyncRemains > r:Cooldown() / 2 or VarSyncUp)))))) or t:TimeToDie() < VarSyncRemains) or (not r:TrinketHasUseBuff()) and j ~= 1 and (h:TrinketHasUseBuff() and (((not VarSyncUp) or h:CooldownRemains() > 5) and (VarSyncRemains > 20 or h:CooldownRemains() - 5 > VarSyncRemains)) or (not h:TrinketHasUseBuff()) and ((not h:HasCooldown()) or h:CooldownRemains() > 0 or h:Cooldown() >= r:Cooldown()))) and (r:ID() ~= g.CacheofAcquiredTreasures:ID() or y < 2 and a:BuffUp(e.AcquiredWandBuff) or y > 1 and a:BuffDown(e.AcquiredWandBuff))) then
         if i(r, nil, nil) then
                         if r:ID() == B and n.Commons.Enabled.TopTrinket then
                 o = 24
@@ -723,7 +723,7 @@ local function ze()
 
     end
 
-    if g.Jotungeirr:IsEquippedAndReady() and z() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
+    if g.Jotungeirr:IsEquippedAndReady() and q() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
         if i(g.Jotungeirr, nil, nil) then
             o = 16
             return "jotungeirr_destinys_call trinkets 6"
@@ -735,7 +735,7 @@ end
 
 local function Te()
     if (a:BuffUp(e.CoordinatedAssault)) and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
-        if e.BloodFury:IsCastable() and z() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
+        if e.BloodFury:IsCastable() and q() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
             if i(e.BloodFury, nil) then
                 o = 20572
                 return "blood_fury cds 6"
@@ -743,7 +743,7 @@ local function Te()
 
         end
 
-        if e.AncestralCall:IsCastable() and z() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
+        if e.AncestralCall:IsCastable() and q() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
             if i(e.AncestralCall, nil) then
                 o = 274738
                 return "ancestral_call cds 8"
@@ -751,7 +751,7 @@ local function Te()
 
         end
 
-        if e.Fireblood:IsCastable() and z() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
+        if e.Fireblood:IsCastable() and q() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
             if i(e.Fireblood, nil) then
                 o = 265221
                 return "fireblood cds 10"
@@ -761,7 +761,7 @@ local function Te()
 
     end
 
-    if e.LightsJudgment:IsCastable() and z() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
+    if e.LightsJudgment:IsCastable() and q() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
         if i(e.LightsJudgment, nil, nil, not t:IsSpellInRange(e.LightsJudgment)) then
             o = 255647
             return "lights_judgment cds 12"
@@ -769,7 +769,7 @@ local function Te()
 
     end
 
-    if e.BagofTricks:IsCastable() and z() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (e.KillCommand:FullRechargeTime() > a:GCD()) then
+    if e.BagofTricks:IsCastable() and q() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (e.KillCommand:FullRechargeTime() > a:GCD()) then
         if i(e.BagofTricks, nil, nil, not t:IsSpellInRange(e.BagofTricks)) then
             o = 312411
             return "bag_of_tricks cds 14"
@@ -777,7 +777,7 @@ local function Te()
 
     end
 
-    if e.Berserking:IsCastable() and z() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (a:BuffUp(e.CoordinatedAssault) or t:TimeToDie() < 13) then
+    if e.Berserking:IsCastable() and q() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (a:BuffUp(e.CoordinatedAssault) or t:TimeToDie() < 13) then
         if i(e.Berserking, nil) then
             o = 26297
             return "berserking cds 16"
@@ -785,7 +785,7 @@ local function Te()
 
     end
 
-    if g.PotionOfSpectralAgility:IsReady() and ue and z and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (((t:TimeToDie() < 25 or a:BuffUp(e.CoordinatedAssault)) and not d.GUISettings.General.HoldPotforBL) or (a:BloodlustUp() and d.GUISettings.General.HoldPotforBL)) then
+    if g.PotionOfSpectralAgility:IsReady() and ue and q and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (((t:TimeToDie() < 25 or a:BuffUp(e.CoordinatedAssault)) and not d.GUISettings.General.HoldPotforBL) or (a:BloodlustUp() and d.GUISettings.General.HoldPotforBL)) then
         if i(g.PotionOfSpectralAgility, nil, nil) then
             o = 50
             return "potion cds 18"
@@ -871,7 +871,7 @@ local function h()
 end
 
 local function Ee()
-    if _ and e.DeathChakram:IsCastable() and (l(e.DeathChakram:ExecuteTime())) then
+    if (_ or e.DeathChakram:IsAvailable() and q()) and e.DeathChakram:IsCastable() and (l(2)) then
         if i(e.DeathChakram, nil, nil, not t:IsSpellInRange(e.DeathChakram)) then
             o = 325028
             return "death_chakram st 2"
@@ -927,7 +927,7 @@ local function Ee()
 
         end
 
-        if e.CoordinatedAssault:IsCastable() and z() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
+        if e.CoordinatedAssault:IsCastable() and q() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
             if i(e.CoordinatedAssault, nil) then
                 o = 266779
                 return "coordinated_assault st 12"
@@ -1299,7 +1299,7 @@ local function U()
 
     end
 
-    if _ and e.DeathChakram:IsCastable() and (l(e.DeathChakram:ExecuteTime())) then
+    if (_ or e.DeathChakram:IsAvailable() and q()) and e.DeathChakram:IsCastable() and (l(2)) then
         if i(e.DeathChakram, nil, nil, not t:IsSpellInRange(e.DeathChakram)) then
             o = 325028
             return "death_chakram bop 14"
@@ -1445,7 +1445,7 @@ local function U()
 
         end
 
-        if e.CoordinatedAssault:IsCastable() and z() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
+        if e.CoordinatedAssault:IsCastable() and q() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
             if i(e.CoordinatedAssault, nil) then
                 o = 266779
                 return "coordinated_assault bop 40"
@@ -1538,7 +1538,7 @@ local function H()
 
     end
 
-    if e.CoordinatedAssault:IsReady() and z() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
+    if e.CoordinatedAssault:IsReady() and q() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
         if i(e.CoordinatedAssault, nil) then
             o = 266779
             return "coordinated_assault cleave 18"
@@ -1600,7 +1600,7 @@ local function H()
 
     end
 
-    if e.DeathChakram:IsCastable() and _ and (l(e.DeathChakram:ExecuteTime()) and not fe) then
+    if e.DeathChakram:IsCastable() and (_ or e.DeathChakram:IsAvailable() and q()) and (l(2) and not fe) then
         if i(e.DeathChakram, nil, nil, not t:IsSpellInRange(e.DeathChakram)) then
             o = 325028
             return "death_chakram cleave 16"
@@ -1972,7 +1972,7 @@ end
 local function l()
     R = HeroRotationCharDB.Toggles[6]
     _ = HeroRotationCharDB.Toggles[4]
-    Oe = HeroRotationCharDB.Toggles[5] or z()
+    Oe = HeroRotationCharDB.Toggles[5] or q()
     f = HeroRotationCharDB.Toggles[12]
     ue = HeroRotationCharDB.Toggles[15]
     C = HeroRotationCharDB.Toggles[120]
@@ -2230,32 +2230,32 @@ local function m()
     end
 
     if e.SummonPet:IsCastable() and not a:IsDeadOrGhost() and not I:IsActive() and n.Commons.SummonPetSlot ~= 0 then
-                                        if n.Commons.SummonPetSlot == 1 and not a:PrevGCD(1, j[n.Commons.SummonPetSlot]) then
-            if i(j[n.Commons.SummonPetSlot], nil) then
+                                        if n.Commons.SummonPetSlot == 1 and not a:PrevGCD(1, z[n.Commons.SummonPetSlot]) then
+            if i(z[n.Commons.SummonPetSlot], nil) then
                 o = 883
                 return "Summon Pet"
             end
 
-        elseif n.Commons.SummonPetSlot == 2 and not a:PrevGCD(1, j[n.Commons.SummonPetSlot]) then
-            if i(j[n.Commons.SummonPetSlot], nil) then
+        elseif n.Commons.SummonPetSlot == 2 and not a:PrevGCD(1, z[n.Commons.SummonPetSlot]) then
+            if i(z[n.Commons.SummonPetSlot], nil) then
                 o = 83242
                 return "Summon Pet"
             end
 
-        elseif n.Commons.SummonPetSlot == 3 and not a:PrevGCD(1, j[n.Commons.SummonPetSlot]) then
-            if i(j[n.Commons.SummonPetSlot], nil) then
+        elseif n.Commons.SummonPetSlot == 3 and not a:PrevGCD(1, z[n.Commons.SummonPetSlot]) then
+            if i(z[n.Commons.SummonPetSlot], nil) then
                 o = 83243
                 return "Summon Pet"
             end
 
-        elseif n.Commons.SummonPetSlot == 4 and not a:PrevGCD(1, j[n.Commons.SummonPetSlot]) then
-            if i(j[n.Commons.SummonPetSlot], nil) then
+        elseif n.Commons.SummonPetSlot == 4 and not a:PrevGCD(1, z[n.Commons.SummonPetSlot]) then
+            if i(z[n.Commons.SummonPetSlot], nil) then
                 o = 83244
                 return "Summon Pet"
             end
 
-        elseif n.Commons.SummonPetSlot == 5 and not a:PrevGCD(1, j[n.Commons.SummonPetSlot]) then
-            if i(j[n.Commons.SummonPetSlot], nil) then
+        elseif n.Commons.SummonPetSlot == 5 and not a:PrevGCD(1, z[n.Commons.SummonPetSlot]) then
+            if i(z[n.Commons.SummonPetSlot], nil) then
                 o = 83245
                 return "Summon Pet"
             end
@@ -2324,7 +2324,7 @@ local function m()
 
         end
 
-        if ((q == 1 and e.CoordinatedAssault:CooldownRemains() > 0 and e.ResonatingArrow:CooldownRemains() > 0) or (q ~= 1 and e.CoordinatedAssault:CooldownRemains() > 0)) then
+        if ((j == 1 and e.CoordinatedAssault:CooldownRemains() > 0 and e.ResonatingArrow:CooldownRemains() > 0) or (j ~= 1 and e.CoordinatedAssault:CooldownRemains() > 0)) then
             local e = ze()
             if e then
                 return e
@@ -2364,7 +2364,7 @@ local function m()
 
         end
 
-        if e.ArcaneTorrent:IsCastable() and (t:IsInMeleeRange(8)) and z() then
+        if e.ArcaneTorrent:IsCastable() and (t:IsInMeleeRange(8)) and q() then
             if i(e.ArcaneTorrent, nil, nil, not t:IsInRange(8)) then
                 o = 155145
                 return "arcane_torrent 888"
