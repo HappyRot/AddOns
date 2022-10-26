@@ -896,6 +896,14 @@ local function q()
 
     end
 
+    if e.SurvivaloftheFitest:IsCastable() and a:HealthPercentage() <= n.BeastMastery.SurvivaloftheFitestHP then
+        if o(e.SurvivaloftheFitest, nil) then
+            t = 272679
+            return "SurvivaloftheFitest"
+        end
+
+    end
+
     if a:BuffUp(f(5384)) then
         return false
     end
