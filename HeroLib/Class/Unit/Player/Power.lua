@@ -448,7 +448,6 @@ end
 --- 7 | Soul Shards  ---
 ------------------------
 do
-  local WarlockPowerBar_UnitPower = WarlockPowerBar_UnitPower
   local SoulShardsPowerType = Enum.PowerType.SoulShards
 
   -- soul_shard.max
@@ -458,12 +457,12 @@ do
 
   -- soul_shard
   function Player:SoulShards()
-    return WarlockPowerBar_UnitPower(self.UnitID)
+    return UnitPower(self.UnitID, SoulShardsPowerType)
   end
 
   -- soul shards predicted, customize in spec overrides
   function Player:SoulShardsP()
-    return WarlockPowerBar_UnitPower(self.UnitID)
+    return UnitPower(self.UnitID, SoulShardsPowerType)
   end
 
   -- soul_shard.deficit
@@ -748,6 +747,49 @@ do
 end
 
 ------------------------------
+--- 19 | Essence Functions ---
+------------------------------
+do
+  local EssencePowerType = Enum.PowerType.Essence
+
+  -- essence.max
+  function Player:EssenceMax()
+    return UnitPowerMax(self.UnitID, EssencePowerType)
+  end
+
+  -- essence
+  function Player:Essence()
+    return UnitPower(self.UnitID, EssencePowerType)
+  end
+
+  -- essence.deficit
+  function Player:EssenceDeficit()
+    return self:EssenceMax() - self:Essence()
+  end
+
+  -- essence.deficit.pct
+  function Player:EssenceDeficitPercentage()
+    return (self:EssenceDeficit() / self:EssenceMax()) * 100
+  end
+
+  -- essence.regen
+  --function Player:EssenceRegen()
+  --end
+
+  -- essence.cast_regen
+  --function Player:EssenceCastRegen(CastTime)
+  --end
+
+  -- essence.time_to_max
+  --function Player:EssenceTimeToMax()
+  --end
+
+  -- essence.time_to_x
+  --function Player:EssenceTimeToX()
+  --end
+end
+
+------------------------------
 --- Predicted Resource Map ---
 ------------------------------
 
@@ -787,6 +829,8 @@ do
     [17] = function() return Player:Fury() end,
     -- Pain
     [18] = function() return Player:Pain() end,
+    -- Essence
+    [19] = function() return Player:Essence() end,
   }
 end
 
@@ -828,5 +872,8 @@ do
     [17] = function() return nil end,
     -- Pain
     [18] = function() return nil end,
+    -- Essence
+    -- TODO: Add EssenceTimeToX()
+    [19] = function() return nil end,
   }
 end
