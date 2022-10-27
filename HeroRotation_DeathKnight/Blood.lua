@@ -426,7 +426,7 @@ local function V()
 end
 
 local function P()
-    if e.DeathAndDecay:IsCastable() and a:IsInMeleeRange(8) and not p and not t:IsMoving() and (EnemiesCount10y >= 3) and not e.DeathsDue:IsAvailable() then
+    if e.DeathAndDecay:IsCastable() and a:IsInMeleeRange(8) and not p and not t:IsMoving() and (EnemiesCount10y >= 3) and t:BuffDown(e.DeathAndDecayBuff) and not e.DeathsDue:IsAvailable() then
         if i(e.DeathAndDecay, nil, nil, not a:IsInRange(30)) then
             o = 43265
             return "death_and_decay drw_up 14"
@@ -491,7 +491,7 @@ local function P()
 
     end
 
-    if e.DeathAndDecay:IsCastable() and a:IsInMeleeRange(10) and not p and not t:IsMoving() and (EnemiesCount10y >= 3) then
+    if e.DeathAndDecay:IsCastable() and a:IsInMeleeRange(10) and not p and not t:IsMoving() and t:BuffDown(e.DeathAndDecayBuff) and (EnemiesCount10y >= 3) then
         if i(e.DeathAndDecay, nil, nil, not a:IsInRange(30)) then
             o = 43265
             return "death_and_decay drw_up 14"
@@ -526,7 +526,7 @@ local function E()
 
     end
 
-    if e.DeathAndDecay:IsCastable() and a:IsInMeleeRange(10) and not p and not t:IsMoving() and (EnemiesCount10y >= 3) and not e.DeathsDue:IsAvailable() then
+    if e.DeathAndDecay:IsCastable() and a:IsInMeleeRange(10) and not p and not t:IsMoving() and t:BuffDown(e.DeathAndDecayBuff) and (EnemiesCount10y >= 3) and not e.DeathsDue:IsAvailable() then
         if i(e.DeathAndDecay, nil, nil, not a:IsInRange(30)) then
             o = 43265
             return "death_and_decay drw_up 14"
@@ -566,7 +566,7 @@ local function E()
 
     end
 
-    if e.DeathAndDecay:IsReady() and a:IsInMeleeRange(10) and not p and not t:IsMoving() and ((t:BuffUp(e.CrimsonScourgeBuff)) and t:RunicPowerDeficit() > 10) then
+    if e.DeathAndDecay:IsReady() and a:IsInMeleeRange(10) and not p and not t:IsMoving() and t:BuffDown(e.DeathAndDecayBuff) and ((t:BuffUp(e.CrimsonScourgeBuff)) and t:RunicPowerDeficit() > 10) then
         if i(e.DeathAndDecay, nil, nil, not a:IsInRange(30)) then
             o = 43265
             return "death_and_decay standard 12"
@@ -588,7 +588,7 @@ local function E()
 
     end
 
-    if e.DeathAndDecay:IsReady() and a:IsInMeleeRange(10) and not p and (m >= 3) then
+    if e.DeathAndDecay:IsReady() and a:IsInMeleeRange(10) and not p and not t:IsMoving() and t:BuffDown(e.DeathAndDecayBuff) and (m >= 3) then
         if i(e.DeathAndDecay, nil, nil, not a:IsInRange(30)) then
             o = 43265
             return "death_and_decay standard 18"
@@ -596,7 +596,7 @@ local function E()
 
     end
 
-    if e.DeathAndDecay:IsReady() and a:IsInMeleeRange(10) and not p and not t:IsMoving() and (t:BuffUp(e.CrimsonScourgeBuff) or e.RapidDecomposition:IsAvailable()) then
+    if e.DeathAndDecay:IsReady() and a:IsInMeleeRange(10) and not p and not t:IsMoving() and t:BuffDown(e.DeathAndDecayBuff) and (t:BuffUp(e.CrimsonScourgeBuff) or e.RapidDecomposition:IsAvailable()) then
         if i(e.DeathAndDecay, nil, nil, not a:IsInRange(30)) then
             o = 43265
             return "death_and_decay standard 22"
