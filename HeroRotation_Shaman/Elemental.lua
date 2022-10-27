@@ -14,8 +14,8 @@ local d = HeroRotation
 local i = d.Cast
 local R = d.AoEON
 local y = d.CDsON
-local E = HeroRotationCharDB.Toggles[4]
-local x = HeroRotationCharDB.Toggles[5]
+local T = HeroRotationCharDB.Toggles[4]
+local z = HeroRotationCharDB.Toggles[5]
 local V = HeroRotationCharDB.Toggles[6]
 local de = HeroRotationCharDB.Toggles[15]
 local I = HeroRotationCharDB.Toggles[12]
@@ -57,7 +57,7 @@ local g = t:HasLegendaryEquipped(136)
 local Q = t:HasLegendaryEquipped(137)
 local l = e.CallOfFlame:ConduitEnabled()
 local oe = t:HasLegendaryEquipped(246) or (t:HasUnity() and e.FaeTransfusion:IsAvailable())
-local z = t:HasLegendaryEquipped(228) or (t:HasUnity() and e.PrimordialWave:IsAvailable())
+local x = t:HasLegendaryEquipped(228) or (t:HasUnity() and e.PrimordialWave:IsAvailable())
 A:RegisterForEvent(function()
     s = t:HasLegendaryEquipped(131)
     p = t:HasLegendaryEquipped(134)
@@ -65,7 +65,7 @@ A:RegisterForEvent(function()
     g = t:HasLegendaryEquipped(136)
     Q = t:HasLegendaryEquipped(137)
     l = e.CallOfFlame:ConduitEnabled()
-    z = t:HasLegendaryEquipped(228)
+    x = t:HasLegendaryEquipped(228)
 end, "PLAYER_EQUIPMENT_CHANGED")
 A:RegisterForEvent(function()
     e.PrimordialWave:RegisterInFlightEffect(327162)
@@ -95,7 +95,7 @@ local s
 local k
 local j
 local u
-local T
+local E
 local l
 local U
 local function le()
@@ -104,7 +104,7 @@ local function le()
     b = 0
     s = 0
     k = 0
-    T = {  }
+    E = {  }
     j = nil
     u = nil
     local i = 999
@@ -150,7 +150,7 @@ local function le()
 
                 end
 
-                T[t] = e
+                E[t] = e
                 if #e > f then
                     f = #e
                     j = t
@@ -237,16 +237,16 @@ local function f(t)
 end
 
 local function Z(i)
-                if ((t:BuffDown(e.PrimordialWaveBuff) and (not l or (r < 3 and t:BuffStack(e.WindGustBuff) < 20) or e.LeadByExample:SoulbindEnabled() or z) and (r < 5 or e.MasterOfTheElements:IsAvailable() or p or e.LeadByExample:SoulbindEnabled() or z) and not t:BuffUp(e.SplinteredElementsBuff)) and i:IsInRange(40) and i:GUID() == _("mouseover"):GUID()) then
+                if ((t:BuffDown(e.PrimordialWaveBuff) and (not l or (r < 3 and t:BuffStack(e.WindGustBuff) < 20) or e.LeadByExample:SoulbindEnabled() or x) and (r < 5 or e.MasterOfTheElements:IsAvailable() or p or e.LeadByExample:SoulbindEnabled() or x) and not t:BuffUp(e.SplinteredElementsBuff)) and i:IsInRange(40) and i:GUID() == _("mouseover"):GUID()) then
         c = 1326059
         return true
-    elseif ((t:BuffDown(e.PrimordialWaveBuff) and (not l or (r < 3 and t:BuffStack(e.WindGustBuff) < 20) or e.LeadByExample:SoulbindEnabled() or z) and (r < 5 or e.MasterOfTheElements:IsAvailable() or p or e.LeadByExample:SoulbindEnabled() or z) and not t:BuffUp(e.SplinteredElementsBuff)) and i:IsInRange(40) and h.Elemental.TargetSwap == "AutoSwap" and i:GUID() ~= a:GUID() and not I) then
+    elseif ((t:BuffDown(e.PrimordialWaveBuff) and (not l or (r < 3 and t:BuffStack(e.WindGustBuff) < 20) or e.LeadByExample:SoulbindEnabled() or x) and (r < 5 or e.MasterOfTheElements:IsAvailable() or p or e.LeadByExample:SoulbindEnabled() or x) and not t:BuffUp(e.SplinteredElementsBuff)) and i:IsInRange(40) and h.Elemental.TargetSwap == "AutoSwap" and i:GUID() ~= a:GUID() and not I) then
         c = 999
         return true
-    elseif ((t:BuffDown(e.PrimordialWaveBuff) and (not l or (r < 3 and t:BuffStack(e.WindGustBuff) < 20) or e.LeadByExample:SoulbindEnabled() or z) and (r < 5 or e.MasterOfTheElements:IsAvailable() or p or e.LeadByExample:SoulbindEnabled() or z) and not t:BuffUp(e.SplinteredElementsBuff)) and i:IsInRange(40) and i:GUID() == a:GUID()) then
+    elseif ((t:BuffDown(e.PrimordialWaveBuff) and (not l or (r < 3 and t:BuffStack(e.WindGustBuff) < 20) or e.LeadByExample:SoulbindEnabled() or x) and (r < 5 or e.MasterOfTheElements:IsAvailable() or p or e.LeadByExample:SoulbindEnabled() or x) and not t:BuffUp(e.SplinteredElementsBuff)) and i:IsInRange(40) and i:GUID() == a:GUID()) then
         o = 326059
         return true
-    elseif (t:BuffDown(e.PrimordialWaveBuff) and (not l or (r < 3 and t:BuffStack(e.WindGustBuff) < 20) or e.LeadByExample:SoulbindEnabled() or z) and (r < 5 or e.MasterOfTheElements:IsAvailable() or p or e.LeadByExample:SoulbindEnabled() or z) and not t:BuffUp(e.SplinteredElementsBuff) and i:IsInRange(40)) then
+    elseif (t:BuffDown(e.PrimordialWaveBuff) and (not l or (r < 3 and t:BuffStack(e.WindGustBuff) < 20) or e.LeadByExample:SoulbindEnabled() or x) and (r < 5 or e.MasterOfTheElements:IsAvailable() or p or e.LeadByExample:SoulbindEnabled() or x) and not t:BuffUp(e.SplinteredElementsBuff) and i:IsInRange(40)) then
         return true
     end
 
@@ -382,7 +382,7 @@ local function v()
 
 end
 
-local function T()
+local function E()
     if not e.Stormkeeper:IsAvailable() then
         return false
     end
@@ -429,7 +429,7 @@ local function ne()
 
     end
 
-    if s(e.Stormkeeper) and (n == 0 or n > e.Stormkeeper:ExecuteTime()) and a:IsSpellInRange(e.LightningBolt) and e.Stormkeeper:IsAvailable() and x then
+    if s(e.Stormkeeper) and (n == 0 or n > e.Stormkeeper:ExecuteTime()) and a:IsSpellInRange(e.LightningBolt) and e.Stormkeeper:IsAvailable() and z then
         if i(e.Stormkeeper, nil) then
             o = 191634
             return "Precombat Stormkeeper"
@@ -453,7 +453,7 @@ local function ne()
 
     end
 
-    if s(e.LavaBurst) and (n == 0 or n > e.LavaBurst:ExecuteTime() or t:BuffUp(e.LavaSurgeBuff)) and a:IsInRange(40) and not t:IsCasting(e.LavaBurst) and ((not e.ElementalBlast:IsAvailable() and N < 3) or T()) then
+    if s(e.LavaBurst) and (n == 0 or n > e.LavaBurst:ExecuteTime() or t:BuffUp(e.LavaSurgeBuff)) and a:IsInRange(40) and not t:IsCasting(e.LavaBurst) and ((not e.ElementalBlast:IsAvailable() and N < 3) or E()) then
         if i(e.LavaBurst, nil, nil, not a:IsSpellInRange(e.LavaBurst)) then
             o = 51505
             return "Precombat Lavaburst"
@@ -461,7 +461,7 @@ local function ne()
 
     end
 
-    if s(e.ChainLightning) and (n == 0 or n > e.ChainLightning:ExecuteTime() or t:BuffUp(e.StormkeeperBuff)) and a:IsInRange(40) and not e.ElementalBlast:IsAvailable() and N >= 3 and not T() then
+    if s(e.ChainLightning) and (n == 0 or n > e.ChainLightning:ExecuteTime() or t:BuffUp(e.StormkeeperBuff)) and a:IsInRange(40) and not e.ElementalBlast:IsAvailable() and N >= 3 and not E() then
         if i(e.ChainLightning, nil) then
             o = 188443
             return "Precombat ChaimLightning"
@@ -496,7 +496,7 @@ local function he()
 
     end
 
-    if s(e.ChainHarvest) and (n == 0 or n > e.ChainHarvest:ExecuteTime()) and a:IsInRange(40) and E then
+    if s(e.ChainHarvest) and (n == 0 or n > e.ChainHarvest:ExecuteTime()) and a:IsInRange(40) and T then
         if i(e.ChainHarvest, nil) then
             o = 320674
             return "Chain Harvest 1"
@@ -504,7 +504,7 @@ local function he()
 
     end
 
-    if s(e.Stormkeeper) and (n == 0 or n > e.Stormkeeper:ExecuteTime()) and a:IsInRange(40) and e.Stormkeeper:IsAvailable() and x then
+    if s(e.Stormkeeper) and (n == 0 or n > e.Stormkeeper:ExecuteTime()) and a:IsInRange(40) and e.Stormkeeper:IsAvailable() and z then
         if i(e.Stormkeeper, nil) then
             o = 191634
             return "AoE Stormkeeper 1"
@@ -512,7 +512,7 @@ local function he()
 
     end
 
-    if s(e.FlameShock) and a:IsInRange(40) and ((b < 2 and r <= 3 and e.PrimordialWave:CooldownRemains() < 16 and e.PrimordialWave:IsAvailable() and not l) or (b < 1 and r >= 4 and not l and e.MasterOfTheElements:IsAvailable()) or (p and not l) or (z and ((b < 3 and not g) or b < 4) and (e.PrimordialWave:CooldownRemains() < 16 or t:BuffUp(e.PrimordialWaveBuff))) and a:DebuffRefreshable(e.FlameShockDebuff)) then
+    if s(e.FlameShock) and a:IsInRange(40) and ((b < 2 and r <= 3 and e.PrimordialWave:CooldownRemains() < 16 and e.PrimordialWave:IsAvailable() and not l) or (b < 1 and r >= 4 and not l and e.MasterOfTheElements:IsAvailable()) or (p and not l) or (x and ((b < 3 and not g) or b < 4) and (e.PrimordialWave:CooldownRemains() < 16 or t:BuffUp(e.PrimordialWaveBuff))) and a:DebuffRefreshable(e.FlameShockDebuff)) then
         if i(e.FlameShock, nil) then
             o = 188389
             return "Flameshock aoe 1"
@@ -520,14 +520,14 @@ local function he()
 
     end
 
-    if s(e.FlameShock) and ((b < 2 and r <= 3 and e.PrimordialWave:CooldownRemains() < 16 and e.PrimordialWave:IsAvailable() and not l) or (b < 1 and r >= 4 and not l and e.MasterOfTheElements:IsAvailable()) or (p and not l) or (z and ((b < 3 and not g) or b < 4) and (e.PrimordialWave:CooldownRemains() < 16 or t:BuffUp(e.PrimordialWaveBuff)))) then
+    if s(e.FlameShock) and ((b < 2 and r <= 3 and e.PrimordialWave:CooldownRemains() < 16 and e.PrimordialWave:IsAvailable() and not l) or (b < 1 and r >= 4 and not l and e.MasterOfTheElements:IsAvailable()) or (p and not l) or (x and ((b < 3 and not g) or b < 4) and (e.PrimordialWave:CooldownRemains() < 16 or t:BuffUp(e.PrimordialWaveBuff)))) then
         if m.CastCycle(e.FlameShock, w, O, not a:IsSpellInRange(e.FlameShock), nil) then
             return "FlameShock aoe 104"
         end
 
     end
 
-    if s(e.FlameShock) and a:IsInRange(40) and a:DebuffDown(e.FlameShockDebuff) and ((not l and (e.MasterOfTheElements:IsAvailable() or p)) or (z and a:DebuffDown(e.FlameShockDebuff) and t:BuffUp(e.PrimordialWaveBuff))) then
+    if s(e.FlameShock) and a:IsInRange(40) and a:DebuffDown(e.FlameShockDebuff) and ((not l and (e.MasterOfTheElements:IsAvailable() or p)) or (x and a:DebuffDown(e.FlameShockDebuff) and t:BuffUp(e.PrimordialWaveBuff))) then
         if i(e.FlameShock, nil) then
             o = 188389
             return "Flameshock aoe 2"
@@ -535,7 +535,7 @@ local function he()
 
     end
 
-    if s(e.EchoingShock) and h.Elemental.TTDSetting < a:TimeToDie() and a:IsInRange(40) and x and e.EchoingShock:IsAvailable() and f() >= 60 and h.Elemental.TTDSetting < a:TimeToDie() and ((g and t:BuffUp(e.EchoesofGreatSunderingBuff)) or not g) then
+    if s(e.EchoingShock) and h.Elemental.TTDSetting < a:TimeToDie() and a:IsInRange(40) and z and e.EchoingShock:IsAvailable() and f() >= 60 and h.Elemental.TTDSetting < a:TimeToDie() and ((g and t:BuffUp(e.EchoesofGreatSunderingBuff)) or not g) then
         if i(e.EchoingShock, nil) then
             o = 320125
             return "Echoing Shock aoe 2"
@@ -551,7 +551,7 @@ local function he()
 
     end
 
-    if s(e.LiquidMagmaTotem) and a:IsInRange(40) and x and e.LiquidMagmaTotem:IsAvailable() then
+    if s(e.LiquidMagmaTotem) and a:IsInRange(40) and z and e.LiquidMagmaTotem:IsAvailable() then
         if i(e.LiquidMagmaTotem, nil) then
             o = 192222
             return "LiquidMagmaTotem aoe 2"
@@ -681,7 +681,7 @@ local function he()
 
     end
 
-    if s(e.ChainLightning) and (n == 0 or n > e.ChainLightning:ExecuteTime() or t:BuffUp(e.StormkeeperBuff)) and a:IsInRange(40) and (T() or t:BuffRemains(e.StormkeeperBuff) < (3 * t:GCD() * t:BuffStack(e.StormkeeperBuff))) then
+    if s(e.ChainLightning) and (n == 0 or n > e.ChainLightning:ExecuteTime() or t:BuffUp(e.StormkeeperBuff)) and a:IsInRange(40) and (E() or t:BuffRemains(e.StormkeeperBuff) < (3 * t:GCD() * t:BuffStack(e.StormkeeperBuff))) then
         if i(e.ChainLightning, nil) then
             o = 188443
             return "ChainLightning aoe 2"
@@ -848,7 +848,7 @@ local function k()
 
     end
 
-    if s(e.Stormkeeper) and (n == 0 or n > e.Stormkeeper:ExecuteTime()) and a:IsInRange(40) and e.Stormkeeper:IsAvailable() and f() < 44 and x then
+    if s(e.Stormkeeper) and (n == 0 or n > e.Stormkeeper:ExecuteTime()) and a:IsInRange(40) and e.Stormkeeper:IsAvailable() and f() < 44 and z then
         if i(e.Stormkeeper, nil) then
             o = 191634
             return "st Stormkeeper 1"
@@ -856,7 +856,7 @@ local function k()
 
     end
 
-    if s(e.EchoingShock) and h.Elemental.TTDSetting < a:TimeToDie() and h.Elemental.TTDSetting < a:TimeToDie() and a:IsInRange(40) and x and e.EchoingShock:IsAvailable() and e.LavaBurst:CooldownRemains() <= t:GCD() then
+    if s(e.EchoingShock) and h.Elemental.TTDSetting < a:TimeToDie() and h.Elemental.TTDSetting < a:TimeToDie() and a:IsInRange(40) and z and e.EchoingShock:IsAvailable() and e.LavaBurst:CooldownRemains() <= t:GCD() then
         if i(e.EchoingShock, nil) then
             o = 320125
             return "Echoing Shock st 1"
@@ -872,7 +872,7 @@ local function k()
 
     end
 
-    if s(e.LiquidMagmaTotem) and a:IsInRange(40) and x and e.LiquidMagmaTotem:IsAvailable() then
+    if s(e.LiquidMagmaTotem) and a:IsInRange(40) and z and e.LiquidMagmaTotem:IsAvailable() then
         if i(e.LiquidMagmaTotem, nil) then
             o = 192222
             return "LiquidMagmaTotem st 2"
@@ -888,7 +888,7 @@ local function k()
 
     end
 
-    if s(e.LightningBolt) and (n == 0 or n > e.LightningBolt:ExecuteTime() or t:BuffUp(e.StormkeeperBuff)) and a:IsInRange(40) and T() and v() and f() < 60 then
+    if s(e.LightningBolt) and (n == 0 or n > e.LightningBolt:ExecuteTime() or t:BuffUp(e.StormkeeperBuff)) and a:IsInRange(40) and E() and v() and f() < 60 then
         if i(e.LightningBolt, nil) then
             o = 188196
             return "LightningBolt st 1"
@@ -896,7 +896,7 @@ local function k()
 
     end
 
-    if s(e.Earthquake) and h.Elemental.TTDSetting < a:TimeToDie() and (n == 0 or n > e.Earthquake:ExecuteTime()) and a:IsInRange(40) and t:BuffUp(e.EchoesofGreatSunderingBuff) and (e.MasterOfTheElements:IsAvailable() or (e.LavaBurst:CooldownRemains() > 0 and f() >= 92) or (r < 2 and T() and e.LavaBurst:CooldownRemains() <= t:GCD()) or (not e.MasterOfTheElements:IsAvailable()) or (e.ElementalBlast:CooldownRemains() <= (1.1 * t:GCD() * 2))) then
+    if s(e.Earthquake) and h.Elemental.TTDSetting < a:TimeToDie() and (n == 0 or n > e.Earthquake:ExecuteTime()) and a:IsInRange(40) and t:BuffUp(e.EchoesofGreatSunderingBuff) and (e.MasterOfTheElements:IsAvailable() or (e.LavaBurst:CooldownRemains() > 0 and f() >= 92) or (r < 2 and E() and e.LavaBurst:CooldownRemains() <= t:GCD()) or (not e.MasterOfTheElements:IsAvailable()) or (e.ElementalBlast:CooldownRemains() <= (1.1 * t:GCD() * 2))) then
         if i(e.Earthquake, nil) then
             o = 61882
             return "EQ st 2"
@@ -936,7 +936,7 @@ local function k()
 
     end
 
-    if s(e.EarthShock) and a:IsInRange(40) and (g or r < 2) and ((e.MasterOfTheElements:IsAvailable() and t:BuffDown(e.EchoesofGreatSunderingBuff) and (v() or f() >= 92 or (r < 2 and T() and e.LavaBurst:CooldownRemains() <= t:GCD()))) or (not e.MasterOfTheElements:IsAvailable() or e.ElementalBlast:CooldownRemains() <= (1.1 * t:GCD() * 2))) then
+    if s(e.EarthShock) and a:IsInRange(40) and (g or r < 2) and ((e.MasterOfTheElements:IsAvailable() and t:BuffDown(e.EchoesofGreatSunderingBuff) and (v() or f() >= 92 or (r < 2 and E() and e.LavaBurst:CooldownRemains() <= t:GCD()))) or (not e.MasterOfTheElements:IsAvailable() or e.ElementalBlast:CooldownRemains() <= (1.1 * t:GCD() * 2))) then
         if i(e.EarthShock, nil) then
             o = 8042
             return "EarthShock st 1"
@@ -976,7 +976,7 @@ local function k()
 
     end
 
-    if s(e.FrostShock) and a:IsInRange(40) and e.Icefury:IsAvailable() and j() and (t:BuffRemains(e.IcefuryBuff) < (t:GCD() * 4 * t:BuffStack(e.IcefuryBuff)) or T() or not e.MasterOfTheElements:IsAvailable()) then
+    if s(e.FrostShock) and a:IsInRange(40) and e.Icefury:IsAvailable() and j() and (t:BuffRemains(e.IcefuryBuff) < (t:GCD() * 4 * t:BuffStack(e.IcefuryBuff)) or E() or not e.MasterOfTheElements:IsAvailable()) then
         if i(e.FrostShock, nil) then
             o = 196840
             return "FrostShock st 3"
@@ -1015,7 +1015,7 @@ local function k()
 
     end
 
-    if s(e.ChainHarvest) and (n == 0 or n > e.ChainHarvest:ExecuteTime()) and a:IsInRange(40) and E then
+    if s(e.ChainHarvest) and (n == 0 or n > e.ChainHarvest:ExecuteTime()) and a:IsInRange(40) and T then
         if i(e.ChainHarvest, nil) then
             o = 320674
             return "Chain Harvest st 1"
@@ -1031,7 +1031,7 @@ local function k()
 
     end
 
-    if s(e.StaticDischarge) and e.StaticDischarge:IsAvailable() and x then
+    if s(e.StaticDischarge) and e.StaticDischarge:IsAvailable() and z then
         if i(e.StaticDischarge, nil, nil) then
             o = 342243
             return "st StaticDischarge"
@@ -1096,7 +1096,7 @@ local function k()
 
 end
 
-local function z()
+local function x()
     if s(e.StormElemental) and a:IsInRange(40) and e.StormElemental:IsAvailable() and y() and h.Elemental.TTDSetting < a:TimeToDie() then
         if i(e.StormElemental, nil) then
             o = 192249
@@ -1113,7 +1113,7 @@ local function z()
 
     end
 
-    if s(e.PrimordialWave) and E and e.PrimordialWave:IsAvailable() and t:BuffDown(e.PrimordialWaveBuff) and t:BuffDown(e.SplinteredElementsBuff) then
+    if s(e.PrimordialWave) and T and e.PrimordialWave:IsAvailable() and t:BuffDown(e.PrimordialWaveBuff) and t:BuffDown(e.SplinteredElementsBuff) then
         if m.CastTargetIf(e.PrimordialWave, w, "min", u, J) then
             return "Primo Wave 108"
         end
@@ -1160,7 +1160,7 @@ local function z()
 
     end
 
-    if s(e.Stormkeeper) and (n == 0 or n > e.Stormkeeper:ExecuteTime()) and a:IsInRange(40) and e.Stormkeeper:IsAvailable() and x then
+    if s(e.Stormkeeper) and (n == 0 or n > e.Stormkeeper:ExecuteTime()) and a:IsInRange(40) and e.Stormkeeper:IsAvailable() and z then
         if i(e.Stormkeeper, nil) then
             o = 191634
             return "sest Stormkeeper 1"
@@ -1168,7 +1168,7 @@ local function z()
 
     end
 
-    if s(e.EchoingShock) and h.Elemental.TTDSetting < a:TimeToDie() and a:IsInRange(40) and x and e.EchoingShock:IsAvailable() and ((e.LavaBurst:CooldownRemains() <= t:GCD() and r < 2) or (f() >= 60 and r >= 2 and (not g or t:BuffUp(e.EchoesofGreatSunderingBuff))) or (r < 2 and t:BuffStack(e.WindGustBuff) >= 18 and (not g or t:BuffUp(e.EchoesofGreatSunderingBuff)) and f() >= 60)) then
+    if s(e.EchoingShock) and h.Elemental.TTDSetting < a:TimeToDie() and a:IsInRange(40) and z and e.EchoingShock:IsAvailable() and ((e.LavaBurst:CooldownRemains() <= t:GCD() and r < 2) or (f() >= 60 and r >= 2 and (not g or t:BuffUp(e.EchoesofGreatSunderingBuff))) or (r < 2 and t:BuffStack(e.WindGustBuff) >= 18 and (not g or t:BuffUp(e.EchoesofGreatSunderingBuff)) and f() >= 60)) then
         if i(e.EchoingShock, nil) then
             o = 320125
             return "Echoing Shock sest 2"
@@ -1200,7 +1200,7 @@ local function z()
 
     end
 
-    if s(e.LightningBolt) and (n == 0 or n > e.LightningBolt:ExecuteTime() or t:BuffUp(e.StormkeeperBuff)) and a:IsInRange(40) and T() then
+    if s(e.LightningBolt) and (n == 0 or n > e.LightningBolt:ExecuteTime() or t:BuffUp(e.StormkeeperBuff)) and a:IsInRange(40) and E() then
         if i(e.LightningBolt, nil) then
             o = 188196
             return "LightningBolt sest 1"
@@ -1272,7 +1272,23 @@ local function z()
 
     end
 
-    if s(e.FrostShock) and a:IsInRange(40) and e.Icefury:IsAvailable() and j() then
+    if s(e.Icefury) and not l and e.Icefury:IsAvailable() and not (f() > 35 and e.LavaBurst:CooldownRemains() <= 0) then
+        if i(e.Icefury, nil, nil, not a:IsSpellInRange(e.LavaBurst)) then
+            o = 210714
+            return "Icefury sest 1"
+        end
+
+    end
+
+    if s(e.FrostShock) and a:IsInRange(40) and e.Icefury:IsAvailable() and j() and not l and (t:BuffRemains(e.IcefuryBuff) < (t:GCD() * 4 * t:BuffStack(e.IcefuryBuff)) or E() or not e.MasterOfTheElements:IsAvailable()) then
+        if i(e.FrostShock, nil) then
+            o = 196840
+            return "FrostShock sest 3"
+        end
+
+    end
+
+    if s(e.FrostShock) and a:IsInRange(40) and e.Icefury:IsAvailable() and j() and not l then
         if i(e.FrostShock, nil) then
             o = 196840
             return "FrostShock SEST 1"
@@ -1280,7 +1296,7 @@ local function z()
 
     end
 
-    if s(e.ChainHarvest) and (n == 0 or n > e.ChainHarvest:ExecuteTime()) and a:IsInRange(40) and E then
+    if s(e.ChainHarvest) and (n == 0 or n > e.ChainHarvest:ExecuteTime()) and a:IsInRange(40) and T then
         if i(e.ChainHarvest, nil) then
             o = 320674
             return "Chain Harvest SEST 1"
@@ -1288,7 +1304,7 @@ local function z()
 
     end
 
-    if s(e.StaticDischarge) and e.StaticDischarge:IsAvailable() and x then
+    if s(e.StaticDischarge) and e.StaticDischarge:IsAvailable() and z then
         if i(e.StaticDischarge, nil, nil) then
             o = 342243
             return "SEST StaticDischarge"
@@ -1347,8 +1363,8 @@ end
 
 local function f()
     V = HeroRotationCharDB.Toggles[6]
-    E = HeroRotationCharDB.Toggles[4]
-    x = HeroRotationCharDB.Toggles[5]
+    T = HeroRotationCharDB.Toggles[4]
+    z = HeroRotationCharDB.Toggles[5]
     I = HeroRotationCharDB.Toggles[12]
     de = HeroRotationCharDB.Toggles[15]
     te = HeroRotationCharDB.Toggles[60]
@@ -1737,7 +1753,7 @@ local function b()
 
         end
 
-        if s(e.PrimordialWave) and E then
+        if s(e.PrimordialWave) and T then
             if m.CastTargetIf(e.PrimordialWave, w, "min", u, Z) then
                 return "Primo Wave 108"
             end
@@ -1818,7 +1834,7 @@ local function b()
 
         end
 
-        if s(e.VesperTotem) and E and h.Elemental.TTDSetting < a:TimeToDie() and a:IsInRange(40) and e.VesperTotem:IsAvailable() then
+        if s(e.VesperTotem) and T and h.Elemental.TTDSetting < a:TimeToDie() and a:IsInRange(40) and e.VesperTotem:IsAvailable() then
             if i(e.VesperTotem, nil) then
                 o = 324386
                 return "VesperTotem 1"
@@ -1826,7 +1842,7 @@ local function b()
 
         end
 
-        if s(e.FaeTransfusion) and E and h.Elemental.TTDSetting < a:TimeToDie() and e.FaeTransfusion:IsAvailable() and not oe and (not e.MasterOfTheElements:IsAvailable() or v()) and r < 3 then
+        if s(e.FaeTransfusion) and T and h.Elemental.TTDSetting < a:TimeToDie() and e.FaeTransfusion:IsAvailable() and not oe and (not e.MasterOfTheElements:IsAvailable() or v()) and r < 3 then
             if i(e.FaeTransfusion, nil) then
                 o = 328923
                 return "FaeTransfusion 1"
@@ -1834,7 +1850,7 @@ local function b()
 
         end
 
-        if s(e.FaeTransfusion) and E and h.Elemental.TTDSetting < a:TimeToDie() and e.FaeTransfusion:IsAvailable() and oe and (not e.MasterOfTheElements:IsAvailable() or v() or r >= 3) and ((e.FireElemental:CooldownRemains() > 20 and not e.StormElemental:IsAvailable()) or (e.StormElemental:CooldownRemains() > 20 and e.StormElemental:IsAvailable())) then
+        if s(e.FaeTransfusion) and T and h.Elemental.TTDSetting < a:TimeToDie() and e.FaeTransfusion:IsAvailable() and oe and (not e.MasterOfTheElements:IsAvailable() or v() or r >= 3) and ((e.FireElemental:CooldownRemains() > 20 and not e.StormElemental:IsAvailable()) or (e.StormElemental:CooldownRemains() > 20 and e.StormElemental:IsAvailable())) then
             if i(e.FaeTransfusion, nil) then
                 o = 328923
                 return "FaeTransfusion 2"
@@ -1859,7 +1875,7 @@ local function b()
         end
 
         if (e.StormElemental:IsAvailable() and r <= 2) then
-            local e = z()
+            local e = x()
             if e then
                 return e
             end
