@@ -217,11 +217,11 @@ local function Te()
         end
 
         local e = 1 * (1 + (GetCombatRatingBonus(29) / 100))
-        if GetPlayerAuraBySpellID(123904) then
+        if C_UnitAuras.GetPlayerAuraBySpellID(123904) then
             e = e * 1.1
         end
 
-        if GetPlayerAuraBySpellID(137639) then
+        if C_UnitAuras.GetPlayerAuraBySpellID(137639) then
             e = e * 1.35
             e = e * (2 * d() + 1) / 3
         end
