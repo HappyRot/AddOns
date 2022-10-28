@@ -399,7 +399,15 @@ local function V()
 
     end
 
-    if e.AbominationLimb:IsCastable() and a:IsInMeleeRange(8) and y and (t:BuffDown(e.DancingRuneWeaponBuff)) then
+    if e.AbominationLimb:IsCastable() and a:IsInMeleeRange(8) and (y) and (t:BuffDown(e.DancingRuneWeaponBuff)) then
+        if i(e.AbominationLimb, nil, nil, not a:IsInRange(8)) then
+            o = 315443
+            return "abomination_limb covenants 16"
+        end
+
+    end
+
+    if e.AbominationLimbTalent:IsCastable() and e.AbominationLimbTalent:IsAvailable() and a:IsInMeleeRange(8) and (r()) and (t:BuffDown(e.DancingRuneWeaponBuff)) then
         if i(e.AbominationLimb, nil, nil, not a:IsInRange(8)) then
             o = 315443
             return "abomination_limb covenants 16"
@@ -430,6 +438,14 @@ local function P()
         if i(e.DeathAndDecay, nil, nil, not a:IsInRange(30)) then
             o = 43265
             return "death_and_decay drw_up 14"
+        end
+
+    end
+
+    if e.EmpowerRuneWeapon:IsReady() and e.EmpowerRuneWeapon:IsAvailable() and r() then
+        if i(e.EmpowerRuneWeapon, nil, nil, not a:IsInRange(8)) then
+            o = 47568
+            return "EmpowerRuneWeapon drw_up 11"
         end
 
     end
