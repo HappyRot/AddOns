@@ -8,30 +8,30 @@ local i = k.Target
 local h = k.Pet
 local f = b.Spell
 local r = b.Item
-local T = b.Action
+local A = b.Action
 local s = HeroRotation
-local de = s.AoEON
+local se = s.AoEON
 local l = s.CDsON
 local o = s.Cast
 local e = s.CastSuggested
 local m = HeroRotationCharDB.Toggles[4]
 local v = HeroRotationCharDB.Toggles[5]
 local Y = HeroRotationCharDB.Toggles[6]
-local E = HeroRotationCharDB.Toggles[12]
-local X = HeroRotationCharDB.Toggles[15]
+local T = HeroRotationCharDB.Toggles[12]
+local Z = HeroRotationCharDB.Toggles[15]
 local S = HeroRotationCharDB.Toggles[120]
-local U = HeroRotationCharDB.Toggles[121]
+local C = HeroRotationCharDB.Toggles[121]
 local W = HeroRotationCharDB.Toggles[122]
 local F = HeroRotationCharDB.Toggles[123]
-local C = HeroRotationCharDB.Toggles[124]
+local M = HeroRotationCharDB.Toggles[124]
 local J = HeroRotationCharDB.Toggles[125]
 local Q = HeroRotationCharDB.Toggles[142]
-local x
+local _
 local I
 local u
 local N
 local B = { 355782, 333875, 344739, 228318, 332158, 321764, 324914, 326046, 324776, 340544, 324736, 328015, 322433, 334324, 317936, 327332, 328288, 343470, 333293, 320272, 342139, 355888, 349933, 356549, 355934, 353706, 347775, 357284, 335141, 327155, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 344739, 368477, 368396, 355057, 356133, 158337, 164426 }
-local M = math.max
+local R = math.max
 local e, H, e, e, G, e = _G, pairs, type, table, string, error
 local j = s.Commons.Everyone
 local e = s.Commons.Hunter
@@ -39,7 +39,7 @@ local n = { General = s.GUISettings.General, Commons = s.GUISettings.APL.Hunter.
 local e = f.Hunter.BeastMastery
 local y = { e.SummonPet, e.SummonPet2, e.SummonPet3, e.SummonPet4, e.SummonPet5 }
 local w = r.Hunter.BeastMastery
-local re = {  }
+local he = {  }
 local t
 local t = a:GetEquipment()
 local d = r(0)
@@ -56,8 +56,8 @@ end
 
 local q = a:HasLegendaryEquipped(254) or (a:HasUnity() and e.WildSpirits:IsAvailable())
 local p = a:HasLegendaryEquipped(67)
-local A = a:HasLegendaryEquipped(68)
-local Z = a:HasLegendaryEquipped(72)
+local E = a:HasLegendaryEquipped(68)
+local X = a:HasLegendaryEquipped(72)
 local D = a:HasLegendaryEquipped(255)
 b:RegisterForEvent(function()
     t = a:GetEquipment()
@@ -73,26 +73,22 @@ b:RegisterForEvent(function()
 
     q = a:HasLegendaryEquipped(254) or (a:HasUnity() and e.WildSpirits:IsAvailable())
     p = a:HasLegendaryEquipped(67)
-    A = a:HasLegendaryEquipped(68)
-    Z = a:HasLegendaryEquipped(72)
+    E = a:HasLegendaryEquipped(68)
+    X = a:HasLegendaryEquipped(72)
     D = a:HasLegendaryEquipped(255)
 end, "PLAYER_EQUIPMENT_CHANGED")
 local g, t, z
-local r, R
+local r, L
 local O
 local p
 local d
 local t = 0
 local c = 0
-local he = { { e.Intimidation, "Cast Intimidation (Interrupt)", function()
+local ne = { { e.Intimidation, "Cast Intimidation (Interrupt)", function()
     return true
 end } }
-local function se()
+local function re()
     d = a:GCD() + .15
-    if a:BuffUp(e.AspectoftheWildBuff) then
-        d = M(.75, d - .2 / (1 + a:HastePct() / 100))
-    end
-
 end
 
 function AreaTTD(e)
@@ -119,7 +115,7 @@ function AreaTTD(e)
     return a / t
 end
 
-local function _(e)
+local function x(e)
     return e ~= 0
 end
 
@@ -139,24 +135,24 @@ local function P(e)
     return t
 end
 
-local function L(o)
-    local t = h:BuffRemains(o)
-        if o == e.FrenzyPetBuff then
+local function U(t)
+    local o = h:BuffRemains(t)
+        if t == e.FrenzyPetBuff then
         if a:IsPrevCastPending() then
-            t = h:BuffRemains(e.FrenzyPetBuff) + (GetTime() - a:GCDStartTime())
+            o = h:BuffRemains(e.FrenzyPetBuff) + (GetTime() - a:GCDStartTime())
         end
 
-    elseif o == e.BeastCleavePetBuff then
+    elseif t == e.BeastCleavePetBuff then
         if a:IsPrevCastPending() then
-            t = (M(h:BuffRemains(e.BeastCleavePetBuff), a:BuffRemains(e.BeastCleaveBuff))) + (GetTime() - a:GCDStartTime())
+            o = (R(h:BuffRemains(e.BeastCleavePetBuff), a:BuffRemains(e.BeastCleaveBuff))) + (GetTime() - a:GCDStartTime())
         end
 
     end
 
-    return t
+    return o
 end
 
-local function M(t)
+local function R(t)
     return t:DebuffRemains(e.BarbedShot)
 end
 
@@ -168,7 +164,7 @@ local function ee(e)
                 if ((e:AffectingCombat() or e:IsDummy() or e:NPCID() == 153285) and e:GUID() == k("mouseover"):GUID()) then
         c = 12643
         return true
-    elseif ((e:AffectingCombat() or e:IsDummy() or e:NPCID() == 153285) and n.BeastMastery.TargetSwap == "AutoSwap" and e:GUID() ~= i:GUID() and not E) then
+    elseif ((e:AffectingCombat() or e:IsDummy() or e:NPCID() == 153285) and n.BeastMastery.TargetSwap == "AutoSwap" and e:GUID() ~= i:GUID() and not T) then
         c = 999
         return true
     elseif ((e:AffectingCombat() or e:IsDummy() or e:NPCID() == 153285) and e:GUID() == i:GUID()) then
@@ -180,11 +176,11 @@ local function ee(e)
 
 end
 
-local function te(o)
+local function ie(o)
                 if (((h:BuffUp(e.FrenzyPetBuff) and h:BuffRemains(e.FrenzyPetBuff) <= d) or (a:BuffUp(e.WildSpiritsBuff) and e.BarbedShot:ChargesFractional() > 1.4 and q)) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == k("mouseover"):GUID()) then
         c = 1217200
         return true
-    elseif (((h:BuffUp(e.FrenzyPetBuff) and h:BuffRemains(e.FrenzyPetBuff) <= d) or (a:BuffUp(e.WildSpiritsBuff) and e.BarbedShot:ChargesFractional() > 1.4 and q)) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and n.BeastMastery.TargetSwap == "AutoSwap" and o:GUID() ~= i:GUID() and not E) then
+    elseif (((h:BuffUp(e.FrenzyPetBuff) and h:BuffRemains(e.FrenzyPetBuff) <= d) or (a:BuffUp(e.WildSpiritsBuff) and e.BarbedShot:ChargesFractional() > 1.4 and q)) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and n.BeastMastery.TargetSwap == "AutoSwap" and o:GUID() ~= i:GUID() and not T) then
         c = 999
         return true
     elseif (((h:BuffUp(e.FrenzyPetBuff) and h:BuffRemains(e.FrenzyPetBuff) <= d) or (a:BuffUp(e.WildSpiritsBuff) and e.BarbedShot:ChargesFractional() > 1.4 and q)) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == i:GUID()) then
@@ -197,26 +193,26 @@ local function te(o)
 end
 
 local function ee(a)
-                if (((e.BarbedShot:FullRechargeTime() < d and (_(e.BestialWrath:CooldownRemains() or not u))) or (e.BestialWrath:CooldownRemains() < 12 + d and e.ScentOfBlood:IsAvailable())) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and a:GUID() == k("mouseover"):GUID()) then
+                if (((e.BarbedShot:FullRechargeTime() < d and (x(e.BestialWrath:CooldownRemains() or not u))) or (e.BestialWrath:CooldownRemains() < 12 + d and e.ScentOfBlood:IsAvailable())) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and a:GUID() == k("mouseover"):GUID()) then
         c = 1217200
         return true
-    elseif (((e.BarbedShot:FullRechargeTime() < d and (_(e.BestialWrath:CooldownRemains() or not u))) or (e.BestialWrath:CooldownRemains() < 12 + d and e.ScentOfBlood:IsAvailable())) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and n.BeastMastery.TargetSwap == "AutoSwap" and a:GUID() ~= i:GUID() and not E) then
+    elseif (((e.BarbedShot:FullRechargeTime() < d and (x(e.BestialWrath:CooldownRemains() or not u))) or (e.BestialWrath:CooldownRemains() < 12 + d and e.ScentOfBlood:IsAvailable())) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and n.BeastMastery.TargetSwap == "AutoSwap" and a:GUID() ~= i:GUID() and not T) then
         c = 999
         return true
-    elseif (((e.BarbedShot:FullRechargeTime() < d and (_(e.BestialWrath:CooldownRemains() or not u))) or (e.BestialWrath:CooldownRemains() < 12 + d and e.ScentOfBlood:IsAvailable())) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and a:GUID() == i:GUID()) then
+    elseif (((e.BarbedShot:FullRechargeTime() < d and (x(e.BestialWrath:CooldownRemains() or not u))) or (e.BestialWrath:CooldownRemains() < 12 + d and e.ScentOfBlood:IsAvailable())) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and a:GUID() == i:GUID()) then
         t = 217200
         return true
-    elseif ((e.BarbedShot:FullRechargeTime() < d and (_(e.BestialWrath:CooldownRemains() or not u))) or (e.BestialWrath:CooldownRemains() < 12 + d and e.ScentOfBlood:IsAvailable())) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) then
+    elseif ((e.BarbedShot:FullRechargeTime() < d and (x(e.BestialWrath:CooldownRemains() or not u))) or (e.BestialWrath:CooldownRemains() < 12 + d and e.ScentOfBlood:IsAvailable())) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) then
         return true
     end
 
 end
 
-local function ne(a)
+local function oe(a)
                 if ((a:TimeToDie() < 9 and e.Bloodletting:ConduitEnabled()) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and a:GUID() == k("mouseover"):GUID()) then
         c = 1217200
         return true
-    elseif ((a:TimeToDie() < 9 and e.Bloodletting:ConduitEnabled()) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and n.BeastMastery.TargetSwap == "AutoSwap" and a:GUID() ~= i:GUID() and not E) then
+    elseif ((a:TimeToDie() < 9 and e.Bloodletting:ConduitEnabled()) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and n.BeastMastery.TargetSwap == "AutoSwap" and a:GUID() ~= i:GUID() and not T) then
         c = 999
         return true
     elseif ((a:TimeToDie() < 9 and e.Bloodletting:ConduitEnabled()) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and a:GUID() == i:GUID()) then
@@ -228,7 +224,7 @@ local function ne(a)
 
 end
 
-local function ie()
+local function te()
     if j.TargetIsValid() and r then
         if f(257284):IsCastable() and f(339264):ConduitEnabled() and i:DebuffDown(f(257284)) and P(g) <= 0 and (UnitName("target") == "Nalthor the Rimebinder" or UnitName("target") == "Tirnenn Villager" or UnitName("target") == "Drust Boughbreaker" or UnitName("target") == "Ingra Maloch" or UnitName("target") == "Mistveil Stalker" or UnitName("target") == "Mistcaller" or UnitName("target") == "Blightbone" or UnitName("target") == "Rotspew" or UnitName("target") == "Amarth" or UnitName("target") == "Surgeon Stitchflesh" or UnitName("target") == "Lubricator" or UnitName("target") == "Tred'ova" or UnitName("target") == "Azules" or UnitName("target") == "Ventunax" or UnitName("target") == "Oryphion" or UnitName("target") == "Astronos" or UnitName("target") == "Lakesis" or UnitName("target") == "Klotos" or UnitName("target") == "Devos" or UnitName("target") == "Halkias" or UnitName("target") == "High Adjudicator Aleez" or UnitName("target") == "Wo Drifter" or UnitName("target") == "Lord Chamberlain" or UnitName("target") == "Enraged Spirit" or UnitName("target") == "Hakkar The Soulflayer" or UnitName("target") == "Sentient Oil" or UnitName("target") == "Millhouse Manastorm" or UnitName("target") == "Millificent Manastorm" or UnitName("target") == "Dealer Xy’exa" or UnitName("target") == "Mueh'zala" or UnitName("target") == "Fungi Stormer" or UnitName("target") == "Globgrog" or UnitName("target") == "Slime Tentacle" or UnitName("target") == "Virulax Blightweaver" or UnitName("target") == "Doctor Ickus" or UnitName("target") == "Domina Venomblade" or UnitName("target") == "Margrave Stradama" or UnitName("target") == "Dreadful Huntmaster" or UnitName("target") == "Insatiable Brute" or UnitName("target") == "Kryxis the Voracious" or UnitName("target") == "Grand Overseer" or UnitName("target") == "Research Scribe" or UnitName("target") == "Executor Tarvold" or UnitName("target") == "Grand Proctor Beryllia" or UnitName("target") == "General Kaal" or UnitName("target") == "Paceran the Virulent" or UnitName("target") == "Shard of Halkias" or UnitName("target") == "Shambling Arbalest" or UnitName("target") == "Nekthara the Mangler" or UnitName("target") == "Harugia the Bloodthirtsy" or UnitName("target") == "Heavin the Breaker" or UnitName("target") == "Echelon" or UnitName("target") == "Advent Nevermore" or UnitName("target") == "Xav the Unfallen" or UnitName("target") == "Portal Guardian" or UnitName("target") == "Kul'Tharok" or UnitName("target") == "Gorechop" or UnitName("target") == "Mordretha, the Endless Empress" or UnitName("target") == "Gatewarden Zo'mazz" or UnitName("target") == "Zophex" or UnitName("target") == "Alcruux" or UnitName("target") == "Achillite" or UnitName("target") == "Venza Goldfuse" or UnitName("target") == "Zo'gron" or UnitName("target") == "P.O.S.T Master" or UnitName("target") == "So'azmi" or UnitName("target") == "Portalmancer Zo'dahh" or (IsInRaid() and UnitName("boss1") == UnitName("boss1"))) then
             if o(e.HuntersMark, nil) then
@@ -311,7 +307,7 @@ local function ae()
 
     end
 
-    if e.Berserking:IsCastable() and l() and (a:BuffUp(e.AspectoftheWildBuff) and (i:TimeToDie() > 180 + e.BerserkingBuff:BaseDuration() or (i:HealthPercentage() < 35 or not e.KillerInstinct:IsAvailable())) or i:TimeToDie() < 13) then
+    if e.Berserking:IsCastable() and l() and ((i:TimeToDie() > 180 + e.BerserkingBuff:BaseDuration() or (i:HealthPercentage() < 35 or not e.KillerInstinct:IsAvailable())) or i:TimeToDie() < 13) then
         if o(e.Berserking, nil) then
             t = 26297
             return "Berserking"
@@ -319,7 +315,7 @@ local function ae()
 
     end
 
-    if e.BloodFury:IsCastable() and l() and (a:BuffUp(e.AspectoftheWildBuff) and (i:TimeToDie() > 120 + e.BloodFuryBuff:BaseDuration() or (i:HealthPercentage() < 35 or not e.KillerInstinct:IsAvailable())) or i:TimeToDie() < 16) then
+    if e.BloodFury:IsCastable() and l() and ((i:TimeToDie() > 120 + e.BloodFuryBuff:BaseDuration() or (i:HealthPercentage() < 35 or not e.KillerInstinct:IsAvailable())) or i:TimeToDie() < 16) then
         if o(e.BloodFury, nil) then
             t = 20572
             return "Blood Fury"
@@ -327,7 +323,7 @@ local function ae()
 
     end
 
-    if e.LightsJudgment:IsCastable() and l() and (L(e.FrenzyPetBuff) > d or h:BuffDown(e.FrenzyPetBuff)) then
+    if e.LightsJudgment:IsCastable() and l() and (U(e.FrenzyPetBuff) > d or h:BuffDown(e.FrenzyPetBuff)) then
         if o(e.LightsJudgment, nil, nil, 40) then
             t = 255647
             return "Light's Judgment"
@@ -335,7 +331,7 @@ local function ae()
 
     end
 
-    if n.Commons.Enabled.Potions and w.PotionOfSpectralAgility:IsReady() and X and (((a:BuffUp(e.AspectoftheWildBuff) or i:TimeToDie() < 26) and not s.GUISettings.General.HoldPotforBL) or (a:BloodlustUp() and s.GUISettings.General.HoldPotforBL)) then
+    if n.Commons.Enabled.Potions and w.PotionOfSpectralAgility:IsReady() and Z and (((i:TimeToDie() < 26) and not s.GUISettings.General.HoldPotforBL) or (a:BloodlustUp() and s.GUISettings.General.HoldPotforBL)) then
         if o(w.PotionOfSpectralAgility, nil) then
             t = 50
             return "Potion of Spectral Agility"
@@ -345,8 +341,8 @@ local function ae()
 
 end
 
-local function oe()
-    if x and e.AspectoftheWild:IsCastable() and UnitExists("pet") and i:IsInMeleeRange(40) then
+local function k()
+    if _ and e.AspectoftheWild:IsCastable() and UnitExists("pet") and i:IsInMeleeRange(40) then
         if o(e.AspectoftheWild, nil) then
             t = 193530
             return "Aspect of the Wild (Cleave)"
@@ -355,7 +351,7 @@ local function oe()
     end
 
     if e.BarbedShot:IsCastable() then
-        if j.CastTargetIf(e.BarbedShot, g, "min", M, te) then
+        if j.CastTargetIf(e.BarbedShot, g, "min", R, ie) then
             return "Barbed Shot (Cleave - 1)"
         end
 
@@ -369,7 +365,7 @@ local function oe()
 
     end
 
-    if e.MultiShot:IsReady() and (d - L(e.BeastCleavePetBuff) > .25) then
+    if e.MultiShot:IsReady() and (d - U(e.BeastCleavePetBuff) > .25) then
         if o(e.MultiShot, nil, nil, not r) then
             t = 2643
             return "Multi-Shot (Cleave - 1)"
@@ -393,7 +389,7 @@ local function oe()
 
     end
 
-    if e.TarTrap:IsCastable() and (A and e.Flare:CooldownRemains() < a:GCD()) then
+    if e.TarTrap:IsCastable() and (E and e.Flare:CooldownRemains() < a:GCD()) then
         if o(e.TarTrap, nil, nil, not i:IsInRange(40)) then
             t = 187698
             return "tar_trap st 4"
@@ -401,7 +397,7 @@ local function oe()
 
     end
 
-    if e.Flare:IsCastable() and not e.TarTrap:CooldownUp() and A then
+    if e.Flare:IsCastable() and not e.TarTrap:CooldownUp() and E then
         if o(e.Flare, nil) then
             t = 1543
             return "flare st 5"
@@ -426,11 +422,11 @@ local function oe()
     end
 
     if e.BarbedShot:IsCastable() then
-        if j.CastTargetIf(e.BarbedShot, g, "min", M, ee) then
+        if j.CastTargetIf(e.BarbedShot, g, "min", R, ee) then
             return "Barbed Shot (Cleave - 2)"
         end
 
-        if ((e.BarbedShot:FullRechargeTime() < d and (_(e.BestialWrath:CooldownRemains() or not u))) or (e.BestialWrath:CooldownRemains() < 12 + d and e.ScentOfBlood:IsAvailable())) then
+        if ((e.BarbedShot:FullRechargeTime() < d and (x(e.BestialWrath:CooldownRemains() or not u))) or (e.BestialWrath:CooldownRemains() < 12 + d and e.ScentOfBlood:IsAvailable())) then
             if o(e.BarbedShot, nil, nil, not r) then
                 t = 217200
                 return "Barbed Shot (Cleave - 2@Target)"
@@ -456,8 +452,8 @@ local function oe()
 
     end
 
-    if e.Stampede:IsCastable() and I and (a:BuffUp(e.AspectoftheWildBuff) or i:TimeToDie() < 15 or not x) then
-        if o(e.Stampede, nil, nil, not R) then
+    if e.Stampede:IsCastable() and I and (i:TimeToDie() < 15 or not _) then
+        if o(e.Stampede, nil, nil, not L) then
             t = 201430
             return "Stampede (Cleave)"
         end
@@ -512,7 +508,7 @@ local function oe()
 
     end
 
-    if e.Barrage:IsReady() and L(e.BeastCleavePetBuff) > e.Barrage:ExecuteTime() then
+    if e.Barrage:IsReady() and U(e.BeastCleavePetBuff) > e.Barrage:ExecuteTime() then
         if o(e.Barrage, nil, nil, not r) then
             t = 120360
             return "Barrage (Cleave)"
@@ -545,7 +541,7 @@ local function oe()
     end
 
     if e.BarbedShot:IsCastable() then
-        if j.CastTargetIf(e.BarbedShot, g, "min", M, ne) then
+        if j.CastTargetIf(e.BarbedShot, g, "min", R, oe) then
             return "Barbed Shot (Cleave - 3)"
         end
 
@@ -577,8 +573,8 @@ local function oe()
 
 end
 
-local function k()
-    if x and e.AspectoftheWild:IsCastable() and UnitExists("pet") and i:IsInMeleeRange(40) and (CovenantID ~= 3 or e.WildSpirits:CooldownRemains() > 20) then
+local function R()
+    if _ and e.AspectoftheWild:IsCastable() and UnitExists("pet") and i:IsInMeleeRange(40) and (CovenantID ~= 3 or e.WildSpirits:CooldownRemains() > 20) then
         if o(e.AspectoftheWild, nil) then
             t = 193530
             return "Aspect of the Wild (ST)"
@@ -594,7 +590,7 @@ local function k()
 
     end
 
-    if e.TarTrap:IsCastable() and (A and i:BuffDown(e.SoulforgeEmbersDebuff) and e.Flare:CooldownRemains() < a:GCD()) then
+    if e.TarTrap:IsCastable() and (E and i:BuffDown(e.SoulforgeEmbersDebuff) and e.Flare:CooldownRemains() < a:GCD()) then
         if o(e.TarTrap, nil, nil, not i:IsInRange(40)) then
             t = 187698
             return "tar_trap st 4"
@@ -602,7 +598,7 @@ local function k()
 
     end
 
-    if e.Flare:IsCastable() and not e.TarTrap:CooldownUp() and A then
+    if e.Flare:IsCastable() and not e.TarTrap:CooldownUp() and E then
         if o(e.Flare, nil) then
             t = 1543
             return "flare st 5"
@@ -658,7 +654,7 @@ local function k()
 
     end
 
-    if e.BarbedShot:IsCastable() and ((e.BestialWrath:CooldownRemains() < ((12 * e.BarbedShot:ChargesFractional()) + d) and e.ScentOfBlood:IsAvailable()) or (e.BarbedShot:FullRechargeTime() < d and ((_(e.BestialWrath:CooldownRemains() or not u) or not u))) or i:TimeToDie() < 9) then
+    if e.BarbedShot:IsCastable() and ((e.BestialWrath:CooldownRemains() < ((12 * e.BarbedShot:ChargesFractional()) + d) and e.ScentOfBlood:IsAvailable()) or (e.BarbedShot:FullRechargeTime() < d and ((x(e.BestialWrath:CooldownRemains() or not u) or not u))) or i:TimeToDie() < 9) then
         if o(e.BarbedShot, nil, nil, not r) then
             t = 217200
             return "Barbed Shot (ST - 1)"
@@ -674,8 +670,8 @@ local function k()
 
     end
 
-    if e.Stampede:IsCastable() and I and (((a:BuffUp(e.AspectoftheWildBuff) or not x) and (a:BuffUp(e.BestialWrathBuff) or not u)) or i:TimeToDie() < 15) then
-        if o(e.Stampede, nil, nil, not R) then
+    if e.Stampede:IsCastable() and I and (((a:BuffUp(e.BestialWrathBuff) or not u)) or i:TimeToDie() < 15) then
+        if o(e.Stampede, nil, nil, not L) then
             t = 201430
             return "Stampede (ST)"
         end
@@ -738,7 +734,7 @@ local function k()
 
     end
 
-    if e.CobraShot:IsReady() and (((a:Focus() - e.CobraShot:Cost() + a:FocusRegen() * (e.KillCommand:CooldownRemains() - 1) > e.KillCommand:Cost()) or (e.KillCommand:CooldownRemains() > 1 + d)) or ((a:BuffUp(e.BestialWrathBuff) or a:BuffUp(e.NesingwarysTrappingApparatusBuff)) and not Z) or i:TimeToDie() < 3) then
+    if e.CobraShot:IsReady() and (((a:Focus() - e.CobraShot:Cost() + a:FocusRegen() * (e.KillCommand:CooldownRemains() - 1) > e.KillCommand:Cost()) or (e.KillCommand:CooldownRemains() > 1 + d)) or ((a:BuffUp(e.BestialWrathBuff) or a:BuffUp(e.NesingwarysTrappingApparatusBuff)) and not X) or i:TimeToDie() < 3) then
         if o(e.CobraShot, nil, nil, not r) then
             t = 193455
             return "Cobra Shot (ST)"
@@ -764,8 +760,8 @@ local function k()
 
 end
 
-local function _()
-    local e = a:GetUseableTrinkets(re)
+local function E()
+    local e = a:GetUseableTrinkets(he)
     if e then
         if o(e, nil, nil) then
                         if e:ID() == K and n.Commons.Enabled.TopTrinket then
@@ -782,25 +778,25 @@ local function _()
 
 end
 
-local function A()
+local function x()
     Y = HeroRotationCharDB.Toggles[6]
     m = HeroRotationCharDB.Toggles[4]
     v = HeroRotationCharDB.Toggles[5] or l()
-    E = HeroRotationCharDB.Toggles[12]
-    X = HeroRotationCharDB.Toggles[15]
+    T = HeroRotationCharDB.Toggles[12]
+    Z = HeroRotationCharDB.Toggles[15]
     S = HeroRotationCharDB.Toggles[120]
-    U = HeroRotationCharDB.Toggles[121]
+    C = HeroRotationCharDB.Toggles[121]
     W = HeroRotationCharDB.Toggles[122]
     F = HeroRotationCharDB.Toggles[123]
-    C = HeroRotationCharDB.Toggles[124]
+    M = HeroRotationCharDB.Toggles[124]
     J = HeroRotationCharDB.Toggles[125]
     Q = HeroRotationCharDB.Toggles[142]
-    x = false
+    _ = false
     I = false
     u = false
     N = false
     if ((n.BeastMastery.AspectoftheWild == "CDs" and l()) or (n.BeastMastery.AspectoftheWild == "Small CDs" and (l() or v)) or (n.BeastMastery.AspectoftheWild == "Always")) then
-        x = true
+        _ = true
     end
 
     if ((n.BeastMastery.Stampede == "CDs" and l()) or (n.BeastMastery.Stampede == "Small CDs" and (l() or v)) or (n.BeastMastery.Stampede == "Always")) then
@@ -828,7 +824,7 @@ local function q()
 
     local m, m = GetInventoryItemID("player", 13)
     local m, m = GetInventoryItemID("player", 14)
-    se()
+    re()
     if c > 0 then
         c = 0
     end
@@ -837,9 +833,9 @@ local function q()
         t = 0
     end
 
-    local b = (e.BloodBolt:IsPetKnown() and T.FindBySpellID(e.BloodBolt:ID()) and e.BloodBolt) or (e.Bite:IsPetKnown() and T.FindBySpellID(e.Bite:ID()) and e.Bite) or (e.Claw:IsPetKnown() and T.FindBySpellID(e.Claw:ID()) and e.Claw) or (e.Smack:IsPetKnown() and T.FindBySpellID(e.Smack:ID()) and e.Smack) or nil
-    local m = (e.Growl:IsPetKnown() and T.FindBySpellID(e.Growl:ID()) and e.Growl) or nil
-    if de() then
+    local b = (e.BloodBolt:IsPetKnown() and A.FindBySpellID(e.BloodBolt:ID()) and e.BloodBolt) or (e.Bite:IsPetKnown() and A.FindBySpellID(e.Bite:ID()) and e.Bite) or (e.Claw:IsPetKnown() and A.FindBySpellID(e.Claw:ID()) and e.Claw) or (e.Smack:IsPetKnown() and A.FindBySpellID(e.Smack:ID()) and e.Smack) or nil
+    local m = (e.Growl:IsPetKnown() and A.FindBySpellID(e.Growl:ID()) and e.Growl) or nil
+    if se() then
         g = a:GetEnemiesInRange(40)
         z = (b and #a:GetEnemiesInSpellActionRange(b)) or i:GetEnemiesInSplashRangeCount(8)
     else
@@ -848,9 +844,9 @@ local function q()
     end
 
     r = i:IsInRange(40)
-    R = i:IsInRange(30)
+    L = i:IsInRange(30)
     O = (m and i:IsSpellInActionRange(m)) or (not m and i:IsInRange(30))
-    A()
+    x()
     if s.QueuedCast() then
         t = s.QueuedCast()
         return "Custom Queue " .. f(t):ID()
@@ -972,13 +968,13 @@ local function q()
         s.Print("Binding Shot Queue is now " .. (HeroRotationCharDB.Toggles[120] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-        if (U and e.FreezingTrap:IsAvailable() and e.FreezingTrap:CooldownRemains(BypassRecovery) <= 0) then
+        if (C and e.FreezingTrap:IsAvailable() and e.FreezingTrap:CooldownRemains(BypassRecovery) <= 0) then
         if s.Cast(e.FreezingTrap, nil, nil, nil) then
             t = 187650
             return "queue Freezing Trap"
         end
 
-    elseif ((not e.FreezingTrap:IsUsableP() or e.FreezingTrap:CooldownRemains() > 0) and U) then
+    elseif ((not e.FreezingTrap:IsUsableP() or e.FreezingTrap:CooldownRemains() > 0) and C) then
         HeroRotationCharDB.Toggles[121] = not HeroRotationCharDB.Toggles[121]
         s.Print("Freezing Trap Queue is now " .. (HeroRotationCharDB.Toggles[121] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
@@ -1005,13 +1001,13 @@ local function q()
         s.Print("Flare Queue is now " .. (HeroRotationCharDB.Toggles[123] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-        if (C and e.TarTrap:IsAvailable() and e.TarTrap:CooldownRemains(BypassRecovery) <= 0) then
+        if (M and e.TarTrap:IsAvailable() and e.TarTrap:CooldownRemains(BypassRecovery) <= 0) then
         if s.Cast(e.TarTrap, nil, nil, nil) then
             t = 187698
             return "queue TarTrap"
         end
 
-    elseif ((not e.TarTrap:IsUsableP() or e.TarTrap:CooldownRemains() > 0) and C) then
+    elseif ((not e.TarTrap:IsUsableP() or e.TarTrap:CooldownRemains() > 0) and M) then
         HeroRotationCharDB.Toggles[124] = not HeroRotationCharDB.Toggles[124]
         s.Print("Tar Trap Queue is now " .. (HeroRotationCharDB.Toggles[124] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
@@ -1100,7 +1096,7 @@ local function q()
     end
 
     if not a:AffectingCombat() and ((Y) or (n.BeastMastery.DBMSupport and ((e.BestialWrath:IsCastable() and u and s.BossMods:GetPullTimer() < d and s.BossMods:GetPullTimer() > 0) or s.BossMods:GetPullTimer() < .5 and s.BossMods:GetPullTimer() > 0))) and j.TargetIsValid() then
-        p = ie()
+        p = te()
         if p then
             return p
         end
@@ -1116,7 +1112,7 @@ local function q()
 
         end
 
-        p = j.Interrupt(40, e.CounterShot, nil, he)
+        p = j.Interrupt(40, e.CounterShot, nil, ne)
         if p then
             t = 147362
             return p
@@ -1134,8 +1130,8 @@ local function q()
 
         end
 
-        if ((n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket) and l() and ((CovenantID == 1 and e.AspectoftheWild:CooldownDown() and e.ResonatingArrow:CooldownDown()) or (CovenantID ~= 1 and e.AspectoftheWild:CooldownRemains() > 0))) then
-            local e = _()
+        if ((n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket) and l()) then
+            local e = E()
             if e then
                 return e
             end
@@ -1151,7 +1147,7 @@ local function q()
         end
 
         if (z < 2) then
-            local e = k()
+            local e = R()
             if e then
                 return e
             end
@@ -1159,7 +1155,7 @@ local function q()
         end
 
         if (z > 1) then
-            local e = oe()
+            local e = k()
             if e then
                 return e
             end
