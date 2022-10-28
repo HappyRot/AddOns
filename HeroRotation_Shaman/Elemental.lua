@@ -1633,6 +1633,14 @@ local function b()
 
         end
 
+        if e.SpiritwalkersGrace:IsCastable() and h.Elemental.ShowSpiritWalkers and t:IsMoving() and t:AffectingCombat() then
+            if i(e.SpiritwalkersGrace, nil) then
+                o = 79206
+                return "SpiritwalkersGrace"
+            end
+
+        end
+
         local c = 0
         local n = 0
                 if GetNumGroupMembers() > 0 then

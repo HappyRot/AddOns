@@ -31,6 +31,7 @@ e("Slider", i, "APL.Shaman.Enhancement.HealingSurgePartyHP", { 0, 100, 1 }, "Hea
 n(o, "APL.Shaman.Elemental")
 e("Dropdown", o, "APL.Shaman.Elemental.TargetSwap", { "Mouseover", "AutoSwap" }, "DoT Spread Method", "Choose Which Method to use to spread DoTs")
 e("CheckButton", o, "APL.Shaman.Elemental.PreferEarthShield", "Prefer Earth Shield", "Prefer using Earth Shield over Lightning Shield, when it's available.")
+e("CheckButton", o, "APL.Shaman.Elemental.ShowSpiritWalkers", "Prefer Earth Shield", "Prefer using Earth Shield over Lightning Shield, when it's available.")
 e("CheckButton", o, "APL.Shaman.Elemental.ShowMovementSpells", "Show Movement Spells", "Show Flame Shock and Frost Shock suggestions while moving. Note: This tends to make the rotation choppy when making small movements.")
 e("Slider", o, "APL.Shaman.Elemental.TTDSetting", { 0, 15, 1 }, "Minimum TTD for CDs", "The minimum time to die calculation to use CDs and Maelstorm")
 e("Slider", o, "APL.Shaman.Elemental.HealthstoneHP", { 0, 100, 1 }, "Healthstone HP %", "Set the HP threshold to use Healthstone")
