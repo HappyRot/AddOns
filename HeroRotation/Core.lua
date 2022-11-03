@@ -386,7 +386,7 @@ end
 
 function e.CmdHandler(t)
     local t, o, a = m(" ", w(t))
-                                                                                                                                                                                                                                                                                                                                                                                                                    if t == "cds" then
+                                                                                                                                                                                                                                                                                                                                                                                                                        if t == "cds" then
         HeroRotationCharDB.Toggles[1] = not HeroRotationCharDB.Toggles[1]
         e.ToggleIconFrame:UpdateButtonText(1)
         e.Print("CDs are now " .. (HeroRotationCharDB.Toggles[1] and "|cff00ff00enabled|r." or "|cffff0000disabled|r."))
@@ -643,6 +643,9 @@ function e.CmdHandler(t)
     elseif t == "bloodboil" then
         HeroRotationCharDB.Toggles[84] = not HeroRotationCharDB.Toggles[84]
         e.Print("Blood Boil Queue is now " .. (HeroRotationCharDB.Toggles[84] and "|cff00ff00on|r." or "|cffff0000off|r."))
+    elseif t == "holdraiseally" then
+        HeroRotationCharDB.Toggles[85] = not HeroRotationCharDB.Toggles[85]
+        e.Print("Raise Ally @ Mouseover is now " .. (HeroRotationCharDB.Toggles[85] and "|cffff0000disabled|r." or "|cff00ff00enabled|r."))
     elseif t == "holdearthelemental" then
         HeroRotationCharDB.Toggles[90] = not HeroRotationCharDB.Toggles[90]
         e.Print("Earth Elemental is now " .. (HeroRotationCharDB.Toggles[90] and "|cffff0000disabled|r." or "|cff00ff00enabled|r."))

@@ -1,58 +1,59 @@
 local e, e = ...
 local e = HeroDBC.DBC
-local w = HeroLib
+local y = HeroLib
 local e = HeroCache
-local u = w.Unit
-local t = u.Player
-local a = u.Target
-local ie = u.Pet
-local x = w.Spell
-local q = w.Item
+local d = y.Unit
+local t = d.Player
+local a = d.Target
+local ie = d.Pet
+local j = y.Spell
+local k = y.Item
 local s = HeroRotation
 local i = s.Cast
 local r = s.CDsON
-local Z = s.AoEON
-local y = HeroRotationCharDB.Toggles[4]
+local ee = s.AoEON
+local w = HeroRotationCharDB.Toggles[4]
 local v = HeroRotationCharDB.Toggles[5]
-local U = HeroRotationCharDB.Toggles[6]
-local X = HeroRotationCharDB.Toggles[12]
+local C = HeroRotationCharDB.Toggles[6]
+local Z = HeroRotationCharDB.Toggles[12]
 local O = HeroRotationCharDB.Toggles[13]
-local I = HeroRotationCharDB.Toggles[14]
-local ee = HeroRotationCharDB.Toggles[15]
-local N = HeroRotationCharDB.Toggles[16]
-local A = HeroRotationCharDB.Toggles[80]
-local H = HeroRotationCharDB.Toggles[81]
-local D = HeroRotationCharDB.Toggles[82]
-local R = HeroRotationCharDB.Toggles[84]
+local H = HeroRotationCharDB.Toggles[14]
+local X = HeroRotationCharDB.Toggles[15]
+local R = HeroRotationCharDB.Toggles[16]
+local S = HeroRotationCharDB.Toggles[80]
+local I = HeroRotationCharDB.Toggles[81]
+local N = HeroRotationCharDB.Toggles[82]
+local D = HeroRotationCharDB.Toggles[84]
 local L = HeroRotationCharDB.Toggles[17]
-local k = HeroRotationCharDB.Toggles[72]
+local W = HeroRotationCharDB.Toggles[85]
+local q = HeroRotationCharDB.Toggles[72]
 local p = HeroRotationCharDB.Toggles[83]
-local te = false
+local ae = false
 local f = 0
-local J = math.min
-local e = x.DeathKnight.Blood
-local h = q.DeathKnight.Blood
-local oe = {  }
-local ae
+local te = math.min
+local e = j.DeathKnight.Blood
+local h = k.DeathKnight.Blood
+local ne = {  }
+local oe
 local M
 local o
 local E
-local z
+local T
 local o
-local j
-local W
+local x
+local U
 local m
 local F
-local T
-local C = w.GhoulTable
+local A
+local Y = y.GhoulTable
 local g
 local c
-local P = 2
+local B = 2
 local o = 999999
 local o = 2
-local d = t:CovenantID()
-w:RegisterForEvent(function()
-    d = t:CovenantID()
+local l = t:CovenantID()
+y:RegisterForEvent(function()
+    l = t:CovenantID()
 end, "COVENANT_CHOSEN")
 local b = s.Commons.Everyone
 local n = { General = s.GUISettings.General, Commons = s.GUISettings.APL.DeathKnight.Commons, Blood = s.GUISettings.APL.DeathKnight.Blood }
@@ -60,42 +61,42 @@ local o = { { e.Asphyxiate, "Cast Asphyxiate (Interrupt)", function()
     return true
 end } }
 local o = 0
-local l = 0
-local Y = t:HasLegendaryEquipped(30)
+local u = 0
+local P = t:HasLegendaryEquipped(30)
 local V = t:HasLegendaryEquipped(31)
-local B = t:HasLegendaryEquipped(45)
-local S = t:HasLegendaryEquipped(35)
-w:RegisterForEvent(function()
+local G = t:HasLegendaryEquipped(45)
+local z = t:HasLegendaryEquipped(35)
+y:RegisterForEvent(function()
     equip = t:GetEquipment()
-    trinket1 = q(0)
-    trinket2 = q(0)
+    trinket1 = k(0)
+    trinket2 = k(0)
     if equip[13] then
-        trinket1 = q(equip[13])
+        trinket1 = k(equip[13])
     end
 
     if equip[14] then
-        trinket2 = q(equip[14])
+        trinket2 = k(equip[14])
     end
 
-    Y = t:HasLegendaryEquipped(30)
+    P = t:HasLegendaryEquipped(30)
     V = t:HasLegendaryEquipped(31)
-    B = t:HasLegendaryEquipped(45)
-    S = t:HasLegendaryEquipped(35)
+    G = t:HasLegendaryEquipped(45)
+    z = t:HasLegendaryEquipped(35)
 end, "PLAYER_EQUIPMENT_CHANGED")
-local q = { 5, 8, 10, 30, 40, 100 }
-local w = {  }
-local function Y()
-    for t, e in ipairs(q) do
+local k = { 5, 8, 10, 30, 40, 100 }
+local y = {  }
+local function P()
+    for t, e in ipairs(k) do
         if e == 8 or 5 then
-            w[e] = a:IsInMeleeRange(e)
+            y[e] = a:IsInMeleeRange(e)
         end
 
-        w[e] = a:IsInRange(e)
+        y[e] = a:IsInRange(e)
     end
 
 end
 
-local function w(e)
+local function y(e)
     if e then
         return 1
     else
@@ -104,26 +105,26 @@ local function w(e)
 
 end
 
-local function q(e)
+local function k(e)
     return e ~= 0
 end
 
-local function Q(e)
-    local o = 0
-    if e ~= nil then
-        for i, e in pairs(e) do
-            if not t:IsTanking(e) and e:GUID() ~= a:GUID() and e:AffectingCombat() then
-                o = o + 1
+local function V(o)
+    local e = 0
+    if o ~= nil then
+        for i, o in pairs(o) do
+            if not t:IsTanking(o) and o:GUID() ~= a:GUID() and o:AffectingCombat() then
+                e = e + 1
             end
 
         end
 
     end
 
-    return o
+    return e
 end
 
-local function q(a)
+local function k(a)
     local t = 0
     if a ~= nil then
         for o, a in pairs(a) do
@@ -138,22 +139,22 @@ local function q(a)
     return t
 end
 
-local function Y(e)
-            if ((not t:IsTanking(e) and k) and (e:AffectingCombat()) and e:GUID() == u("mouseover"):GUID() and e:NPCID() ~= 118044 and e:IsInMeleeRange(30)) then
-        l = 156222
+local function P(e)
+            if ((not t:IsTanking(e) and q) and (e:AffectingCombat()) and e:GUID() == d("mouseover"):GUID() and e:NPCID() ~= 118044 and e:IsInMeleeRange(30)) then
+        u = 156222
         return true
-    elseif ((not t:IsTanking(e) and k) and (e:AffectingCombat()) and e:GUID() == a:GUID() and e:NPCID() ~= 118044 and e:IsInMeleeRange(30)) then
+    elseif ((not t:IsTanking(e) and q) and (e:AffectingCombat()) and e:GUID() == a:GUID() and e:NPCID() ~= 118044 and e:IsInMeleeRange(30)) then
         o = 56222
         return true
-    elseif ((not t:IsTanking(e) and k) and (e:AffectingCombat()) and e:NPCID() ~= 118044 and e:IsInMeleeRange(30)) then
+    elseif ((not t:IsTanking(e) and q) and (e:AffectingCombat()) and e:NPCID() ~= 118044 and e:IsInMeleeRange(30)) then
         return true
     end
 
 end
 
-local function K()
+local function Q()
     if b.TargetIsValid() then
-        if e.Fleshcraft:IsCastable() and (f == 0 or f > e.Fleshcraft:ExecuteTime()) and y and not t:IsMoving() then
+        if e.Fleshcraft:IsCastable() and (f == 0 or f > e.Fleshcraft:ExecuteTime()) and w and not t:IsMoving() then
             if i(e.Fleshcraft, nil, nil) then
                 o = 324631
                 return "fleshcraft precombat 1"
@@ -181,7 +182,7 @@ local function K()
 
 end
 
-local function B()
+local function J()
     if e.DeathStrike:IsReady() and (n.Commons.UseDefensives) and a:IsInMeleeRange(8) and not c and t:HealthPercentage() < n.Commons.UseDeathStrikeHP then
         if i(e.DeathStrike, nil, nil, not a:IsSpellInRange(e.DeathStrike)) then
             o = 49998
@@ -222,7 +223,7 @@ local function B()
 
     end
 
-    if e.AntiMagicShell:IsReady() and (n.Commons.UseDefensives) and P > 0 and t:HealthPercentage() <= n.Commons.AntiMagicShellHP then
+    if e.AntiMagicShell:IsReady() and (n.Commons.UseDefensives) and B > 0 and t:HealthPercentage() <= n.Commons.AntiMagicShellHP then
         if i(e.AntiMagicShell, nil, nil) then
             o = 48707
             return "AntiMagic Shell defensives 18"
@@ -230,7 +231,7 @@ local function B()
 
     end
 
-    if e.RuneTap:IsReady() and (n.Commons.UseDefensives) and j and t:HealthPercentage() <= n.Blood.RuneTapThreshold and t:Rune() >= 3 and e.RuneTap:Charges() >= 1 and t:BuffDown(e.RuneTapBuff) then
+    if e.RuneTap:IsReady() and (n.Commons.UseDefensives) and x and t:HealthPercentage() <= n.Blood.RuneTapThreshold and t:Rune() >= 3 and e.RuneTap:Charges() >= 1 and t:BuffDown(e.RuneTapBuff) then
         if i(e.RuneTap, nil) then
             o = 194679
             return "rune_tap defensives 2"
@@ -273,7 +274,7 @@ local function B()
 
     end
 
-    if e.VampiricBlood:IsCastable() and (n.Commons.UseDefensives) and j and t:HealthPercentage() <= n.Blood.VampiricBloodThreshold and t:BuffDown(e.IceboundFortitudeBuff) then
+    if e.VampiricBlood:IsCastable() and (n.Commons.UseDefensives) and x and t:HealthPercentage() <= n.Blood.VampiricBloodThreshold and t:BuffDown(e.IceboundFortitudeBuff) then
         if i(e.VampiricBlood, nil) then
             o = 55233
             return "vampiric_blood defensives 14"
@@ -297,7 +298,7 @@ local function B()
 
     end
 
-    if e.IceboundFortitude:IsCastable() and (n.Commons.UseDefensives) and j and t:HealthPercentage() <= n.Blood.IceboundFortitudeThreshold and t:BuffDown(e.VampiricBloodBuff) then
+    if e.IceboundFortitude:IsCastable() and (n.Commons.UseDefensives) and x and t:HealthPercentage() <= n.Blood.IceboundFortitudeThreshold and t:BuffDown(e.VampiricBloodBuff) then
         if i(e.IceboundFortitude, nil) then
             o = 48792
             return "icebound_fortitude defensives 16"
@@ -316,7 +317,7 @@ local function B()
 end
 
 local function G()
-    if e.BloodFury:IsCastable() and a:IsInMeleeRange(8) and n.Commons.Enabled.Racials and r() and ((e.DancingRuneWeapon:CooldownUp() or D) and (not e.Blooddrinker:IsReady() or not e.Blooddrinker:IsAvailable())) then
+    if e.BloodFury:IsCastable() and a:IsInMeleeRange(8) and n.Commons.Enabled.Racials and r() and ((e.DancingRuneWeapon:CooldownUp() or N) and (not e.Blooddrinker:IsReady() or not e.Blooddrinker:IsAvailable())) then
         if i(e.BloodFury, nil) then
             o = 20572
             return "blood_fury main 2"
@@ -382,8 +383,8 @@ local function G()
 
 end
 
-local function V()
-    if e.DeathsDue:IsReady() and a:IsInMeleeRange(8) and y and not t:IsMoving() and (t:BuffDown(e.DeathAndDecayBuff) or t:BuffRemains(e.DeathAndDecayBuff) < 4 or t:BuffUp(e.CrimsonScourgeBuff)) then
+local function K()
+    if e.DeathsDue:IsReady() and a:IsInMeleeRange(8) and w and not t:IsMoving() and (t:BuffDown(e.DeathAndDecayBuff) or t:BuffRemains(e.DeathAndDecayBuff) < 4 or t:BuffUp(e.CrimsonScourgeBuff)) then
         if i(e.DeathsDue, nil, nil, not a:IsSpellInRange(e.DeathsDue)) then
             o = 324128
             return "deaths_due covenants 6"
@@ -391,7 +392,7 @@ local function V()
 
     end
 
-    if e.SwarmingMist:IsCastable() and a:IsInMeleeRange(8) and y and (e.DancingRuneWeapon:CooldownRemains() > 3 and t:RunicPower() >= (90 - (m * 3))) then
+    if e.SwarmingMist:IsCastable() and a:IsInMeleeRange(8) and w and (e.DancingRuneWeapon:CooldownRemains() > 3 and t:RunicPower() >= (90 - (m * 3))) then
         if i(e.SwarmingMist, nil, nil) then
             o = 311648
             return "swarming_mist covenants 7"
@@ -399,7 +400,7 @@ local function V()
 
     end
 
-    if e.AbominationLimb:IsCastable() and a:IsInMeleeRange(8) and (y) and (t:BuffDown(e.DancingRuneWeaponBuff)) then
+    if e.AbominationLimb:IsCastable() and a:IsInMeleeRange(8) and (w) and (t:BuffDown(e.DancingRuneWeaponBuff)) then
         if i(e.AbominationLimb, nil, nil, not a:IsInRange(8)) then
             o = 315443
             return "abomination_limb covenants 16"
@@ -407,7 +408,7 @@ local function V()
 
     end
 
-    if e.AbominationLimbTalent:IsCastable() and e.AbominationLimbTalent:IsAvailable() and a:IsInMeleeRange(8) and (y) and (t:BuffDown(e.DancingRuneWeaponBuff)) then
+    if e.AbominationLimbTalent:IsCastable() and e.AbominationLimbTalent:IsAvailable() and a:IsInMeleeRange(8) and (w) and (t:BuffDown(e.DancingRuneWeaponBuff)) then
         if i(e.AbominationLimb, nil, nil, not a:IsInRange(8)) then
             o = 315443
             return "abomination_limb covenants 16"
@@ -415,7 +416,7 @@ local function V()
 
     end
 
-    if e.Fleshcraft:IsCastable() and a:IsInMeleeRange(8) and (f == 0 or f > e.Fleshcraft:ExecuteTime()) and not t:IsMoving() and y and (t:BuffDown(e.DancingRuneWeaponBuff)) and (e.PustuleEruption:SoulbindEnabled() or e.VolatileSolvent:SoulbindEnabled() and t:BuffDown(e.VolatileSolventHumanBuff)) then
+    if e.Fleshcraft:IsCastable() and a:IsInMeleeRange(8) and (f == 0 or f > e.Fleshcraft:ExecuteTime()) and not t:IsMoving() and w and (t:BuffDown(e.DancingRuneWeaponBuff)) and (e.PustuleEruption:SoulbindEnabled() or e.VolatileSolvent:SoulbindEnabled() and t:BuffDown(e.VolatileSolventHumanBuff)) then
         if i(e.Fleshcraft, nil, nil) then
             o = 324631
             return "fleshcraft covenants 20"
@@ -423,7 +424,7 @@ local function V()
 
     end
 
-    if e.ShackleTheUnworthy:IsCastable() and a:IsInMeleeRange(30) and y and (t:Rune() < 3 and t:RunicPower() < 100) then
+    if e.ShackleTheUnworthy:IsCastable() and a:IsInMeleeRange(30) and w and (t:Rune() < 3 and t:RunicPower() < 100) then
         if i(e.ShackleTheUnworthy, nil, nil, not a:IsSpellInRange(e.ShackleTheUnworthy)) then
             o = 312202
             return "shackle_the_unworthy covenants 18"
@@ -433,7 +434,7 @@ local function V()
 
 end
 
-local function P()
+local function B()
     if e.DeathAndDecay:IsCastable() and a:IsInMeleeRange(8) and not p and not t:IsMoving() and (EnemiesCount10y >= 3) and t:BuffDown(e.DeathAndDecayBuff) and not e.DeathsDue:IsAvailable() then
         if i(e.DeathAndDecay, nil, nil, not a:IsInRange(30)) then
             o = 43265
@@ -450,7 +451,7 @@ local function P()
 
     end
 
-    if e.Tombstone:IsReady() and v and a:IsInMeleeRange(8) and (t:BuffStack(e.BoneShieldBuff) >= 5 and t:Rune() >= 2 and S) then
+    if e.Tombstone:IsReady() and v and a:IsInMeleeRange(8) and (t:BuffStack(e.BoneShieldBuff) >= 5 and t:Rune() >= 2 and z) then
         if i(e.Tombstone, nil) then
             o = 219808
             return "tombstone drw_up 2"
@@ -474,7 +475,7 @@ local function P()
 
     end
 
-    if e.Marrowrend:IsReady() and a:IsInMeleeRange(8) and ((t:BuffRemains(e.BoneShieldBuff) <= t:RuneTimeToX(3) or t:BuffRemains(e.BoneShieldBuff) <= (t:GCD() + w(e.Blooddrinker:CooldownUp()) * w(e.Blooddrinker:IsAvailable()) * 4) or (t:BuffStack(e.BoneShieldBuff) < 2 and (d ~= 4 or t:BuffUp(e.AbominationLimb)))) and t:RunicPowerDeficit() > 20) then
+    if e.Marrowrend:IsReady() and a:IsInMeleeRange(8) and ((t:BuffRemains(e.BoneShieldBuff) <= t:RuneTimeToX(3) or t:BuffRemains(e.BoneShieldBuff) <= (t:GCD() + y(e.Blooddrinker:CooldownUp()) * y(e.Blooddrinker:IsAvailable()) * 4) or (t:BuffStack(e.BoneShieldBuff) < 2 and (l ~= 4 or t:BuffUp(e.AbominationLimb)))) and t:RunicPowerDeficit() > 20) then
         if i(e.Marrowrend, nil, nil, not a:IsSpellInRange(e.Marrowrend)) then
             o = 195182
             return "marrowrend drw_up 2"
@@ -490,8 +491,8 @@ local function P()
 
     end
 
-    z = (15 + w(t:BuffUp(e.DancingRuneWeaponBuff)) * 10 + F * w(e.Heartbreaker:IsAvailable()) * 2)
-    if e.DeathStrike:IsReady() and a:IsInMeleeRange(8) and (t:RunicPower() >= n.Blood.MinimumRP + 45) and not c and not g and (t:RunicPowerDeficit() <= z and (not (e.Bonestorm:IsAvailable() and e.Bonestorm:CooldownRemains() < 2))) then
+    T = (15 + y(t:BuffUp(e.DancingRuneWeaponBuff)) * 10 + F * y(e.Heartbreaker:IsAvailable()) * 2)
+    if e.DeathStrike:IsReady() and a:IsInMeleeRange(8) and (t:RunicPower() >= n.Blood.MinimumRP + 45) and not c and not g and (t:RunicPowerDeficit() <= T and (not (e.Bonestorm:IsAvailable() and e.Bonestorm:CooldownRemains() < 2))) then
         if i(e.DeathStrike, nil, nil, not a:IsSpellInRange(e.DeathStrike)) then
             o = 49998
             return "death_strike drw_up 6"
@@ -499,7 +500,7 @@ local function P()
 
     end
 
-    if e.HeartStrike:IsReady() and a:IsInMeleeRange(8) and (t:RuneTimeToX(2) < t:GCD() or t:RunicPowerDeficit() >= z) then
+    if e.HeartStrike:IsReady() and a:IsInMeleeRange(8) and (t:RuneTimeToX(2) < t:GCD() or t:RunicPowerDeficit() >= T) then
         if i(e.HeartStrike, nil, nil, not a:IsSpellInRange(e.HeartStrike)) then
             o = 206930
             return "heart_strike drw_up 8"
@@ -517,8 +518,8 @@ local function P()
 
 end
 
-local function z()
-    if e.Tombstone:IsCastable() and v and (t:BuffStack(e.BoneShieldBuff) >= 5 and S and e.DancingRuneWeapon:CooldownRemains() > 20) then
+local function T()
+    if e.Tombstone:IsCastable() and v and (t:BuffStack(e.BoneShieldBuff) >= 5 and z and e.DancingRuneWeapon:CooldownRemains() > 20) then
         if i(e.Tombstone, nil) then
             o = 219808
             return "tombstone standard 1"
@@ -534,7 +535,7 @@ local function z()
 
     end
 
-    if e.HeartStrike:IsReady() and a:IsInMeleeRange(8) and (d == 3 and t:BuffUp(e.DeathAndDecayBuff) and (t:BuffUp(e.DeathAndDecayBuff) and t:BuffRemains(e.DeathAndDecayBuff) < 6)) then
+    if e.HeartStrike:IsReady() and a:IsInMeleeRange(8) and (l == 3 and t:BuffUp(e.DeathAndDecayBuff) and (t:BuffUp(e.DeathAndDecayBuff) and t:BuffRemains(e.DeathAndDecayBuff) < 6)) then
         if i(e.HeartStrike, nil, nil, not a:IsSpellInRange(e.HeartStrike)) then
             o = 206930
             return "heart_strike standard 2"
@@ -558,7 +559,7 @@ local function z()
 
     end
 
-    if e.Marrowrend:IsReady() and a:IsInMeleeRange(8) and ((t:BuffRemains(e.BoneShieldBuff) <= t:RuneTimeToX(3) or t:BuffRemains(e.BoneShieldBuff) <= (t:GCD() + w(e.Blooddrinker:CooldownUp()) * w(e.Blooddrinker:IsAvailable()) * 4) or t:BuffStack(e.BoneShieldBuff) < 6 or ((d ~= 3 or (t:BuffRemains(e.DeathAndDecayBuff) > 5 and d == 3)) and t:BuffRemains(e.BoneShieldBuff) < 7)) and t:RunicPowerDeficit() > 20) then
+    if e.Marrowrend:IsReady() and a:IsInMeleeRange(8) and ((t:BuffRemains(e.BoneShieldBuff) <= t:RuneTimeToX(3) or t:BuffRemains(e.BoneShieldBuff) <= (t:GCD() + y(e.Blooddrinker:CooldownUp()) * y(e.Blooddrinker:IsAvailable()) * 4) or t:BuffStack(e.BoneShieldBuff) < 6 or ((l ~= 3 or (t:BuffRemains(e.DeathAndDecayBuff) > 5 and l == 3)) and t:BuffRemains(e.BoneShieldBuff) < 7)) and t:RunicPowerDeficit() > 20) then
         if i(e.Marrowrend, nil, nil, not a:IsSpellInRange(e.Marrowrend)) then
             o = 195182
             return "marrowrend standard 6"
@@ -566,7 +567,7 @@ local function z()
 
     end
 
-    if e.DeathStrike:IsReady() and a:IsInMeleeRange(8) and (t:RunicPower() >= n.Blood.MinimumRP + 45) and not c and not g and (t:RunicPowerDeficit() <= M and (not (e.Bonestorm:IsAvailable() and e.Bonestorm:CooldownRemains() < 2)) and not (d == 2 and e.SwarmingMist:CooldownRemains() < 3)) then
+    if e.DeathStrike:IsReady() and a:IsInMeleeRange(8) and (t:RunicPower() >= n.Blood.MinimumRP + 45) and not c and not g and (t:RunicPowerDeficit() <= M and (not (e.Bonestorm:IsAvailable() and e.Bonestorm:CooldownRemains() < 2)) and not (l == 2 and e.SwarmingMist:CooldownRemains() < 3)) then
         if i(e.DeathStrike, nil, nil, not a:IsSpellInRange(e.DeathStrike)) then
             o = 49998
             return "death_strike standard 8"
@@ -590,10 +591,10 @@ local function z()
 
     end
 
-    if (d == 3 and t:BuffUp(e.DeathAndDecayBuff)) then
-        E = (15 + m * w(e.Heartbreaker:IsAvailable()) * 2)
+    if (l == 3 and t:BuffUp(e.DeathAndDecayBuff)) then
+        E = (15 + m * y(e.Heartbreaker:IsAvailable()) * 2)
     else
-        E = (15 + m * w(e.Heartbreaker:IsAvailable()) * 2) * 1.2
+        E = (15 + m * y(e.Heartbreaker:IsAvailable()) * 2) * 1.2
     end
 
     if e.DeathStrike:IsReady() and a:IsInMeleeRange(8) and (t:RunicPower() >= n.Blood.MinimumRP + 45) and not c and not g and ((t:RunicPowerDeficit() <= E) or a:TimeToDie() < 10) then
@@ -654,22 +655,23 @@ local function z()
 
 end
 
-local function w()
-    U = HeroRotationCharDB.Toggles[6]
-    y = HeroRotationCharDB.Toggles[4]
+local function y()
+    C = HeroRotationCharDB.Toggles[6]
+    w = HeroRotationCharDB.Toggles[4]
     v = HeroRotationCharDB.Toggles[5]
-    X = HeroRotationCharDB.Toggles[12]
+    Z = HeroRotationCharDB.Toggles[12]
     O = HeroRotationCharDB.Toggles[13]
-    I = HeroRotationCharDB.Toggles[14]
-    ee = HeroRotationCharDB.Toggles[15]
-    N = HeroRotationCharDB.Toggles[16]
-    A = HeroRotationCharDB.Toggles[80]
-    H = HeroRotationCharDB.Toggles[81]
-    D = HeroRotationCharDB.Toggles[82]
-    k = HeroRotationCharDB.Toggles[72]
+    H = HeroRotationCharDB.Toggles[14]
+    X = HeroRotationCharDB.Toggles[15]
+    R = HeroRotationCharDB.Toggles[16]
+    S = HeroRotationCharDB.Toggles[80]
+    I = HeroRotationCharDB.Toggles[81]
+    N = HeroRotationCharDB.Toggles[82]
+    q = HeroRotationCharDB.Toggles[72]
     p = HeroRotationCharDB.Toggles[83]
-    R = HeroRotationCharDB.Toggles[84]
+    D = HeroRotationCharDB.Toggles[84]
     L = HeroRotationCharDB.Toggles[17]
+    W = HeroRotationCharDB.Toggles[85]
     g = false
     c = false
     if e.Bonestorm:IsAvailable() and r() and e.Bonestorm:CooldownRemains() <= 0 and e.Bonestorm:IsCastable() then
@@ -689,11 +691,11 @@ local function w()
 
 end
 
-local function y()
+local function w()
     Enemies10y = t:GetEnemiesInRange(10)
-    if Z() then
-        W = t:GetEnemiesInMeleeRange(8)
-        m = #W
+    if ee() then
+        U = t:GetEnemiesInMeleeRange(8)
+        m = #U
         EnemiesCount10y = #Enemies10y
         Enemies40y = t:GetEnemiesInRange(40)
     else
@@ -701,31 +703,31 @@ local function y()
         EnemiesCount10y = 1
     end
 
-    T = q(Enemies10y)
-    F = J(m, t:BuffUp(e.DeathAndDecayBuff) and 5 or 2)
-    T = q(Enemies10y)
-    j = t:IsTankingAoE(8) or t:IsTanking(a)
+    A = k(Enemies10y)
+    F = te(m, t:BuffUp(e.DeathAndDecayBuff) and 5 or 2)
+    A = k(Enemies10y)
+    x = t:IsTankingAoE(8) or t:IsTanking(a)
     TopTrinketID, _ = GetInventoryItemID("player", 13)
     BotTrinketID, _ = GetInventoryItemID("player", 14)
     ActiveMitigationNeeded = t:ActiveMitigationNeeded()
-    MissingAggro = Q(Enemies10y)
+    MissingAggro = V(Enemies10y)
     if not BotOn then
-        l = 0
+        u = 0
         o = 0
     end
 
-    if l > 0 then
-        l = 0
+    if u > 0 then
+        u = 0
     end
 
     if o > 0 then
         o = 0
     end
 
-    ae = w()
+    oe = y()
     if s.QueuedCast() then
         o = s.QueuedCast()
-        return "Custom Queue " .. x(o):ID()
+        return "Custom Queue " .. j(o):ID()
     end
 
         if s.GUISettings.General.OpenerReset > 0 and not HeroRotationCharDB.Toggles[6] then
@@ -737,7 +739,7 @@ local function y()
         s.Print("Opener is now " .. (HeroRotationCharDB.Toggles[6] and "|cff00ff00enabled|r." or "|cffff0000disabled|r."))
     end
 
-    if t:IsChanneling(x(324631)) then
+    if t:IsChanneling(j(324631)) then
         if s.CastAnnotated(e.Pool, false, "WAIT") then
             o = 99999
             return "Pool During Blooddrinker"
@@ -746,21 +748,21 @@ local function y()
     end
 
     if not t:AffectingCombat() then
-        te = false
+        ae = false
     end
 
-    if not t:AffectingCombat() and b.TargetIsValid() and U then
-        local e = K()
+    if not t:AffectingCombat() and b.TargetIsValid() and C then
+        local e = Q()
         if e then
             return e
         end
 
     end
 
-    if (not UnitIsEnemy("player", "mouseover") and UnitIsPlayer("mouseover") and UnitIsDead("mouseover")) then
+    if (not UnitIsEnemy("player", "mouseover") and UnitIsPlayer("mouseover") and UnitIsDead("mouseover")) and not W then
                 if e.RaiseAlly:IsCastable() and t:RunicPower() >= 30 then
             if i(e.RaiseAlly, nil) then
-                l = 161999
+                u = 161999
                 return "RaiseAlly MO"
             end
 
@@ -770,10 +772,10 @@ local function y()
 
     end
 
-    if UnitExists("mouseover") and string.find(UnitGUID("mouseover"), 120651) and u("mouseover"):IsInMeleeRange(8) then
+    if UnitExists("mouseover") and string.find(UnitGUID("mouseover"), 120651) and d("mouseover"):IsInMeleeRange(8) then
         if e.HeartStrike:IsCastable() then
             if i(e.HeartStrike, nil) then
-                l = 1206930
+                u = 1206930
                 return "explosive MO HeartStrike"
             end
 
@@ -781,10 +783,10 @@ local function y()
 
     end
 
-    if UnitExists("mouseover") and string.find(UnitGUID("mouseover"), 120651) and u("mouseover"):IsInMeleeRange(8) then
+    if UnitExists("mouseover") and string.find(UnitGUID("mouseover"), 120651) and d("mouseover"):IsInMeleeRange(8) then
         if e.DeathStrike:IsCastable() then
             if i(e.DeathStrike, nil) then
-                l = 149998
+                u = 149998
                 return "explosive MO DeathStrike"
             end
 
@@ -815,7 +817,7 @@ local function y()
     end
 
     if b.TargetIsValid() then
-        if e.DarkCommand:IsReady() and t:AffectingCombat() and (not t:IsTanking(a) and k) then
+        if e.DarkCommand:IsReady() and t:AffectingCombat() and (not t:IsTanking(a) and q) then
             if i(e.DarkCommand, nil) then
                 o = 56222
                 return "DarkCommand bear 3"
@@ -824,7 +826,7 @@ local function y()
         end
 
         if e.DarkCommand:IsReady() then
-            if b.CastCycle(e.DarkCommand, Enemies40y, Y, not a:IsSpellInRange(e.DarkCommand)) then
+            if b.CastCycle(e.DarkCommand, Enemies40y, P, not a:IsSpellInRange(e.DarkCommand)) then
                 return "DarkCommand 4"
             end
 
@@ -832,10 +834,10 @@ local function y()
 
     end
 
-        if (N and e.Asphyxiate:IsUsableP() and e.Asphyxiate:CooldownRemains(BypassRecovery) <= 0) then
+        if (R and e.Asphyxiate:IsUsableP() and e.Asphyxiate:CooldownRemains(BypassRecovery) <= 0) then
         if s.Cast(e.Asphyxiate, nil, nil, nil) then
-            if u("mouseover"):GUID() ~= nil and u("mouseover"):IsSpellInRange(e.Asphyxiate) then
-                l = 1221562
+            if d("mouseover"):GUID() ~= nil and d("mouseover"):IsSpellInRange(e.Asphyxiate) then
+                u = 1221562
                 return "queue Asphyxiate MO"
             else
                 o = 221562
@@ -844,26 +846,26 @@ local function y()
 
         end
 
-    elseif ((not e.Asphyxiate:IsUsableP() or e.Asphyxiate:CooldownRemains() > 0) and N) then
+    elseif ((not e.Asphyxiate:IsUsableP() or e.Asphyxiate:CooldownRemains() > 0) and R) then
         HeroRotationCharDB.Toggles[16] = not HeroRotationCharDB.Toggles[16]
         s.Print("Asphyxiate Queue is now " .. (HeroRotationCharDB.Toggles[16] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-        if (R and e.BloodBoil:IsUsableP() and e.BloodBoil:CooldownRemains(BypassRecovery) <= 0 and not t:PrevGCD(1, e.BloodBoil)) then
+        if (D and e.BloodBoil:IsUsableP() and e.BloodBoil:CooldownRemains(BypassRecovery) <= 0 and not t:PrevGCD(1, e.BloodBoil)) then
         if s.Cast(e.BloodBoil, nil, nil, nil) then
             o = 50842
             return "queue BloodBoil"
         end
 
-    elseif ((not e.BloodBoil:IsUsableP() or e.BloodBoil:CooldownRemains() > 0 or t:PrevGCD(1, e.BloodBoil)) and R) then
+    elseif ((not e.BloodBoil:IsUsableP() or e.BloodBoil:CooldownRemains() > 0 or t:PrevGCD(1, e.BloodBoil)) and D) then
         HeroRotationCharDB.Toggles[84] = not HeroRotationCharDB.Toggles[84]
         s.Print("Blood Boil Queue is now " .. (HeroRotationCharDB.Toggles[84] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-        if (I and e.DeathGrip:IsUsableP() and e.DeathGrip:CooldownRemains(BypassRecovery) <= 0) then
+        if (H and e.DeathGrip:IsUsableP() and e.DeathGrip:CooldownRemains(BypassRecovery) <= 0) then
         if s.Cast(e.DeathGrip, nil, nil, nil) then
-            if u("mouseover"):GUID() ~= nil and u("mouseover"):IsSpellInRange(e.DeathGrip) then
-                l = 149576
+            if d("mouseover"):GUID() ~= nil and d("mouseover"):IsSpellInRange(e.DeathGrip) then
+                u = 149576
                 return "queue DeathGrip MO"
             else
                 o = 49576
@@ -872,18 +874,18 @@ local function y()
 
         end
 
-    elseif ((not e.DeathGrip:IsUsableP() or e.DeathGrip:CooldownRemains() > 0) and I) then
+    elseif ((not e.DeathGrip:IsUsableP() or e.DeathGrip:CooldownRemains() > 0) and H) then
         HeroRotationCharDB.Toggles[14] = not HeroRotationCharDB.Toggles[14]
         s.Print("DeathGrip Queue is now " .. (HeroRotationCharDB.Toggles[14] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-        if (A and e.GorefiendsGrasp:IsUsableP() and e.GorefiendsGrasp:CooldownRemains(BypassRecovery) <= 0 and t:AffectingCombat()) then
+        if (S and e.GorefiendsGrasp:IsUsableP() and e.GorefiendsGrasp:CooldownRemains(BypassRecovery) <= 0 and t:AffectingCombat()) then
         if s.Cast(e.GorefiendsGrasp, nil, nil, nil) then
             o = 108199
             return "queue Gorefiends Grasp"
         end
 
-    elseif ((not e.GorefiendsGrasp:IsUsableP() or e.GorefiendsGrasp:CooldownRemains() > 0 or not t:AffectingCombat()) and A) then
+    elseif ((not e.GorefiendsGrasp:IsUsableP() or e.GorefiendsGrasp:CooldownRemains() > 0 or not t:AffectingCombat()) and S) then
         HeroRotationCharDB.Toggles[80] = not HeroRotationCharDB.Toggles[80]
         s.Print("Gorefiend's Grasp Queue is now " .. (HeroRotationCharDB.Toggles[80] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
@@ -899,10 +901,10 @@ local function y()
         s.Print("Anti-Magic Zone Queue is now " .. (HeroRotationCharDB.Toggles[13] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-        if (H and e.ControlUndead:IsUsableP() and e.ControlUndead:CooldownRemains(BypassRecovery) <= 0 and not t:PrevGCD(1, e.ControlUndead)) then
+        if (I and e.ControlUndead:IsUsableP() and e.ControlUndead:CooldownRemains(BypassRecovery) <= 0 and not t:PrevGCD(1, e.ControlUndead)) then
         if s.Cast(e.ControlUndead, nil, nil, nil) then
-            if u("mouseover"):GUID() ~= nil and u("mouseover"):IsInRange(30) then
-                l = 1111673
+            if d("mouseover"):GUID() ~= nil and d("mouseover"):IsInRange(30) then
+                u = 1111673
                 return "queue ControlUndead MO"
             else
                 o = 111673
@@ -911,21 +913,21 @@ local function y()
 
         end
 
-    elseif ((not e.ControlUndead:IsUsableP() or e.ControlUndead:CooldownRemains() > 0 or t:PrevGCD(1, e.ControlUndead)) and H) then
+    elseif ((not e.ControlUndead:IsUsableP() or e.ControlUndead:CooldownRemains() > 0 or t:PrevGCD(1, e.ControlUndead)) and I) then
         HeroRotationCharDB.Toggles[81] = not HeroRotationCharDB.Toggles[81]
         s.Print("Control Undead Queue is now " .. (HeroRotationCharDB.Toggles[81] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
     if b.TargetIsValid() and t:AffectingCombat() then
         if true then
-            local e = B()
+            local e = J()
             if e then
                 return e
             end
 
         end
 
-        if t:IsChanneling(e.Blooddrinker) and t:BuffUp(e.BoneShieldBuff) and T == 0 and not t:ShouldStopCasting() and t:CastRemains() > .2 then
+        if t:IsChanneling(e.Blooddrinker) and t:BuffUp(e.BoneShieldBuff) and A == 0 and not t:ShouldStopCasting() and t:CastRemains() > .2 then
             if s.CastAnnotated(e.Pool, false, "WAIT") then
                 o = 99999
                 return "Pool During Blooddrinker"
@@ -933,7 +935,7 @@ local function y()
 
         end
 
-        M = (d == 3 and t:BuffRemains(e.DeathAndDecayBuff) > 6) and 70 or 55
+        M = (l == 3 and t:BuffRemains(e.DeathAndDecayBuff) > 6) and 70 or 55
         if h.PotionofPhantomFire:IsReady() and n.Commons.Enabled.Potions and ((t:BuffUp(e.DancingRuneWeaponBuff) and not s.GUISettings.General.HoldPotforBL) or (s.GUISettings.General.HoldPotforBL and t:BloodlustUp())) then
             if i(h.PotionofPhantomFire, nil, nil) then
                 o = 37
@@ -943,7 +945,7 @@ local function y()
         end
 
         if ((n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket)) then
-            local e = t:GetUseableTrinkets(oe)
+            local e = t:GetUseableTrinkets(ne)
             if e then
                 if i(e, nil, nil) then
                                         if e:ID() == TopTrinketID and n.Commons.Enabled.TopTrinket and ((n.Blood.TopTrinketHP <= 0 and r()) or n.Blood.TopTrinketHP > t:HealthPercentage()) then
@@ -984,7 +986,7 @@ local function y()
 
         end
 
-        if r() and not ie:DebuffUp(x(111673)) and e.RaiseDead:IsCastable() then
+        if r() and not ie:DebuffUp(j(111673)) and e.RaiseDead:IsCastable() then
             if i(e.RaiseDead, nil, nil) then
                 o = 46585
                 return "raise_dead main 24"
@@ -992,7 +994,7 @@ local function y()
 
         end
 
-        if e.Blooddrinker:IsReady() and a:IsInMeleeRange(30) and (f == 0 or f > 3) and (t:BuffDown(e.DancingRuneWeaponBuff) and (d ~= 3 or (d == 3 and t:BuffRemains(e.DeathAndDecayBuff) > 7))) then
+        if e.Blooddrinker:IsReady() and a:IsInMeleeRange(30) and (f == 0 or f > 3) and (t:BuffDown(e.DancingRuneWeaponBuff) and (l ~= 3 or (l == 3 and t:BuffRemains(e.DeathAndDecayBuff) > 7))) then
             if i(e.Blooddrinker, nil, nil, not a:IsSpellInRange(e.Blooddrinker)) then
                 o = 206931
                 return "blooddrinker main 20"
@@ -1008,7 +1010,7 @@ local function y()
 
         end
 
-        if e.RaiseDead:TimeSinceLastCast() <= 60 and C.active() and ((d ~= 3 or (d == 3 and t:BuffRemains(e.DeathAndDecayBuff) > 6)) and t:BuffRemains(e.DancingRuneWeaponBuff) > 4 and (C.remains() < 2 or a:TimeToDie() < t:GCD())) then
+        if e.RaiseDead:TimeSinceLastCast() <= 60 and Y.active() and ((l ~= 3 or (l == 3 and t:BuffRemains(e.DeathAndDecayBuff) > 6)) and t:BuffRemains(e.DancingRuneWeaponBuff) > 4 and (Y.remains() < 2 or a:TimeToDie() < t:GCD())) then
             if i(e.SacrificialPact, nil) then
                 o = 237574
                 return "sacrificial_pact covenants 8"
@@ -1017,7 +1019,7 @@ local function y()
         end
 
         if (true) then
-            local e = V()
+            local e = K()
             if e then
                 return e
             end
@@ -1032,7 +1034,7 @@ local function y()
 
         end
 
-        if e.DancingRuneWeapon:IsCastable() and a:IsInMeleeRange(10) and not D and r() and (t:BuffDown(e.DancingRuneWeaponBuff)) then
+        if e.DancingRuneWeapon:IsCastable() and a:IsInMeleeRange(10) and not N and r() and (t:BuffDown(e.DancingRuneWeaponBuff)) then
             if i(e.DancingRuneWeapon, nil) then
                 o = 49028
                 return "dancing_rune_weapon main 14"
@@ -1041,7 +1043,7 @@ local function y()
         end
 
         if (t:BuffUp(e.DancingRuneWeaponBuff)) then
-            local e = P()
+            local e = B()
             if e then
                 return e
             end
@@ -1049,7 +1051,7 @@ local function y()
         end
 
         if (true) then
-            local e = z()
+            local e = T()
             if e then
                 return e
             end
@@ -1082,13 +1084,13 @@ function ReturnSpell1()
 end
 
 function ReturnSpellMO1()
-    if l == 0 then
+    if u == 0 then
         return 0
     else
-        return l
+        return u
     end
 
 end
 
-s.SetAPL(250, y, e)
+s.SetAPL(250, w, e)
 
