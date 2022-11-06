@@ -323,7 +323,7 @@ local function ue()
 
         if e.Vanish:IsCastable() and ne() and not t:StealthUp(true, true) and not t:BuffUp(e.TakeEmBySurpriseBuff) then
             if not g then
-                if z() and not O and not g and not x and z() and not t:StealthUp(true, true) and (not R or (t:BuffDown(e.DeathlyShadowsBuff) and b <= 2)) then
+                if z() and i.Commons.VanishOffensive and not O and not g and not x and z() and not t:StealthUp(true, true) and (not R or (t:BuffDown(e.DeathlyShadowsBuff) and b <= 2)) then
                     if a.Cast(e.Vanish, nil) then
                         o = 1856
                         return "Cast Vanish"
