@@ -8,7 +8,7 @@ local i = k.Target
 local h = k.Pet
 local w = g.Spell
 local t = g.Item
-local T = g.Action
+local A = g.Action
 local s = HeroRotation
 local ue = s.AoEON
 local l = s.CDsON
@@ -26,8 +26,8 @@ local U = HeroRotationCharDB.Toggles[123]
 local M = HeroRotationCharDB.Toggles[124]
 local Q = HeroRotationCharDB.Toggles[125]
 local V = HeroRotationCharDB.Toggles[142]
-local A
 local O
+local I
 local u
 local N
 local K = { 355782, 333875, 344739, 228318, 332158, 321764, 324914, 326046, 324776, 340544, 324736, 328015, 322433, 334324, 317936, 327332, 328288, 343470, 333293, 320272, 342139, 355888, 349933, 356549, 355934, 353706, 347775, 357284, 335141, 327155, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 344739, 368477, 368396, 355057, 356133, 158337, 164426 }
@@ -79,7 +79,7 @@ g:RegisterForEvent(function()
 end, "PLAYER_EQUIPMENT_CHANGED")
 local v, t, x
 local r, L
-local I
+local T
 local b
 local d
 local t = 0
@@ -278,7 +278,7 @@ local function ne()
 
         end
 
-        if e.KillCommand:IsCastable() and UnitExists("pet") and I then
+        if e.KillCommand:IsCastable() and UnitExists("pet") and T then
             if o(e.KillCommand) then
                 t = 34026
                 return "Kill Command (PreCombat)"
@@ -362,7 +362,7 @@ local function ie()
 end
 
 local function ae()
-    if A and e.AspectoftheWild:IsCastable() and UnitExists("pet") and i:IsInMeleeRange(40) then
+    if O and e.AspectoftheWild:IsCastable() and UnitExists("pet") and i:IsInMeleeRange(40) then
         if o(e.AspectoftheWild, nil) then
             t = 193530
             return "Aspect of the Wild (Cleave)"
@@ -383,7 +383,7 @@ local function ae()
             return "Barbed Shot (Cleave - 1)"
         end
 
-        if ((h:BuffUp(e.FrenzyPetBuff) and h:BuffRemains(e.FrenzyPetBuff) <= d) or (a:BuffUp(e.WildSpiritsBuff) and e.BarbedShot:ChargesFractional() > 1.4 and j)) then
+        if ((h:BuffUp(e.FrenzyPetBuff) and h:BuffRemains(e.FrenzyPetBuff) <= d) or (h:BuffDown(e.FrenzyPetBuff) or h:BuffStack(e.FrenzyPetBuff) < 3) or (a:BuffUp(e.WildSpiritsBuff) and e.BarbedShot:ChargesFractional() > 1.4 and j)) then
             if o(e.BarbedShot, nil, nil, not r) then
                 t = 217200
                 return "Barbed Shot (Cleave - 1@Target)"
@@ -393,10 +393,18 @@ local function ae()
 
     end
 
-    if e.MultiShot:IsReady() and (d - C(e.BeastCleavePetBuff) > .25) then
+    if e.MultiShot:IsReady() and ((d - C(e.BeastCleavePetBuff) > .25) or (e.KillCommand:IsReady() and UnitExists("pet") and T and h:BuffDown(e.BeastCleavePetBuff) and (a:Focus() > e.KillCommand:Cost() + e.MultiShot:Cost()))) then
         if o(e.MultiShot, nil, nil, not r) then
             t = 2643
             return "Multi-Shot (Cleave - 1)"
+        end
+
+    end
+
+    if e.KillCommand:IsReady() and UnitExists("pet") and T and ((a:Focus() > e.KillCommand:Cost() + e.MultiShot:Cost()) or h:BuffUp(e.BeastCleavePetBuff)) then
+        if o(e.KillCommand) then
+            t = 34026
+            return "Kill Command (Cleave)"
         end
 
     end
@@ -457,21 +465,6 @@ local function ae()
 
     end
 
-    if e.BarbedShot:IsCastable() then
-        if q.CastTargetIf(e.BarbedShot, v, "min", D, oe) then
-            return "Barbed Shot (Cleave - 2)"
-        end
-
-        if ((e.BarbedShot:FullRechargeTime() < d and (z(e.BestialWrath:CooldownRemains() or not u))) or (e.BestialWrath:CooldownRemains() < 12 + d and e.ScentOfBlood:IsAvailable())) then
-            if o(e.BarbedShot, nil, nil, not r) then
-                t = 217200
-                return "Barbed Shot (Cleave - 2@Target)"
-            end
-
-        end
-
-    end
-
     if e.BestialWrath:IsCastable() and UnitExists("pet") and u then
         if o(e.BestialWrath, nil) then
             t = 19574
@@ -488,7 +481,7 @@ local function ae()
 
     end
 
-    if e.Stampede:IsCastable() and O and (a:BuffUp(e.BestialWrathBuff) or i:TimeToDie() < 15) then
+    if e.Stampede:IsCastable() and I and (a:BuffUp(e.BestialWrathBuff) or i:TimeToDie() < 15) then
         if o(e.Stampede, nil, nil, not L) then
             t = 201430
             return "Stampede (Cleave)"
@@ -559,14 +552,6 @@ local function ae()
 
     end
 
-    if e.KillCommand:IsReady() and UnitExists("pet") and I and (a:Focus() > e.KillCommand:Cost() + e.MultiShot:Cost()) then
-        if o(e.KillCommand) then
-            t = 34026
-            return "Kill Command (Cleave)"
-        end
-
-    end
-
     if e.BagofTricks:IsCastable() and (a:BuffDown(e.BestialWrathBuff) or i:TimeToDie() < 5) then
         if o(e.BagofTricks, nil, nil, not r) then
             t = 312411
@@ -579,6 +564,21 @@ local function ae()
         if o(e.DireBeast, nil, nil, not r) then
             t = 120679
             return "Dire Beast (Cleave)"
+        end
+
+    end
+
+    if e.BarbedShot:IsCastable() then
+        if q.CastTargetIf(e.BarbedShot, v, "min", D, oe) then
+            return "Barbed Shot (Cleave - 2)"
+        end
+
+        if ((e.BarbedShot:FullRechargeTime() < d and (z(e.BestialWrath:CooldownRemains() or not u))) or (e.BestialWrath:CooldownRemains() < 12 + d and e.ScentOfBlood:IsAvailable())) then
+            if o(e.BarbedShot, nil, nil, not r) then
+                t = 217200
+                return "Barbed Shot (Cleave - 2@Target)"
+            end
+
         end
 
     end
@@ -617,7 +617,7 @@ local function ae()
 end
 
 local function D()
-    if A and e.AspectoftheWild:IsCastable() and UnitExists("pet") and i:IsInMeleeRange(40) and (CovenantID ~= 3 or e.WildSpirits:CooldownRemains() > 20) then
+    if O and e.AspectoftheWild:IsCastable() and UnitExists("pet") and i:IsInMeleeRange(40) and (CovenantID ~= 3 or e.WildSpirits:CooldownRemains() > 20) then
         if o(e.AspectoftheWild, nil) then
             t = 193530
             return "Aspect of the Wild (ST)"
@@ -721,7 +721,7 @@ local function D()
 
     end
 
-    if e.Stampede:IsCastable() and O and (((a:BuffUp(e.BestialWrathBuff) or not u)) or i:TimeToDie() < 15) then
+    if e.Stampede:IsCastable() and I and (((a:BuffUp(e.BestialWrathBuff) or not u)) or i:TimeToDie() < 15) then
         if o(e.Stampede, nil, nil, not L) then
             t = 201430
             return "Stampede (ST)"
@@ -761,7 +761,7 @@ local function D()
 
     end
 
-    if e.KillCommand:IsReady() and UnitExists("pet") and I then
+    if e.KillCommand:IsReady() and UnitExists("pet") and T then
         if o(e.KillCommand) then
             t = 34026
             return "Kill Command (ST)"
@@ -842,16 +842,16 @@ local function j()
     M = HeroRotationCharDB.Toggles[124]
     Q = HeroRotationCharDB.Toggles[125]
     V = HeroRotationCharDB.Toggles[142]
-    A = false
     O = false
+    I = false
     u = false
     N = false
     if ((n.BeastMastery.AspectoftheWild == "CDs" and l()) or (n.BeastMastery.AspectoftheWild == "Small CDs" and (l() or y)) or (n.BeastMastery.AspectoftheWild == "Always")) then
-        A = true
+        O = true
     end
 
     if ((n.BeastMastery.Stampede == "CDs" and l()) or (n.BeastMastery.Stampede == "Small CDs" and (l() or y)) or (n.BeastMastery.Stampede == "Always")) then
-        O = true
+        I = true
     end
 
     if ((n.BeastMastery.BestialWrathCD == "CDs" and l()) or (n.BeastMastery.BestialWrathCD == "Small CDs" and (l() or y)) or (n.BeastMastery.BestialWrathCD == "Always")) and ((not a:IsInDungeonArea()) or (a:IsInDungeonArea() and AreaTTD(v) >= 15)) then
@@ -884,8 +884,8 @@ local function k()
         t = 0
     end
 
-    local g = (e.BloodBolt:IsPetKnown() and T.FindBySpellID(e.BloodBolt:ID()) and e.BloodBolt) or (e.Bite:IsPetKnown() and T.FindBySpellID(e.Bite:ID()) and e.Bite) or (e.Claw:IsPetKnown() and T.FindBySpellID(e.Claw:ID()) and e.Claw) or (e.Smack:IsPetKnown() and T.FindBySpellID(e.Smack:ID()) and e.Smack) or nil
-    local m = (e.Growl:IsPetKnown() and T.FindBySpellID(e.Growl:ID()) and e.Growl) or nil
+    local g = (e.BloodBolt:IsPetKnown() and A.FindBySpellID(e.BloodBolt:ID()) and e.BloodBolt) or (e.Bite:IsPetKnown() and A.FindBySpellID(e.Bite:ID()) and e.Bite) or (e.Claw:IsPetKnown() and A.FindBySpellID(e.Claw:ID()) and e.Claw) or (e.Smack:IsPetKnown() and A.FindBySpellID(e.Smack:ID()) and e.Smack) or nil
+    local m = (e.Growl:IsPetKnown() and A.FindBySpellID(e.Growl:ID()) and e.Growl) or nil
     if ue() then
         v = a:GetEnemiesInRange(40)
         x = (g and #a:GetEnemiesInSpellActionRange(g)) or i:GetEnemiesInSplashRangeCount(8)
@@ -896,7 +896,7 @@ local function k()
 
     r = i:IsInRange(40)
     L = i:IsInRange(30)
-    I = (m and i:IsSpellInActionRange(m)) or (not m and i:IsInRange(30))
+    T = (m and i:IsSpellInActionRange(m)) or (not m and i:IsInRange(30))
     j()
     if s.QueuedCast() then
         t = s.QueuedCast()
