@@ -14,7 +14,7 @@ local be = d.AoEON
 local k = d.CDsON
 local i = d.Cast
 local e = d.CastSuggested
-local E = HeroRotationCharDB.Toggles[4]
+local _ = HeroRotationCharDB.Toggles[4]
 local ve = HeroRotationCharDB.Toggles[5]
 local R = HeroRotationCharDB.Toggles[6]
 local f = HeroRotationCharDB.Toggles[12]
@@ -122,7 +122,7 @@ local function ze(e)
     return t
 end
 
-local function _()
+local function E()
     if e.ShrapnelBomb:TimeSinceLastCast() < .5 or e.PheromoneBomb:TimeSinceLastCast() < .5 or e.VolatileBomb:TimeSinceLastCast() < .5 or e.WildfireBomb:TimeSinceLastCast() < .5 or z then
         return true
     else
@@ -673,7 +673,7 @@ local function Ee()
     VarStrongSyncUp = (j == 1 and t:DebuffUp(e.ResonatingArrowDebuff) and a:BuffUp(e.CoordinatedAssault)) or not e.CoordinatedAssault:IsAvailable() or ((j ~= 1 and a:BuffUp(e.CoordinatedAssault)) or not e.CoordinatedAssault:IsAvailable())
     if (a:BuffDown(e.CoordinatedAssault)) then
         if (j == 1) then
-            VarStrongSyncRemains = (e.ResonatingArrow:CooldownRemains() < e.CoordinatedAssault:CooldownRemains()) and e.ResonatingArrow:CooldownRemains() or e.CoordinatedAssault:CooldownRemains()
+            VarStrongSyncRemains = ((e.ResonatingArrow:CooldownRemains() < e.CoordinatedAssault:CooldownRemains()) and e.ResonatingArrow:CooldownRemains() or e.CoordinatedAssault:CooldownRemains())
         else
             VarStrongSyncRemains = e.CoordinatedAssault:CooldownRemains()
         end
@@ -690,12 +690,12 @@ local function Ee()
     end
 
     if (j == 1) then
-        VarSyncRemains = (e.ResonatingArrow:CooldownRemains() > e.CoordinatedAssault:CooldownRemains()) and e.ResonatingArrow:CooldownRemains() or e.CoordinatedAssault:CooldownRemains()
+        VarSyncRemains = ((e.ResonatingArrow:CooldownRemains() > e.CoordinatedAssault:CooldownRemains()) and e.ResonatingArrow:CooldownRemains() or e.CoordinatedAssault:CooldownRemains())
     else
         VarSyncRemains = e.CoordinatedAssault:CooldownRemains()
     end
 
-    if h:IsReady() and k() and h:ID() ~= q.MistcallerOcarina:ID() and (n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket) and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (((h:TrinketHasUseBuff() or j == 1 and h:HasCooldown()) and (VarStrongSyncUp and (j ~= 1 and (not r:TrinketHasUseBuff()) or j == 1 and (not r:HasCooldown()) or r:CooldownRemains() > 0 or h:TrinketHasUseBuff() and ((not r:TrinketHasUseBuff()) or h:Cooldown() >= r:Cooldown()) or h:HasCooldown() and (not r:TrinketHasUseBuff()) and h:Cooldown() >= r:Cooldown()) or (not VarStrongSyncUp) and ((not r:TrinketHasUseBuff()) and (h:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > h:Cooldown() / 2) or r:TrinketHasUseBuff() and (h:TrinketHasUseBuff() and h:Cooldown() >= r:Cooldown() and (h:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > h:Cooldown() / 2) or ((not h:TrinketHasUseBuff()) or r:Cooldown() >= h:Cooldown()) and (r:IsReady() and r:Cooldown() - 5 > VarSyncRemains and VarSyncRemains < r:Cooldown() / 2 or (not r:IsReady()) and (r:CooldownRemains() - 5 < VarStrongSyncRemains and VarStrongSyncRemains > 20 and (h:Cooldown() - 5 < VarSyncRemains or r:CooldownRemains() - 5 < VarSyncRemains and r:Cooldown() - 10 + VarSyncRemains < VarStrongSyncRemains or VarSyncRemains > h:Cooldown() / 2 or VarSyncUp) or r:CooldownRemains() - 5 > VarStrongSyncRemains and (h:Cooldown() - 5 < VarStrongSyncRemains or h:Cooldown() < FightRemains and VarStrongSyncRemains + h:Cooldown() > FightRemains or (not h:TrinketHasUseBuff()) and (VarSyncRemains > h:Cooldown() / 2 or VarSyncUp)))))) or t:TimeToDie() < VarSyncRemains) or (not h:TrinketHasUseBuff()) and j ~= 1 and (r:TrinketHasUseBuff() and (((not VarSyncUp) or r:CooldownRemains() > 5) and (VarSyncRemains > 20 or r:CooldownRemains() - 5 > VarSyncRemains)) or (not r:TrinketHasUseBuff()) and ((not r:HasCooldown()) or r:CooldownRemains() > 0 or r:Cooldown() >= h:Cooldown()))) and (h:ID() ~= q.CacheofAcquiredTreasures:ID() or y < 2 and a:BuffUp(e.AcquiredWandBuff) or y > 1 and a:BuffDown(e.AcquiredWandBuff))) then
+    if h:IsReady() and k() and h:ID() ~= q.MistcallerOcarina:ID() and (n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket) and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and ((((h:TrinketHasUseBuff() or j == 1 and h:HasCooldown()) and (VarStrongSyncUp and (j ~= 1 and (not r:TrinketHasUseBuff()) or j == 1 and (not r:HasCooldown()) or r:CooldownRemains() > 0 or h:TrinketHasUseBuff() and ((not r:TrinketHasUseBuff()) or h:Cooldown() >= r:Cooldown()) or h:HasCooldown() and (not r:TrinketHasUseBuff()) and h:Cooldown() >= r:Cooldown()) or (not VarStrongSyncUp) and ((not r:TrinketHasUseBuff()) and (h:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > h:Cooldown() / 2) or r:TrinketHasUseBuff() and (h:TrinketHasUseBuff() and h:Cooldown() >= r:Cooldown() and (h:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > h:Cooldown() / 2) or ((not h:TrinketHasUseBuff()) or r:Cooldown() >= h:Cooldown()) and (r:IsReady() and r:Cooldown() - 5 > VarSyncRemains and VarSyncRemains < r:Cooldown() / 2 or (not r:IsReady()) and (r:CooldownRemains() - 5 < VarStrongSyncRemains and VarStrongSyncRemains > 20 and (h:Cooldown() - 5 < VarSyncRemains or r:CooldownRemains() - 5 < VarSyncRemains and r:Cooldown() - 10 + VarSyncRemains < VarStrongSyncRemains or VarSyncRemains > h:Cooldown() / 2 or VarSyncUp) or r:CooldownRemains() - 5 > VarStrongSyncRemains and (h:Cooldown() - 5 < VarStrongSyncRemains or h:Cooldown() < FightRemains and VarStrongSyncRemains + h:Cooldown() > FightRemains or (not h:TrinketHasUseBuff()) and (VarSyncRemains > h:Cooldown() / 2 or VarSyncUp)))))) or t:TimeToDie() < VarSyncRemains) or (not h:TrinketHasUseBuff()) and j ~= 1 and (r:TrinketHasUseBuff() and (((not VarSyncUp) or r:CooldownRemains() > 5) and (VarSyncRemains > 20 or r:CooldownRemains() - 5 > VarSyncRemains)) or (not r:TrinketHasUseBuff()) and ((not r:HasCooldown()) or r:CooldownRemains() > 0 or r:Cooldown() >= h:Cooldown()))) and (h:ID() ~= q.CacheofAcquiredTreasures:ID() or y < 2 and a:BuffUp(e.AcquiredWandBuff) or y > 1 and a:BuffDown(e.AcquiredWandBuff))) or not e.CoordinatedAssault:IsAvailable()) then
         if i(h, nil, nil) then
                         if h:ID() == F and n.Commons.Enabled.TopTrinket then
                 o = 24
@@ -709,7 +709,7 @@ local function Ee()
 
     end
 
-    if r:IsReady() and r:ID() ~= q.MistcallerOcarina:ID() and k() and (n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket) and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (((r:TrinketHasUseBuff() or j == 1 and r:HasCooldown()) and (VarStrongSyncUp and (j ~= 1 and (not h:TrinketHasUseBuff()) or j == 1 and (not h:HasCooldown()) or h:CooldownRemains() > 0 or r:TrinketHasUseBuff() and ((not h:TrinketHasUseBuff()) or r:Cooldown() >= h:Cooldown()) or r:HasCooldown() and (not h:TrinketHasUseBuff()) and r:Cooldown() >= h:Cooldown()) or (not VarStrongSyncUp) and ((not h:TrinketHasUseBuff()) and (r:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > r:Cooldown() / 2) or h:TrinketHasUseBuff() and (r:TrinketHasUseBuff() and r:Cooldown() >= h:Cooldown() and (r:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > r:Cooldown() / 2) or ((not r:TrinketHasUseBuff()) or h:Cooldown() >= r:Cooldown()) and (h:IsReady() and h:Cooldown() - 5 > VarSyncRemains and VarSyncRemains < h:Cooldown() / 2 or (not h:IsReady()) and (h:CooldownRemains() - 5 < VarStrongSyncRemains and VarStrongSyncRemains > 20 and (r:Cooldown() - 5 < VarSyncRemains or h:CooldownRemains() - 5 < VarSyncRemains and h:Cooldown() - 10 + VarSyncRemains < VarStrongSyncRemains or VarSyncRemains > r:Cooldown() / 2 or VarSyncUp) or h:CooldownRemains() - 5 > VarStrongSyncRemains and (r:Cooldown() - 5 < VarStrongSyncRemains or r:Cooldown() < FightRemains and VarStrongSyncRemains + r:Cooldown() > FightRemains or (not r:TrinketHasUseBuff()) and (VarSyncRemains > r:Cooldown() / 2 or VarSyncUp)))))) or t:TimeToDie() < VarSyncRemains) or (not r:TrinketHasUseBuff()) and j ~= 1 and (h:TrinketHasUseBuff() and (((not VarSyncUp) or h:CooldownRemains() > 5) and (VarSyncRemains > 20 or h:CooldownRemains() - 5 > VarSyncRemains)) or (not h:TrinketHasUseBuff()) and ((not h:HasCooldown()) or h:CooldownRemains() > 0 or h:Cooldown() >= r:Cooldown()))) and (r:ID() ~= q.CacheofAcquiredTreasures:ID() or y < 2 and a:BuffUp(e.AcquiredWandBuff) or y > 1 and a:BuffDown(e.AcquiredWandBuff))) then
+    if r:IsReady() and r:ID() ~= q.MistcallerOcarina:ID() and k() and (n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket) and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and ((((r:TrinketHasUseBuff() or j == 1 and r:HasCooldown()) and (VarStrongSyncUp and (j ~= 1 and (not h:TrinketHasUseBuff()) or j == 1 and (not h:HasCooldown()) or h:CooldownRemains() > 0 or r:TrinketHasUseBuff() and ((not h:TrinketHasUseBuff()) or r:Cooldown() >= h:Cooldown()) or r:HasCooldown() and (not h:TrinketHasUseBuff()) and r:Cooldown() >= h:Cooldown()) or (not VarStrongSyncUp) and ((not h:TrinketHasUseBuff()) and (r:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > r:Cooldown() / 2) or h:TrinketHasUseBuff() and (r:TrinketHasUseBuff() and r:Cooldown() >= h:Cooldown() and (r:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > r:Cooldown() / 2) or ((not r:TrinketHasUseBuff()) or h:Cooldown() >= r:Cooldown()) and (h:IsReady() and h:Cooldown() - 5 > VarSyncRemains and VarSyncRemains < h:Cooldown() / 2 or (not h:IsReady()) and (h:CooldownRemains() - 5 < VarStrongSyncRemains and VarStrongSyncRemains > 20 and (r:Cooldown() - 5 < VarSyncRemains or h:CooldownRemains() - 5 < VarSyncRemains and h:Cooldown() - 10 + VarSyncRemains < VarStrongSyncRemains or VarSyncRemains > r:Cooldown() / 2 or VarSyncUp) or h:CooldownRemains() - 5 > VarStrongSyncRemains and (r:Cooldown() - 5 < VarStrongSyncRemains or r:Cooldown() < FightRemains and VarStrongSyncRemains + r:Cooldown() > FightRemains or (not r:TrinketHasUseBuff()) and (VarSyncRemains > r:Cooldown() / 2 or VarSyncUp)))))) or t:TimeToDie() < VarSyncRemains) or (not r:TrinketHasUseBuff()) and j ~= 1 and (h:TrinketHasUseBuff() and (((not VarSyncUp) or h:CooldownRemains() > 5) and (VarSyncRemains > 20 or h:CooldownRemains() - 5 > VarSyncRemains)) or (not h:TrinketHasUseBuff()) and ((not h:HasCooldown()) or h:CooldownRemains() > 0 or h:Cooldown() >= r:Cooldown()))) and (r:ID() ~= q.CacheofAcquiredTreasures:ID() or y < 2 and a:BuffUp(e.AcquiredWandBuff) or y > 1 and a:BuffDown(e.AcquiredWandBuff))) or not e.CoordinatedAssault:IsAvailable()) then
         if i(r, nil, nil) then
                         if r:ID() == F and n.Commons.Enabled.TopTrinket then
                 o = 24
@@ -871,7 +871,7 @@ local function h()
 end
 
 local function Te()
-    if (E or e.DeathChakram:IsAvailable() and k()) and e.DeathChakram:IsCastable() and (l(2)) then
+    if (_ or e.DeathChakram:IsAvailable() and k()) and e.DeathChakram:IsCastable() and (l(2)) then
         if i(e.DeathChakram, nil, nil, not t:IsSpellInRange(e.DeathChakram)) then
             o = 325028
             return "death_chakram st 2"
@@ -903,7 +903,7 @@ local function Te()
     end
 
     if true then
-        if e.FlayedShot:IsCastable() and E then
+        if e.FlayedShot:IsCastable() and _ then
             if i(e.FlayedShot, nil, nil, not t:IsSpellInRange(e.FlayedShot)) then
                 o = 324149
                 return "flayed_shot st 6"
@@ -911,7 +911,7 @@ local function Te()
 
         end
 
-        if e.ResonatingArrow:IsCastable() and E and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
+        if e.ResonatingArrow:IsCastable() and _ and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
             if i(e.ResonatingArrow, nil, nil, not t:IsInRange(40)) then
                 o = 308491
                 return "resonating_arrow st 8"
@@ -919,7 +919,7 @@ local function Te()
 
         end
 
-        if e.WildSpirits:IsCastable() and E and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
+        if e.WildSpirits:IsCastable() and _ and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
             if i(e.WildSpirits, nil, nil, not t:IsInRange(40)) then
                 o = 328231
                 return "wild_spirits st 10"
@@ -953,7 +953,7 @@ local function Te()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and ((e.WildfireBomb:FullRechargeTime() < 2 * a:GCD() and a:HasTier(28, 2)) or (a:BuffUp(e.MadBombardierBuff)) or (not a:HasTier(28, 2) and (e.WildfireBomb:FullRechargeTime() < a:GCD() or ((l(e.WildfireBomb:ExecuteTime()) and ((e.VolatileBomb:IsReady() and t:DebuffUp(e.SerpentStingDebuff) and t:DebuffRefreshable(e.SerpentStingDebuff)) or (e.PheromoneBomb:IsReady() and a:BuffDown(e.MongooseFuryBuff) and a:Focus() + a:FocusCastRegen(e.WildfireBomb:ExecuteTime()) < a:FocusMax() - a:FocusCastRegen(e.KillCommand:ExecuteTime()) * 3))) or t:TimeToDie() < 10)))) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and ((e.WildfireBomb:FullRechargeTime() < 2 * a:GCD() and a:HasTier(28, 2)) or (a:BuffUp(e.MadBombardierBuff)) or (not a:HasTier(28, 2) and (e.WildfireBomb:FullRechargeTime() < a:GCD() or ((l(e.WildfireBomb:ExecuteTime()) and ((e.VolatileBomb:IsReady() and t:DebuffUp(e.SerpentStingDebuff) and t:DebuffRefreshable(e.SerpentStingDebuff)) or (e.PheromoneBomb:IsReady() and a:BuffDown(e.MongooseFuryBuff) and a:Focus() + a:FocusCastRegen(e.WildfireBomb:ExecuteTime()) < a:FocusMax() - a:FocusCastRegen(e.KillCommand:ExecuteTime()) * 3))) or t:TimeToDie() < 10)))) then
         if e.WildfireInfusion:IsAvailable() then
             if e.ShrapnelBomb:IsCastable() then
                 if i(e.ShrapnelBomb, nil, nil, not t:IsSpellInRange(e.ShrapnelBomb)) then
@@ -1106,7 +1106,7 @@ local function Te()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.ShrapnelBomb:IsCastable() and (a:Focus() > p * 2 and t:DebuffRemains(e.SerpentStingDebuff) > 5 * a:GCD() and not a:HasTier(28, 2)) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.ShrapnelBomb:IsCastable() and (a:Focus() > p * 2 and t:DebuffRemains(e.SerpentStingDebuff) > 5 * a:GCD() and not a:HasTier(28, 2)) then
         if i(e.ShrapnelBomb, nil, nil, not t:IsSpellInRange(e.ShrapnelBomb)) then
             o = 259495
             return "shrapnel_bomb st 40"
@@ -1137,7 +1137,7 @@ local function Te()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and L then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and L then
         if e.ShrapnelBomb:IsCastable() then
             if i(e.ShrapnelBomb, nil, nil, not t:IsSpellInRange(e.ShrapnelBomb)) then
                 o = 259495
@@ -1194,7 +1194,7 @@ local function Te()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.VolatileBomb:IsCastable() and (t:DebuffUp(e.SerpentStingDebuff)) and not a:HasTier(28, 2) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.VolatileBomb:IsCastable() and (t:DebuffUp(e.SerpentStingDebuff)) and not a:HasTier(28, 2) then
         if i(e.VolatileBomb, nil, nil, not t:IsSpellInRange(e.VolatileBomb)) then
             o = 259495
             return "volatile_bomb st 56"
@@ -1202,7 +1202,7 @@ local function Te()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.PheromoneBomb:IsCastable() and not a:HasTier(28, 2) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.PheromoneBomb:IsCastable() and not a:HasTier(28, 2) then
         if i(e.PheromoneBomb, nil, nil, not t:IsSpellInRange(e.PheromoneBomb)) then
             o = 259495
             return "pheromone_bomb st 58"
@@ -1210,7 +1210,7 @@ local function Te()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.ShrapnelBomb:IsCastable() and (a:Focus() > 50) and not a:HasTier(28, 2) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.ShrapnelBomb:IsCastable() and (a:Focus() > 50) and not a:HasTier(28, 2) then
         if i(e.ShrapnelBomb, nil, nil, not t:IsSpellInRange(e.ShrapnelBomb)) then
             o = 259495
             return "shrapnel_bomb st 60"
@@ -1267,7 +1267,7 @@ local function L()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.WildfireBomb:IsCastable() and ((l(e.WildfireBomb:ExecuteTime()) and t:DebuffDown(e.WildfireBombDebuff) and e.WildfireBomb:FullRechargeTime() < a:GCD()) or (a:BuffUp(e.MadBombardierBuff))) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.WildfireBomb:IsCastable() and ((l(e.WildfireBomb:ExecuteTime()) and t:DebuffDown(e.WildfireBombDebuff) and e.WildfireBomb:FullRechargeTime() < a:GCD()) or (a:BuffUp(e.MadBombardierBuff))) then
         if i(e.WildfireBomb, nil, nil, not t:IsSpellInRange(e.WildfireBomb)) then
             o = 259495
             return "wildfire_bomb bop 8"
@@ -1283,7 +1283,7 @@ local function L()
 
     end
 
-    if E and e.FlayedShot:IsCastable() then
+    if _ and e.FlayedShot:IsCastable() then
         if i(e.FlayedShot, nil, nil, not t:IsSpellInRange(e.FlayedShot)) then
             o = 324149
             return "flayed_shot bop 12"
@@ -1299,7 +1299,7 @@ local function L()
 
     end
 
-    if (E or e.DeathChakram:IsAvailable() and k()) and e.DeathChakram:IsCastable() and (l(2)) then
+    if (_ or e.DeathChakram:IsAvailable() and k()) and e.DeathChakram:IsCastable() and (l(2)) then
         if i(e.DeathChakram, nil, nil, not t:IsSpellInRange(e.DeathChakram)) then
             o = 325028
             return "death_chakram bop 14"
@@ -1375,7 +1375,7 @@ local function L()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.WildfireBomb:IsCastable() and (l(e.WildfireBomb:ExecuteTime()) and t:DebuffDown(e.WildfireBombDebuff) and (e.WildfireBomb:FullRechargeTime() < a:GCD() or t:DebuffDown(e.WildfireBombDebuff) and a:BuffRemains(e.MongooseFuryBuff) > e.WildfireBomb:FullRechargeTime() - a:GCD() or t:DebuffDown(e.WildfireBombDebuff) and a:BuffDown(e.MongooseFuryBuff)) or t:TimeToDie() < 18 and t:DebuffDown(e.WildfireBombDebuff)) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.WildfireBomb:IsCastable() and (l(e.WildfireBomb:ExecuteTime()) and t:DebuffDown(e.WildfireBombDebuff) and (e.WildfireBomb:FullRechargeTime() < a:GCD() or t:DebuffDown(e.WildfireBombDebuff) and a:BuffRemains(e.MongooseFuryBuff) > e.WildfireBomb:FullRechargeTime() - a:GCD() or t:DebuffDown(e.WildfireBombDebuff) and a:BuffDown(e.MongooseFuryBuff)) or t:TimeToDie() < 18 and t:DebuffDown(e.WildfireBombDebuff)) then
         if i(e.WildfireBomb, nil, nil, not t:IsSpellInRange(e.WildfireBomb)) then
             o = 259495
             return "wildfire_bomb bop 24"
@@ -1429,7 +1429,7 @@ local function L()
     end
 
     if true then
-        if e.ResonatingArrow:IsCastable() and E and (t:IsInMeleeRange(8)) then
+        if e.ResonatingArrow:IsCastable() and _ and (t:IsInMeleeRange(8)) then
             if i(e.ResonatingArrow, nil, nil, not t:IsInRange(40)) then
                 o = 308491
                 return "resonating_arrow bop 36"
@@ -1437,7 +1437,7 @@ local function L()
 
         end
 
-        if e.WildSpirits:IsCastable() and E and (t:IsInMeleeRange(8)) then
+        if e.WildSpirits:IsCastable() and _ and (t:IsInMeleeRange(8)) then
             if i(e.WildSpirits, nil, nil, not t:IsInRange(40)) then
                 o = 328231
                 return "wild_spirits bop 38"
@@ -1478,7 +1478,7 @@ local function L()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.WildfireBomb:IsCastable() and (t:DebuffRefreshable(e.WildfireBombDebuff)) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.WildfireBomb:IsCastable() and (t:DebuffRefreshable(e.WildfireBombDebuff)) then
         if i(e.WildfireBomb, nil, nil, not t:IsSpellInRange(e.WildfireBomb)) then
             o = 259495
             return "wildfire_bomb bop 46"
@@ -1520,7 +1520,7 @@ local function H()
     end
 
     if true then
-        if e.WildSpirits:IsCastable() and E and (t:IsInMeleeRange(8)) then
+        if e.WildSpirits:IsCastable() and _ and (t:IsInMeleeRange(8)) then
             if i(e.WildSpirits, nil, nil, not t:IsInRange(40)) then
                 o = 328231
                 return "wild_spirits cleave 4"
@@ -1528,7 +1528,7 @@ local function H()
 
         end
 
-        if e.ResonatingArrow:IsCastable() and E and (t:IsInMeleeRange(8)) then
+        if e.ResonatingArrow:IsCastable() and _ and (t:IsInMeleeRange(8)) then
             if i(e.ResonatingArrow, nil, nil, not t:IsInRange(40)) then
                 o = 308491
                 return "resonating_arrow cleave 6"
@@ -1546,7 +1546,7 @@ local function H()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and (e.WildfireBomb:FullRechargeTime() < a:GCD() or (a:BuffUp(e.MadBombardierBuff) and a:HasTier(28, 2))) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and (e.WildfireBomb:FullRechargeTime() < a:GCD() or (a:BuffUp(e.MadBombardierBuff) and a:HasTier(28, 2))) then
         if e.WildfireInfusion:IsAvailable() then
             if e.ShrapnelBomb:IsCastable() then
                 if i(e.ShrapnelBomb, nil, nil, not t:IsSpellInRange(e.ShrapnelBomb)) then
@@ -1600,7 +1600,7 @@ local function H()
 
     end
 
-    if e.DeathChakram:IsCastable() and (E or e.DeathChakram:IsAvailable() and k()) and (l(2) and not ge) then
+    if e.DeathChakram:IsCastable() and (_ or e.DeathChakram:IsAvailable() and k()) and (l(2) and not ge) then
         if i(e.DeathChakram, nil, nil, not t:IsSpellInRange(e.DeathChakram)) then
             o = 325028
             return "death_chakram cleave 16"
@@ -1664,7 +1664,7 @@ local function H()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.WildfireBomb:IsCastable() and (a:BuffUp(e.MadBombardierBuff)) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.WildfireBomb:IsCastable() and (a:BuffUp(e.MadBombardierBuff)) then
         if e.WildfireInfusion:IsAvailable() then
             if e.ShrapnelBomb:IsCastable() then
                 if i(e.ShrapnelBomb, nil, nil, not t:IsSpellInRange(e.ShrapnelBomb)) then
@@ -1741,7 +1741,7 @@ local function H()
 
     end
 
-    if E and e.FlayedShot:IsCastable() then
+    if _ and e.FlayedShot:IsCastable() then
         if c.CastTargetIf(e.FlayedShot, u, "max", ke, oe, not t:IsSpellInRange(e.FlayedShot)) then
             return "flayed_shot cleave 28"
         end
@@ -1786,7 +1786,7 @@ local function H()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.WildfireBomb:IsCastable() and ((t:DebuffDown(e.WildfireBombDebuff) and not a:HasTier(28, 2)) or e.WildfireBomb:ChargesFractional() > 1.3) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.WildfireBomb:IsCastable() and ((t:DebuffDown(e.WildfireBombDebuff) and not a:HasTier(28, 2)) or e.WildfireBomb:ChargesFractional() > 1.3) then
         if e.WildfireInfusion:IsAvailable() then
             if e.ShrapnelBomb:IsCastable() then
                 if i(e.ShrapnelBomb, nil, nil, not t:IsSpellInRange(e.ShrapnelBomb)) then
@@ -1825,7 +1825,7 @@ local function H()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.WildfireInfusion:IsAvailable() then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.WildfireInfusion:IsAvailable() then
         if e.ShrapnelBomb:IsCastable() then
             if i(e.ShrapnelBomb, nil, nil, not t:IsSpellInRange(e.ShrapnelBomb)) then
                 o = 259495
@@ -1971,7 +1971,7 @@ end
 
 local function l()
     R = HeroRotationCharDB.Toggles[6]
-    E = HeroRotationCharDB.Toggles[4]
+    _ = HeroRotationCharDB.Toggles[4]
     ve = HeroRotationCharDB.Toggles[5] or k()
     f = HeroRotationCharDB.Toggles[12]
     pe = HeroRotationCharDB.Toggles[15]
@@ -2324,7 +2324,7 @@ local function w()
 
         end
 
-        if ((j == 1 and e.CoordinatedAssault:CooldownRemains() > 0 and e.ResonatingArrow:CooldownRemains() > 0) or (j ~= 1 and e.CoordinatedAssault:CooldownRemains() > 0)) then
+        if ((j == 1 and (e.CoordinatedAssault:CooldownRemains() > 0 or not e.CoordinatedAssault:IsAvailable()) and (e.ResonatingArrow:CooldownRemains() > 0 or not _)) or (j ~= 1 and (e.CoordinatedAssault:CooldownRemains() > 0 or not e.CoordinatedAssault:IsAvailable()))) then
             local e = Ee()
             if e then
                 return e
