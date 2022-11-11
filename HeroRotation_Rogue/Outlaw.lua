@@ -313,7 +313,7 @@ local function ue()
 
         end
 
-        if e.ShadowDance:IsAvailable() and e.ShadowDance:IsCastable() and Z and not g and not x and not R and not t:StealthUp(true, true) and not t:BuffUp(e.TakeEmBySurprise) and ((r() and t:BuffUp(e.SliceandDice)) or (z() and not t:BuffUp(e.SliceandDice))) then
+        if e.ShadowDance:IsAvailable() and e.ShadowDance:IsCastable() and Z and not g and not x and not R and not t:StealthUp(true, true) and not t:BuffUp(e.TakeEmBySurpriseBuff) and ((r() and t:BuffUp(e.SliceandDice)) or (z() and not t:BuffUp(e.SliceandDice))) then
             if a.Cast(e.ShadowDance, nil) then
                 o = 185313
                 return "Cast ShadowDance"
@@ -691,7 +691,7 @@ local function z()
     end
 
     if e.PistolShot:IsCastable() and n:IsSpellInRange(e.PistolShot) and t:BuffUp(e.Opportunity) then
-        if t:BuffUp(e.Opportunity) and (EnergyDeficitPredicted > ee * 1.5 or (not e.WeaponmasterT:IsAvailable() and k <= 1 + w(t:BuffUp(e.Broadside))) or e.QuickDraw:IsAvailable() or (e.Audacity:IsAvailable() and not t:BuffUp(e.Audacity))) then
+        if t:BuffUp(e.Opportunity) and (t:EnergyDeficitPredicted() > ee * 1.5 or (not e.WeaponmasterT:IsAvailable() and k <= 1 + w(t:BuffUp(e.Broadside))) or e.QuickDraw:IsAvailable() or (e.Audacity:IsAvailable() and not t:BuffUp(e.Audacity))) then
             if a.CastPooling(e.PistolShot) then
                 o = 185763
                 return "Cast Pistol Shot 1"
