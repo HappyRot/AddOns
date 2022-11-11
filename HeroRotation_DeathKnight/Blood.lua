@@ -12,7 +12,7 @@ local s = HeroRotation
 local i = s.Cast
 local r = s.CDsON
 local ee = s.AoEON
-local w = HeroRotationCharDB.Toggles[4]
+local f = HeroRotationCharDB.Toggles[4]
 local v = HeroRotationCharDB.Toggles[5]
 local C = HeroRotationCharDB.Toggles[6]
 local Z = HeroRotationCharDB.Toggles[12]
@@ -29,7 +29,7 @@ local W = HeroRotationCharDB.Toggles[85]
 local q = HeroRotationCharDB.Toggles[72]
 local p = HeroRotationCharDB.Toggles[83]
 local ae = false
-local f = 0
+local w = 0
 local te = math.min
 local e = j.DeathKnight.Blood
 local h = k.DeathKnight.Blood
@@ -154,7 +154,7 @@ end
 
 local function Q()
     if b.TargetIsValid() then
-        if e.Fleshcraft:IsCastable() and (f == 0 or f > e.Fleshcraft:ExecuteTime()) and w and not t:IsMoving() then
+        if e.Fleshcraft:IsCastable() and (w == 0 or w > e.Fleshcraft:ExecuteTime()) and f and not t:IsMoving() then
             if i(e.Fleshcraft, nil, nil) then
                 o = 324631
                 return "fleshcraft precombat 1"
@@ -384,7 +384,7 @@ local function G()
 end
 
 local function K()
-    if e.DeathsDue:IsReady() and a:IsInMeleeRange(8) and w and not t:IsMoving() and (t:BuffDown(e.DeathAndDecayBuff) or t:BuffRemains(e.DeathAndDecayBuff) < 4 or t:BuffUp(e.CrimsonScourgeBuff)) then
+    if e.DeathsDue:IsReady() and a:IsInMeleeRange(8) and f and not t:IsMoving() and (t:BuffDown(e.DeathAndDecayBuff) or t:BuffRemains(e.DeathAndDecayBuff) < 4 or t:BuffUp(e.CrimsonScourgeBuff)) then
         if i(e.DeathsDue, nil, nil, not a:IsSpellInRange(e.DeathsDue)) then
             o = 324128
             return "deaths_due covenants 6"
@@ -392,7 +392,7 @@ local function K()
 
     end
 
-    if e.SwarmingMist:IsCastable() and a:IsInMeleeRange(8) and w and (e.DancingRuneWeapon:CooldownRemains() > 3 and t:RunicPower() >= (90 - (m * 3))) then
+    if e.SwarmingMist:IsCastable() and a:IsInMeleeRange(8) and f and (e.DancingRuneWeapon:CooldownRemains() > 3 and t:RunicPower() >= (90 - (m * 3))) then
         if i(e.SwarmingMist, nil, nil) then
             o = 311648
             return "swarming_mist covenants 7"
@@ -400,7 +400,7 @@ local function K()
 
     end
 
-    if e.AbominationLimb:IsCastable() and a:IsInMeleeRange(8) and (w) and (t:BuffDown(e.DancingRuneWeaponBuff)) then
+    if e.AbominationLimb:IsCastable() and a:IsInMeleeRange(8) and (f) and (t:BuffDown(e.DancingRuneWeaponBuff)) then
         if i(e.AbominationLimb, nil, nil, not a:IsInRange(8)) then
             o = 315443
             return "abomination_limb covenants 16"
@@ -408,7 +408,7 @@ local function K()
 
     end
 
-    if e.AbominationLimbTalent:IsCastable() and e.AbominationLimbTalent:IsAvailable() and a:IsInMeleeRange(8) and (w) and (t:BuffDown(e.DancingRuneWeaponBuff)) then
+    if e.AbominationLimbTalent:IsCastable() and (f) and e.AbominationLimbTalent:IsAvailable() and a:IsInMeleeRange(8) and (f) and (t:BuffDown(e.DancingRuneWeaponBuff)) then
         if i(e.AbominationLimb, nil, nil, not a:IsInRange(8)) then
             o = 315443
             return "abomination_limb covenants 16"
@@ -416,7 +416,7 @@ local function K()
 
     end
 
-    if e.Fleshcraft:IsCastable() and a:IsInMeleeRange(8) and (f == 0 or f > e.Fleshcraft:ExecuteTime()) and not t:IsMoving() and w and (t:BuffDown(e.DancingRuneWeaponBuff)) and (e.PustuleEruption:SoulbindEnabled() or e.VolatileSolvent:SoulbindEnabled() and t:BuffDown(e.VolatileSolventHumanBuff)) then
+    if e.Fleshcraft:IsCastable() and a:IsInMeleeRange(8) and (w == 0 or w > e.Fleshcraft:ExecuteTime()) and not t:IsMoving() and f and (t:BuffDown(e.DancingRuneWeaponBuff)) and (e.PustuleEruption:SoulbindEnabled() or e.VolatileSolvent:SoulbindEnabled() and t:BuffDown(e.VolatileSolventHumanBuff)) then
         if i(e.Fleshcraft, nil, nil) then
             o = 324631
             return "fleshcraft covenants 20"
@@ -424,7 +424,7 @@ local function K()
 
     end
 
-    if e.ShackleTheUnworthy:IsCastable() and a:IsInMeleeRange(30) and w and (t:Rune() < 3 and t:RunicPower() < 100) then
+    if e.ShackleTheUnworthy:IsCastable() and a:IsInMeleeRange(30) and f and (t:Rune() < 3 and t:RunicPower() < 100) then
         if i(e.ShackleTheUnworthy, nil, nil, not a:IsSpellInRange(e.ShackleTheUnworthy)) then
             o = 312202
             return "shackle_the_unworthy covenants 18"
@@ -657,7 +657,7 @@ end
 
 local function y()
     C = HeroRotationCharDB.Toggles[6]
-    w = HeroRotationCharDB.Toggles[4]
+    f = HeroRotationCharDB.Toggles[4]
     v = HeroRotationCharDB.Toggles[5]
     Z = HeroRotationCharDB.Toggles[12]
     O = HeroRotationCharDB.Toggles[13]
@@ -678,11 +678,11 @@ local function y()
         g = true
     end
 
-    f = 0
+    w = 0
     for e = 1, 20 do
         if select(10, UnitDebuff("player", e)) == 240447 then
             if select(6, UnitDebuff("player", e)) ~= nil then
-                f = (select(6, UnitDebuff("player", e)) - (GetTime()))
+                w = (select(6, UnitDebuff("player", e)) - (GetTime()))
             end
 
         end
@@ -691,7 +691,7 @@ local function y()
 
 end
 
-local function w()
+local function f()
     Enemies10y = t:GetEnemiesInRange(10)
     if ee() then
         U = t:GetEnemiesInMeleeRange(8)
@@ -994,7 +994,7 @@ local function w()
 
         end
 
-        if e.Blooddrinker:IsReady() and a:IsInMeleeRange(30) and (f == 0 or f > 3) and (t:BuffDown(e.DancingRuneWeaponBuff) and (l ~= 3 or (l == 3 and t:BuffRemains(e.DeathAndDecayBuff) > 7))) then
+        if e.Blooddrinker:IsReady() and a:IsInMeleeRange(30) and (w == 0 or w > 3) and (t:BuffDown(e.DancingRuneWeaponBuff) and (l ~= 3 or (l == 3 and t:BuffRemains(e.DeathAndDecayBuff) > 7))) then
             if i(e.Blooddrinker, nil, nil, not a:IsSpellInRange(e.Blooddrinker)) then
                 o = 206931
                 return "blooddrinker main 20"
@@ -1092,5 +1092,5 @@ function ReturnSpellMO1()
 
 end
 
-s.SetAPL(250, w, e)
+s.SetAPL(250, f, e)
 
