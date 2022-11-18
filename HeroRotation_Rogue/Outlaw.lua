@@ -375,7 +375,7 @@ local function ue()
 
         end
 
-        if e.Dreadblades:IsReady() and n:IsSpellInRange(e.Dreadblades) and not t:StealthUp(true, true) and b <= 2 and (le ~= "Venthyr" or e.Flagellation:AnyDebuffUp()) and (not e.MarkedforDeath:IsAvailable() or e.MarkedforDeath:CooldownRemains() > 0) then
+        if e.Dreadblades:IsReady() and n:IsSpellInRange(e.Dreadblades) and not t:StealthUp(true, true) and b <= 2 and (le ~= "Venthyr" or t:BuffUp(e.FlagellationBuff)) and (not e.MarkedforDeath:IsAvailable() or e.MarkedforDeath:CooldownRemains() > 0) then
             if a.Cast(e.Dreadblades, nil) then
                 o = 343142
                 return "Cast Dreadblades"
