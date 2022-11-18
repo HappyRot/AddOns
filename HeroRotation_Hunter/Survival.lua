@@ -2091,10 +2091,16 @@ local function w()
     end
 
     if UnitExists("mouseover") and string.find(UnitGUID("mouseover"), 120651) then
-        if e.SerpentSting:IsCastable() and TargetInRange40y then
+                if e.SerpentSting:IsCastable() and e.SerpentSting:IsAvailable() and TargetInRange40y then
             if i(e.SerpentSting, nil) then
                 s = 1259491
-                return "explosive MO SWD"
+                return "explosive MO SS"
+            end
+
+        elseif e.ArcaneShot:IsCastable() and e.ArcaneShot:IsAvailable() and TargetInRange40y then
+            if i(e.ArcaneShot, nil) then
+                s = 1185358
+                return "explosive MO ArcaneShot"
             end
 
         end
@@ -2102,10 +2108,16 @@ local function w()
     end
 
     if UnitExists("target") and string.find(UnitGUID("target"), 120651) then
-        if e.SerpentSting:IsCastable() and TargetInRange40y then
+                if e.SerpentSting:IsCastable() and e.SerpentSting:IsAvailable() and TargetInRange40y then
             if i(e.SerpentSting, nil) then
                 o = 259491
-                return "explosive  SWD"
+                return "explosive  SS"
+            end
+
+        elseif e.ArcaneShot:IsCastable() and e.ArcaneShot:IsAvailable() and TargetInRange40y then
+            if i(e.ArcaneShot, nil) then
+                o = 185358
+                return "explosive ArcaneShot"
             end
 
         end
