@@ -355,8 +355,8 @@ local function ce()
     local t = false
     local a = 0
     for e = 0, NUM_BAG_SLOTS do
-        for o = 1, GetContainerNumSlots(e) do
-            a = GetContainerItemID(e, o)
+        for o = 1, C_Container.GetContainerNumSlots(e) do
+            a = C_Container.GetContainerItemID(e, o)
             if a == 177278 then
                 t = true
             end
@@ -1401,7 +1401,7 @@ local function x()
             return "Refreshing Flame Shock because we cannot build or spend"
         end
 
-        if o(e.FrostShock) then
+        if e.FrostShock:IsCastable() and o(e.FrostShock) then
             a = 196840
             return "Casting Frost Shock because we cannot build or spend or refresh flame shock"
         end
