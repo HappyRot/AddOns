@@ -544,7 +544,7 @@ local function Ee()
 
     local m = Ae()
     if n:IsInMeleeRange(8) then
-        if I and e.Flagellation:IsReady() and m and not t:StealthUp(false, false) and h >= 5 and (s <= 1 and e.SymbolsofDeath:CooldownUp() and not e.ShadowFocus:IsAvailable() or t:BuffUp(e.SymbolsofDeath)) then
+        if I and e.Flagellation:IsCastable() and m and not t:StealthUp(false, false) and h >= 5 and (s <= 1 and e.SymbolsofDeath:CooldownUp() and not e.ShadowFocus:IsAvailable() or t:BuffUp(e.SymbolsofDeath)) then
             if a.Cast(e.Flagellation, nil, nil) then
                 o = 323654
                 return "Cast Flrgrrlation"
