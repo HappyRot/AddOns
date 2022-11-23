@@ -52,12 +52,6 @@ function e.ResetIcons()
         e.ToggleIconFrame:SetAlpha(e.GUISettings.General.SetAlpha)
     end
 
-    if not (e.GUISettings.General.MiniMap) then
-        HRDBIcon:Hide("HeroRotation")
-    else
-        HRDBIcon:Show("HeroRotation")
-    end
-
 end
 
 function e:CreateBackdrop(a)
@@ -72,6 +66,7 @@ function e:CreateBackdrop(a)
     t:SetPoint("BOTTOMRIGHT", a, "BOTTOMRIGHT", 1, -1)
     t:SetBackdrop({ bgFile = "Interface\\ChatFrame\\ChatFrameBackground", edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", tile = false, tileSize = 0, edgeSize = 1, insets = { left = 0, right = 0, top = 0, bottom = 0 } })
     t:SetBackdropBorderColor(0, 0, 0)
+    t:SetBackdropColor(0, 0, 0, 1)
     t:SetFrameStrata(e.MainFrame:GetFrameStrata())
     if a:GetFrameLevel() - 2 >= 0 then
         t:SetFrameLevel(a:GetFrameLevel() - 2)
@@ -123,11 +118,12 @@ function e.MainIconFrame:Init()
     self:Show()
 end
 
-function e.MainIconFrame:ChangeIcon(i, t, o, a)
+function e.MainIconFrame:ChangeIcon(i, t, n, o, a)
+    self.ID = a
     self.Texture:SetTexture(i)
-        if e.GUISettings.General.NotEnoughManaEnabled and not o then
+        if e.GUISettings.General.NotEnoughManaEnabled and not n then
         self.Texture:SetVertexColor(.5, .5, 1.)
-    elseif a then
+    elseif o then
         self.Texture:SetVertexColor(1., .5, .5)
     else
         self.Texture:SetVertexColor(1., 1., 1.)
@@ -136,7 +132,7 @@ function e.MainIconFrame:ChangeIcon(i, t, o, a)
     self.Texture:SetAllPoints(self)
     if t then
         self.Keybind:SetText(t)
-        self.Keybind:SetScale(e.GUISettings.General.ScaleHotkey)
+        self.Keybind:SetScale(e.GUISettings.Scaling.ScaleHotkey)
     else
         self.Keybind:SetText("")
     end
@@ -157,14 +153,14 @@ function e.MainIconFrame:OverlayText(e)
     self.Text:SetText(e)
 end
 
-function e.MainIconFrame:SetCooldown(t, e)
-    if t == 0 or e == 0 then
+function e.MainIconFrame:SetCooldown(e, t)
+    if e == 0 or t == 0 then
         self.CooldownFrame:SetCooldown(0, 0)
         self.CooldownFrame:Hide()
         return 
     end
 
-    self.CooldownFrame:SetCooldown(t, e)
+    self.CooldownFrame:SetCooldown(e, t)
 end
 
 function e.MainIconFrame:InitParts()
@@ -197,25 +193,25 @@ function e.MainIconFrame:InitParts()
 end
 
 local o, i
-function e.MainIconFrame:SetupParts(l, u)
+function e.MainIconFrame:SetupParts(l, w)
     o = #l
     i = e.MainIconPartOverlayFrame.Texture:GetWidth() / o
-    local f, m, w, c, d, n, r, s = e.MainIconPartOverlayFrame.Texture:GetTexCoord()
+    local f, c, m, u, r, s, d, h = e.MainIconPartOverlayFrame.Texture:GetTexCoord()
     for a = 1, o do
         local t = self.Part[a]
         t:SetWidth(i)
         t:SetHeight(i * o)
         t:ClearAllPoints()
-        local y, h = e.MainIconPartOverlayFrame.Texture:GetPoint()
+        local y, n = e.MainIconPartOverlayFrame.Texture:GetPoint()
         if e.MainIconPartOverlayFrame.__MSQ_NormalColor then
             if a == e.MaxQueuedCasts or a == o then
-                t:SetPoint("Center", h, "Center", i / (4 - o), 0)
+                t:SetPoint("Center", n, "Center", i / (4 - o), 0)
             else
-                t:SetPoint("Center", h, "Center", (i / (4 - o)) * (a - 2), 0)
+                t:SetPoint("Center", n, "Center", (i / (4 - o)) * (a - 2), 0)
             end
 
         else
-            t:SetPoint("Left", h, "Left", i * (a - 1), 0)
+            t:SetPoint("Left", n, "Left", i * (a - 1), 0)
         end
 
         t.Texture:SetTexture(l[a])
@@ -231,11 +227,11 @@ function e.MainIconFrame:SetupParts(l, u)
 
         local i = e.GUISettings.General.BlackBorderIcon and not e.MainIconPartOverlayFrame.__MSQ_NormalColor
         local l = ((a - 1) / o)
-        local h = (a / o)
-        t.Texture:SetTexCoord(a == 1 and (i and f + .08 or f) or (d * l), a == 1 and (i and m + .08 or m) or (i and n + .08 or n), a == 1 and (i and w + .08 or w) or (r * l), a == 1 and (i and c - .08 or c) or (i and s - .08 or s), (a == o and i) and (d * h) - .08 or d * h, i and n + .08 or n, (a == o and i) and (r * h) - .08 or r * h, i and s - .08 or s)
-        if u then
-            t.Keybind:SetText(u[a])
-            t.Keybind:SetScale(e.GUISettings.General.ScaleHotkey)
+        local n = (a / o)
+        t.Texture:SetTexCoord(a == 1 and (i and f + .08 or f) or (r * l), a == 1 and (i and c + .08 or c) or (i and s + .08 or s), a == 1 and (i and m + .08 or m) or (d * l), a == 1 and (i and u - .08 or u) or (i and h - .08 or h), (a == o and i) and (r * n) - .08 or r * n, i and s + .08 or s, (a == o and i) and (d * n) - .08 or d * n, i and h - .08 or h)
+        if w then
+            t.Keybind:SetText(w[a])
+            t.Keybind:SetScale(e.GUISettings.Scaling.ScaleHotkey)
         else
             t.Keybind:SetText("")
         end
@@ -250,12 +246,21 @@ function e.MainIconFrame:SetupParts(l, u)
 end
 
 function e.MainIconFrame:HideParts()
+    self.ID = nil
     e.MainIconPartOverlayFrame:Hide()
     for e = 1, #self.Part do
         self.Part[e].Keybind:SetText("")
         self.Part[e]:Hide()
     end
 
+end
+
+function e.MainIconFrame:getIconID()
+    if self.ID then
+        return self.ID
+    end
+
+    return nil
 end
 
 function e.SmallIconFrame:Init()
@@ -308,7 +313,7 @@ function e.SmallIconFrame:ChangeIcon(t, i, a, o)
 
     if a then
         t.Keybind:SetText(a)
-        t.Keybind:SetScale(e.GUISettings.General.ScaleHotkey * .85)
+        t.Keybind:SetScale(e.GUISettings.Scaling.ScaleHotkey * .85)
     else
         t.Keybind:SetText("")
     end
@@ -378,7 +383,7 @@ function e.LeftIconFrame:ChangeIcon(a, t)
 
     if t then
         self.Keybind:SetText(t)
-        self.Keybind:SetScale(e.GUISettings.General.ScaleHotkey)
+        self.Keybind:SetScale(e.GUISettings.Scaling.ScaleHotkey)
     else
         self.Keybind:SetText("")
     end
@@ -391,12 +396,12 @@ function e.LeftIconFrame:ChangeIcon(a, t)
 end
 
 e.Nameplate = { Initialized = false }
-function e.Nameplate.AddIcon(n, s)
+function e.Nameplate.AddIcon(s, n)
     if e.GUISettings.General.NamePlateIconAnchor == "Disable" then
         return true
     end
 
-    local t = y(n.UnitID)
+    local t = y(s.UnitID)
     local a = C_NamePlate.GetNamePlateForUnit(t)
     if a then
         local t = GetScreenHeight()
@@ -432,9 +437,21 @@ function e.Nameplate.AddIcon(n, s)
             e.Nameplate.Initialized = true
         end
 
-        t.Texture:SetTexture(e.GetTexture(s))
+        t.Texture:SetTexture(e.GetTexture(n))
         t.Texture:SetAllPoints(t)
-        t.Texture:SetAlpha(n:IsSpellInRange(s) and 1 or .4)
+        local i = 1
+        if (n.SpellName) then
+            if (n:BookIndex() ~= nil) then
+                i = (s:IsSpellInRange(n) and 1 or .4)
+            else
+                i = 1
+            end
+
+        else
+            i = 1
+        end
+
+        t.Texture:SetAlpha(i)
         t:ClearAllPoints()
         t:SetAlpha(e.GUISettings.General.SetAlpha)
         if not t:IsVisible() then
@@ -447,7 +464,7 @@ function e.Nameplate.AddIcon(n, s)
             t:Show()
         end
 
-        e.LastUnitCycled = n
+        e.LastUnitCycled = s
         e.LastUnitCycledTime = GetTime()
         return true
     end
@@ -484,10 +501,11 @@ function e.SuggestedIconFrame:Init()
     self:Show()
 end
 
-function e.SuggestedIconFrame:ChangeIcon(o, t, a)
-    self.Texture:SetTexture(o)
+function e.SuggestedIconFrame:ChangeIcon(i, t, o, a)
+    self.ID = a
+    self.Texture:SetTexture(i)
     self.Texture:SetAllPoints(self)
-    if a then
+    if o then
         self.Texture:SetVertexColor(1., .5, .5)
     else
         self.Texture:SetVertexColor(1., 1., 1.)
@@ -499,7 +517,7 @@ function e.SuggestedIconFrame:ChangeIcon(o, t, a)
 
     if t then
         self.Keybind:SetText(t)
-        self.Keybind:SetScale(e.GUISettings.General.ScaleHotkey * .85)
+        self.Keybind:SetScale(e.GUISettings.Scaling.ScaleHotkey * .85)
     else
         self.Keybind:SetText("")
     end
@@ -512,7 +530,16 @@ function e.SuggestedIconFrame:ChangeIcon(o, t, a)
 end
 
 function e.SuggestedIconFrame:HideIcon()
+    self.ID = nil
     e.SuggestedIconFrame:Hide()
+end
+
+function e.SuggestedIconFrame:getIconID()
+    if self.ID then
+        return self.ID
+    end
+
+    return nil
 end
 
 function e.RightSuggestedIconFrame:Init()
@@ -539,10 +566,11 @@ function e.RightSuggestedIconFrame:Init()
     self:Show()
 end
 
-function e.RightSuggestedIconFrame:ChangeIcon(o, t, a)
-    self.Texture:SetTexture(o)
+function e.RightSuggestedIconFrame:ChangeIcon(a, t, o, i)
+    self.ID = i
+    self.Texture:SetTexture(a)
     self.Texture:SetAllPoints(self)
-    if a then
+    if o then
         self.Texture:SetVertexColor(1., .5, .5)
     else
         self.Texture:SetVertexColor(1., 1., 1.)
@@ -554,7 +582,7 @@ function e.RightSuggestedIconFrame:ChangeIcon(o, t, a)
 
     if t then
         self.Keybind:SetText(t)
-        self.Keybind:SetScale(e.GUISettings.General.ScaleHotkey * .85)
+        self.Keybind:SetScale(e.GUISettings.Scaling.ScaleHotkey * .85)
     else
         self.Keybind:SetText("")
     end
@@ -567,7 +595,16 @@ function e.RightSuggestedIconFrame:ChangeIcon(o, t, a)
 end
 
 function e.RightSuggestedIconFrame:HideIcon()
+    self.ID = nil
     e.RightSuggestedIconFrame:Hide()
+end
+
+function e.RightSuggestedIconFrame:getIconID()
+    if self.ID then
+        return self.ID
+    end
+
+    return nil
 end
 
 function e.ToggleIconFrame:Init()
@@ -582,33 +619,33 @@ function e.ToggleIconFrame:Init()
     if HeroRotationDB and HeroRotationDB.ButtonsFramePos then
         self:SetPoint(HeroRotationDB.ButtonsFramePos[1], _G[HeroRotationDB.ButtonsFramePos[2]], HeroRotationDB.ButtonsFramePos[3], HeroRotationDB.ButtonsFramePos[4], HeroRotationDB.ButtonsFramePos[5])
     else
-        self:SetPoint("TOPLEFT", e.MainIconFrame, "BOTTOMLEFT", 0, e.GUISettings.General.BlackBorderIcon and -5 or 0)
+        self:SetPoint("TOPLEFT", e.MainIconFrame, "BOTTOMLEFT", 0, e.GUISettings.General.BlackBorderIcon and -3 or 0)
     end
 
-    local function t(e)
+    local function e(e)
         e:StartMoving()
     end
 
-    self:SetScript("OnMouseDown", t)
-    local function i(i)
-        i:StopMovingOrSizing()
+    self:SetScript("OnMouseDown", e)
+    local function h(s)
+        s:StopMovingOrSizing()
         if not HeroRotationDB then
             HeroRotationDB = {  }
         end
 
-        local s, t, o, a, n, e
-        s, t, o, a, n = i:GetPoint()
-        if not t then
-            e = "UIParent"
+        local a, e, o, i, n, t
+        a, e, o, i, n = s:GetPoint()
+        if not e then
+            t = "UIParent"
         else
-            e = t:GetName()
+            t = e:GetName()
         end
 
-        HeroRotationDB.ButtonsFramePos = { s, e, o, a, n }
+        HeroRotationDB.ButtonsFramePos = { a, t, o, i, n }
     end
 
-    self:SetScript("OnMouseUp", i)
-    self:SetScript("OnHide", i)
+    self:SetScript("OnMouseUp", h)
+    self:SetScript("OnHide", h)
     self:Show()
     self.Button = {  }
     self:AddButton("CDs", 1, "CDs", "cds")
@@ -620,21 +657,23 @@ function e.ToggleIconFrame:Init()
 end
 
 function e.ToggleIconFrame:ResetAnchor()
-    self:SetPoint("TOPLEFT", e.MainIconFrame, "BOTTOMLEFT", 0, e.GUISettings.General.BlackBorderIcon and -6 or 0)
+    self:SetPoint("TOPLEFT", e.MainIconFrame, "BOTTOMLEFT", 0, e.GUISettings.General.BlackBorderIcon and -3 or 0)
     HeroRotationDB.ButtonsFramePos = false
 end
 
-function e.ToggleIconFrame:AddButton(n, a, o, i)
+function e.ToggleIconFrame:AddButton(i, a, o, n)
     local t = CreateFrame("Button", "$parentButton" .. r(a), self)
     t:SetFrameStrata(self:GetFrameStrata())
     t:SetFrameLevel(self:GetFrameLevel() - 1)
-    t:SetWidth(25)
+    t:SetWidth(20)
     t:SetHeight(20)
     t:SetPoint("LEFT", self, "LEFT", 20 * (a - 1) + a, 0)
     if o then
         t:SetScript("OnEnter", function()
+            Mixin(GameTooltip, BackdropTemplateMixin)
             GameTooltip:SetOwner(e.ToggleIconFrame, "ANCHOR_BOTTOM", 0, 0)
             GameTooltip:ClearLines()
+            GameTooltip:SetBackdropColor(0, 0, 0, 1)
             GameTooltip:SetText(o, nil, nil, nil, 1, true)
             GameTooltip:Show()
         end)
@@ -644,7 +683,7 @@ function e.ToggleIconFrame:AddButton(n, a, o, i)
     end
 
     t:SetNormalFontObject("GameFontNormalSmall")
-    t.text = n
+    t.text = i
     local o = t:CreateTexture()
     o:SetTexture("Interface/Buttons/UI-Silver-Button-Up")
     o:SetTexCoord(0, .625, 0, .7875)
@@ -674,7 +713,7 @@ function e.ToggleIconFrame:AddButton(n, a, o, i)
 
     t:SetScript("OnMouseDown", function(a, t)
         if t == "LeftButton" then
-            e.CmdHandler(i)
+            e.CmdHandler(n)
         end
 
     end)

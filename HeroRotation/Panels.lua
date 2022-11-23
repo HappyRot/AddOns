@@ -1,19 +1,19 @@
 local t, e = ...
 local t = HeroLib
 local i = t.Utils
-local a = string.format
-local r = string.gmatch
-local d = strsplit
-local h = table.concat
-local o = t.GUI.CreatePanelOption
+local o = string.format
+local d = string.gmatch
+local h = strsplit
+local r = table.concat
+local a = t.GUI.CreatePanelOption
 local s = i.StringToNumberIfPossible
 e.GUI = {  }
-function e.GUI.LoadSettingsRecursively(i, t)
-    local n = t or ""
-    for a, o in pairs(i) do
+function e.GUI.LoadSettingsRecursively(n, t)
+    local i = t or ""
+    for a, o in pairs(n) do
         local t
-        if n ~= "" then
-            t = n .. "." .. a
+        if i ~= "" then
+            t = i .. "." .. a
         else
             t = a
         end
@@ -24,7 +24,7 @@ function e.GUI.LoadSettingsRecursively(i, t)
             local a = s(a)
             local e = HeroRotationDB.GUISettings[t]
             if e ~= nil then
-                i[a] = e
+                n[a] = e
             else
                 HeroRotationDB.GUISettings[t] = o
             end
@@ -37,47 +37,49 @@ end
 
 do
     local function i(e)
-        return a("Show GCD as Off GCD: %s", e)
+        return o("Show GCD as Off GCD: %s", e)
     end
 
     local function n(e)
-        return a("Enable if you want to put %s shown as Off GCD (top icons) instead of Main (Middle icon).", e)
+        return o("Enable if you want to put %s shown as Off GCD (top icons) instead of Main (Middle icon).", e)
     end
 
     local function l(e)
-        return a("Show Off GCD as Off GCD: %s", e)
+        return o("Show Off GCD as Off GCD: %s", e)
     end
 
     local function s(e)
-        return a("Enable if you want to put %s shown as Off GCD (top icons) instead of Main (Middle icon).", e)
+        return o("Enable if you want to put %s shown as Off GCD (top icons) instead of Main (Middle icon).", e)
     end
 
-    local a = { Enabled = function(a, t, e)
-        o("CheckButton", a, t, "Show: " .. e, "Enable if you want to show when to use " .. e .. ".")
-    end, DisplayStyle = function(a, t, e)
-        o("Dropdown", a, t, { "Main Icon", "Suggested", "SuggestedRight", "Cooldown" }, "Display Style: " .. e, "Define which icon display style to use for " .. e .. ".")
-    end, GCDasOffGCD = function(t, a, e)
-        o("CheckButton", t, a, i(e), n(e))
-    end, OffGCDasOffGCD = function(t, a, e)
-        o("CheckButton", t, a, l(e), s(e))
+    local i = { Enabled = function(o, t, e)
+        a("CheckButton", o, t, "Show: " .. e, "Enable if you want to show when to use " .. e .. ".")
+    end, DisplayStyle = function(o, t, e)
+        a("Dropdown", o, t, { "Main Icon", "Suggested", "SuggestedRight", "Cooldown" }, "Display Style: " .. e, "Define which icon display style to use for " .. e .. ".")
+    end, PotionType = function(t, e, o)
+        a("Dropdown", t, e, { "Power", "Frozen Focus", "Chilled Clarity", "Shocking Disclosure" }, "Potion Type: ", "Define which potion type to track.\n\nThe Power option will include Fleeting Ultimate Power, Fleeting Power, Ultimate Power, and Power potions.")
+    end, GCDasOffGCD = function(o, t, e)
+        a("CheckButton", o, t, i(e), n(e))
+    end, OffGCDasOffGCD = function(o, t, e)
+        a("CheckButton", o, t, l(e), s(e))
     end }
-    function e.GUI.CreateARPanelOption(e, o, t,...)
-        a[e](o, t, ...)
+    function e.GUI.CreateARPanelOption(t, a, e,...)
+        i[t](a, e, ...)
     end
 
     function e.GUI.CreateARPanelOptions(n, o)
-        local i = { d(".", o) }
+        local a = { h(".", o) }
         local t = e.GUISettings
-        for e = 1, #i do
-            t = t[i[e]]
+        for e = 1, #a do
+            t = t[a[e]]
         end
 
-        for a, i in pairs(a) do
+        for a, i in pairs(i) do
             SettingsType = t[a]
             if SettingsType then
                 for i, t in pairs(SettingsType) do
                     local t = ""
-                    for e in r(i, "[A-Z][a-z]+") do
+                    for e in d(i, "[A-Z][a-z]+") do
                         if t == "" then
                             t = e
                         else
@@ -86,7 +88,7 @@ do
 
                     end
 
-                    local o = h({ o, a, i }, ".")
+                    local o = r({ o, a, i }, ".")
                     e.GUI.CreateARPanelOption(a, n, o, t)
                 end
 
