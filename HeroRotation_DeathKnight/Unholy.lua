@@ -1,100 +1,102 @@
 local e, e = ...
 local e = HeroDBC.DBC
-local d = HeroLib
+local f = HeroLib
 local e = HeroCache
-local w = d.Unit
-local i = w.Player
-local a = w.Target
-local e = w.Boss
-local E = w.Pet
-local F = d.Spell
-local _ = d.Item
-local u = HeroRotation
-local o = u.Cast
-local f = u.CDsON
-local D = u.AoEON
-local j = HeroRotationCharDB.Toggles[4]
-local R = HeroRotationCharDB.Toggles[5]
-local ne = HeroRotationCharDB.Toggles[6]
-local P = HeroRotationCharDB.Toggles[10]
-local se = HeroRotationCharDB.Toggles[11]
-local q = HeroRotationCharDB.Toggles[12]
+local m = f.Unit
+local t = m.Player
+local i = m.Target
+local e = m.Boss
+local c = m.Pet
+local P = f.Spell
+local z = f.Item
+local h = HeroRotation
+local o = h.Cast
+local r = h.CDsON
+local R = h.AoEON
+local k = HeroRotationCharDB.Toggles[4]
+local I = HeroRotationCharDB.Toggles[5]
+local X = HeroRotationCharDB.Toggles[6]
+local Q = HeroRotationCharDB.Toggles[10]
+local pe = HeroRotationCharDB.Toggles[11]
+local T = HeroRotationCharDB.Toggles[12]
 local B = HeroRotationCharDB.Toggles[13]
-local M = HeroRotationCharDB.Toggles[14]
-local oe = HeroRotationCharDB.Toggles[15]
+local D = HeroRotationCharDB.Toggles[14]
+local Z = HeroRotationCharDB.Toggles[15]
 local U = HeroRotationCharDB.Toggles[16]
-local Q = HeroRotationCharDB.Toggles[17]
-local ie = nil
-local J = nil
-local b = false
-local p = false
-local C = false
-local k = false
-local K = false
-local ye = false
+local ee = HeroRotationCharDB.Toggles[17]
+local te = nil
+local V = nil
+local e = false
+local e = false
+local ve = false
+local e = false
+local e = false
+local e = false
 local e = 0
-local v = false
-local he = table.insert
-local e = F.DeathKnight.Unholy
-local s = _.DeathKnight.Unholy
-local pe = { s.DarkmoonDeckVoracity:ID(), s.DreadfireVessel:ID(), s.InscrutableQuantumDevice:ID(), s.MacabreSheetMusic:ID() }
-local z = i:GetEquipment()
-local X = _(0)
-local V = _(0)
-local N, t = GetInventoryItemID("player", 13)
-local O, te = GetInventoryItemID("player", 14)
-if z[13] then
-    X = _(z[13])
-end
-
-if z[14] then
-    V = _(z[14])
-end
-
-local we
-local ee
-local y = u.Commons.Everyone
-local n = { General = u.GUISettings.General, Commons = u.GUISettings.APL.DeathKnight.Commons, Unholy = u.GUISettings.APL.DeathKnight.Unholy }
-local g
-local I
-local T
-local H
-local x
-local Y
-local c
-local m
-local t, t
-local t
-local t
+local se = false
+local oe = table.insert
+local e = P.DeathKnight.Unholy
+local v = z.DeathKnight.Unholy
+local ye = {  }
+local _ = t:GetEquipment()
+local ne = _[13] and z(_[13]) or z(0)
+local re = _[14] and z(_[14]) or z(0)
+local ae, a = GetInventoryItemID("player", 13)
+local ie, he = GetInventoryItemID("player", 14)
+local ge
+local ke
+local u = h.Commons.Everyone
+local n = { General = h.GUISettings.General, Commons = h.GUISettings.APL.DeathKnight.Commons, Unholy = h.GUISettings.APL.DeathKnight.Unholy }
 local L
-local r, h
-local S, A
 local G
-local ae = i:HasLegendaryEquipped(30)
-local Z = i:HasLegendaryEquipped(31)
-local W = i:HasLegendaryEquipped(45)
-local me = { { e.Asphyxiate, "Cast Asphyxiate (Interrupt)", function()
-    return true
-end } }
-local t = 0
-local l = 0
-d:RegisterForEvent(function()
-    z = i:GetEquipment()
-    X = _(0)
-    V = _(0)
-    if z[13] then
-        X = _(z[13])
-    end
-
-    if z[14] then
-        V = _(z[14])
-    end
-
-    ae = i:HasLegendaryEquipped(30)
-    Z = i:HasLegendaryEquipped(31)
-    W = i:HasLegendaryEquipped(45)
+local Y
+local a
+local W
+local S
+local qe
+local p
+local b
+local E, N
+local A, O
+local g
+local j
+local a, a
+local a
+local q
+local C = 11111
+local l = 11111
+local w = f.GhoulTable
+local a = 0
+local s = 0
+local y, d
+local H, x
+local K
+local ue = t:HasLegendaryEquipped(30)
+local J = t:HasLegendaryEquipped(31)
+local ce = t:HasLegendaryEquipped(45)
+local le = t:HasLegendaryEquipped(44)
+local de = t:HasLegendaryEquipped(210)
+local F = t:HasLegendaryEquipped(213)
+local M = t:CovenantID()
+f:RegisterForEvent(function()
+    M = t:CovenantID()
+end, "COVENANT_CHOSEN")
+f:RegisterForEvent(function()
+    _ = t:GetEquipment()
+    ne = _[13] and z(_[13]) or z(0)
+    re = _[14] and z(_[14]) or z(0)
+    ue = t:HasLegendaryEquipped(30)
+    J = t:HasLegendaryEquipped(31)
+    ce = t:HasLegendaryEquipped(45)
+    le = t:HasLegendaryEquipped(44)
+    de = t:HasLegendaryEquipped(210)
+    F = t:HasLegendaryEquipped(213)
 end, "PLAYER_EQUIPMENT_CHANGED")
-local function z(e)
+f:RegisterForEvent(function()
+    C = 11111
+    l = 11111
+end, "PLAYER_REGEN_ENABLED")
+local function _(e)
     if e then
         return 1
     else
@@ -107,11 +109,11 @@ local function z(e)
     return e ~= 0
 end
 
-local function ge()
-    return (n.General.SoloMode and (i:HealthPercentage() < n.Commons.UseDeathStrikeHP or i:HealthPercentage() < n.Commons.UseDarkSuccorHP and i:BuffUp(e.DeathStrikeBuff)))
+local function we()
+    return (n.General.SoloMode and (t:HealthPercentage() < n.Commons.UseDeathStrikeHP or t:HealthPercentage() < n.Commons.UseDarkSuccorHP and t:BuffUp(e.DeathStrikeBuff)))
 end
 
-local function ve(a)
+local function be(a)
     local t = 0
     if a ~= nil then
         for o, a in pairs(a) do
@@ -126,622 +128,458 @@ local function ve(a)
     return t
 end
 
-local function _(e)
-    local a = {  }
+local function de(e)
+    local t = {  }
     if e ~= nil then
-        for t in pairs(e) do
-            if not w:IsInBossList(e[t]["UnitNPCID"]) then
-                he(a, e[t])
+        for a in pairs(e) do
+            if not m:IsInBossList(e[a]["UnitNPCID"]) then
+                oe(t, e[a])
             end
 
         end
 
     end
 
-    return d.FightRemains(a)
+    return f.FightRemains(t)
 end
 
 local function z(t)
     return (t:DebuffStack(e.FesteringWoundDebuff))
 end
 
-local function ke(o)
-                if (h >= 2 and o:DebuffStack(e.FesteringWoundDebuff) >= 4 and i:BuffDown(e.DeathAndDecayBuff) and o:GUID() == w("mouseover"):GUID() and n.Unholy.TargetSwap == "Mouseover") then
-        l = 151
-        return true
-    elseif (h >= 2 and o:DebuffStack(e.FesteringWoundDebuff) >= 4 and i:BuffDown(e.DeathAndDecayBuff) and n.Unholy.TargetSwap == "AutoSwap" and o:GUID() ~= a:GUID() and not q) then
-        l = 999
-        return true
-    elseif (h >= 2 and o:DebuffStack(e.FesteringWoundDebuff) >= 4 and i:BuffDown(e.DeathAndDecayBuff) and o:GUID() == a:GUID()) then
-        t = 15
-        return true
-    elseif (h >= 2 and a:DebuffStack(e.FesteringWoundDebuff) >= 4 and i:BuffDown(e.DeathAndDecayBuff)) then
-        return true
-    end
-
-end
-
-local function de(o)
-                if (o:DebuffStack(e.FesteringWoundDebuff) <= 3 and (e.Apocalypse:CooldownRemains() < 3) and o:GUID() == w("mouseover"):GUID() and n.Unholy.TargetSwap == "Mouseover") then
-        l = 61
-        return true
-    elseif (o:DebuffStack(e.FesteringWoundDebuff) <= 3 and (e.Apocalypse:CooldownRemains() < 3) and n.Unholy.TargetSwap == "AutoSwap" and o:GUID() ~= a:GUID() and not q) then
-        l = 999
-        return true
-    elseif (o:DebuffStack(e.FesteringWoundDebuff) <= 3 and (e.Apocalypse:CooldownRemains() < 3) and o:GUID() == a:GUID()) then
-        t = 6
-        return true
-    elseif (o:DebuffStack(e.FesteringWoundDebuff) <= 3 and (e.Apocalypse:CooldownRemains() < 3)) then
-        return true
-    end
-
-end
-
-local function be(e)
-                if (i:RuneTimeToX(4) < m:CooldownRemains() and e:GUID() == w("mouseover"):GUID() and n.Unholy.TargetSwap == "Mouseover") then
-        l = 61
-        return true
-    elseif (i:RuneTimeToX(4) < m:CooldownRemains() and n.Unholy.TargetSwap == "AutoSwap" and e:GUID() ~= a:GUID() and not q) then
-        l = 999
-        return true
-    elseif (i:RuneTimeToX(4) < m:CooldownRemains() and e:GUID() == a:GUID()) then
-        t = 6
-        return true
-    elseif i:RuneTimeToX(4) < m:CooldownRemains() then
-        return true
-    end
-
-end
-
-local function ce(o)
-                if ((o:DebuffStack(e.FesteringWoundDebuff) <= 3 and (e.Apocalypse:CooldownRemains() < 5) or o:DebuffStack(e.FesteringWoundDebuff) < 1) and o:GUID() == w("mouseover"):GUID() and n.Unholy.TargetSwap == "Mouseover") then
-        l = 61
-        return true
-    elseif ((o:DebuffStack(e.FesteringWoundDebuff) <= 3 and (e.Apocalypse:CooldownRemains() < 5) or o:DebuffStack(e.FesteringWoundDebuff) < 1) and n.Unholy.TargetSwap == "AutoSwap" and o:GUID() ~= a:GUID() and not q) then
-        l = 999
-        return true
-    elseif ((o:DebuffStack(e.FesteringWoundDebuff) <= 3 and (e.Apocalypse:CooldownRemains() < 5) or o:DebuffStack(e.FesteringWoundDebuff) < 1) and o:GUID() == a:GUID()) then
-        t = 6
-        return true
-    elseif (o:DebuffStack(e.FesteringWoundDebuff) <= 3 and (e.Apocalypse:CooldownRemains() < 5) or o:DebuffStack(e.FesteringWoundDebuff) < 1) then
-        return true
-    end
-
-end
-
 local function fe(o)
-                if ((e.Apocalypse:CooldownRemains() > 5) and o:DebuffStack(e.FesteringWoundDebuff) < 1 and o:GUID() == w("mouseover"):GUID() and n.Unholy.TargetSwap == "Mouseover") then
-        l = 61
+                if ((o:DebuffUp(e.FesteringWoundDebuff) and b and t:BuffDown(e.DeathAndDecayBuff) and e.DeathAndDecay:CooldownRemains() < 3 or (t:BuffUp(e.DeathAndDecayBuff) and t:Rune() == 0)) and o:GUID() == m("mouseover"):GUID() and n.Unholy.TargetSwap == "Mouseover") then
+        s = 1275699
         return true
-    elseif ((e.Apocalypse:CooldownRemains() > 5) and o:DebuffStack(e.FesteringWoundDebuff) < 1 and n.Unholy.TargetSwap == "AutoSwap" and o:GUID() ~= a:GUID() and not q) then
-        l = 999
+    elseif ((o:DebuffUp(e.FesteringWoundDebuff) and b and t:BuffDown(e.DeathAndDecayBuff) and e.DeathAndDecay:CooldownRemains() < 3 or (t:BuffUp(e.DeathAndDecayBuff) and t:Rune() == 0)) and n.Unholy.TargetSwap == "AutoSwap" and o:GUID() ~= i:GUID() and not T) then
+        s = 999
         return true
-    elseif ((e.Apocalypse:CooldownRemains() > 5) and o:DebuffStack(e.FesteringWoundDebuff) < 1 and o:GUID() == a:GUID()) then
-        t = 6
+    elseif ((o:DebuffUp(e.FesteringWoundDebuff) and b and t:BuffDown(e.DeathAndDecayBuff) and e.DeathAndDecay:CooldownRemains() < 3 or (t:BuffUp(e.DeathAndDecayBuff) and t:Rune() == 0)) and o:GUID() == i:GUID()) then
+        a = 275699
         return true
-    elseif (e.Apocalypse:CooldownRemains() > 5) and o:DebuffStack(e.FesteringWoundDebuff) < 1 then
-        return true
-    end
-
-end
-
-local function ue(o)
-                if (h >= 2 and o:DebuffStack(e.FesteringWoundDebuff) < 2 and o:GUID() == w("mouseover"):GUID() and n.Unholy.TargetSwap == "Mouseover") then
-        l = 171
-        return true
-    elseif (h >= 2 and o:DebuffStack(e.FesteringWoundDebuff) < 2 and n.Unholy.TargetSwap == "AutoSwap" and o:GUID() ~= a:GUID() and not q) then
-        l = 999
-        return true
-    elseif (h >= 2 and o:DebuffStack(e.FesteringWoundDebuff) < 2 and o:GUID() == a:GUID()) then
-        t = 17
-        return true
-    elseif (h >= 2 and o:DebuffStack(e.FesteringWoundDebuff) < 2) then
+    elseif (o:DebuffUp(e.FesteringWoundDebuff) and b and t:BuffDown(e.DeathAndDecayBuff) and e.DeathAndDecay:CooldownRemains() < 3 or (t:BuffUp(e.DeathAndDecayBuff) and t:Rune() == 0)) then
         return true
     end
 
 end
 
-local function X(o)
-                if (((e.Apocalypse:CooldownRemains() > 5) and o:DebuffUp(e.FesteringWoundDebuff) or o:DebuffStack(e.FesteringWoundDebuff) > 4) and (d.FilteredFightRemains(r, "<", m:CooldownRemains() + 10) or d.FilteredFightRemains(r, ">", e.Apocalypse:CooldownRemains())) and o:GUID() == w("mouseover"):GUID() and n.Unholy.TargetSwap == "Mouseover") then
-        l = 71
+local function me(e)
+            if (e:GUID() == m("mouseover"):GUID() and n.Unholy.TargetSwap == "Mouseover") then
+        s = 1275699
         return true
-    elseif (((e.Apocalypse:CooldownRemains() > 5) and o:DebuffUp(e.FesteringWoundDebuff) or o:DebuffStack(e.FesteringWoundDebuff) > 4) and (d.FilteredFightRemains(r, "<", m:CooldownRemains() + 10) or d.FilteredFightRemains(r, ">", e.Apocalypse:CooldownRemains())) and n.Unholy.TargetSwap == "AutoSwap" and o:GUID() ~= a:GUID() and not q) then
-        l = 999
+    elseif (n.Unholy.TargetSwap == "AutoSwap" and e:GUID() ~= i:GUID() and not T) then
+        s = 999
         return true
-    elseif (((e.Apocalypse:CooldownRemains() > 5) and o:DebuffUp(e.FesteringWoundDebuff) or o:DebuffStack(e.FesteringWoundDebuff) > 4) and (d.FilteredFightRemains(r, "<", m:CooldownRemains() + 10) or d.FilteredFightRemains(r, ">", e.Apocalypse:CooldownRemains())) and o:GUID() == a:GUID()) then
-        t = 7
+    elseif (e:GUID() == i:GUID()) then
+        a = 275699
         return true
-    elseif (((e.Apocalypse:CooldownRemains() > 5) and o:DebuffUp(e.FesteringWoundDebuff) or o:DebuffStack(e.FesteringWoundDebuff) > 4) and (d.FilteredFightRemains(r, "<", m:CooldownRemains() + 10) or d.FilteredFightRemains(r, ">", e.Apocalypse:CooldownRemains()))) then
-        return true
-    end
-
-end
-
-local function he(o)
-                if (o:DebuffDown(e.FesteringWoundDebuff)) and o:GUID() == w("mouseover"):GUID() and n.Unholy.TargetSwap == "Mouseover" then
-        l = 61
-        return true
-    elseif (o:DebuffDown(e.FesteringWoundDebuff)) and n.Unholy.TargetSwap == "AutoSwap" and o:GUID() ~= a:GUID() and not q then
-        l = 999
-        return true
-    elseif (o:DebuffDown(e.FesteringWoundDebuff)) and o:GUID() == a:GUID() then
-        t = 6
-        return true
-    elseif (o:DebuffDown(e.FesteringWoundDebuff)) then
+    else
         return true
     end
 
 end
 
-local function V(e)
-                if ((e:TimeToX(35) < 5 or e:HealthPercentage() < 35) and e:TimeToDie() > 5 and e:GUID() == w("mouseover"):GUID() and n.Unholy.TargetSwap == "Mouseover") then
-        l = 111
+local function re(t)
+                if ((t:TimeToX(35) < 5 and t:TimeToDie() > (t:DebuffRemains(e.SoulReaper) + 5)) and t:TimeToDie() > 5 and t:GUID() == m("mouseover"):GUID() and n.Unholy.TargetSwap == "Mouseover") then
+        s = 343294
         return true
-    elseif ((e:TimeToX(35) < 5 or e:HealthPercentage() < 35) and e:TimeToDie() > 5 and n.Unholy.TargetSwap == "AutoSwap" and e:GUID() ~= a:GUID() and not q) then
-        l = 999
+    elseif ((t:TimeToX(35) < 5 and t:TimeToDie() > (t:DebuffRemains(e.SoulReaper) + 5)) and n.Unholy.TargetSwap == "AutoSwap" and t:GUID() ~= i:GUID() and not T) then
+        s = 999
         return true
-    elseif ((e:TimeToX(35) < 5 or e:HealthPercentage() < 35) and e:TimeToDie() > 5 and e:GUID() == a:GUID()) then
-        t = 11
+    elseif ((t:TimeToX(35) < 5 and t:TimeToDie() > (t:DebuffRemains(e.SoulReaper) + 5)) and t:TimeToDie() > 5 and t:GUID() == i:GUID()) then
+        a = 343294
         return true
-    elseif ((e:TimeToX(35) < 5 or e:HealthPercentage() < 35) and e:TimeToDie() > 5) then
+    elseif ((t:TimeToX(35) < 5 and t:TimeToDie() > (t:DebuffRemains(e.SoulReaper) + 5)) and t:TimeToDie() > 5) then
         return true
     end
 
 end
 
-local function le()
-    if e.RaiseDead:IsCastable() then
-        if n.Unholy.RaiseDeadCastLeft then
-            if u.CastLeft(e.RaiseDead) then
-                t = 1
-                return "raise_dead precombat 2 left"
-            end
+local function ue(t)
+                if ((t:DebuffStack(e.FesteringWoundDebuff) < 4) and t:GUID() == m("mouseover"):GUID() and n.Unholy.TargetSwap == "Mouseover") then
+        s = 185948
+        return true
+    elseif ((t:DebuffStack(e.FesteringWoundDebuff) < 4) and n.Unholy.TargetSwap == "AutoSwap" and t:GUID() ~= i:GUID() and not T) then
+        s = 999
+        return true
+    elseif ((t:DebuffStack(e.FesteringWoundDebuff) < 4) and t:GUID() == i:GUID()) then
+        a = 85948
+        return true
+    elseif (t:DebuffStack(e.FesteringWoundDebuff) < 4) then
+        return true
+    end
 
+end
+
+local function oe(e)
+            if (e:GUID() == m("mouseover"):GUID() and n.Unholy.TargetSwap == "Mouseover") then
+        s = 185948
+        return true
+    elseif (n.Unholy.TargetSwap == "AutoSwap" and e:GUID() ~= i:GUID() and not T) then
+        s = 999
+        return true
+    elseif (e:GUID() == i:GUID()) then
+        a = 85948
+        return true
+    else
+        return true
+    end
+
+end
+
+local function ne(t)
+                if ((t:DebuffStack(e.FesteringWoundDebuff) <= 2) and t:GUID() == m("mouseover"):GUID() and n.Unholy.TargetSwap == "Mouseover") then
+        s = 1207289
+        return true
+    elseif ((t:DebuffStack(e.FesteringWoundDebuff) <= 2) and n.Unholy.TargetSwap == "AutoSwap" and t:GUID() ~= i:GUID() and not T) then
+        s = 999
+        return true
+    elseif ((t:DebuffStack(e.FesteringWoundDebuff) <= 2) and t:GUID() == i:GUID()) then
+        a = 207289
+        return true
+    elseif (t:DebuffStack(e.FesteringWoundDebuff) <= 2) then
+        return true
+    end
+
+end
+
+local function ne(t)
+            if (t:GUID() == m("mouseover"):GUID() and n.Unholy.TargetSwap == "Mouseover") then
+        if e.ClawingShadows:IsAvailable() then
+            s = 1207311
+            return true
         else
-            if o(e.RaiseDead, nil, nil) then
-                t = 1
-                return "raise_dead precombat 2 displaystyle"
-            end
+            s = 155090
+            return true
+        end
 
+    elseif (n.Unholy.TargetSwap == "AutoSwap" and t:GUID() ~= i:GUID() and not T) then
+        s = 999
+        return true
+    elseif (t:GUID() == i:GUID()) then
+        if e.ClawingShadows:IsAvailable() then
+            a = 207311
+            return true
+        else
+            a = 55090
+            return true
+        end
+
+    else
+        return true
+    end
+
+end
+
+local function le(e)
+            if (e:GUID() == m("mouseover"):GUID() and n.Unholy.TargetSwap == "Mouseover") then
+        s = 1390279
+        return true
+    elseif (n.Unholy.TargetSwap == "AutoSwap" and e:GUID() ~= i:GUID() and not T) then
+        s = 999
+        return true
+    elseif (e:GUID() == i:GUID()) then
+        a = 390279
+        return true
+    else
+        return true
+    end
+
+end
+
+local function je()
+    if e.RaiseDead:IsCastable() then
+        if o(e.RaiseDead, nil, nil) then
+            a = 46584
+            return "raise_dead precombat 2 displaystyle"
         end
 
     end
 
-    if e.ArmyoftheDead:IsReady() and C and not P and not n.Unholy.DisableAotD and (not e.SummonGargoyle:IsAvailable()) then
-        if o(e.ArmyoftheDead, nil, nil) then
-            t = 400
-            return "army_of_the_dead precombat 4"
-        end
-
-    end
-
-    L = (e.ArmyoftheDamned:IsAvailable() and e.ConvocationOfTheDead:ConduitRank() >= 9)
-    if e.FesteringStrike:IsReady() and a:IsSpellInRange(e.FesteringStrike) then
-        if o(e.FesteringStrike) then
-            t = 6
-            return "festering_strike precombat 6"
-        end
-
-    end
-
-    if e.Outbreak:IsReady() then
-        if o(e.Outbreak, nil, nil, not a:IsSpellInRange(e.Outbreak)) then
-            t = 8
+    if e.Outbreak:IsReady() and not i:IsInMeleeRange(8) then
+        if o(e.Outbreak, nil, nil, not i:IsSpellInRange(e.Outbreak)) then
+            a = 77575
             return "outbreak precombat 8"
         end
 
     end
 
-end
-
-local function re()
-    if m:IsReady() and not i:IsMoving() and (e.FesteringWoundDebuff:AuraActiveCount() == h or e.FesteringWoundDebuff:AuraActiveCount() >= 5 or not e.BurstingSores:IsAvailable() or A > 1 and _(S) <= 11 or d.FilteredFightRemains(r, "<=", 11)) then
-        if m == e.DeathsDue then
-            if o(m, nil, nil) then
-                t = 2
-                return "any_dnd aoe_setup 2"
-            end
-
-        else
-            if o(m, nil) then
-                t = 2
-                return "any_dnd aoe_setup 4"
-            end
-
-        end
-
-    end
-
-    if e.DeathCoil:IsReady() and not v and (not g and (E:BuffUp(e.DarkTransformation) and W and h <= 3 or h == 2)) then
-        if o(e.DeathCoil, nil, nil, not a:IsSpellInRange(e.DeathCoil)) then
-            t = 10
-            return "death_coil aoe_setup 10"
-        end
-
-    end
-
-    if e.Epidemic:IsReady() and not v and (not g) then
-        if o(e.Epidemic, n.Unholy.GCDasOffGCD.Epidemic, nil, not a:IsInRange(30)) then
-            t = 12
-            return "epidemic aoe_setup 12"
-        end
-
-    end
-
-    if e.FesteringStrike:IsReady() then
-        if (a:DebuffStack(e.FesteringWoundDebuff) <= 3 and (e.Apocalypse:CooldownRemains() < 3)) then
-            if o(e.FesteringStrike, nil, nil, not a:IsSpellInRange(e.FesteringStrike)) then
-                t = 6
-                return "festering_strike aoe_setup 14"
-            end
-
-        end
-
-        if y.CastTargetIf(e.FesteringStrike, r, "max", z, de) then
-            return "festering_strike aoe_setup 14"
-        end
-
-    end
-
-    if e.FesteringStrike:IsReady() then
-        if y.CastCycle(e.FesteringStrike, r, he) then
-            return "festering_strike aoe_setup 16"
-        end
-
-    end
-
-    if e.FesteringStrike:IsReady() then
-        if (a:DebuffStack(e.FesteringWoundDebuff) <= 3 and (e.Apocalypse:CooldownRemains() < 3)) then
-            if o(e.FesteringStrike, nil, nil, not a:IsSpellInRange(e.FesteringStrike)) then
-                t = 6
-                return "festering_strike aoe_setup 16"
-            end
-
-        end
-
-        if y.CastTargetIf(e.FesteringStrike, r, "min", z, be) then
-            return "festering_strike aoe_setup 16"
+    if e.FesteringStrike:IsReady() and i:IsInMeleeRange(8) then
+        if o(e.FesteringStrike) then
+            a = 85948
+            return "festering_strike precombat 6"
         end
 
     end
 
 end
 
-local function de()
-    if e.ClawingShadows:IsReady() and (A <= 5) then
-        if o(e.ClawingShadows, nil, nil, not a:IsSpellInRange(e.ClawingShadows)) then
-            t = 5
-            return "clawing_shadows aoe_burst 2"
+local function ce()
+    if j:IsReady() and ((t:BuffDown(e.DeathAndDecayBuff) and b and ((e.Festermight:IsAvailable() and t:BuffRemains(e.FestermightBuff) < 3) or not e.Festermight:IsAvailable()) and (e.FesteringWoundDebuff:AuraActiveCount() == d or e.FesteringWoundDebuff:AuraActiveCount() == 8 or (not e.BurstingSores:IsAvailable() and not e.VileContagion:IsAvailable()) or ((e.VileContagion:CooldownDown() or not e.VileContagion:IsAvailable()) and c:BuffUp(e.DarkTransformation) and e.InfectedClaws:IsAvailable() and (t:BuffUp(e.EmpowerRuneWeaponBuff) or t:BuffUp(e.UnholyAssaultBuff))))) or l < 10) then
+        if o(j, nil) then
+            a = 43265
+            return "any_dnd aoe 4"
         end
 
     end
 
-    if e.ClawingShadows:IsReady() and (A == 6 and e.FesteringWoundDebuff:AuraActiveCount() >= 3) then
-        if o(e.ClawingShadows, nil, nil, not a:IsSpellInRange(e.ClawingShadows)) then
-            t = 5
-            return "clawing_shadows aoe_burst 4"
-        end
-
-    end
-
-    if c:IsReady() and (e.BurstingSores:IsAvailable() and (e.FesteringWoundDebuff:AuraActiveCount() == h or e.FesteringWoundDebuff:AuraActiveCount() >= 3) or e.BurstingSores:IsAvailable() and e.ClawingShadows:IsAvailable() and e.FesteringWoundDebuff:AuraActiveCount() >= 1) then
-        if o(c, nil, nil, not a:IsSpellInRange(c)) then
-            t = 7
-            return "wound_spender aoe_burst 6"
-        end
-
-    end
-
-    if e.DeathCoil:IsReady() and not v and ((i:BuffUp(e.SuddenDoomBuff) or not g) and (E:BuffUp(e.DarkTransformation) and W and h <= 3 or h == 2)) then
-        if o(e.DeathCoil, nil, nil, not a:IsSpellInRange(e.DeathCoil)) then
-            t = 10
-            return "death_coil aoe_burst 8"
-        end
-
-    end
-
-    if e.Epidemic:IsReady() and not v and (i:RunicPowerDeficit() < (10 + e.FesteringWoundDebuff:AuraActiveCount() * 3) and e.FesteringWoundDebuff:AuraActiveCount() < 6 and not g or i:BuffUp(e.SwarmingMistBuff)) then
-        if o(e.Epidemic, n.Unholy.GCDasOffGCD.Epidemic, nil, not a:IsInRange(30)) then
-            t = 12
-            return "epidemic aoe_burst 10"
-        end
-
-    end
-
-    if e.Epidemic:IsReady() and not v and (i:RunicPowerDeficit() < 25 and e.FesteringWoundDebuff:AuraActiveCount() > 5 and not g) then
-        if o(e.Epidemic, n.Unholy.GCDasOffGCD.Epidemic, nil, not a:IsInRange(30)) then
-            t = 12
-            return "epidemic aoe_burst 12"
-        end
-
-    end
-
-    if e.Epidemic:IsReady() and not v and (e.FesteringWoundDebuff:AuraActiveCount() == 0 and not g or A > 1 and _(S) < 5) then
-        if o(e.Epidemic, n.Unholy.GCDasOffGCD.Epidemic, nil, not a:IsInRange(30)) then
-            t = 12
-            return "epidemic aoe_burst 14"
-        end
-
-    end
-
-    if c:IsReady() then
-        if o(c, nil, nil, not a:IsSpellInRange(c)) then
-            t = 7
-            return "wound_spender aoe_burst 16"
-        end
-
-    end
-
-    if e.Epidemic:IsReady() and not v and (not g) then
-        if o(e.Epidemic, n.Unholy.GCDasOffGCD.Epidemic, nil, not a:IsInRange(30)) then
-            t = 12
-            return "epidemic aoe_burst 18"
-        end
-
-    end
-
-end
-
-local function he()
-    if e.DeathCoil:IsReady() and not v and ((not g or i:BuffUp(e.SuddenDoomBuff)) and (E:BuffUp(e.DarkTransformation) and W and h <= 3 or h == 2)) then
-        if o(e.DeathCoil, nil, nil, not a:IsSpellInRange(e.DeathCoil)) then
-            t = 10
-            return "death_coil aoe_generic 2"
-        end
-
-    end
-
-    if e.Epidemic:IsReady() and not v and (i:BuffUp(e.SuddenDoomBuff) or not g) then
-        if o(e.Epidemic, n.Unholy.GCDasOffGCD.Epidemic, nil, not a:IsInRange(30)) then
-            t = 12
-            return "epidemic aoe_generic 4"
-        end
-
-    end
-
-    if c:IsReady() then
-        if y.CastTargetIf(c, r, "max", z, X) then
-            t = 7
-            return "wound_spender aoe_generic 6"
-        end
-
-    end
-
-    if e.FesteringStrike:IsReady() then
-        if (a:DebuffStack(e.FesteringWoundDebuff) <= 3 and (e.Apocalypse:CooldownRemains() < 5 and p) or a:DebuffStack(e.FesteringWoundDebuff) < 1) then
-            if o(e.FesteringStrike, nil, nil, not a:IsSpellInRange(e.FesteringStrike)) then
-                t = 6
-                return "festering_strike aoe_generic 8"
-            end
-
-        end
-
-        if y.CastTargetIf(e.FesteringStrike, r, "max", z, ce) then
-            t = 6
-            return "festering_strike aoe_generic 8"
-        end
-
-    end
-
-    if e.FesteringStrike:IsReady() then
-        if (e.Apocalypse:CooldownRemains() > 5 or not p) and a:DebuffStack(e.FesteringWoundDebuff) < 1 then
-            if o(e.FesteringStrike, nil, nil, not a:IsSpellInRange(e.FesteringStrike)) then
-                t = 6
-                return "festering_strike aoe_generic 10"
-            end
-
-        end
-
-        if y.CastTargetIf(e.FesteringStrike, r, "min", z, fe) then
-            t = 6
-            return "festering_strike aoe_generic 10"
-        end
-
-    end
-
-end
-
-local function W()
-    if s.PotionofSpectralStrength:IsReady() and f() and n.Commons.Enabled.Potions and oe and (((H or x and e.SummonGargoyle:TimeSinceLastCast() >= 9 or d.FilteredFightRemains(r, "<", 26)) and not u.GUISettings.General.HoldPotforBL) or (u.GUISettings.General.HoldPotforBL and i:BloodlustUp())) then
-        if o(s.PotionofSpectralStrength, nil) then
-            t = 9
-            return "potion cooldowns 2"
-        end
-
-    end
-
-    if e.ArmyoftheDead:IsReady() and C and not P and not n.Unholy.DisableAotD and ((e.UnholyBlight:CooldownRemains() < 7 and k) and (e.DarkTransformation:CooldownRemains() < 7 and b) and e.UnholyBlight:IsAvailable() and ((e.Apocalypse:CooldownRemains() < 7 and p) and L or not L) or not e.UnholyBlight:IsAvailable() or d.FilteredFightRemains(r, "<", 35)) then
-        if o(e.ArmyoftheDead, nil, nil) then
-            t = 400
-            return "army_of_the_dead cooldowns 4"
-        end
-
-    end
-
-    if e.SoulReaper:IsReady() and (h <= 3) then
-        if ((a:TimeToX(35) < 5 or a:HealthPercentage() < 35) and a:TimeToDie() > 5) then
-            if o(e.SoulReaper, nil, nil, not a:IsSpellInRange(e.SoulReaper)) then
-                t = 11
-                return "soul_reaper cooldowns 5"
-            end
-
-        else
-            if y.CastCycle(e.SoulReaper, r, V) then
-                t = 11
-                return "soul_reaper cooldowns 6"
-            end
-
-        end
-
-    end
-
-    if e.UnholyBlight:IsReady() and k and (T and ((e.Apocalypse:CooldownRemains() < 5 and p) or (e.Apocalypse:CooldownRemains() > 10 or not p)) and ((e.DarkTransformation:CooldownRemains() < i:GCD() and b) or E:BuffUp(e.DarkTransformation))) then
-        if o(e.UnholyBlight, nil, nil, not a:IsInRange(8)) then
-            t = 13
-            return "unholy_blight cooldowns 8"
-        end
-
-    end
-
-    if e.UnholyBlight:IsReady() and k and (h >= 2 or d.FilteredFightRemains(r, "<", 21)) then
-        if o(e.UnholyBlight, nil, nil, not a:IsInRange(8)) then
-            t = 13
-            return "unholy_blight cooldowns 10"
-        end
-
-    end
-
-    if e.DarkTransformation:IsCastable() and b and (T and (a:DebuffUp(e.UnholyBlightDebuff) or not e.UnholyBlight:IsAvailable())) then
-        if o(e.DarkTransformation, n.Unholy.GCDasOffGCD.DarkTransformation) then
-            t = 14
-            return "dark_transformation cooldowns 12"
-        end
-
-    end
-
-    if e.DarkTransformation:IsCastable() and b and ((h >= 2 and (a:DebuffUp(e.UnholyBlightDebuff) or not e.UnholyBlight:IsAvailable())) or d.FilteredFightRemains(r, "<", 21)) then
-        if o(e.DarkTransformation, n.Unholy.GCDasOffGCD.DarkTransformation) then
-            t = 14
-            return "dark_transformation cooldowns 14"
-        end
-
-    end
-
-    if e.Apocalypse:IsCastable() and p and e.Apocalypse:IsUsable() and ((h == 1 or not D()) and a:DebuffStack(e.FesteringWoundDebuff) >= 4 and (not L or L and ((e.UnholyBlight:CooldownRemains() > 10 or not k) or (e.DarkTransformation:CooldownRemains() > 10 or not b) and not e.UnholyBlight:IsAvailable()))) then
-        if o(e.Apocalypse, nil, nil, not a:IsSpellInRange(e.Apocalypse)) then
-            t = 15
-            return "apocalypse cooldowns 16"
-        end
-
-    end
-
-    if e.Apocalypse:IsCastable() and p and e.Apocalypse:IsUsable() then
-        if (h >= 2 and a:DebuffStack(e.FesteringWoundDebuff) >= 4 and i:BuffDown(e.DeathAndDecayBuff)) then
-            if o(e.Apocalypse, nil, nil, not a:IsSpellInRange(e.Apocalypse)) then
-                t = 15
-                return "apocalypse cooldowns 18"
-            end
-
-        end
-
-        if y.CastTargetIf(e.Apocalypse, r, "max", z, ke, not a:IsSpellInRange(e.Apocalypse), n.Unholy.GCDasOffGCD.Apocalypse) then
-            t = 15
-            return "apocalypse cooldowns 18"
-        end
-
-    end
-
-    if e.SummonGargoyle:IsCastable() and (i:RunicPowerDeficit() < 14 and (e.UnholyBlight:CooldownRemains() < 13 and k) and (e.DarkTransformation:CooldownRemains() < 13 and b)) then
-        if o(e.SummonGargoyle, n.Unholy.GCDasOffGCD.SummonGargoyle, nil, not a:IsInRange(30)) then
-            t = 16
-            return "summon_gargoyle cooldowns 20"
-        end
-
-    end
-
-    if e.UnholyAssault:IsCastable() and T and a:DebuffStack(e.FesteringWoundDebuff) < 2 and (Y or E:BuffUp(e.DarkTransformation) and (e.Apocalypse:CooldownRemains() > 10 or not p)) then
-        if o(e.UnholyAssault, n.Unholy.GCDasOffGCD.UnholyAssault) then
-            t = 17
-            return "unholy_assault cooldowns 22"
-        end
-
-    end
-
-    if e.UnholyAssault:IsCastable() then
-        if y.CastTargetIf(e.UnholyAssault, r, "min", z, ue) then
-            t = 17
-            return "unholy_assault cooldowns 24"
-        end
-
-    end
-
-    if e.RaiseDead:IsCastable() then
-        if n.Unholy.RaiseDeadCastLeft then
-            if u.CastLeft(e.RaiseDead) then
-                t = 1
-                return "raise_dead cooldowns 26 left"
-            end
-
-        else
-            if o(e.RaiseDead, nil, nil) then
-                t = 1
-                return "raise_dead cooldowns 26 displaystyle"
-            end
-
-        end
-
-    end
-
-    if e.SacrificialPact:IsReady() and not E:DebuffUp(F(111673)) and not se and K and (h >= 2 and E:BuffDown(e.DarkTransformation) and (e.DarkTransformation:CooldownRemains() > 5 or not b) or d.FilteredFightRemains(r, "<", i:GCD())) then
-        if o(e.SacrificialPact, nil, nil, not a:IsInRange(8)) then
-            t = 18
-            return "sacrificial_pact cooldowns 28"
-        end
-
-    end
-
-end
-
-local function L()
-    if e.SwarmingMist:IsReady() and j and (T and i:RunicPowerDeficit() > 16 and ((not e.Apocalypse:CooldownUp() or not p) or not e.ArmyoftheDamned:IsAvailable() and (not e.DarkTransformation:CooldownUp() or not b)) or d.FilteredFightRemains(r, "<", 11)) then
-        if o(e.SwarmingMist, nil, nil, not a:IsInRange(10)) then
-            t = 19
-            return "swarming_mist covenants 2"
-        end
-
-    end
-
-    if e.SwarmingMist:IsReady() and j and (not e.Apocalypse:CooldownUp() or not p) and (h >= 2 and h <= 5 and i:RunicPowerDeficit() > 10 + (h * 6) or h > 5 and i:RunicPowerDeficit() > 40) then
-        if o(e.SwarmingMist, nil, nil, not a:IsInRange(10)) then
-            t = 19
-            return "swarming_mist covenants 4"
-        end
-
-    end
-
-    if e.AbominationLimb:IsCastable() and j and (T and not e.LeadByExample:SoulbindEnabled() and (not e.Apocalypse:CooldownUp() or not p) or not e.ArmyoftheDamned:IsAvailable() and (not e.DarkTransformation:CooldownUp() or not b) and i:RuneTimeToX(4) > i:BuffRemains(e.RunicCorruptionBuff) or d.FilteredFightRemains(r, "<", 21)) then
+    if e.AbominationLimb:IsCastable() and k and (t:Rune() == 0 and b) then
         if o(e.AbominationLimb, nil, nil) then
-            t = 20
-            return "abomination_limb covenants 6"
-        end
-
-    end
-
-    if e.AbominationLimb:IsCastable() and j and (T and e.LeadByExample:SoulbindEnabled() and (a:DebuffRemains(e.UnholyBlightDebuff) > 11 or not e.UnholyBlight:IsAvailable() and (not e.DarkTransformation:CooldownUp() or not b))) then
-        if o(e.AbominationLimb, nil, nil) then
-            t = 20
-            return "abomination_limb covenants 8"
-        end
-
-    end
-
-    if e.AbominationLimb:IsCastable() and j and (h >= 2 and i:RuneTimeToX(4) > i:BuffRemains(e.RunicCorruptionBuff)) then
-        if o(e.AbominationLimb, nil, nil) then
-            t = 20
-            return "abomination_limb covenants 10"
-        end
-
-    end
-
-    if (e.AbominationLimb:IsCastable() and j) then
-        if o(e.AbominationLimb, nil, nil) then
-            t = 20
+            a = 315443
             return "abomination_limb covenants 101"
         end
 
     end
 
-    if e.ShackleTheUnworthy:IsCastable() and j and (T and ((e.Apocalypse:CooldownRemains() > 10 or not p) or not e.ArmyoftheDamned:IsAvailable() and (not e.DarkTransformation:CooldownUp() or not b)) or d.FilteredFightRemains(r, "<", 15)) then
-        if o(e.ShackleTheUnworthy, nil, nil, not a:IsSpellInRange(e.ShackleTheUnworthy)) then
-            t = 21
+    if e.Apocalypse:IsCastable() and I then
+        if u.CastTargetIf(e.Apocalypse, y, "min", z, fe, not i:IsInMeleeRange(8)) then
+            return "apocalypse aoe 8"
+        end
+
+    end
+
+    if e.FesteringStrike:IsReady() and (t:BuffDown(e.DeathAndDecayBuff) and (e.VileContagion:CooldownRemains() < 5 or (e.Apocalypse:CooldownUp() and j:CooldownDown()))) then
+        if u.CastTargetIf(e.FesteringStrike, y, "max", z, ue, not i:IsInMeleeRange(8)) then
+            return "festering_strike aoe 10"
+        end
+
+    end
+
+    if e.FesteringStrike:IsReady() and (t:BuffDown(e.DeathAndDecayBuff) and (e.VileContagion:CooldownRemains() > 5 or not e.VileContagion:IsAvailable())) then
+        if u.CastTargetIf(e.FesteringStrike, y, "min", z, oe, not i:IsInMeleeRange(8)) then
+            return "festering_strike aoe 12"
+        end
+
+    end
+
+    if g:IsReady() and (t:BuffUp(e.DeathAndDecayBuff)) then
+        if u.CastTargetIf(g, y, "max", z, ne, not i:IsInMeleeRange(8)) then
+            return "wound_spender aoe 14"
+        end
+
+    end
+
+    if e.DeathCoil:IsReady() and ((not S) and not e.Epidemic:IsAvailable()) then
+        if o(e.DeathCoil, nil, nil, not i:IsSpellInRange(e.DeathCoil)) then
+            a = 47541
+            return "death_coil aoe 16"
+        end
+
+    end
+
+    if e.Epidemic:IsReady() and (not S) then
+        if o(e.Epidemic, nil, nil, not i:IsSpellInRange(e.Epidemic)) then
+            a = 207317
+            return "epidemic aoe 18"
+        end
+
+    end
+
+    if g:IsReady() and (e.DeathAndDecay:CooldownRemains() > 10) then
+        if u.CastTargetIf(g, y, "max", z, ne, not i:IsInMeleeRange(5)) then
+            return "wound_spender aoe 20"
+        end
+
+    end
+
+end
+
+local function ne()
+    if n.Commons.Enabled.Potions then
+        local s = u.PotionSelected()
+        if s then
+            local i = s:BuffDuration()
+            if s:IsReady() and r() and n.Commons.Enabled.Potions and Z and ((t:BloodlustUp() and h.GUISettings.General.HoldPotforBL) or (not h.GUISettings.General.HoldPotforBL and ((w:gargactive() and i >= w:gargremains()) or ((not e.SummonGargoyle:IsAvailable() or e.SummonGargoyle:CooldownRemains() > 60) and c:BuffUp(e.DarkTransformation) and i >= c:BuffRemains(e.DarkTransformation)) or (A and O <= i) or (E and N <= i)) or l <= i)) then
+                if o(s, nil) then
+                    a = 50
+                    return "potion cooldowns 2"
+                end
+
+            end
+
+        end
+
+    end
+
+    if e.VileContagion:IsReady() and r() and (x >= 2 and j:CooldownRemains() < 3) then
+        if u.CastTargetIf(e.VileContagion, H, "max", z, le, not i:IsSpellInRange(e.VileContagion), nil) then
+            return "vile_contagion cooldowns 4"
+        end
+
+    end
+
+    if e.RaiseDead:IsCastable() then
+        if o(e.RaiseDead, nil, nil) then
+            a = 46584
+            return "raise_dead cooldowns 26 displaystyle"
+        end
+
+    end
+
+    if e.EmpowerRuneWeapon:IsCastable() and r() and ((p and t:RunicPowerDeficit() > 20 and ((w:gargactive() and E) or (not e.SummonGargoyle:IsAvailable() and e.ArmyoftheDamned:IsAvailable() and A and E) or (not e.SummonGargoyle:IsAvailable() and not e.ArmyoftheDamned:IsAvailable() and c:BuffUp(e.DarkTransformation)) or (not e.SummonGargoyle:IsAvailable() and c:BuffUp(e.DarkTransformation)))) or l <= 21) then
+        if o(e.EmpowerRuneWeapon, nil) then
+            a = 47568
+            return "empower_rune_weapon cooldowns 10"
+        end
+
+    end
+
+    if e.EmpowerRuneWeapon:IsCastable() and r() and (b and c:BuffUp(e.DarkTransformation)) then
+        if o(e.EmpowerRuneWeapon, nil) then
+            a = 47568
+            return "empower_rune_weapon cooldowns 12"
+        end
+
+    end
+
+    if e.SummonGargoyle:IsReady() and r() and (e.DarkTransformation:TimeSinceLastCast() <= 4 or (not e.CommanderoftheDead:IsAvailable() and t:RunicPower() >= 40)) then
+        if o(e.SummonGargoyle, nil) then
+            a = 49206
+            return "summon_gargoyle cooldowns 14"
+        end
+
+    end
+
+    if e.UnholyAssault:IsReady() and r() and (p) then
+        if o(e.UnholyAssault, nil, nil, not i:IsInMeleeRange(5)) then
+            a = 207289
+            return "unholy_assault cooldowns 16"
+        end
+
+    end
+
+    if e.Apocalypse:IsReady() and I and (d <= 3 and ((not e.CommanderoftheDead:IsAvailable()) or (e.CommanderoftheDead:IsAvailable() and e.DarkTransformation:TimeSinceLastCast() <= 4))) then
+        if u.CastTargetIf(e.Apocalypse, H, "max", z, me, not i:IsInMeleeRange(8)) then
+            return "apocalypse cooldowns 18"
+        end
+
+    end
+
+    if e.DarkTransformation:IsCastable() and I and (p and e.Apocalypse:CooldownRemains() < t:GCD()) then
+        if o(e.DarkTransformation, nil) then
+            a = 63560
+            return "dark_transformation cooldowns 20"
+        end
+
+    end
+
+    if e.DarkTransformation:IsCastable() and I and ((b and ((j:CooldownRemains() < 10 and e.InfectedClaws:IsAvailable() and ((e.VileContagion:CooldownDown() and e.FesteringWoundDebuff:AuraActiveCount() < d) or not e.VileContagion:IsAvailable())) or not e.InfectedClaws:IsAvailable())) or l < 25) then
+        if o(e.DarkTransformation, nil) then
+            a = 63560
+            return "dark_transformation cooldowns 22"
+        end
+
+    end
+
+    if e.SoulReaper:IsReady() and (d == 1 and i:TimeToX(35) < 5 and i:TimeToDie() > 5) then
+        if o(e.SoulReaper, nil, nil, not i:IsSpellInRange(e.SoulReaper)) then
+            a = 343294
+            return "soul_reaper cooldowns 24"
+        end
+
+    end
+
+    if e.SoulReaper:IsReady() and (d >= 2) then
+        if u.CastTargetIf(e.SoulReaper, y, "min", EvaluateTargetIfFilterSoulReaper, re, not i:IsSpellInRange(e.SoulReaper)) then
+            return "soul_reaper cooldowns 26"
+        end
+
+    end
+
+    if e.UnholyBlight:IsReady() and I and (p and (((not e.Apocalypse:IsAvailable() or e.Apocalypse:CooldownDown()) and e.Morbidity:IsAvailable()) or not e.Morbidity:IsAvailable())) then
+        if o(e.UnholyBlight, nil, nil, not i:IsInRange(8)) then
+            a = 115989
+            return "unholy_blight cooldowns 28"
+        end
+
+    end
+
+    if e.UnholyBlight:IsReady() and I and (b or l < 21) then
+        if o(e.UnholyBlight, nil, nil, not i:IsInRange(8)) then
+            a = 115989
+            return "unholy_blight cooldowns 30"
+        end
+
+    end
+
+    if e.AbominationLimb:IsCastable() and k and (p and t:Rune() < 3) then
+        if o(e.AbominationLimb, nil) then
+            a = 315443
+            return "abomination_limb cooldowns 32"
+        end
+
+    end
+
+    if e.SacrificialPact:IsReady() and r() and ((d >= 2 and c:BuffDown(e.DarkTransformation) and e.DarkTransformation:CooldownRemains() > 6) or l < t:GCD()) then
+        if o(e.SacrificialPact, nil, nil, not i:IsInRange(8)) then
+            a = 237574
+            return "sacrificial_pact cooldowns 34"
+        end
+
+    end
+
+end
+
+local function le()
+    if e.SwarmingMist:IsReady() and k and ((p and t:RunicPowerDeficit() > 16 and (not e.Apocalypse:CooldownUp() or (not e.ArmyoftheDamned:IsAvailable() and not e.DarkTransformation:CooldownUp()))) or f.FilteredFightRemains(y, "<", 11)) then
+        if o(e.SwarmingMist, nil, nil, not i:IsInRange(10)) then
+            a = 311648
+            return "swarming_mist covenants 2"
+        end
+
+    end
+
+    if e.SwarmingMist:IsReady() and k and (e.Apocalypse:CooldownDown() and ((d >= 2 and d <= 5 and t:RunicPowerDeficit() > 10 + (d * 6) and b) or (d > 5 and t:RunicPowerDeficit() > 40))) then
+        if o(e.SwarmingMist, nil, nil, not i:IsInRange(10)) then
+            a = 311648
+            return "swarming_mist covenants 4"
+        end
+
+    end
+
+    if e.AbominationLimbCov:IsReady() and k and ((p and not e.LeadByExample:SoulbindEnabled() and (not e.Apocalypse:CooldownUp() or (not e.ArmyoftheDamned:IsAvailable() and not e.DarkTransformation:CooldownUp())) and t:RuneTimeToX(4) > t:BuffRemains(e.RunicCorruptionBuff)) or f.FilteredFightRemains(y, "<", 12 + (_(e.KevinsOozeling:SoulbindEnabled()) * 28))) then
+        if o(e.AbominationLimb, nil, nil) then
+            a = 315443
+            return "abomination_limb covenants 6"
+        end
+
+    end
+
+    if e.AbominationLimbCov:IsReady() and k and (p and e.LeadByExample:SoulbindEnabled() and (i:DebuffRemains(e.UnholyBlightDebuff) > 11 or (not e.UnholyBlight:IsAvailable() and not e.DarkTransformation:CooldownUp()))) then
+        if o(e.AbominationLimb, nil, nil) then
+            a = 315443
+            return "abomination_limb covenants 8"
+        end
+
+    end
+
+    if e.AbominationLimbCov:IsReady() and k and (p and e.KevinsOozeling:SoulbindEnabled() and ((i:DebuffStack(e.FesteringWoundDebuff) >= 4 and not F) or (F and e.Apocalypse:CooldownDown()))) then
+        if o(e.AbominationLimb, nil, nil) then
+            a = 315443
+            return "abomination_limb covenants 10"
+        end
+
+    end
+
+    if e.AbominationLimbCov:IsReady() and k and (b and t:RuneTimeToX(4) > t:BuffRemains(e.RunicCorruptionBuff)) then
+        if o(e.AbominationLimb, nil, nil) then
+            a = 315443
+            return "abomination_limb covenants 101"
+        end
+
+    end
+
+    if e.ShackleTheUnworthy:IsReady() and k and ((p and (e.Apocalypse:CooldownRemains() > 10 or (not e.ArmyoftheDamned:IsAvailable() and not e.DarkTransformation:CooldownUp()))) or f.FilteredFightRemains(y, "<", 15)) then
+        if o(e.ShackleTheUnworthy, nil, nil, not i:IsSpellInRange(e.ShackleTheUnworthy)) then
+            a = 312202
             return "shackle_the_unworthy covenants 12"
         end
 
     end
 
-    if e.ShackleTheUnworthy:IsCastable() and j and (h >= 2 and (i:BuffUp(e.DeathAndDecayBuff) or A > 1 and _(S) <= 14)) then
-        if o(e.ShackleTheUnworthy, nil, nil, not a:IsSpellInRange(e.ShackleTheUnworthy)) then
-            t = 21
+    if e.ShackleTheUnworthy:IsReady() and k and (b and (t:BuffUp(e.DeathAndDecayBuff) or de(H) <= 14)) then
+        if o(e.ShackleTheUnworthy, nil, nil, not i:IsSpellInRange(e.ShackleTheUnworthy)) then
+            a = 312202
             return "shackle_the_unworthy covenants 14"
         end
 
@@ -749,66 +587,66 @@ local function L()
 
 end
 
-local function z()
-    if e.ArcaneTorrent:IsCastable() and (i:RunicPowerDeficit() > 65 and (x or not e.SummonGargoyle:IsAvailable()) and i:Rune() <= 1) then
-        if o(e.ArcaneTorrent, nil, nil, not a:IsInRange(8)) then
-            t = 22
+local function re()
+    if e.ArcaneTorrent:IsCastable() and r() and (t:RunicPowerDeficit() > 20 and (e.SummonGargoyle:CooldownRemains() < t:GCD() or (not e.SummonGargoyle:IsAvailable()) or (w:gargactive() and t:Rune() < 2 and q < 1))) then
+        if o(e.ArcaneTorrent, nil, nil, not i:IsInRange(8)) then
+            a = 28730
             return "arcane_torrent main 2"
         end
 
     end
 
-    if e.BloodFury:IsCastable() and (H or x and (35 - e.Gargoyle:TimeSinceLastCast()) <= e.BloodFury:BaseDuration() or d.FilteredFightRemains(r, "<=", e.BloodFury:BaseDuration())) then
+    if e.BloodFury:IsCastable() and r() and ((w:gargactive() and e.BloodFury:BaseDuration() >= w:gargremains()) or ((not e.SummonGargoyle:IsAvailable() or e.SummonGargoyle:CooldownRemains() > 60) and ((c:BuffUp(e.DarkTransformation) and e.BloodFury:BaseDuration() >= c:BuffRemains(e.DarkTransformation)) or (A and O <= e.BloodFury:BaseDuration()) or (E and N <= e.BloodFury:BaseDuration()) or (x >= 2 and t:BuffUp(e.DeathAndDecayBuff)))) or l <= e.BloodFury:BaseDuration()) then
         if o(e.BloodFury, nil) then
-            t = 23
+            a = 20572
             return "blood_fury main 4"
         end
 
     end
 
-    if e.Berserking:IsCastable() and (H or x and (35 - e.Gargoyle:TimeSinceLastCast()) <= e.Berserking:BaseDuration() or d.FilteredFightRemains(r, "<=", e.Berserking:BaseDuration())) then
+    if e.Berserking:IsCastable() and r() and (((w:gargactive() and e.Berserking:BaseDuration() >= w:gargremains()) or (not e.SummonGargoyle:IsAvailable() or e.SummonGargoyle:CooldownRemains() > 60) and ((c:BuffUp(e.DarkTransformation) and e.Berserking:BaseDuration() >= c:BuffRemains(e.DarkTransformation)) or (A and O <= e.Berserking:BaseDuration()) or (E and N <= e.Berserking:BaseDuration()) or (x >= 2 and t:BuffUp(e.DeathAndDecayBuff)))) or l <= e.Berserking:BaseDuration()) then
         if o(e.Berserking, nil) then
-            t = 24
+            a = 26297
             return "berserking main 6"
         end
 
     end
 
-    if e.LightsJudgment:IsCastable() and (i:BuffUp(e.UnholyStrengthBuff)) then
-        if o(e.LightsJudgment, nil, nil, not a:IsSpellInRange(e.LightsJudgment)) then
-            t = 25
+    if e.LightsJudgment:IsCastable() and r() and (t:BuffUp(e.UnholyStrengthBuff) and ((not e.Festermight:IsAvailable()) or (t:BuffRemains(e.FestermightBuff) < i:TimeToDie()) or (t:BuffRemains(e.UnholyStrengthBuff) < i:TimeToDie()))) then
+        if o(e.LightsJudgment, nil, nil, not i:IsSpellInRange(e.LightsJudgment)) then
+            a = 255647
             return "lights_judgment main 8"
         end
 
     end
 
-    if e.AncestralCall:IsCastable() and (H or x and e.Gargoyle:TimeSinceLastCast() >= 20 or d.FilteredFightRemains(r, "<=", 15)) then
+    if e.AncestralCall:IsCastable() and r() and (((w:gargactive() and 15 >= w:gargremains()) or (not e.SummonGargoyle:IsAvailable() or e.SummonGargoyle:CooldownRemains() > 60) and ((c:BuffUp(e.DarkTransformation) and 15 >= c:BuffRemains(e.DarkTransformation)) or (A and O <= 15) or (E and N <= 15) or (x >= 2 and t:BuffUp(e.DeathAndDecayBuff)))) or l <= 15) then
         if o(e.AncestralCall, nil) then
-            t = 26
+            a = 274738
             return "ancestral_call main 10"
         end
 
     end
 
-    if e.ArcanePulse:IsCastable() and (h >= 2 or (i:Rune() <= 1 and i:RunicPowerDeficit() >= 60)) then
-        if o(e.ArcanePulse, nil, nil, not a:IsInRange(8)) then
-            t = 27
+    if e.ArcanePulse:IsCastable() and r() and (d >= 2 or (t:Rune() <= 1 and t:RunicPowerDeficit() >= 60)) then
+        if o(e.ArcanePulse, nil, nil, not i:IsInRange(8)) then
+            a = 260364
             return "arcane_pulse main 12"
         end
 
     end
 
-    if e.Fireblood:IsCastable() and (H or x and (35 - e.Gargoyle:TimeSinceLastCast()) <= e.Fireblood:BaseDuration() or d.FilteredFightRemains(r, "<=", e.Fireblood:BaseDuration())) then
+    if e.Fireblood:IsCastable() and r() and (((w:gargactive() and e.Fireblood:BaseDuration() >= w:gargremains()) or ((not e.SummonGargoyle:IsAvailable() or e.SummonGargoyle:CooldownRemains() > 60) and ((c:BuffUp(e.DarkTransformation) and e.Fireblood:BaseDuration() >= c:BuffRemains(e.DarkTransformation)) or (A and O <= e.Fireblood:BaseDuration()) or (E and N <= e.Fireblood:BaseDuration()) or (x >= 2 and t:BuffUp(e.DeathAndDecayBuff))))) or l <= e.Fireblood:BaseDuration()) then
         if o(e.Fireblood, nil) then
-            t = 28
+            a = 265221
             return "fireblood main 14"
         end
 
     end
 
-    if e.BagofTricks:IsCastable() and (h == 1 and (i:BuffUp(e.UnholyStrengthBuff) or d.FilteredFightRemains(r, "<", 5))) then
-        if o(e.BagofTricks, nil, nil, not a:IsSpellInRange(e.BagofTricks)) then
-            t = 29
+    if e.BagofTricks:IsCastable() and r() and (d == 1 and (t:BuffUp(e.UnholyStrengthBuff) or f.FilteredFightRemains(y, "<", 5))) then
+        if o(e.BagofTricks, nil, nil, not i:IsSpellInRange(e.BagofTricks)) then
+            a = 312411
             return "bag_of_tricks main 16"
         end
 
@@ -816,164 +654,72 @@ local function z()
 
 end
 
-local function V()
-    if e.DeathCoil:IsReady() and not v and (not g and (i:BuffUp(e.SuddenDoomBuff) or i:RunicPowerDeficit() <= 13) or x and i:Rune() <= 3 or d.FilteredFightRemains(r, "<", 10) and a:DebuffDown(e.FesteringWoundDebuff)) then
-        if o(e.DeathCoil, nil, nil, not a:IsSpellInRange(e.DeathCoil)) then
-            t = 10
+local function F()
+    if e.DeathCoil:IsReady() and ((not S) and (t:Rune() < 3 or w:gargactive() or t:BuffUp(e.SuddenDoomBuff))) then
+        if o(e.DeathCoil, nil, nil, not i:IsSpellInRange(e.DeathCoil)) then
+            a = 47541
             return "death_coil generic 4"
         end
 
     end
 
-    if m:IsReady() and not i:IsMoving() and ((e.Defile:IsAvailable() or i:Covenant() == "Night Fae" or Z) and (not I or d.FilteredFightRemains(r, "<", 5))) then
-        if m == e.DeathsDue then
-            if o(m, nil, nil) then
-                t = 2
-                return "any_dnd generic 6"
+    if j:IsReady() and (t:BuffDown(e.DeathAndDecayBuff) and ((x >= 2 and e.FesteringWoundDebuff:AuraActiveCount() == d) or M == 3 or J)) then
+        if o(j, nil, nil) then
+            a = 43265
+            return "any_dnd generic 6"
+        end
+
+    end
+
+    if g:IsReady() and (W or (d >= 2 and t:BuffUp(e.DeathAndDecayBuff))) then
+        if o(g, nil, nil, not i:IsSpellInRange(g)) then
+            if e.ClawingShadows:IsAvailable() then
+                a = 207311
+                return "wound_spender generic 10"
+            else
+                a = 55090
+                return "wound_spender generic 10"
             end
 
-        else
-            if o(m, nil) then
-                t = 2
-                return "any_dnd generic 8"
-            end
-
         end
 
     end
 
-    if c:IsReady() and (VarMajorProcsActive and a:DebuffStack(e.FesteringWoundDebuff) >= 1 and (e.Apocalypse:CooldownRemains() > 5 or not p) and not I) then
-        if o(c, nil, nil, not a:IsSpellInRange(c)) then
-            t = 7
-            return "wound_spender generic 10"
+    if e.FesteringStrike:IsReady() and (not W) then
+        if u.CastTargetIf(e.FesteringStrike, y, "min", z, oe, not i:IsInMeleeRange(8)) then
+            return "festering_strike generic 10"
         end
 
     end
 
-    if c:IsReady() and (a:DebuffStack(e.FesteringWoundDebuff) > 3 and not I or a:DebuffUp(e.FesteringWoundDebuff) and d.FilteredFightRemains(r, "<", (a:DebuffStack(e.FesteringWoundDebuff) * i:GCD()))) then
-        if o(c, nil, nil, not a:IsSpellInRange(c)) then
-            t = 7
-            return "wound_spender generic 12"
-        end
-
-    end
-
-    if e.DeathCoil:IsReady() and not v and (i:RunicPowerDeficit() <= 20 and not g) then
-        if o(e.DeathCoil, nil, nil, not a:IsSpellInRange(e.DeathCoil)) then
-            t = 10
-            return "death_coil generic 14"
-        end
-
-    end
-
-    if e.FesteringStrike:IsReady() and (a:DebuffStack(e.FesteringWoundDebuff) < 4 and not I) then
-        if o(e.FesteringStrike, nil, nil, not a:IsInMeleeRange(5)) then
-            t = 6
-            return "festering_strike generic 16"
-        end
-
-    end
-
-    if e.DeathCoil:IsReady() and not v and (not g) then
-        if o(e.DeathCoil, nil, nil, not a:IsSpellInRange(e.DeathCoil)) then
-            t = 10
+    if e.DeathCoil:IsReady() then
+        if o(e.DeathCoil, nil, nil, not i:IsSpellInRange(e.DeathCoil)) then
+            a = 47541
             return "death_coil generic 18"
-        end
-
-    end
-
-    if c:IsReady() and (a:DebuffStack(e.FesteringWoundDebuff) >= 1 and i:Rune() < 2 and not I and (e.Apocalypse:CooldownRemains() > 5 or not p)) then
-        if o(c, nil, nil, not a:IsSpellInRange(c)) then
-            t = 7
-            return "wound_spender generic 20"
         end
 
     end
 
 end
 
-local function X()
-    if s.InscrutableQuantumDevice:IsEquippedAndReady() and (((e.UnholyBlight:CooldownRemains() > 20 or not k) or (e.DarkTransformation:CooldownRemains() > 20 or not b)) and (h >= 2 or e.ArmyoftheDead:TimeSinceLastCast() <= 30 or Y and (e.UnholyAssault:IsAvailable() or n.Unholy.DisableAotD) or x) or d.FilteredFightRemains(r, "<", 21) or a:TimeToX(20) < 5) then
-        if o(s.InscrutableQuantumDevice, nil, nil) then
-                        if s.InscrutableQuantumDevice:ID() == N and n.Commons.Enabled.TopTrinket == true then
-                t = 30
-                return "top trinket 1"
-            elseif s.InscrutableQuantumDevice:ID() == O and n.Commons.Enabled.BottomTrinket then
-                t = 31
-                return "top trinket 2"
-            end
-
-        end
-
-    end
-
-    if s.GaveloftheFirstArbiter:IsEquippedAndReady() and a:IsInRange(30) and f() and not Q then
-        if o(s.GaveloftheFirstArbiter, nil, nil, not a:IsInRange(30)) then
-            t = 1515
+local function w()
+    if v.GaveloftheFirstArbiter:IsEquippedAndReady() and i:IsInRange(30) and r() and not ee and n.Commons.Enabled.Items then
+        if o(v.GaveloftheFirstArbiter, nil, nil, not i:IsInRange(30)) then
+            a = 1515
             return "gavel_of_the_first_arbiter trinkets 4"
         end
 
     end
 
-    if s.JotungeirrDestinysCall:IsEquippedAndReady() and f() and not Q then
-        if o(s.JotungeirrDestinysCall, nil, nil, not a:IsInRange(30)) then
-            t = 1515
-            return "JotungeirrDestinysCall trinkets 4"
-        end
-
-    end
-
-    if s.MacabreSheetMusic:IsEquippedAndReady() and (e.Apocalypse:CooldownRemains() < 5 and (not s.InscrutableQuantumDevice:IsEquipped() or s.InscrutableQuantumDevice:CooldownRemains() > 0) or d.FilteredFightRemains(r, "<", 21)) then
-        if o(s.MacabreSheetMusic, nil, nil) then
-                        if s.MacabreSheetMusic:ID() == N and n.Commons.Enabled.TopTrinket then
-                t = 30
-                return "top trinket 1"
-            elseif s.MacabreSheetMusic:ID() == O and n.Commons.Enabled.BottomTrinket then
-                t = 31
-                return "top trinket 2"
-            end
-
-        end
-
-    end
-
-    if s.DreadfireVessel:IsEquippedAndReady() and (not e.Apocalypse:CooldownUp() and (not s.InscrutableQuantumDevice:IsEquipped() or s.InscrutableQuantumDevice:CooldownRemains() > 0) or d.FilteredFightRemains(r, "<", 3)) then
-        if o(s.DreadfireVessel, nil, nil, not a:IsInRange(50)) then
-                        if s.DreadfireVessel:ID() == N and n.Commons.Enabled.TopTrinket then
-                t = 30
-                return "top trinket 1"
-            elseif s.DreadfireVessel:ID() == O and n.Commons.Enabled.BottomTrinket then
-                t = 31
-                return "top trinket 2"
-            end
-
-        end
-
-    end
-
-    if s.DarkmoonDeckVoracity:IsEquippedAndReady() and (not e.Apocalypse:CooldownUp() and (not s.InscrutableQuantumDevice:IsEquipped() or s.InscrutableQuantumDevice:CooldownRemains() > 0) or d.FilteredFightRemains(r, "<", 21)) then
-        if o(s.DarkmoonDeckVoracity, nil, nil) then
-                        if s.DarkmoonDeckVoracity:ID() == N and n.Commons.Enabled.TopTrinket then
-                t = 30
-                return "top trinket 1"
-            elseif s.DarkmoonDeckVoracity:ID() == O and n.Commons.Enabled.BottomTrinket then
-                t = 31
-                return "top trinket 2"
-            end
-
-        end
-
-    end
-
-    if ((not e.Apocalypse:CooldownUp() or E:BuffUp(e.DarkTransformation)) and (not s.InscrutableQuantumDevice:IsEquipped() or s.InscrutableQuantumDevice:CooldownRemains() > 0)) then
-        local e = i:GetUseableTrinkets(pe)
+    if r() and ((e.Apocalypse:CooldownDown() or c:BuffUp(e.DarkTransformation)) and (not v.InscrutableQuantumDevice:IsEquipped() or v.InscrutableQuantumDevice:CooldownRemains() > 0)) then
+        local e = t:GetUseableTrinkets(ye)
         if e then
             if o(e, nil, nil) then
-                                if e:ID() == N and n.Commons.Enabled.TopTrinket then
-                    t = 30
+                                if e:ID() == ae and n.Commons.Enabled.TopTrinket then
+                    a = 30
                     return "top trinket 1"
-                elseif e:ID() == O and n.Commons.Enabled.BottomTrinket then
-                    t = 31
+                elseif e:ID() == ie and n.Commons.Enabled.BottomTrinket then
+                    a = 31
                     return "top trinket 2"
                 end
 
@@ -985,149 +731,122 @@ local function X()
 
 end
 
-local function _()
-    ne = HeroRotationCharDB.Toggles[6]
-    j = HeroRotationCharDB.Toggles[4]
-    R = HeroRotationCharDB.Toggles[5]
-    P = HeroRotationCharDB.Toggles[10]
-    se = HeroRotationCharDB.Toggles[11]
-    q = HeroRotationCharDB.Toggles[12]
+local function z()
+    ke = not we()
+    y = t:GetEnemiesInMeleeRange(8)
+    H = i:GetEnemiesInSplashRange(10)
+    ae, he = GetInventoryItemID("player", 13)
+    ie, he = GetInventoryItemID("player", 14)
+    if R() then
+        d = #y
+        x = #H
+    else
+        d = 1
+        x = 1
+    end
+
+    K = be(H)
+    E = e.Apocalypse:TimeSinceLastCast() <= 15
+    N = (E) and 15 - e.Apocalypse:TimeSinceLastCast() or 0
+    A = e.ArmyoftheDead:TimeSinceLastCast() <= 30
+    O = (O) and 30 - e.ArmyoftheDead:TimeSinceLastCast() or 0
+    if u.TargetIsValid() or t:AffectingCombat() then
+        C = f.BossFightRemains(nil, true)
+        l = C
+        if l == 11111 then
+            l = f.FightRemains(Enemies10yd, false)
+        end
+
+    end
+
+    X = HeroRotationCharDB.Toggles[6]
+    k = HeroRotationCharDB.Toggles[4]
+    I = HeroRotationCharDB.Toggles[5]
+    Q = HeroRotationCharDB.Toggles[10]
+    pe = HeroRotationCharDB.Toggles[11]
+    T = HeroRotationCharDB.Toggles[12]
     B = HeroRotationCharDB.Toggles[13]
-    M = HeroRotationCharDB.Toggles[14]
-    oe = HeroRotationCharDB.Toggles[15]
+    D = HeroRotationCharDB.Toggles[14]
+    Z = HeroRotationCharDB.Toggles[15]
     U = HeroRotationCharDB.Toggles[16]
-    Q = HeroRotationCharDB.Toggles[17]
-    v = false
-    C = false
-    b = false
-    p = false
-    k = false
-    K = false
-    if ((n.Unholy.IncludedCooldowns.ArmyoftheDead and f()) or (n.Unholy.IncludedSmallCooldowns.ArmyoftheDead and (f() or R)) or (not n.Unholy.IncludedSmallCooldowns.ArmyoftheDead and not n.Unholy.IncludedCooldowns.ArmyoftheDead)) then
-        C = true
-    end
-
-    if ((n.Unholy.IncludedCooldowns.DarkTransformation and f()) or (n.Unholy.IncludedSmallCooldowns.DarkTransformation and (f() or R)) or (not n.Unholy.IncludedSmallCooldowns.DarkTransformation and not n.Unholy.IncludedCooldowns.DarkTransformation)) then
-        b = true
-    end
-
-    if ((n.Unholy.IncludedCooldowns.Apocalypse and f()) or (n.Unholy.IncludedSmallCooldowns.Apocalypse and (f() or R)) or (not n.Unholy.IncludedSmallCooldowns.Apocalypse and not n.Unholy.IncludedCooldowns.Apocalypse)) then
-        p = true
-    end
-
-    if ((n.Unholy.IncludedCooldowns.UnholyBlight and f()) or (n.Unholy.IncludedSmallCooldowns.UnholyBlight and (f() or R)) or (not n.Unholy.IncludedSmallCooldowns.UnholyBlight and not n.Unholy.IncludedCooldowns.UnholyBlight)) then
-        k = true
-    end
-
-    if ((n.Unholy.IncludedCooldowns.SacrificialPact and f()) or (n.Unholy.IncludedSmallCooldowns.SacrificialPact and (f() or R)) or (not n.Unholy.IncludedSmallCooldowns.SacrificialPact and not n.Unholy.IncludedCooldowns.SacrificialPact)) then
-        K = true
-    end
-
+    ee = HeroRotationCharDB.Toggles[17]
+    se = false
 end
 
-local function p()
-    ee = not ge()
-    r = i:GetEnemiesInMeleeRange(8)
-    S = a:GetEnemiesInSplashRange(10)
-    N, te = GetInventoryItemID("player", 13)
-    O, te = GetInventoryItemID("player", 14)
-    if D() then
-        h = #r
-        A = #S
-    else
-        h = 1
-        A = 1
-    end
-
-    G = ve(S)
-    x = e.SummonGargoyle:TimeSinceLastCast() <= 35
-    Y = e.Apocalypse:TimeSinceLastCast() <= 15
-    c = (e.ClawingShadows:IsAvailable() and e.ClawingShadows or e.ScourgeStrike)
-    m = e.DeathAndDecay
-    if i:CovenantID() == 3 then
-        m = e.DeathsDue
+local function c()
+    g = (e.ClawingShadows:IsAvailable() and e.ClawingShadows or e.ScourgeStrike)
+    j = e.DeathAndDecay
+    if M == 3 then
+        j = e.DeathsDue
     end
 
     if e.Defile:IsAvailable() then
-        m = e.Defile
+        j = e.Defile
     end
 
-    if not BotOn then
-        l = 0
-        t = 0
+    ge = z()
+    if h.QueuedCast() then
+        a = h.QueuedCast()
+        return "Custom Queue " .. P(a):ID()
     end
 
-    if l > 0 then
-        l = 0
-    end
-
-    if t > 0 then
-        t = 0
-    end
-
-    we = _()
-    if u.QueuedCast() then
-        t = u.QueuedCast()
-        return "Custom Queue " .. F(t):ID()
-    end
-
-        if u.GUISettings.General.OpenerReset > 0 and not HeroRotationCharDB.Toggles[6] then
-        ie = GetTime()
-        J = ie + (u.GUISettings.General.OpenerReset)
-    elseif u.GUISettings.General.OpenerReset > 0 and J ~= nil and GetTime() > J and HeroRotationCharDB.Toggles[6] then
+        if h.GUISettings.General.OpenerReset > 0 and not HeroRotationCharDB.Toggles[6] then
+        te = GetTime()
+        V = te + (h.GUISettings.General.OpenerReset)
+    elseif h.GUISettings.General.OpenerReset > 0 and V ~= nil and GetTime() > V and HeroRotationCharDB.Toggles[6] then
         HeroRotationCharDB.Toggles[6] = not HeroRotationCharDB.Toggles[6]
-        u.ToggleIconFrame:UpdateButtonText(6)
-        u.Print("Opener is now " .. (HeroRotationCharDB.Toggles[6] and "|cff00ff00enabled|r." or "|cffff0000disabled|r."))
+        h.ToggleIconFrame:UpdateButtonText(6)
+        h.Print("Opener is now " .. (HeroRotationCharDB.Toggles[6] and "|cff00ff00enabled|r." or "|cffff0000disabled|r."))
     end
 
-        if (B and e.AntiMagicZone:IsUsableP() and i:AffectingCombat() and e.AntiMagicZone:CooldownRemains(BypassRecovery) <= 0) then
+        if (B and e.AntiMagicZone:IsUsableP() and t:AffectingCombat() and e.AntiMagicZone:CooldownRemains(BypassRecovery) <= 0) then
         if o(e.AntiMagicZone, nil, nil, nil) then
-            t = 38
+            a = 145629
             return "queue AMZ"
         end
 
-    elseif ((not e.AntiMagicZone:IsUsableP() or e.AntiMagicZone:CooldownRemains() > 0 or not i:AffectingCombat()) and B) then
+    elseif ((not e.AntiMagicZone:IsUsableP() or e.AntiMagicZone:CooldownRemains() > 0 or not t:AffectingCombat()) and B) then
         HeroRotationCharDB.Toggles[13] = not HeroRotationCharDB.Toggles[13]
-        u.Print("Anti-Magic Zone Queue is now " .. (HeroRotationCharDB.Toggles[13] and "|cff00ff00on|r." or "|cffff0000off|r."))
+        h.Print("Anti-Magic Zone Queue is now " .. (HeroRotationCharDB.Toggles[13] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-            if (M and e.DeathGrip:IsUsableP() and e.DeathGrip:CooldownRemains(BypassRecovery) <= 0 and y.TargetIsValid() and w("mouseover"):GUID() ~= nil) then
+            if (D and e.DeathGrip:IsUsableP() and e.DeathGrip:CooldownRemains(BypassRecovery) <= 0 and u.TargetIsValid() and m("mouseover"):GUID() ~= nil) then
         if o(e.DeathGrip, nil, nil, nil) then
-            l = 72
+            s = 149576
             return "queue DeathGrip MO"
         end
 
-    elseif (M and e.DeathGrip:IsUsableP() and e.DeathGrip:CooldownRemains(BypassRecovery) <= 0 and y.TargetIsValid()) then
+    elseif (D and e.DeathGrip:IsUsableP() and e.DeathGrip:CooldownRemains(BypassRecovery) <= 0 and u.TargetIsValid()) then
         if o(e.DeathGrip, nil, nil, nil) then
-            t = 39
+            a = 49576
             return "queue DeathGrip"
         end
 
-    elseif ((not e.DeathGrip:IsUsableP() or e.DeathGrip:CooldownRemains() > 0 or not y.TargetIsValid()) and M) then
+    elseif ((not e.DeathGrip:IsUsableP() or e.DeathGrip:CooldownRemains() > 0 or not u.TargetIsValid()) and D) then
         HeroRotationCharDB.Toggles[14] = not HeroRotationCharDB.Toggles[14]
-        u.Print("Death Grip Queue is now " .. (HeroRotationCharDB.Toggles[14] and "|cff00ff00on|r." or "|cffff0000off|r."))
+        h.Print("Death Grip Queue is now " .. (HeroRotationCharDB.Toggles[14] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-            if (U and e.Asphyxiate:IsUsableP() and e.Asphyxiate:CooldownRemains(BypassRecovery) <= 0 and w("mouseover"):GUID() ~= nil) then
+            if (U and e.Asphyxiate:IsUsableP() and e.Asphyxiate:CooldownRemains(BypassRecovery) <= 0 and m("mouseover"):GUID() ~= nil) then
         if o(e.Asphyxiate, nil, nil, nil) then
-            l = 471
+            s = 1221562
             return "queue Asphyxiate MO"
         end
 
-    elseif (U and e.Asphyxiate:IsUsableP() and e.Asphyxiate:CooldownRemains(BypassRecovery) <= 0 and y.TargetIsValid()) then
+    elseif (U and e.Asphyxiate:IsUsableP() and e.Asphyxiate:CooldownRemains(BypassRecovery) <= 0 and u.TargetIsValid()) then
         if o(e.Asphyxiate, nil, nil, nil) then
-            t = 47
+            a = 221562
             return "queue Asphyxiate"
         end
 
     elseif ((not e.Asphyxiate:IsUsableP() or e.Asphyxiate:CooldownRemains() > 0) and U) then
         HeroRotationCharDB.Toggles[16] = not HeroRotationCharDB.Toggles[16]
-        u.Print("Asphyxiate Queue is now " .. (HeroRotationCharDB.Toggles[16] and "|cff00ff00on|r." or "|cffff0000off|r."))
+        h.Print("Asphyxiate Queue is now " .. (HeroRotationCharDB.Toggles[16] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-    if i:IsChanneling(F(324631)) then
+    if t:IsChanneling(P(324631)) then
         if o(e.PoolResources, nil, nil, nil) then
-            l = 36
+            s = 36
             return "Raise Ally MO"
         end
 
@@ -1135,14 +854,14 @@ local function p()
 
     if e.RaiseDead:IsCastable() then
         if n.Unholy.RaiseDeadCastLeft then
-            if u.CastLeft(e.RaiseDead) then
-                t = 1
+            if h.CastLeft(e.RaiseDead) then
+                a = 46584
                 return "raise_dead precombat 2 left"
             end
 
         else
             if o(e.RaiseDead, nil, nil) then
-                t = 1
+                a = 46584
                 return "raise_dead precombat 2 displaystyle"
             end
 
@@ -1150,10 +869,10 @@ local function p()
 
     end
 
-    if y.TargetIsValid() then
-        if not i:AffectingCombat() and ne then
-            ye = false
-            local e = le()
+    if u.TargetIsValid() then
+        q = i:DebuffStack(e.FesteringWoundDebuff)
+        if not t:AffectingCombat() and X then
+            local e = je()
             if e then
                 return e
             end
@@ -1162,88 +881,89 @@ local function p()
 
     end
 
-    if y.TargetIsValid() and i:AffectingCombat() then
-        if (not UnitIsEnemy("player", "mouseover") and UnitIsDead("mouseover")) then
-                        if e.RaiseAlly:IsCastable() and (i:RunicPower() >= 30) then
+    if u.TargetIsValid() and t:AffectingCombat() then
+        q = i:DebuffStack(e.FesteringWoundDebuff)
+        if (not UnitIsEnemy("player", "mouseover") and UnitIsDead("mouseover") and UnitIsPlayer("mouseover")) then
+                        if e.RaiseAlly:IsCastable() and (t:RunicPower() >= 30) then
                 if o(e.RaiseAlly, nil) then
-                    l = 73
+                    s = 161999
                     return "RaiseAlly MO"
                 end
 
-            elseif e.RaiseAlly:CooldownRemains(BypassRecovery) <= 0 and (i:RunicPower() < 30) then
-                v = true
+            elseif e.RaiseAlly:CooldownRemains(BypassRecovery) <= 0 and (t:RunicPower() < 30) then
+                se = true
             end
 
         end
 
         if (n.Commons.UseDefensives) then
-            if i:HealthPercentage() < n.Commons.HealthstoneHP and s.Healthstone:IsReady() and s.Healthstone:CooldownRemains() <= 0 then
-                if o(s.Healthstone, nil) then
-                    t = 40
+            if t:HealthPercentage() < n.Commons.HealthstoneHP and v.Healthstone:IsReady() and v.Healthstone:CooldownRemains() <= 0 then
+                if o(v.Healthstone, nil) then
+                    a = 40
                     return "Healthstone HP"
                 end
 
             end
 
-            if i:HealthPercentage() < n.Commons.HealPotHP and s.CosmicHealPot:IsReady() and s.CosmicHealPot:CooldownRemains() <= 0 then
-                if o(s.CosmicHealPot, nil) then
-                    t = 45
+            if t:HealthPercentage() < n.Commons.HealPotHP and v.CosmicHealPot:IsReady() and v.CosmicHealPot:CooldownRemains() <= 0 then
+                if o(v.CosmicHealPot, nil) then
+                    a = 48707
                     return "CosmicHealPot HP"
                 end
 
             end
 
-            if i:HealthPercentage() < n.Commons.HealPotHP and s.HealPot:IsReady() and s.HealPot:CooldownRemains() <= 0 then
-                if o(s.HealPot, nil) then
-                    t = 41
+            if t:HealthPercentage() < n.Commons.HealPotHP and v.HealPot:IsReady() and v.HealPot:CooldownRemains() <= 0 then
+                if o(v.HealPot, nil) then
+                    a = 41
                     return "HealPot HP"
                 end
 
             end
 
-            if i:HealthPercentage() < n.Commons.UseDarkSuccorHP and e.DeathStrike:IsReady() and i:BuffUp(e.DeathStrikeBuff) then
+            if t:HealthPercentage() < n.Commons.UseDarkSuccorHP and e.DeathStrike:IsReady() and t:BuffUp(e.DeathStrikeBuff) then
                 if o(e.DeathStrike) then
-                    t = 42
+                    a = 49998
                     return "DeathStrike Dark Succor HP"
                 end
 
             end
 
-            if i:HealthPercentage() < n.Commons.UseDeathStrikeHP and e.DeathStrike:IsReady() then
+            if t:HealthPercentage() < n.Commons.UseDeathStrikeHP and e.DeathStrike:IsReady() then
                 if o(e.DeathStrike) then
-                    t = 42
+                    a = 49998
                     return "DeathStrike HP"
                 end
 
             end
 
-            if i:HealthPercentage() < n.Commons.IceboundFortitudeHP and e.IceboundFortitude:IsReady() then
+            if t:HealthPercentage() < n.Commons.IceboundFortitudeHP and e.IceboundFortitude:IsReady() then
                 if o(e.IceboundFortitude) then
-                    t = 43
+                    a = 48792
                     return "Icebound Fortitude HP"
                 end
 
             end
 
-            if i:HealthPercentage() < n.Commons.LichborneHP and e.Lichborne:IsReady() then
+            if t:HealthPercentage() < n.Commons.LichborneHP and e.Lichborne:IsReady() then
                 if o(e.Lichborne) then
-                    t = 44
+                    a = 287081
                     return "Lichborne HP"
                 end
 
             end
 
-            if i:HealthPercentage() < n.Commons.AntiMagicShellHP and e.AntiMagicShell:IsReady() then
+            if t:HealthPercentage() < n.Commons.AntiMagicShellHP and e.AntiMagicShell:IsReady() then
                 if o(e.AntiMagicShell) then
-                    t = 45
+                    a = 48707
                     return "Anti-Magic Shell HP"
                 end
 
             end
 
-            if i:HealthPercentage() < n.Commons.DeathPactHP and e.DeathPact:IsReady() then
+            if t:HealthPercentage() < n.Commons.DeathPactHP and e.DeathPact:IsReady() then
                 if o(e.DeathPact) then
-                    t = 46
+                    a = 48743
                     return "Death Pact HP"
                 end
 
@@ -1251,90 +971,101 @@ local function p()
 
         end
 
-        local s = y.Interrupt(15, e.MindFreeze, nil, me)
-        if s then
-            return s
+        if e.Apocalypse:CooldownRemains() < 10 and q < 4 then
+            L = 8
+        else
+            L = 4
         end
 
-        if e.DeathStrike:IsReady() and not ee then
-            if o(e.DeathStrike) then
-                t = 35
-                return "death_strike low hp or proc"
-            end
-
+        if e.SummonGargoyle:CooldownRemains() < t:GCD() * 2 then
+            G = ((((e.SummonGargoyle:CooldownRemains() + 1) / t:GCD()) / ((t:Rune() + 1) * (t:RunicPower() + 20))) * 100)
+        else
+            G = t:GCD()
         end
 
-        g = (e.SummonGargoyle:IsAvailable() and e.SummonGargoyle:CooldownRemains() < 5 and (e.UnholyBlight:IsAvailable() and (e.UnholyBlight:CooldownRemains() < 13 and k) and (e.DarkTransformation:CooldownRemains() < 13 and b) or not e.UnholyBlight:IsAvailable()))
-        I = (e.SoulReaper:IsAvailable() and i:Rune() < 2 and a:TimeToX(35) < 5 and d.FilteredFightRemains(r, ">", 5))
-        T = (h == 1 or not D())
-        H = ((e.SummonGargoyle:IsAvailable() and not x and not e.SummonGargoyle:CooldownUp() or not e.SummonGargoyle:IsAvailable()) and (i:BuffUp(e.UnholyAssault) or e.ArmyoftheDamned:IsAvailable() and Y or i:BuffUp(e.DarkTransformation)))
-        VarMajorProcsActive = (i:Covenant() == "Night Fae" and i:BuffUp(e.DeathAndDecayBuff) and i:BuffStack(e.DeathsDueBuff) < 4 or i:BuffUp(e.MarrowedGemstoneEnhancement) or i:BuffUp(e.ThrillSeeker) or i:BuffUp(e.FrenziedMonstrosity) or i:BuffUp(e.LeadByExample))
-        if e.Outbreak:IsReady() and (G > 0 and h == 0) then
-            if o(e.Outbreak, nil, nil, not a:IsSpellInRange(e.Outbreak)) then
-                t = 8
+        if (e.Festermight:IsAvailable() and t:BuffUp(e.FestermightBuff) and (t:BuffRemains(e.FestermightBuff) / (4 * t:GCD())) >= 1) then
+            Y = q >= 1
+        else
+            Y = q >= (2 - _(e.InfectedClaws:IsAvailable()))
+        end
+
+        W = ((e.Apocalypse:CooldownRemains() > L or not e.Apocalypse:IsAvailable()) and (Y or (q >= 1 and (not e.Apocalypse:IsAvailable())) or (q >= 1 and e.UnholyAssault:CooldownRemains() < 20 and e.UnholyAssault:IsAvailable() and p) or (q > 4) or (l < q * t:GCD())))
+        S = (e.VileContagion:IsAvailable() and e.VileContagion:CooldownRemains() < 3 and t:RunicPower() < 60 and not p)
+        qe = (e.SoulReaper:IsAvailable() and t:Rune() < 2 and i:TimeToX(35) < 5 and l > 5)
+        p = (d <= 3 or not R())
+        b = (d >= 4 and R())
+        if e.Outbreak:IsReady() and (K > 0 and d == 0) then
+            if o(e.Outbreak, nil, nil, not i:IsSpellInRange(e.Outbreak)) then
+                a = 77575
                 return "outbreak out_of_range"
             end
 
         end
 
-        if e.Epidemic:IsReady() and D() and not v and e.VirulentPlagueDebuff:AuraActiveCount() > 1 and (not g and h == 0) then
-            if o(e.Epidemic, nil, nil, not a:IsInRange(30)) then
-                t = 12
+        if e.Epidemic:IsReady() and R() and e.VirulentPlagueDebuff:AuraActiveCount() > 1 and (not S and d == 0) then
+            if o(e.Epidemic, nil, nil, not i:IsInRange(30)) then
+                a = 207317
                 return "epidemic out_of_range"
             end
 
         end
 
-        if e.DeathCoil:IsReady() and not v and e.VirulentPlagueDebuff:AuraActiveCount() < 2 and (not g and h == 0) then
-            if o(e.DeathCoil, nil, nil, not a:IsSpellInRange(e.DeathCoil)) then
-                t = 10
+        if e.DeathCoil:IsReady() and e.VirulentPlagueDebuff:AuraActiveCount() < 2 and (not S and d == 0) then
+            if o(e.DeathCoil, nil, nil, not i:IsSpellInRange(e.DeathCoil)) then
+                a = 47541
                 return "death_coil out_of_range"
             end
 
         end
 
-        if e.Outbreak:IsReady() and (a:DebuffRefreshable(e.VirulentPlagueDebuff) and ((not e.UnholyBlight:IsAvailable() or e.UnholyBlight:IsAvailable() and not e.UnholyBlight:CooldownUp()) or not k)) then
-            if o(e.Outbreak, nil, nil, not a:IsSpellInRange(e.Outbreak)) then
-                t = 8
+        if e.ArmyoftheDead:IsReady() and ve and not Q and not n.Unholy.DisableAotD and r() and (((e.CommanderoftheDead:IsAvailable() and (e.DarkTransformation:CooldownRemains() < 4 or e.DarkTransformation:TimeSinceLastCast() <= 4)) or (not e.CommanderoftheDead:IsAvailable() and e.UnholyAssault:IsAvailable() and e.UnholyAssault:CooldownRemains() < 10) or (not e.UnholyAssault:IsAvailable() and (not e.CommanderoftheDead:IsAvailable()))) or l <= 30) then
+            if o(e.ArmyoftheDead, nil, Snil) then
+                a = 42650
+                return "army_of_the_dead main 1"
+            end
+
+        end
+
+        if e.Outbreak:IsReady() and ((i:DebuffRefreshable(e.VirulentPlagueDebuff) or (e.Superstrain:IsAvailable() and (i:DebuffRefreshable(e.FrostFeverDebuff) or i:DebuffRefreshable(e.BloodPlagueDebuff)))) and ((not e.UnholyBlight:IsAvailable()) or (e.UnholyBlight:IsAvailable() and e.UnholyBlight:CooldownRemains() > 15 / ((_(e.Superstrain:IsAvailable()) * 3) + (_(e.Plaguebringer:IsAvailable()) * 2))))) then
+            if o(e.Outbreak, nil, nil, not i:IsSpellInRange(e.Outbreak)) then
+                a = 77575
                 return "outbreak main 18"
             end
 
         end
 
-        if e.Outbreak:IsReady() and ((a:DebuffRefreshable(e.VirulentPlagueDebuff) or G > 0) and h >= 2 and ((not e.UnholyBlight:IsAvailable() or e.UnholyBlight:IsAvailable() and not e.UnholyBlight:CooldownUp()) or not k)) then
-            if o(e.Outbreak, nil, nil, not a:IsSpellInRange(e.Outbreak)) then
-                t = 8
-                return "outbreak main 20"
+        if g:IsReady() and (e.Apocalypse:CooldownRemains() > L and e.Plaguebringer:IsAvailable() and e.Superstrain:IsAvailable() and t:BuffRemains(e.PlaguebringerBuff) < t:GCD()) then
+            if o(g, nil, nil, not i:IsSpellInRange(g)) then
+                if e.ClawingShadows:IsAvailable() then
+                    a = 96320
+                    return "wound_spender main 24"
+                else
+                    a = 55090
+                    return "wound_spender main 24"
+                end
+
             end
 
         end
 
-        if e.Outbreak:IsReady() and (ae and (a:DebuffRefreshable(e.FrostFeverDebuff) or a:DebuffRefreshable(e.BloodPlagueDebuff))) then
-            if o(e.Outbreak, nil, nil, not a:IsSpellInRange(e.Outbreak)) then
-                t = 8
-                return "outbreak main 22"
+        if ((n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket) and r()) then
+            local e = w()
+            if e then
+                return e
             end
 
         end
 
-        if c:IsReady() and (i:Covenant() == "Night Fae" and i:BuffRemains(e.DeathAndDecayBuff) < (i:GCD() * 1.5) and i:BuffUp(e.DeathAndDecayBuff)) then
-            if o(c, nil, nil, not a:IsSpellInRange(c)) then
-                t = 7
-                return "wound_spender main 24"
+        if (r()) then
+            local e = re()
+            if e then
+                return e
             end
 
         end
 
-        if e.DeathsDue:IsReady() and a:IsInMeleeRange(10) and j and e.DeathsDue:CooldownRemains() < i:GCD() and h == 1 then
-            if o(e.DeathsDue, nil, nil) then
-                t = 2
-                return "deaths_due covenants 2"
-            end
-
-        end
-
-        if ((n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket) and f()) then
-            local e = X()
+        if (r()) then
+            local e = ne()
             if e then
                 return e
             end
@@ -1342,75 +1073,42 @@ local function p()
         end
 
         if (true) then
-            local e = L()
+            local e = le()
             if e then
                 return e
             end
 
         end
 
-        if (f()) then
-            local e = z()
-            if e then
-                return e
+        if (R() and x >= 4) then
+            local t = ce()
+            if t then
+                return t
+            end
+
+            if o(e.Pool) then
+                a = 9999999999
+                return "pool for AoE()"
             end
 
         end
 
-        if (f() or not f()) then
-            local e = W()
-            if e then
-                return e
+        if (x <= 3) then
+            local t = F()
+            if t then
+                return t
             end
 
-        end
-
-        if (D()) then
-            if (h >= 2 and m:CooldownRemains() < 10 and i:BuffDown(e.DeathAndDecayBuff)) then
-                local e = re()
-                if e then
-                    return e
-                end
-
-            end
-
-            if (h >= 2 and i:BuffUp(e.DeathAndDecayBuff)) then
-                local e = de()
-                if e then
-                    return e
-                end
-
-            end
-
-            if (h >= 2 and i:BuffDown(e.DeathAndDecayBuff)) then
-                local e = he()
-                if e then
-                    return e
-                end
-
-            end
-
-        end
-
-        if (h == 1) then
-            local e = V()
-            if e then
-                return e
-            end
-
-        end
-
-        if e.ClawingShadows:IsReady() and e.ClawingShadows:IsAvailable() and a:IsInMeleeRange(30) and not a:IsInMeleeRange(10) and a:DebuffUp(e.FesteringWoundDebuff) then
-            if o(c, nil, nil, not a:IsSpellInRange(c)) then
-                t = 7
-                return "wound_spender main 99"
+            if o(e.Pool) then
+                a = 9999999999
+                return "pool for Generic()"
             end
 
         end
 
         if (true) then
-            if o(e.PoolResources) then
-                t = 36
+            if o(e.Pool) then
+                a = 9999999999
                 return "pool_resources"
             end
 
@@ -1420,33 +1118,28 @@ local function p()
 
 end
 
-local function a()
+local function t()
     e.VirulentPlagueDebuff:RegisterAuraTracking()
     e.FesteringWoundDebuff:RegisterAuraTracking()
-    if HeroRotationCharDB.Toggles[6] then
-        HeroRotationCharDB.Toggles[6] = not HeroRotationCharDB.Toggles[6]
-        u.ToggleIconFrame:UpdateButtonText(6)
-    end
-
 end
 
 function ReturnSpell()
-    if t == 0 then
+    if a == 0 then
         return 0
     else
-        return t
+        return a
     end
 
 end
 
 function ReturnSpellMO()
-    if l == 0 then
+    if s == 0 then
         return 0
     else
-        return l
+        return s
     end
 
 end
 
-u.SetAPL(252, p, a)
+h.SetAPL(252, c, t)
 
