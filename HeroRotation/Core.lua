@@ -386,7 +386,7 @@ end
 
 function e.CmdHandler(t)
     local t, o, a = m(" ", w(t))
-                                                                                                                                                                                                                                                                                                                                                                                                                        if t == "cds" then
+                                                                                                                                                                                                                                                                                                                                                                                                                            if t == "cds" then
         HeroRotationCharDB.Toggles[1] = not HeroRotationCharDB.Toggles[1]
         e.ToggleIconFrame:UpdateButtonText(1)
         e.Print("CDs are now " .. (HeroRotationCharDB.Toggles[1] and "|cff00ff00enabled|r." or "|cffff0000disabled|r."))
@@ -484,6 +484,9 @@ function e.CmdHandler(t)
     elseif t == "holdweapon" then
         HeroRotationCharDB.Toggles[17] = not HeroRotationCharDB.Toggles[17]
         e.Print("Weapon Extra Use is now " .. (HeroRotationCharDB.Toggles[17] and "|cffff0000disabled|r." or "|cff00ff00enabled|r."))
+    elseif t == "holdabomlimb" then
+        HeroRotationCharDB.Toggles[18] = not HeroRotationCharDB.Toggles[18]
+        e.Print("Abomination Limb is now " .. (HeroRotationCharDB.Toggles[18] and "|cffff0000disabled|r." or "|cff00ff00enabled|r."))
     elseif t == "funnelaoe" then
         HeroRotationCharDB.Toggles[20] = not HeroRotationCharDB.Toggles[20]
         e.Print("Funnel AoE is now " .. (HeroRotationCharDB.Toggles[20] and "|cff00ff00enabled|r." or "|cffff0000disabled|r."))
