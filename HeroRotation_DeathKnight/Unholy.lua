@@ -773,6 +773,19 @@ local function z()
     te = HeroRotationCharDB.Toggles[17]
     I = HeroRotationCharDB.Toggles[18]
     he = false
+    if not BotOn then
+        s = 0
+        a = 0
+    end
+
+    if s > 0 then
+        s = 0
+    end
+
+    if a > 0 then
+        a = 0
+    end
+
 end
 
 local function c()
