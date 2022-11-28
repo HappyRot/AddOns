@@ -5,8 +5,8 @@ local r = a.Unit
 local s = r.Player
 local e = r.Target
 local h = a.Spell
-local n = a.Item
-local o = pairs
+local o = a.Item
+local n = pairs
 local w = string.gsub
 local f = UnitInParty
 local m = UnitInRaid
@@ -38,14 +38,14 @@ function a.ActiveMitigationNeeded()
         return true
     end
 
-    for a, t in o(u.Buff) do
+    for a, t in n(u.Buff) do
         if e:BuffUp(t, true) then
             return true
         end
 
     end
 
-    for e, t in o(u.Debuff) do
+    for e, t in n(u.Debuff) do
         local a, a, a, a, a, a, a, a, a, e, a, a, a, a, a, a = UnitDebuff("player", t)
         if e ~= nil then
             if t == e then
@@ -68,14 +68,14 @@ function a.BigActiveMitigationNeeded()
         return true
     end
 
-    for a, t in o(l.Buff) do
+    for a, t in n(l.Buff) do
         if e:BuffUp(t, true) then
             return true
         end
 
     end
 
-    for e, t in o(l.Debuff) do
+    for e, t in n(l.Debuff) do
         local a, a, a, a, a, a, a, a, a, e, a, a, a, a, a, a = UnitDebuff("player", i)
         if e ~= nil then
             if t == e then
@@ -92,7 +92,7 @@ end
 do
     local e = { Debuff = { h(243961) } }
     function s:HealingAbsorbed()
-        for t, e in o(e.Debuff) do
+        for t, e in n(e.Debuff) do
             if s:DebuffUp(e, true) then
                 return true
             end
@@ -135,16 +135,16 @@ function a.IsSoloMode()
     return d.SoloMode and not s:IsInRaidArea() and not s:IsInDungeonArea()
 end
 
-function a.CastCycle(i, n, a, r, h, s)
+function a.CastCycle(o, i, a, r, h, s)
     if a(e) then
-        return t.Cast(i, h, s, r)
+        return t.Cast(o, h, s, r)
     end
 
     if t.AoEON() then
         local s = e:GUID()
-        for o, e in o(n) do
+        for i, e in n(i) do
             if e:GUID() ~= s and not e:IsFacingBlacklisted() and not e:IsUserCycleBlacklisted() and a(e) then
-                t.CastLeftNameplate(e, i)
+                t.CastLeftNameplate(e, o)
                 break
             end
 
@@ -161,19 +161,19 @@ function a.CastTargetIf(h, m, c, s, a, l, d, r)
     end
 
     if t.AoEON() then
-        local i, n = nil, nil
-        for t, e in o(m) do
-            if not e:IsFacingBlacklisted() and not e:IsUserCycleBlacklisted() and (e:AffectingCombat() or e:IsDummy()) and (not n or y.CompareThis(c, s(e), n)) then
-                i, n = e, s(e)
+        local o, i = nil, nil
+        for t, e in n(m) do
+            if not e:IsFacingBlacklisted() and not e:IsUserCycleBlacklisted() and (e:AffectingCombat() or e:IsDummy()) and (not i or y.CompareThis(c, s(e), i)) then
+                o, i = e, s(e)
             end
 
         end
 
-        if i then
-                        if u and (i:GUID() == e:GUID() or n == s(e)) then
+        if o then
+                        if u and (o:GUID() == e:GUID() or i == s(e)) then
                 return t.Cast(h, d, r, l)
-            elseif ((a and a(i)) or not a) then
-                t.CastLeftNameplate(i, h)
+            elseif ((a and a(o)) or not a) then
+                t.CastLeftNameplate(o, h)
             end
 
         end
@@ -197,7 +197,7 @@ function a.GroupBuffMissing(a)
         return false
     end
 
-    for o, e in o(e) do
+    for o, e in n(e) do
         if e:Exists() and e:IsInRange(t) and e:BuffDown(a, true) then
             return true
         end
@@ -240,43 +240,43 @@ function a.PotionSelected()
     local a = c.Persistent.Player.Spec[2]
     local e = t.GUISettings.APL[e][a].PotionType.Selected
     local a = { 191914, 191913, 191912, 191907, 191906, 191905, 191383, 191382, 191381, 191389, 191388, 191387 }
-    local o = { 191365, 191364, 191363 }
+    local i = { 191365, 191364, 191363 }
     local t = { 191368, 191367, 191366 }
-    local i = { 191401, 191400, 191399 }
+    local n = { 191401, 191400, 191399 }
                 if e == "Power" then
         for t, e in ipairs(a) do
-            if n(e):IsUsable() then
-                return n(e)
+            if o(e):IsUsable() then
+                return o(e)
             end
 
         end
 
     elseif e == "Frozen Focus" then
-        for t, e in ipairs(o) do
-            if n(e):IsUsable() then
-                return n(e)
+        for t, e in ipairs(i) do
+            if o(e):IsUsable() then
+                return o(e)
             end
 
         end
 
     elseif e == "Chilled Clarity" then
         for t, e in ipairs(t) do
-            if n(e):IsUsable() then
-                return n(e)
+            if o(e):IsUsable() then
+                return o(e)
             end
 
         end
 
     elseif e == "Shocking Disclosure" then
-        for t, e in ipairs(i) do
-            if n(e):IsUsable() then
-                return n(e)
+        for t, e in ipairs(n) do
+            if o(e):IsUsable() then
+                return o(e)
             end
 
         end
 
     else
-        return nil
+        return o(191389)
     end
 
 end
