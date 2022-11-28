@@ -1240,14 +1240,6 @@ local function q()
 
     end
 
-    if not e.RocketBarrage:IsCastable() and UnitRace("player") == "Goblin" and i:IsInMeleeRange(30) then
-        if o(e.RocketBarrage) then
-            t = 69041
-            return "RocketBarrage"
-        end
-
-    end
-
 end
 
 local function e()
