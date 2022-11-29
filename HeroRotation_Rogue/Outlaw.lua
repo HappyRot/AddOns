@@ -490,8 +490,8 @@ local function B()
 
     end
 
-    if e.ColdBlood:IsAvailable() and e.ColdBlood:IsCastable() then
-        if a.CastPooling(e.ColdBlood) then
+    if e.ColdBlood:IsCastable() and e.ColdBlood:IsCastable() then
+        if a.Cast(e.ColdBlood) then
             o = 382245
             return "Cast ColdBlood"
         end
