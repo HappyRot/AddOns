@@ -533,7 +533,7 @@ local function he()
 
     end
 
-    if e.Ambush:IsCastable() and i:IsSpellInRange(e.Ambush) and (e.HiddenOpportunity:IsAvailable() and t:BuffUp(e.AudacityBuff) or e.FindWeakness:IsAvailable() and not i:DebuffUp(e.FindWeaknessDebuff)) then
+    if e.Ambush:IsReady() and i:IsSpellInRange(e.Ambush) and (e.HiddenOpportunity:IsAvailable() and t:BuffUp(e.AudacityBuff) or e.FindWeakness:IsAvailable() and not i:DebuffUp(e.FindWeaknessDebuff)) then
         if a.Cast(e.Ambush) then
             o = 8676
             return "Cast Ambush"
