@@ -6,7 +6,7 @@ local o = e.CreateChildPanel
 local e = e.CreatePanelOption
 local a = t.GUI.CreateARPanelOption
 local i = t.GUI.CreateARPanelOptions
-t.GUISettings.APL.Hunter = { Commons = { Enabled = { Potions = true, TopTrinket = true, BottomTrinket = true }, SummonPetSlot = 1, ExhilarationHP = 20, TurtleHP = 0, MendPetHighHP = 40, MendPetLowHP = 80, HealthstoneHP = 30, HealPotHP = 25, AutoMisdirect = true }, BeastMastery = { TargetSwap = "AutoSwap", DBMSupport = false, AspectoftheWild = "CDs", Stampede = "CDs", BestialWrathCD = "Small CDs", Bloodshed = "Small CDs", SurvivaloftheFitestHP = 40 }, Marksmanship = { TargetSwap = "AutoSwap", HideAimedWhileMoving = false, GCDasOffGCD = {  }, OffGCDasOffGCD = {  } }, Survival = { AspectOfTheEagle = true, SerpantStingTargetSwap = "AutoSwap", KillCommandTargetSwap = "AutoSwap", KCFish = true, SerpantStingRange = 10, BombRange = 10, GCDasOffGCD = {  }, OffGCDasOffGCD = {  } } }
+t.GUISettings.APL.Hunter = { Commons = { Enabled = { Potions = true, TopTrinket = true, BottomTrinket = true }, SummonPetSlot = 1, ExhilarationHP = 20, TurtleHP = 0, MendPetHighHP = 40, MendPetLowHP = 80, HealthstoneHP = 30, HealPotHP = 25, AutoMisdirect = true }, BeastMastery = { TargetSwap = "AutoSwap", DBMSupport = false, AspectoftheWild = "CDs", Stampede = "CDs", BestialWrathCD = "Small CDs", Bloodshed = "Small CDs" }, Marksmanship = { TargetSwap = "AutoSwap", HideAimedWhileMoving = false, GCDasOffGCD = {  }, OffGCDasOffGCD = {  } }, Survival = { AspectOfTheEagle = true, SerpantStingTargetSwap = "AutoSwap", KillCommandTargetSwap = "AutoSwap", KCFish = true, SerpantStingRange = 10, BombRange = 10, GCDasOffGCD = {  }, OffGCDasOffGCD = {  } } }
 t.GUI.LoadSettingsRecursively(t.GUISettings)
 local t = t.GUI.Panel
 local t = o(t, "Hunter")
@@ -26,7 +26,6 @@ e("Dropdown", a, "APL.Hunter.BeastMastery.TargetSwap", { "Mouseover", "AutoSwap"
 e("CheckButton", a, "APL.Hunter.BeastMastery.DBMSupport", "DBM Enabled?", "Enable this option if you have DBM - BETA")
 e("Dropdown", a, "APL.Hunter.BeastMastery.AspectoftheWild", { "CDs", "Small CDs", "Always" }, "CDs: Aspect of the Wild", "")
 e("Dropdown", a, "APL.Hunter.BeastMastery.Stampede", { "CDs", "Small CDs", "Always" }, "CDs: Stampede", "")
-e("Slider", a, "APL.Hunter.BeastMastery.SurvivaloftheFitestHP", { 0, 100, 1 }, "Survival of the Fitest HP", "Set the Survival of the Fitest HP threshold. Set to 0 to disable.")
 e("Dropdown", a, "APL.Hunter.BeastMastery.BestialWrathCD", { "CDs", "Small CDs", "Always" }, "CDs: Beastial Wrath", "")
 e("Dropdown", a, "APL.Hunter.BeastMastery.Bloodshed", { "CDs", "Small CDs", "Always" }, "CDs: Bloodshed", "")
 a["APL.Hunter.BeastMastery.Bloodshed"]:SetPoint("TOPLEFT", 180, -110)
