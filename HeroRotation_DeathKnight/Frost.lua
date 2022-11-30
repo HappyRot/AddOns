@@ -1,101 +1,91 @@
 local e, e = ...
 local e = HeroDBC.DBC
-local y = HeroLib
+local b = HeroLib
 local e = HeroCache
-local j = y.Unit
-local t = j.Playerlocal e, e = ...
-local e = HeroDBC.DBC
-local y = HeroLib
-local e = HeroCache
-local b = y.Unit
-local t = b.Player
-local i = b.Target
-local e = b.Pet
-local V = y.Spell
-local v = y.Item
+local v = b.Unit
+local t = v.Player
+local i = v.Target
+local e = v.Pet
+local Z = b.Spell
+local g = b.Item
 local h = HeroRotation
 local o = h.Cast
 local s = h.CDsON
 local _ = h.AoEON
 local se = HeroRotationCharDB.Toggles[4]
-local U = HeroRotationCharDB.Toggles[5]
-local ae = HeroRotationCharDB.Toggles[6]
-local oe = HeroRotationCharDB.Toggles[15]
-local H = HeroRotationCharDB.Toggles[12]
-local P = HeroRotationCharDB.Toggles[13]
-local S = HeroRotationCharDB.Toggles[14]
-local L = HeroRotationCharDB.Toggles[16]
-local G = HeroRotationCharDB.Toggles[81]
-local C = HeroRotationCharDB.Toggles[110]
-local te = HeroRotationCharDB.Toggles[17]
-local ee = HeroRotationCharDB.Toggles[111]
-local Q = HeroRotationCharDB.Toggles[18]
+local H = HeroRotationCharDB.Toggles[5]
+local te = HeroRotationCharDB.Toggles[6]
+local ee = HeroRotationCharDB.Toggles[15]
+local O = HeroRotationCharDB.Toggles[12]
+local J = HeroRotationCharDB.Toggles[13]
+local N = HeroRotationCharDB.Toggles[14]
+local C = HeroRotationCharDB.Toggles[16]
+local K = HeroRotationCharDB.Toggles[81]
+local M = HeroRotationCharDB.Toggles[110]
+local ie = HeroRotationCharDB.Toggles[17]
+local oe = HeroRotationCharDB.Toggles[111]
+local T = HeroRotationCharDB.Toggles[18]
 local p = false
-local ie = 0
-local R = strsplit
-local e = math.min
-local e = pairs
-local M = GetInventoryItemLink
-local e = V.DeathKnight.Frost
-local m = v.DeathKnight.Frost
-local X = t:CovenantID()
-y:RegisterForEvent(function()
-    X = t:CovenantID()
-end, "COVENANT_CHOSEN")
-local D = {  }
-local l = t:GetEquipment()
-local ne = l[13] and v(l[13]) or v(0)
-local he = l[14] and v(l[14]) or v(0)
-local I, a = GetInventoryItemID("player", 13)
-local T, a = GetInventoryItemID("player", 14)
+local ae = 0
+local L = strsplit
+local U = GetInventoryItemLink
+local e = Z.DeathKnight.Frost
+local y = g.DeathKnight.Frost
+local W = {  }
+local m = t:GetEquipment()
+local he = m[13] and g(m[13]) or g(0)
+local ne = m[14] and g(m[14]) or g(0)
+local F, a = GetInventoryItemID("player", 13)
+local D, a = GetInventoryItemID("player", 14)
 local a
 local a
 local a
-local O
+local A
 local a, a
 local a
 local q
-local Z
+local l
+local X
 local f
-local J
+local Q
 local w
-local A
-local k
-local N
-local u
-local Y = 11111
-local c = 11111
-local re = y.GhoulTable
+local I
+local j
+local R
+local c
+local P = 11111
+local u = 11111
+local re = b.GhoulTable
 local d = 0
 local a = 0
-local B = 0
-y:RegisterForEvent(function()
-    Y = 11111
-    c = 11111
+local G = 0
+b:RegisterForEvent(function()
+    P = 11111
+    u = 11111
 end, "PLAYER_REGEN_ENABLED")
 local r = h.Commons.Everyone
 local n = { General = h.GUISettings.General, Commons = h.GUISettings.APL.DeathKnight.Commons, Frost = h.GUISettings.APL.DeathKnight.Frost }
-local K = M("player", 16) or ""
-local W = M("player", 17) or ""
-local g, g, j = R(":", K)
-local g, E, x = R(":", W)
-local z = (j == "3370" or x == "3370")
-local F = (j == "3368" or x == "3368")
-local g = (j == "6243" or x == "6243")
-local g = IsEquippedItemType("Two-Hand")
-y:RegisterForEvent(function()
-    l = t:GetEquipment()
-    ne = l[13] and v(l[13]) or v(0)
-    he = l[14] and v(l[14]) or v(0)
-    K = M("player", 16) or ""
-    W = M("player", 17) or ""
-    E, E, j = R(":", K)
-    E, E, x = R(":", W)
-    z = (j == "3370" or x == "3370")
-    F = (j == "3368" or x == "3368")
-    g = IsEquippedItemType("Two-Hand")
+local V = U("player", 16) or ""
+local B = U("player", 17) or ""
+local k, k, z = L(":", V)
+local k, S, x = L(":", B)
+local E = (z == "3370" or x == "3370")
+local Y = (z == "3368" or x == "3368")
+local k = (z == "6243" or x == "6243")
+local k = IsEquippedItemType("Two-Hand")
+b:RegisterForEvent(function()
+    m = t:GetEquipment()
+    he = m[13] and g(m[13]) or g(0)
+    ne = m[14] and g(m[14]) or g(0)
+    V = U("player", 16) or ""
+    B = U("player", 17) or ""
+    S, S, z = L(":", V)
+    S, S, x = L(":", B)
+    E = (z == "3370" or x == "3370")
+    Y = (z == "3368" or x == "3368")
+    k = IsEquippedItemType("Two-Hand")
 end, "PLAYER_EQUIPMENT_CHANGED")
-local function x(e)
+local function z(e)
     if e then
         return 1
     else
@@ -104,23 +94,23 @@ local function x(e)
 
 end
 
-local function l(e)
+local function m(e)
     return e ~= 0
 end
 
-local function l(t)
-    return ((t:DebuffStack(e.RazoriceDebuff) + 1) / ((t:DebuffRemains(e.RazoriceDebuff) + 1) * x(z)))
+local function m(t)
+    return ((t:DebuffStack(e.RazoriceDebuff) + 1) / ((t:DebuffRemains(e.RazoriceDebuff) + 1) * z(E)))
 end
 
-local function v(t)
+local function g(t)
     return (t:DebuffDown(e.FrostFeverDebuff))
 end
 
-local function j(e)
-                if ((e:AffectingCombat() or e:IsDummy() or e:NPCID() == 153285 or e:NPCID() == 168326 or UnitExists("boss1")) and (e:IsInMeleeRange(8)) and e:GUID() == b("mouseover"):GUID()) then
+local function x(e)
+                if ((e:AffectingCombat() or e:IsDummy() or e:NPCID() == 153285 or e:NPCID() == 168326 or UnitExists("boss1")) and (e:IsInMeleeRange(8)) and e:GUID() == v("mouseover"):GUID()) then
         d = 149143
         return true
-    elseif ((e:AffectingCombat() or e:IsDummy() or e:NPCID() == 153285 or e:NPCID() == 168326 or UnitExists("boss1")) and (e:IsInMeleeRange(8)) and n.Frost.TargetSwap == "AutoSwap" and e:GUID() ~= i:GUID() and not H) then
+    elseif ((e:AffectingCombat() or e:IsDummy() or e:NPCID() == 153285 or e:NPCID() == 168326 or UnitExists("boss1")) and (e:IsInMeleeRange(8)) and n.Frost.TargetSwap == "AutoSwap" and e:GUID() ~= i:GUID() and not O) then
         d = 9999
         return true
     elseif ((e:AffectingCombat() or e:IsDummy() or e:NPCID() == 153285 or e:NPCID() == 168326 or UnitExists("boss1")) and (e:IsInMeleeRange(8)) and e:GUID() == i:GUID()) then
@@ -132,11 +122,11 @@ local function j(e)
 
 end
 
-local function v(e)
-                if ((e:AffectingCombat() or e:IsDummy() or e:NPCID() == 153285 or e:NPCID() == 168326 or UnitExists("boss1")) and (e:IsInMeleeRange(8)) and e:GUID() == b("mouseover"):GUID()) then
+local function g(e)
+                if ((e:AffectingCombat() or e:IsDummy() or e:NPCID() == 153285 or e:NPCID() == 168326 or UnitExists("boss1")) and (e:IsInMeleeRange(8)) and e:GUID() == v("mouseover"):GUID()) then
         d = 149020
         return true
-    elseif ((e:AffectingCombat() or e:IsDummy() or e:NPCID() == 153285 or e:NPCID() == 168326 or UnitExists("boss1")) and (e:IsInMeleeRange(8)) and n.Frost.TargetSwap == "AutoSwap" and e:GUID() ~= i:GUID() and not H) then
+    elseif ((e:AffectingCombat() or e:IsDummy() or e:NPCID() == 153285 or e:NPCID() == 168326 or UnitExists("boss1")) and (e:IsInMeleeRange(8)) and n.Frost.TargetSwap == "AutoSwap" and e:GUID() ~= i:GUID() and not O) then
         d = 9999
         return true
     elseif ((e:AffectingCombat() or e:IsDummy() or e:NPCID() == 153285 or e:NPCID() == 168326 or UnitExists("boss1")) and (e:IsInMeleeRange(8)) and e:GUID() == i:GUID()) then
@@ -148,10 +138,10 @@ local function v(e)
 
 end
 
-local function E()
+local function S()
     if r.TargetIsValid() then
-        O = (e.GatheringStorm:IsAvailable() or e.Everfrost:IsAvailable())
-        Var2HCheck = (g and e.MightoftheFrozenWastes:IsAvailable())
+        A = (e.GatheringStorm:IsAvailable() or e.Everfrost:IsAvailable())
+        Var2HCheck = (k and e.MightoftheFrozenWastes:IsAvailable())
         if e.HowlingBlast:IsReady() and (not i:IsInRange(8)) then
             if o(e.HowlingBlast, nil, nil, not i:IsInRange(30)) then
                 a = 49184
@@ -172,7 +162,7 @@ local function E()
 
 end
 
-local function M()
+local function L()
     if e.RemorselessWinter:IsReady() then
         if o(e.RemorselessWinter, nil, nil, not i:IsInRange(8)) then
             a = 196770
@@ -189,7 +179,7 @@ local function M()
 
     end
 
-    if e.GlacialAdvance:IsReady() and ((not u) and f) then
+    if e.GlacialAdvance:IsReady() and ((not c) and f) then
         if o(e.GlacialAdvance, nil, nil, not i:IsInRange(30)) then
             a = 194913
             return "glacial_advance aoe 4"
@@ -198,13 +188,13 @@ local function M()
     end
 
     if e.Obliterate:IsReady() and (t:BuffUp(e.KillingMachineBuff) and e.CleavingStrikes:IsAvailable() and t:BuffUp(e.DeathAndDecayBuff) and not w) then
-        if r.CastTargetIf(e.Obliterate, Enemies10yd, "max", l, v, not i:IsInMeleeRange(8)) then
+        if r.CastTargetIf(e.Obliterate, Enemies10yd, "max", m, g, not i:IsInMeleeRange(8)) then
             return "obliterate aoe 8"
         end
 
     end
 
-    if e.GlacialAdvance:IsReady() and (not u) then
+    if e.GlacialAdvance:IsReady() and (not c) then
         if o(e.GlacialAdvance, nil, nil, not i:IsInRange(30)) then
             a = 194913
             return "glacial_advance aoe 10"
@@ -221,14 +211,14 @@ local function M()
     end
 
     if e.Obliterate:IsReady() and (not w) then
-        if r.CastTargetIf(e.Obliterate, Enemies10yd, "max", l, v, not i:IsInMeleeRange(8)) then
+        if r.CastTargetIf(e.Obliterate, Enemies10yd, "max", m, g, not i:IsInMeleeRange(8)) then
             return "obliterate aoe 24"
         end
 
     end
 
-    if e.FrostStrike:IsReady() and not p and ((not u) and not e.GlacialAdvance:IsAvailable()) then
-        if r.CastTargetIf(e.FrostStrike, Enemies10yd, "max", l, j, not i:IsInMeleeRange(8)) then
+    if e.FrostStrike:IsReady() and not p and ((not c) and not e.GlacialAdvance:IsAvailable()) then
+        if r.CastTargetIf(e.FrostStrike, Enemies10yd, "max", m, x, not i:IsInMeleeRange(8)) then
             return "froststrike aoe 26"
         end
 
@@ -252,7 +242,7 @@ local function M()
 
 end
 
-local function ne()
+local function U()
     if e.Frostscythe:IsReady() and (t:BuffUp(e.KillingMachineBuff) and w) then
         if o(e.Frostscythe, nil, nil, not i:IsInRange(8)) then
             a = 207230
@@ -262,7 +252,7 @@ local function ne()
     end
 
     if e.Obliterate:IsReady() and (t:BuffUp(e.KillingMachineBuff)) then
-        if r.CastTargetIf(e.Obliterate, Enemies10yd, "max", l, v, not i:IsInMeleeRange(8)) then
+        if r.CastTargetIf(e.Obliterate, Enemies10yd, "max", m, g, not i:IsInMeleeRange(8)) then
             return "obliterate breath_oblit 4"
         end
 
@@ -302,8 +292,8 @@ local function ne()
 
 end
 
-local function W()
-    if e.RemorselessWinter:IsReady() and (O and VarAddsRemain) then
+local function ne()
+    if e.RemorselessWinter:IsReady() and (A and l) then
         if o(e.RemorselessWinter, nil, nil, not i:IsInRange(8)) then
             a = 196770
             return "remorseless_winter breath 2"
@@ -311,7 +301,7 @@ local function W()
 
     end
 
-    if e.HowlingBlast:IsReady() and (Z and t:RunicPower() > (45 - x(e.RageoftheFrozenChampion:IsAvailable()) * 8)) then
+    if e.HowlingBlast:IsReady() and (X and t:RunicPower() > (45 - z(e.RageoftheFrozenChampion:IsAvailable()) * 8)) then
         if o(e.HowlingBlast, nil, nil, not i:IsInRange(30)) then
             a = 49184
             return "howling_blast breath 4"
@@ -328,7 +318,7 @@ local function W()
     end
 
     if e.Obliterate:IsReady() and (t:BuffUp(e.KillingMachineBuff) and not w) then
-        if r.CastTargetIf(e.Obliterate, Enemies10yd, "max", l, v, not i:IsInMeleeRange(8)) then
+        if r.CastTargetIf(e.Obliterate, Enemies10yd, "max", m, g, not i:IsInMeleeRange(8)) then
             return "obliterate breath 8"
         end
 
@@ -351,13 +341,13 @@ local function W()
     end
 
     if e.Obliterate:IsReady() and (t:RunicPowerDeficit() > 40 or (t:BuffUp(e.PillarofFrostBuff) and t:RunicPowerDeficit() > 15)) then
-        if r.CastTargetIf(e.Obliterate, Enemies10yd, "max", l, v, not i:IsInMeleeRange(8)) then
+        if r.CastTargetIf(e.Obliterate, Enemies10yd, "max", m, g, not i:IsInMeleeRange(8)) then
             return "obliterate breath 14"
         end
 
     end
 
-    if (e.DeathAndDecay:IsReady() or (X == 3 and e.DeathsDue:IsReady())) and (t:RunicPower() < 32 and t:RuneTimeToX(2) > t:RunicPower() / 16) then
+    if (e.DeathAndDecay:IsReady() or (CovenantID == 3 and e.DeathsDue:IsReady())) and (t:RunicPower() < 32 and t:RuneTimeToX(2) > t:RunicPower() / 16) then
         if o(e.DeathAndDecay) then
             a = 43265
             return "death_and_decay breath 16"
@@ -382,7 +372,7 @@ local function W()
     end
 
     if e.Obliterate:IsReady() and (t:RunicPowerDeficit() > 25) then
-        if r.CastTargetIf(e.Obliterate, Enemies10yd, "max", l, v, not i:IsInMeleeRange(8)) then
+        if r.CastTargetIf(e.Obliterate, Enemies10yd, "max", m, g, not i:IsInMeleeRange(8)) then
             return "obliterate breath 22"
         end
 
@@ -406,8 +396,8 @@ local function W()
 
 end
 
-local function K()
-    if n.Commons.Enabled.Potions and s() and n.Commons.Enabled.Potions and oe and (((J or c < 25) and not h.GUISettings.General.HoldPotforBL) or (h.GUISettings.General.HoldPotforBL and t:BloodlustUp())) then
+local function V()
+    if n.Commons.Enabled.Potions and s() and n.Commons.Enabled.Potions and ee and (((Q or u < 25) and not h.GUISettings.General.HoldPotforBL) or (h.GUISettings.General.HoldPotforBL and t:BloodlustUp())) then
         local e = r.PotionSelected()
         if e and e:IsReady() then
             if o(e, nil, nil) then
@@ -419,7 +409,7 @@ local function K()
 
     end
 
-    if e.EmpowerRuneWeapon:IsCastable() and s() and (e.Obliteration:IsAvailable() and t:BuffDown(e.EmpowerRuneWeaponBuff) and t:Rune() < 6 and ((e.PillarofFrost:CooldownRemains() < 7 and (VarAddsRemain or q)) or t:BuffUp(e.PillarofFrostBuff)) or c < 20) then
+    if e.EmpowerRuneWeapon:IsCastable() and s() and (e.Obliteration:IsAvailable() and t:BuffDown(e.EmpowerRuneWeaponBuff) and t:Rune() < 6 and ((e.PillarofFrost:CooldownRemains() < 7 and (l or q)) or t:BuffUp(e.PillarofFrostBuff)) or u < 20) then
         if o(e.EmpowerRuneWeapon, nil) then
             a = 147568
             return "empower_rune_weapon cooldowns 4"
@@ -427,7 +417,7 @@ local function K()
 
     end
 
-    if e.EmpowerRuneWeapon:IsCastable() and s() and (t:BuffUp(e.BreathofSindragosa) and e.BreathofSindragosa:IsAvailable() and t:BuffDown(e.EmpowerRuneWeaponBuff) and ((t:RunicPower() < 70 and t:Rune() < 3) or y.CombatTime() < 10)) then
+    if e.EmpowerRuneWeapon:IsCastable() and s() and (t:BuffUp(e.BreathofSindragosa) and e.BreathofSindragosa:IsAvailable() and t:BuffDown(e.EmpowerRuneWeaponBuff) and ((t:RunicPower() < 70 and t:Rune() < 3) or b.CombatTime() < 10)) then
         if o(e.EmpowerRuneWeapon, nil) then
             a = 147568
             return "empower_rune_weapon cooldowns 6"
@@ -443,7 +433,7 @@ local function K()
 
     end
 
-    if e.AbominationLimb:IsCastable() and not Q and (e.BreathofSindragosa:IsAvailable() and (VarAddsRemain or q)) then
+    if e.AbominationLimb:IsCastable() and not T and ((e.Obliteration:IsAvailable() and t:BuffDown(e.PillarofFrostBuff) and (l or q)) or (u < 12)) then
         if o(e.AbominationLimb, nil, nil, not i:IsInRange(10)) then
             a = 315443
             return "abomination_limb cooldowns 10"
@@ -451,7 +441,7 @@ local function K()
 
     end
 
-    if e.AbominationLimb:IsCastable() and not Q and ((not e.BreathofSindragosa:IsAvailable()) and (not e.Obliteration:IsAvailable()) and (VarAddsRemain or q)) then
+    if e.AbominationLimb:IsCastable() and not T and (e.BreathofSindragosa:IsAvailable() and (l or q)) then
         if o(e.AbominationLimb, nil, nil, not i:IsInRange(10)) then
             a = 315443
             return "abomination_limb cooldowns 10"
@@ -459,7 +449,15 @@ local function K()
 
     end
 
-    if e.ChillStreak:IsReady() and U and (EnemiesCount10yd >= 2 and ((t:BuffDown(e.DeathAndDecayBuff) and e.CleavingStrikes:IsAvailable()) or (not e.CleavingStrikes:IsAvailable()) or EnemiesCount10yd <= 5)) then
+    if e.AbominationLimb:IsCastable() and not T and ((not e.BreathofSindragosa:IsAvailable()) and (not e.Obliteration:IsAvailable()) and (l or q)) then
+        if o(e.AbominationLimb, nil, nil, not i:IsInRange(20)) then
+            a = 315443
+            return "abomination_limb_talent cooldowns 12"
+        end
+
+    end
+
+    if e.ChillStreak:IsReady() and H and (EnemiesCount10yd >= 2 and ((t:BuffDown(e.DeathAndDecayBuff) and e.CleavingStrikes:IsAvailable()) or (not e.CleavingStrikes:IsAvailable()) or EnemiesCount10yd <= 5)) then
         if o(e.ChillStreak, nil, nil, not i:IsSpellInRange(e.ChillStreak)) then
             a = 305392
             return "chill_streak cooldowns 14"
@@ -467,7 +465,7 @@ local function K()
 
     end
 
-    if e.PillarofFrost:IsCastable() and U and (e.BreathofSindragosa:IsAvailable() and (VarAddsRemain or q) and ((not e.Icecap:IsAvailable() and (t:RunicPower() > 70 or e.BreathofSindragosa:CooldownRemains() > 40)) or (e.Icecap:IsAvailable() and (e.BreathofSindragosa:CooldownRemains() > 10 or t:BuffUp(e.BreathofSindragosa))))) then
+    if e.PillarofFrost:IsCastable() and H and (e.BreathofSindragosa:IsAvailable() and (l or q) and ((not e.Icecap:IsAvailable() and (t:RunicPower() > 70 or e.BreathofSindragosa:CooldownRemains() > 40)) or (e.Icecap:IsAvailable() and (e.BreathofSindragosa:CooldownRemains() > 10 or t:BuffUp(e.BreathofSindragosa))))) then
         if o(e.PillarofFrost, nil) then
             a = 51271
             return "pillar_of_frost cooldowns 10"
@@ -475,7 +473,7 @@ local function K()
 
     end
 
-    if e.PillarofFrost:IsCastable() and U and (e.Icecap:IsAvailable() and (not e.Obliteration:IsAvailable()) and (not e.BreathofSindragosa:IsAvailable()) and (VarAddsRemain or q)) then
+    if e.PillarofFrost:IsCastable() and H and (e.Icecap:IsAvailable() and (not e.Obliteration:IsAvailable()) and (not e.BreathofSindragosa:IsAvailable()) and (l or q)) then
         if o(e.PillarofFrost, nil) then
             a = 51271
             return "pillar_of_frost cooldowns 12"
@@ -483,7 +481,7 @@ local function K()
 
     end
 
-    if e.BreathofSindragosa:IsCastable() and not p and s() and not ee and ((t:BuffDown(e.BreathofSindragosa) and t:RunicPower() >= n.Frost.MinimumBoS and (VarAddsRemain or q)) or c < 30) then
+    if e.BreathofSindragosa:IsCastable() and not p and s() and not oe and ((t:BuffDown(e.BreathofSindragosa) and t:RunicPower() >= n.Frost.MinimumBoS and (l or q)) or u < 30) then
         if o(e.BreathofSindragosa, nil, nil, not i:IsInRange(8)) then
             a = 152279
             return "breath_of_sindragosa cooldowns 16"
@@ -491,7 +489,7 @@ local function K()
 
     end
 
-    if e.FrostwyrmsFury:IsCastable() and not C and s() and (((e.PillarofFrost:IsAvailable() and t:BuffRemains(e.PillarofFrostBuff) < t:GCD() * 2 and t:BuffUp(e.PillarofFrostBuff) and (not e.Obliteration:IsAvailable())) or not e.PillarofFrost:IsAvailable()) or c < 3) then
+    if e.FrostwyrmsFury:IsCastable() and not M and s() and (((e.PillarofFrost:IsAvailable() and t:BuffRemains(e.PillarofFrostBuff) < t:GCD() * 2 and t:BuffUp(e.PillarofFrostBuff) and (not e.Obliteration:IsAvailable())) or not e.PillarofFrost:IsAvailable()) or u < 3) then
         if o(e.FrostwyrmsFury, nil, nil, not i:IsInRange(40)) then
             a = 279302
             return "frostwyrms_fury cooldowns 18"
@@ -499,7 +497,7 @@ local function K()
 
     end
 
-    if e.FrostwyrmsFury:IsCastable() and not C and s() and (EnemiesCount10yd >= 2 and (e.PillarofFrost:IsAvailable() and t:BuffUp(e.PillarofFrostBuff)) and (t:BuffRemains(e.PillarofFrostBuff) < t:GCD() * 2)) then
+    if e.FrostwyrmsFury:IsCastable() and not M and s() and (EnemiesCount10yd >= 2 and (e.PillarofFrost:IsAvailable() and t:BuffUp(e.PillarofFrostBuff)) and (t:BuffRemains(e.PillarofFrostBuff) < t:GCD() * 2)) then
         if o(e.FrostwyrmsFury, nil, nil, not i:IsInRange(40)) then
             a = 279302
             return "frostwyrms_fury cooldowns 20"
@@ -507,7 +505,7 @@ local function K()
 
     end
 
-    if e.FrostwyrmsFury:IsCastable() and not C and s() and (e.Obliteration:IsAvailable() and ((e.PillarofFrost:IsAvailable() and t:BuffUp(e.PillarofFrostBuff) and (not g)) or (t:BuffDown(e.PillarofFrostBuff) and g and e.PillarofFrost:CooldownRemains() > 0) or (not e.PillarofFrost:IsAvailable())) and ((t:BuffRemains(e.PillarofFrostBuff) < t:GCD() or (t:BuffUp(e.UnholyStrengthBuff) and t:BuffRemains(e.UnholyStrengthBuff) < t:GCD())) and (i:DebuffStack(e.RazoriceDebuff) == 5 or ((not z) and not e.GlacialAdvance:IsAvailable())))) then
+    if e.FrostwyrmsFury:IsCastable() and not M and s() and (e.Obliteration:IsAvailable() and ((e.PillarofFrost:IsAvailable() and t:BuffUp(e.PillarofFrostBuff) and (not k)) or (t:BuffDown(e.PillarofFrostBuff) and k and e.PillarofFrost:CooldownRemains() > 0) or (not e.PillarofFrost:IsAvailable())) and ((t:BuffRemains(e.PillarofFrostBuff) < t:GCD() or (t:BuffUp(e.UnholyStrengthBuff) and t:BuffRemains(e.UnholyStrengthBuff) < t:GCD())) and (i:DebuffStack(e.RazoriceDebuff) == 5 or ((not E) and not e.GlacialAdvance:IsAvailable())))) then
         if o(e.FrostwyrmsFury, nil, nil, not i:IsInRange(40)) then
             a = 279302
             return "frostwyrms_fury cooldowns 22"
@@ -523,7 +521,7 @@ local function K()
 
     end
 
-    if e.SoulReaper:IsReady() and (c > 5 and i:TimeToX(35) < 5 and EnemiesCount10yd <= 2 and ((t:BuffUp(e.BreathofSindragosa) and t:RunicPower() > 40) or (t:BuffDown(e.BreathofSindragosa) and (not e.Obliteration:IsAvailable())) or (e.Obliteration:IsAvailable() and t:BuffDown(e.PillarofFrostBuff)))) then
+    if e.SoulReaper:IsReady() and (u > 5 and i:TimeToX(35) < 5 and EnemiesCount10yd <= 2 and ((t:BuffUp(e.BreathofSindragosa) and t:RunicPower() > 40) or (t:BuffDown(e.BreathofSindragosa) and (not e.Obliteration:IsAvailable())) or (e.Obliteration:IsAvailable() and t:BuffDown(e.PillarofFrostBuff)))) then
         if o(e.SoulReaper, nil, nil, not i:IsSpellInRange(e.SoulReaper)) then
             a = 343294
             return "soul_reaper cooldowns 24"
@@ -539,7 +537,7 @@ local function K()
 
     end
 
-    if (e.DeathAndDecay:IsReady() or (X == 3 and e.DeathsDue:IsReady())) and (t:BuffDown(e.DeathAndDecayBuff) and VarAddsRemain and ((t:BuffUp(e.PillarofFrostBuff) and t:BuffRemains(e.PillarofFrostBuff) > 5) or (t:BuffDown(e.PillarofFrostBuff))) and (EnemiesCount10yd > 5 or (e.CleavingStrikes:IsAvailable() and EnemiesCount10yd >= 2))) then
+    if e.DeathAndDecay:IsReady() and (t:BuffDown(e.DeathAndDecayBuff) and l and ((t:BuffUp(e.PillarofFrostBuff) and t:BuffRemains(e.PillarofFrostBuff) > 5) or (t:BuffDown(e.PillarofFrostBuff))) and (EnemiesCount10yd > 5 or (e.CleavingStrikes:IsAvailable() and EnemiesCount10yd >= 2))) then
         if o(e.DeathAndDecay, nil) then
             a = 43265
             return "death_and_decay cooldowns 30"
@@ -549,8 +547,8 @@ local function K()
 
 end
 
-local function R()
-    if e.ChainsofIce:IsReady() and (c < t:GCD() and (t:Rune() < 2 or ((t:BuffDown(e.KillingMachineBuff) and (((not g) and t:BuffStack(e.ColdHeartBuff) >= 4) or (g and t:BuffStack(e.ColdHeartBuff) > 8))) or (t:BuffUp(e.KillingMachineBuff) and (((not g) and t:BuffStack(e.ColdHeartBuff) > 8) or (g and t:BuffStack(e.ColdHeartBuff) > 10)))))) then
+local function B()
+    if e.ChainsofIce:IsReady() and (u < t:GCD() and (t:Rune() < 2 or ((t:BuffDown(e.KillingMachineBuff) and (((not k) and t:BuffStack(e.ColdHeartBuff) >= 4) or (k and t:BuffStack(e.ColdHeartBuff) > 8))) or (t:BuffUp(e.KillingMachineBuff) and (((not k) and t:BuffStack(e.ColdHeartBuff) > 8) or (k and t:BuffStack(e.ColdHeartBuff) > 10)))))) then
         if o(e.ChainsofIce, nil, nil, not i:IsInRange(30)) then
             a = 45524
             return "chains_of_ice coldheart 2"
@@ -558,7 +556,7 @@ local function R()
 
     end
 
-    if e.ChainsofIce:IsReady() and (not e.Obliteration:IsAvailable() and t:BuffUp(e.PillarofFrostBuff) and t:BuffStack(e.ColdHeartBuff) >= 10 and ((t:BuffRemains(e.PillarofFrostBuff) < t:GCD() * (1 + x(e.FrostwyrmsFury:IsAvailable() and e.FrostwyrmsFury:IsReady()))) or (t:BuffUp(e.UnholyStrengthBuff) and t:BuffRemains(e.UnholyStrengthBuff) < t:GCD()))) then
+    if e.ChainsofIce:IsReady() and (not e.Obliteration:IsAvailable() and t:BuffUp(e.PillarofFrostBuff) and t:BuffStack(e.ColdHeartBuff) >= 10 and ((t:BuffRemains(e.PillarofFrostBuff) < t:GCD() * (1 + z(e.FrostwyrmsFury:IsAvailable() and e.FrostwyrmsFury:IsReady()))) or (t:BuffUp(e.UnholyStrengthBuff) and t:BuffRemains(e.UnholyStrengthBuff) < t:GCD()))) then
         if o(e.ChainsofIce, nil, nil, not i:IsInRange(30)) then
             a = 45524
             return "chains_of_ice coldheart 4"
@@ -566,7 +564,7 @@ local function R()
 
     end
 
-    if e.ChainsofIce:IsReady() and (not e.Obliteration:IsAvailable() and F and t:BuffDown(e.PillarofFrostBuff) and e.PillarofFrost:CooldownRemains() > 15 and ((t:BuffStack(e.ColdHeartBuff) >= 10 and t:BuffUp(e.UnholyStrengthBuff)) or t:BuffStack(e.ColdHeartBuff) >= 13)) then
+    if e.ChainsofIce:IsReady() and (not e.Obliteration:IsAvailable() and Y and t:BuffDown(e.PillarofFrostBuff) and e.PillarofFrost:CooldownRemains() > 15 and ((t:BuffStack(e.ColdHeartBuff) >= 10 and t:BuffUp(e.UnholyStrengthBuff)) or t:BuffStack(e.ColdHeartBuff) >= 13)) then
         if o(e.ChainsofIce, nil, nil, not i:IsInRange(30)) then
             a = 45524
             return "chains_of_ice coldheart 6"
@@ -574,7 +572,7 @@ local function R()
 
     end
 
-    if e.ChainsofIce:IsReady() and (not e.Obliteration:IsAvailable() and not F and t:BuffStack(e.ColdHeartBuff) >= 10 and t:BuffDown(e.PillarofFrostBuff) and e.PillarofFrost:CooldownRemains() > 20) then
+    if e.ChainsofIce:IsReady() and (not e.Obliteration:IsAvailable() and not Y and t:BuffStack(e.ColdHeartBuff) >= 10 and t:BuffDown(e.PillarofFrostBuff) and e.PillarofFrost:CooldownRemains() > 20) then
         if o(e.ChainsofIce, nil, nil, not i:IsInRange(30)) then
             a = 45524
             return "chains_of_ice coldheart 8"
@@ -592,7 +590,7 @@ local function R()
 
 end
 
-local function g()
+local function k()
     if e.RemorselessWinter:IsReady() and (EnemiesCount10yd > 3) then
         if o(e.RemorselessWinter, nil, nil, not i:IsInRange(8)) then
             a = 196770
@@ -602,7 +600,7 @@ local function g()
     end
 
     if e.Obliterate:IsReady() and (t:BuffUp(e.KillingMachineBuff) and not w) then
-        if r.CastTargetIf(e.Obliterate, Enemies10yd, "max", l, v, not i:IsInMeleeRange(8)) then
+        if r.CastTargetIf(e.Obliterate, Enemies10yd, "max", m, g, not i:IsInMeleeRange(8)) then
             return "obliterate obliteration 6"
         end
 
@@ -624,8 +622,8 @@ local function g()
 
     end
 
-    if e.FrostStrike:IsReady() and not p and (t:BuffDown(e.KillingMachineBuff) and (f or (i:DebuffStack(e.RazoriceDebuff) == 5 and e.ShatteringBlade:IsAvailable())) and (not u) and ((not e.GlacialAdvance:IsAvailable()) or EnemiesCount10yd == 1)) then
-        if r.CastTargetIf(e.FrostStrike, Enemies10yd, "max", l, j, not i:IsInMeleeRange(8)) then
+    if e.FrostStrike:IsReady() and not p and (t:BuffDown(e.KillingMachineBuff) and (f or (i:DebuffStack(e.RazoriceDebuff) == 5 and e.ShatteringBlade:IsAvailable())) and (not c) and ((not e.GlacialAdvance:IsAvailable()) or EnemiesCount10yd == 1)) then
+        if r.CastTargetIf(e.FrostStrike, Enemies10yd, "max", m, x, not i:IsInMeleeRange(8)) then
             return "froststrike obliteration 12"
         end
 
@@ -639,7 +637,7 @@ local function g()
 
     end
 
-    if e.GlacialAdvance:IsReady() and ((not u) and f and t:BuffDown(e.KillingMachineBuff) and EnemiesCount10yd >= 2) then
+    if e.GlacialAdvance:IsReady() and ((not c) and f and t:BuffDown(e.KillingMachineBuff) and EnemiesCount10yd >= 2) then
         if o(e.GlacialAdvance, nil, nil, i:IsInRange(100)) then
             a = 194913
             return "glacial_advance obliteration 16"
@@ -647,8 +645,8 @@ local function g()
 
     end
 
-    if e.FrostStrike:IsReady() and not p and (t:BuffDown(e.KillingMachineBuff) and (not u) and ((not e.GlacialAdvance:IsAvailable()) or EnemiesCount10yd == 1)) then
-        if r.CastTargetIf(e.FrostStrike, Enemies10yd, "max", l, j, not i:IsInMeleeRange(8)) then
+    if e.FrostStrike:IsReady() and not p and (t:BuffDown(e.KillingMachineBuff) and (not c) and ((not e.GlacialAdvance:IsAvailable()) or EnemiesCount10yd == 1)) then
+        if r.CastTargetIf(e.FrostStrike, Enemies10yd, "max", m, x, not i:IsInMeleeRange(8)) then
             return "froststrike obliteration 18"
         end
 
@@ -670,7 +668,7 @@ local function g()
 
     end
 
-    if e.GlacialAdvance:IsReady() and ((not u) and EnemiesCount10yd >= 2) then
+    if e.GlacialAdvance:IsReady() and ((not c) and EnemiesCount10yd >= 2) then
         if o(e.GlacialAdvance, nil, nil, i:IsInRange(100)) then
             a = 194913
             return "glacial_advance obliteration 24"
@@ -678,8 +676,8 @@ local function g()
 
     end
 
-    if e.FrostStrike:IsReady() and not p and ((not u) and ((not e.GlacialAdvance:IsAvailable()) or EnemiesCount10yd == 1)) then
-        if r.CastTargetIf(e.FrostStrike, EnemiesMelee, "max", l, j) then
+    if e.FrostStrike:IsReady() and not p and ((not c) and ((not e.GlacialAdvance:IsAvailable()) or EnemiesCount10yd == 1)) then
+        if r.CastTargetIf(e.FrostStrike, EnemiesMelee, "max", m, x) then
             return "frost_strike obliteration 26"
         end
 
@@ -694,7 +692,7 @@ local function g()
     end
 
     if e.Obliterate:IsReady() then
-        if r.CastTargetIf(e.Obliterate, EnemiesMelee, "max", l, v) then
+        if r.CastTargetIf(e.Obliterate, EnemiesMelee, "max", m, g) then
             return "obliterate obliteration 30"
         end
 
@@ -702,8 +700,8 @@ local function g()
 
 end
 
-local function l()
-    if e.RemorselessWinter:IsReady() and (O or VarAddsRemain) then
+local function m()
+    if e.RemorselessWinter:IsReady() and (A or l) then
         if o(e.RemorselessWinter, nil, nil, not i:IsInRange(8)) then
             a = 196770
             return "remorseless_winter standard 2"
@@ -711,7 +709,7 @@ local function l()
 
     end
 
-    if e.Frostscythe:IsReady() and ((not N) and t:BuffUp(e.KillingMachineBuff) and w) then
+    if e.Frostscythe:IsReady() and ((not R) and t:BuffUp(e.KillingMachineBuff) and w) then
         if o(e.Frostscythe, nil, nil, not i:IsInRange(8)) then
             a = 207230
             return "frostscythe standard 4"
@@ -719,7 +717,7 @@ local function l()
 
     end
 
-    if e.Obliterate:IsReady() and ((not N) and t:BuffUp(e.KillingMachineBuff)) then
+    if e.Obliterate:IsReady() and ((not R) and t:BuffUp(e.KillingMachineBuff)) then
         if o(e.Obliterate, nil, nil, not i:IsInRange(8)) then
             a = 49020
             return "obliterate standard 6"
@@ -743,7 +741,7 @@ local function l()
 
     end
 
-    if e.FrostStrike:IsReady() and ((not u) and (f or t:RunicPowerDeficit() < 25 or i:DebuffStack(e.RazoriceDebuff) == 5 and e.ShatteringBlade:IsAvailable())) then
+    if e.FrostStrike:IsReady() and ((not c) and (f or t:RunicPowerDeficit() < 25 or i:DebuffStack(e.RazoriceDebuff) == 5 and e.ShatteringBlade:IsAvailable())) then
         if o(e.FrostStrike, nil, nil, not i:IsInRange(8)) then
             a = 49143
             return "frost_strike standard 12"
@@ -751,7 +749,7 @@ local function l()
 
     end
 
-    if e.HowlingBlast:IsReady() and (Z) then
+    if e.HowlingBlast:IsReady() and (X) then
         if o(e.HowlingBlast, nil, nil, not i:IsInRange(30)) then
             a = 49184
             return "howling_blast standard 14"
@@ -759,7 +757,7 @@ local function l()
 
     end
 
-    if e.GlacialAdvance:IsReady() and ((not u) and (not z) and (i:DebuffStack(e.RazoriceDebuff) < 5 or i:DebuffRemains(e.RazoriceDebuff) < t:GCD() * 3)) then
+    if e.GlacialAdvance:IsReady() and ((not c) and (not E) and (i:DebuffStack(e.RazoriceDebuff) < 5 or i:DebuffRemains(e.RazoriceDebuff) < t:GCD() * 3)) then
         if o(e.GlacialAdvance, nil, nil, i:IsInRange(100)) then
             a = 194913
             return "glacial_advance standard 16"
@@ -767,7 +765,7 @@ local function l()
 
     end
 
-    if e.Obliterate:IsReady() and (not N) then
+    if e.Obliterate:IsReady() and (not R) then
         if o(e.Obliterate, nil, nil, not i:IsInRange(8)) then
             a = 49020
             return "obliterate standard 18"
@@ -790,7 +788,7 @@ local function l()
 
     end
 
-    if e.FrostStrike:IsReady() and (not u) then
+    if e.FrostStrike:IsReady() and (not c) then
         if o(e.FrostStrike, nil, nil, not i:IsInRange(8)) then
             a = 49143
             return "frost_strike standard 24"
@@ -800,8 +798,8 @@ local function l()
 
 end
 
-local function v()
-    if (J) then
+local function g()
+    if (Q) then
         if e.BloodFury:IsCastable() and s() and n.Commons.Enabled.Racials then
             if o(e.BloodFury, nil) then
                 a = 20572
@@ -862,9 +860,9 @@ local function v()
 
 end
 
-local function j()
-    if m.GaveloftheFirstArbiter:IsEquippedAndReady() and i:IsInRange(30) and s() and not te then
-        if o(m.GaveloftheFirstArbiter, nil, nil, not i:IsInRange(30)) then
+local function x()
+    if y.GaveloftheFirstArbiter:IsEquippedAndReady() and i:IsInRange(30) and s() and not ie then
+        if o(y.GaveloftheFirstArbiter, nil, nil, not i:IsInRange(30)) then
             a = 16
             return "gavel_of_the_first_arbiter trinkets 4"
         end
@@ -873,13 +871,13 @@ local function j()
 
     if s() then
         if ((n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket) and s()) then
-            local e = t:GetUseableTrinkets(D)
+            local e = t:GetUseableTrinkets(W)
             if e then
                 if o(e, nil, nil) then
-                                        if e:ID() == I and n.Commons.Enabled.TopTrinket then
+                                        if e:ID() == F and n.Commons.Enabled.TopTrinket then
                         a = 24
                         return "top trinket 1"
-                    elseif e:ID() == T and n.Commons.Enabled.BottomTrinket then
+                    elseif e:ID() == D and n.Commons.Enabled.BottomTrinket then
                         a = 30
                         return "top trinket 2"
                     end
@@ -894,40 +892,40 @@ local function j()
 
 end
 
-local function x()
-    ae = HeroRotationCharDB.Toggles[6]
+local function z()
+    te = HeroRotationCharDB.Toggles[6]
     se = HeroRotationCharDB.Toggles[4]
-    U = HeroRotationCharDB.Toggles[5] or s()
-    H = HeroRotationCharDB.Toggles[12]
-    P = HeroRotationCharDB.Toggles[13]
-    S = HeroRotationCharDB.Toggles[14]
-    oe = HeroRotationCharDB.Toggles[15]
-    L = HeroRotationCharDB.Toggles[16]
-    G = HeroRotationCharDB.Toggles[81]
-    C = HeroRotationCharDB.Toggles[110]
-    te = HeroRotationCharDB.Toggles[17]
-    ee = HeroRotationCharDB.Toggles[111]
-    Q = HeroRotationCharDB.Toggles[18]
+    H = HeroRotationCharDB.Toggles[5] or s()
+    O = HeroRotationCharDB.Toggles[12]
+    J = HeroRotationCharDB.Toggles[13]
+    N = HeroRotationCharDB.Toggles[14]
+    ee = HeroRotationCharDB.Toggles[15]
+    C = HeroRotationCharDB.Toggles[16]
+    K = HeroRotationCharDB.Toggles[81]
+    M = HeroRotationCharDB.Toggles[110]
+    ie = HeroRotationCharDB.Toggles[17]
+    oe = HeroRotationCharDB.Toggles[111]
+    T = HeroRotationCharDB.Toggles[18]
     p = false
-    ie = 0
+    ae = 0
     for e = 1, 20 do
         if select(10, UnitDebuff("player", e)) == 240447 then
             if select(6, UnitDebuff("player", e)) ~= nil then
-                ie = (select(6, UnitDebuff("player", e)) - (GetTime()))
+                ae = (select(6, UnitDebuff("player", e)) - (GetTime()))
             end
 
         end
 
     end
 
-    I = GetInventoryItemID("player", 13)
-    T = GetInventoryItemID("player", 14)
+    F = GetInventoryItemID("player", 13)
+    D = GetInventoryItemID("player", 14)
             if not n.Commons.Enabled.TopTrinket and not n.Commons.Enabled.BottomTrinket then
-        D = { I, T }
+        W = { F, D }
     elseif not n.Commons.Enabled.TopTrinket then
-        D = { I }
+        W = { F }
     elseif not n.Commons.Enabled.BottomTrinket then
-        D = { T }
+        W = { D }
     end
 
 end
@@ -947,10 +945,10 @@ local function s()
 
     if r.TargetIsValid() or t:AffectingCombat() then
         if IsInRaid() and UnitExists("boss1") then
-            Y = y.BossFightRemains(nil, true)
-            c = Y
-            if c == 11111 then
-                c = y.FightRemains(Enemies10yd, false)
+            P = b.BossFightRemains(nil, true)
+            u = P
+            if u == 11111 then
+                u = b.FightRemains(Enemies10yd, false)
             end
 
         end
@@ -960,7 +958,7 @@ local function s()
     if not BotOn then
         d = 0
         a = 0
-        B = 0
+        G = 0
     end
 
     if d > 0 then
@@ -971,14 +969,14 @@ local function s()
         a = 0
     end
 
-    if B > 0 then
-        B = 0
+    if G > 0 then
+        G = 0
     end
 
-    x()
+    z()
     if h.QueuedCast() then
         a = h.QueuedCast()
-        return "Custom Queue " .. V(a):ID()
+        return "Custom Queue " .. Z(a):ID()
     end
 
         if h.GUISettings.General.OpenerReset > 0 and not HeroRotationCharDB.Toggles[6] then
@@ -990,54 +988,54 @@ local function s()
         h.Print("Opener is now " .. (HeroRotationCharDB.Toggles[6] and "|cff00ff00enabled|r." or "|cffff0000disabled|r."))
     end
 
-        if (P and e.AntiMagicZone:IsUsableP() and t:AffectingCombat() and e.AntiMagicZone:CooldownRemains(BypassRecovery) <= 0) then
+        if (J and e.AntiMagicZone:IsUsableP() and t:AffectingCombat() and e.AntiMagicZone:CooldownRemains(BypassRecovery) <= 0) then
         if o(e.AntiMagicZone, nil, nil, nil) then
             a = 51052
             return "queue AMZ"
         end
 
-    elseif ((not e.AntiMagicZone:IsUsableP() or e.AntiMagicZone:CooldownRemains() > 0 or not t:AffectingCombat()) and P) then
+    elseif ((not e.AntiMagicZone:IsUsableP() or e.AntiMagicZone:CooldownRemains() > 0 or not t:AffectingCombat()) and J) then
         HeroRotationCharDB.Toggles[13] = not HeroRotationCharDB.Toggles[13]
         h.Print("Anti-Magic Zone Queue is now " .. (HeroRotationCharDB.Toggles[13] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-            if (S and e.DeathGrip:IsUsableP() and e.DeathGrip:CooldownRemains(BypassRecovery) <= 0 and b("mouseover"):GUID() ~= nil) then
+            if (N and e.DeathGrip:IsUsableP() and e.DeathGrip:CooldownRemains(BypassRecovery) <= 0 and v("mouseover"):GUID() ~= nil) then
         if o(e.DeathGrip, nil, nil, nil) then
             d = 149576
             return "queue DeathGrip MO"
         end
 
-    elseif (S and e.DeathGrip:IsUsableP() and e.DeathGrip:CooldownRemains(BypassRecovery) <= 0 and r.TargetIsValid()) then
+    elseif (N and e.DeathGrip:IsUsableP() and e.DeathGrip:CooldownRemains(BypassRecovery) <= 0 and r.TargetIsValid()) then
         if o(e.DeathGrip, nil, nil, nil) then
             a = 49576
             return "queue DeathGrip"
         end
 
-    elseif ((not e.DeathGrip:IsUsableP() or e.DeathGrip:CooldownRemains() > 0 or not r.TargetIsValid()) and S) then
+    elseif ((not e.DeathGrip:IsUsableP() or e.DeathGrip:CooldownRemains() > 0 or not r.TargetIsValid()) and N) then
         HeroRotationCharDB.Toggles[14] = not HeroRotationCharDB.Toggles[14]
         h.Print("Death Grip Queue is now " .. (HeroRotationCharDB.Toggles[14] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-            if (L and e.Asphyxiate:IsUsableP() and e.Asphyxiate:CooldownRemains(BypassRecovery) <= 0 and b("mouseover"):GUID() ~= nil) then
+            if (C and e.Asphyxiate:IsUsableP() and e.Asphyxiate:CooldownRemains(BypassRecovery) <= 0 and v("mouseover"):GUID() ~= nil) then
         if o(e.Asphyxiate, nil, nil, nil) then
             d = 1221562
             return "queue Asphyxiate MO"
         end
 
-    elseif (L and e.Asphyxiate:IsUsableP() and e.Asphyxiate:CooldownRemains(BypassRecovery) <= 0 and r.TargetIsValid()) then
+    elseif (C and e.Asphyxiate:IsUsableP() and e.Asphyxiate:CooldownRemains(BypassRecovery) <= 0 and r.TargetIsValid()) then
         if o(e.Asphyxiate, nil, nil, nil) then
             a = 221562
             return "queue Asphyxiate"
         end
 
-    elseif ((not e.Asphyxiate:IsUsableP() or e.Asphyxiate:CooldownRemains() > 0) and L) then
+    elseif ((not e.Asphyxiate:IsUsableP() or e.Asphyxiate:CooldownRemains() > 0) and C) then
         HeroRotationCharDB.Toggles[16] = not HeroRotationCharDB.Toggles[16]
         h.Print("Asphyxiate Queue is now " .. (HeroRotationCharDB.Toggles[16] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-        if (G and e.ControlUndead:IsUsableP() and e.ControlUndead:CooldownRemains(BypassRecovery) <= 0 and not t:PrevGCD(1, e.ControlUndead)) then
+        if (K and e.ControlUndead:IsUsableP() and e.ControlUndead:CooldownRemains(BypassRecovery) <= 0 and not t:PrevGCD(1, e.ControlUndead)) then
         if h.Cast(e.ControlUndead, nil, nil, nil) then
-            if b("mouseover"):GUID() ~= nil and b("mouseover"):IsInRange(30) then
+            if v("mouseover"):GUID() ~= nil and v("mouseover"):IsInRange(30) then
                 d = 1111673
                 return "queue ControlUndead MO"
             else
@@ -1047,12 +1045,12 @@ local function s()
 
         end
 
-    elseif ((not e.ControlUndead:IsUsableP() or e.ControlUndead:CooldownRemains() > 0 or t:PrevGCD(1, e.ControlUndead)) and G) then
+    elseif ((not e.ControlUndead:IsUsableP() or e.ControlUndead:CooldownRemains() > 0 or t:PrevGCD(1, e.ControlUndead)) and K) then
         HeroRotationCharDB.Toggles[81] = not HeroRotationCharDB.Toggles[81]
         h.Print("Control Undead Queue is now " .. (HeroRotationCharDB.Toggles[81] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-    if t:IsChanneling(V(324631)) then
+    if t:IsChanneling(Z(324631)) then
                 if t:AffectingCombat() and n.Frost.CastCancelFC then
             a = 1999
         elseif o(e.Pool, nil, nil, nil) then
@@ -1062,8 +1060,8 @@ local function s()
 
     end
 
-    if not t:AffectingCombat() and r.TargetIsValid() and not t:IsDeadOrGhost() and ae then
-        local e = E()
+    if not t:AffectingCombat() and r.TargetIsValid() and not t:IsDeadOrGhost() and te then
+        local e = S()
         if e then
             return e
         end
@@ -1084,29 +1082,29 @@ local function s()
 
         end
 
-        if not i:IsInMeleeRange(15) and EnemiesMeleeCount > 0 and n.Frost.TargetSwap == "AutoSwap" and not H then
+        if not i:IsInMeleeRange(15) and EnemiesMeleeCount > 0 and n.Frost.TargetSwap == "AutoSwap" and not O then
             d = 9999
         end
 
         if (n.Commons.UseDefensives) then
-            if t:HealthPercentage() < n.Commons.HealthstoneHP and m.Healthstone:IsReady() and m.Healthstone:CooldownRemains() <= 0 then
-                if o(m.Healthstone, nil) then
+            if t:HealthPercentage() < n.Commons.HealthstoneHP and y.Healthstone:IsReady() and y.Healthstone:CooldownRemains() <= 0 then
+                if o(y.Healthstone, nil) then
                     a = 40
                     return "Healthstone HP"
                 end
 
             end
 
-            if t:HealthPercentage() < n.Commons.HealPotHP and m.HealPot:IsReady() and m.CosmicHealPot:CooldownRemains() <= 0 then
-                if o(m.CosmicHealPot, nil) then
+            if t:HealthPercentage() < n.Commons.HealPotHP and y.HealPot:IsReady() and y.CosmicHealPot:CooldownRemains() <= 0 then
+                if o(y.CosmicHealPot, nil) then
                     a = 45
                     return "Cosmic HealPot HP"
                 end
 
             end
 
-            if t:HealthPercentage() < n.Commons.HealPotHP and m.HealPot:IsReady() and m.HealPot:CooldownRemains() <= 0 then
-                if o(m.HealPot, nil) then
+            if t:HealthPercentage() < n.Commons.HealPotHP and y.HealPot:IsReady() and y.HealPot:CooldownRemains() <= 0 then
+                if o(y.HealPot, nil) then
                     a = 41
                     return "HealPot HP"
                 end
@@ -1164,25 +1162,25 @@ local function s()
         end
 
         q = (EnemiesCount10yd == 1 or not _())
-        VarAddsRemain = (EnemiesCount10yd >= 2 and _())
-        Z = (t:BuffUp(e.RimeBuff) and (e.RageoftheFrozenChampion:IsAvailable() or e.Avalanche:IsAvailable() or e.Icebreaker:IsAvailable()))
+        l = (EnemiesCount10yd >= 2 and _())
+        X = (t:BuffUp(e.RimeBuff) and (e.RageoftheFrozenChampion:IsAvailable() or e.Avalanche:IsAvailable() or e.Icebreaker:IsAvailable()))
         f = ((e.UnleashedFrenzy:IsAvailable() and (t:BuffRemains(e.UnleashedFrenzyBuff) < t:GCD() * 3 or t:BuffStack(e.UnleashedFrenzyBuff) < 3)) or (e.IcyTalons:IsAvailable() and (t:BuffRemains(e.IcyTalonsBuff) < t:GCD() * 3 or t:BuffStack(e.IcyTalonsBuff) < 3)))
-        J = ((e.PillarofFrost:IsAvailable() and t:BuffUp(e.PillarofFrostBuff)) or ((not e.PillarofFrost:IsAvailable()) and t:BuffUp(e.EmpowerRuneWeaponBuff)) or ((not e.PillarofFrost:IsAvailable()) and not e.EmpowerRuneWeapon:IsAvailable()))
+        Q = ((e.PillarofFrost:IsAvailable() and t:BuffUp(e.PillarofFrostBuff)) or ((not e.PillarofFrost:IsAvailable()) and t:BuffUp(e.EmpowerRuneWeaponBuff)) or ((not e.PillarofFrost:IsAvailable()) and not e.EmpowerRuneWeapon:IsAvailable()))
         w = ((e.Frostscythe:IsAvailable() and (t:BuffUp(e.KillingMachineBuff)) or EnemiesCount10yd >= 3) and (((not e.ImprovedObliterate:IsAvailable()) and (not e.FrigidExecutioner:IsAvailable()) and (not e.Frostreaper:IsAvailable()) and (not e.MightoftheFrozenWastes:IsAvailable())) or (not e.CleavingStrikes:IsAvailable()) or (e.CleavingStrikes:IsAvailable() and (EnemiesCount10yd > 6 or (t:BuffDown(e.DeathAndDecayBuff) and EnemiesCount10yd > 3)))))
         if t:RunicPower() < 35 and t:Rune() < 2 and e.PillarofFrost:CooldownRemains() < 10 then
-            A = (((e.PillarofFrost:CooldownRemains() + 1) / t:GCD()) / ((t:Rune() + 3) * (t:RunicPower() + 5)) * 100)
+            I = (((e.PillarofFrost:CooldownRemains() + 1) / t:GCD()) / ((t:Rune() + 3) * (t:RunicPower() + 5)) * 100)
         else
-            A = (t:GCD() * 2)
+            I = (t:GCD() * 2)
         end
 
         if t:RunicPowerDeficit() > 10 and e.BreathofSindragosa:CooldownRemains() < 10 then
-            k = (((e.BreathofSindragosa:CooldownRemains() + 1) / t:GCD()) / ((t:Rune() + 1) * (t:RunicPower() + 20)) * 100)
+            j = (((e.BreathofSindragosa:CooldownRemains() + 1) / t:GCD()) / ((t:Rune() + 1) * (t:RunicPower() + 20)) * 100)
         else
-            k = (t:GCD() * 2)
+            j = (t:GCD() * 2)
         end
 
-        N = (e.Obliteration:IsAvailable() and e.PillarofFrost:CooldownRemains() < A)
-        u = ((e.BreathofSindragosa:IsAvailable() and e.BreathofSindragosa:CooldownRemains() < k) or (e.Obliteration:IsAvailable() and t:RunicPower() < 35 and e.PillarofFrost:CooldownRemains() < A))
+        R = (e.Obliteration:IsAvailable() and e.PillarofFrost:CooldownRemains() < I)
+        c = ((e.BreathofSindragosa:IsAvailable() and e.BreathofSindragosa:CooldownRemains() < j) or (e.Obliteration:IsAvailable() and t:RunicPower() < 35 and e.PillarofFrost:CooldownRemains() < I))
         if e.HowlingBlast:IsReady() and (i:DebuffDown(e.FrostFeverDebuff) and EnemiesCount10yd >= 2 and ((not e.Obliteration:IsAvailable()) or (e.Obliteration:IsAvailable() and (t:BuffDown(e.PillarofFrostBuff) or (t:BuffUp(e.PillarofFrostBuff) and t:BuffDown(e.KillingMachineBuff)))))) then
             if o(e.HowlingBlast, nil) then
                 a = 49184
@@ -1191,7 +1189,7 @@ local function s()
 
         end
 
-        if e.GlacialAdvance:IsReady() and (EnemiesCount10yd >= 2 and f and e.Obliteration:IsAvailable() and e.BreathofSindragosa:IsAvailable() and t:BuffDown(e.PillarofFrostBuff) and t:BuffDown(e.BreathofSindragosa) and e.BreathofSindragosa:CooldownRemains() > k) then
+        if e.GlacialAdvance:IsReady() and (EnemiesCount10yd >= 2 and f and e.Obliteration:IsAvailable() and e.BreathofSindragosa:IsAvailable() and t:BuffDown(e.PillarofFrostBuff) and t:BuffDown(e.BreathofSindragosa) and e.BreathofSindragosa:CooldownRemains() > j) then
             if o(e.GlacialAdvance, nil, nil, 100) then
                 a = 194913
                 return "glacial_advance main 6"
@@ -1199,7 +1197,7 @@ local function s()
 
         end
 
-        if e.GlacialAdvance:IsReady() and (EnemiesCount10yd >= 2 and f and e.BreathofSindragosa:IsAvailable() and t:BuffDown(e.BreathofSindragosa) and e.BreathofSindragosa:CooldownRemains() > k) then
+        if e.GlacialAdvance:IsReady() and (EnemiesCount10yd >= 2 and f and e.BreathofSindragosa:IsAvailable() and t:BuffDown(e.BreathofSindragosa) and e.BreathofSindragosa:CooldownRemains() > j) then
             if o(e.GlacialAdvance, nil, nil, 100) then
                 a = 194913
                 return "glacial_advance main 6"
@@ -1215,7 +1213,7 @@ local function s()
 
         end
 
-        if e.FrostStrike:IsReady() and not p and (EnemiesCount10yd == 1 and f and e.Obliteration:IsAvailable() and e.BreathofSindragosa:IsAvailable() and t:BuffDown(e.PillarofFrostBuff) and t:BuffDown(e.BreathofSindragosa) and e.BreathofSindragosa:CooldownRemains() > k) then
+        if e.FrostStrike:IsReady() and not p and (EnemiesCount10yd == 1 and f and e.Obliteration:IsAvailable() and e.BreathofSindragosa:IsAvailable() and t:BuffDown(e.PillarofFrostBuff) and t:BuffDown(e.BreathofSindragosa) and e.BreathofSindragosa:CooldownRemains() > j) then
             if o(e.FrostStrike) then
                 a = 49143
                 return "frost_strike main 8"
@@ -1223,7 +1221,7 @@ local function s()
 
         end
 
-        if e.FrostStrike:IsReady() and not p and (EnemiesCount10yd == 1 and f and e.BreathofSindragosa:IsAvailable() and t:BuffDown(e.BreathofSindragosa) and e.BreathofSindragosa:CooldownRemains() > k) then
+        if e.FrostStrike:IsReady() and not p and (EnemiesCount10yd == 1 and f and e.BreathofSindragosa:IsAvailable() and t:BuffDown(e.BreathofSindragosa) and e.BreathofSindragosa:CooldownRemains() > j) then
             if o(e.FrostStrike) then
                 a = 49143
                 return "frost_strike main 8"
@@ -1239,7 +1237,7 @@ local function s()
 
         end
 
-        if e.RemorselessWinter:IsReady() and ((not e.BreathofSindragosa:IsAvailable()) and (not e.Obliteration:IsAvailable()) and O) then
+        if e.RemorselessWinter:IsReady() and ((not e.BreathofSindragosa:IsAvailable()) and (not e.Obliteration:IsAvailable()) and A) then
             if o(e.RemorselessWinter, nil, nil, not i:IsInRange(8)) then
                 a = 196770
                 return "remorseless_winter main 2"
@@ -1247,7 +1245,7 @@ local function s()
 
         end
 
-        if e.RemorselessWinter:IsReady() and (e.Obliteration:IsAvailable() and EnemiesCount10yd >= 3 and VarAddsRemain) then
+        if e.RemorselessWinter:IsReady() and (e.Obliteration:IsAvailable() and EnemiesCount10yd >= 3 and l) then
             if o(e.RemorselessWinter, nil, nil, not i:IsInRange(8)) then
                 a = 196770
                 return "remorseless_winter main 2"
@@ -1256,7 +1254,7 @@ local function s()
         end
 
         if (true) then
-            local e = j()
+            local e = x()
             if e then
                 return e
             end
@@ -1264,7 +1262,7 @@ local function s()
         end
 
         if (true) then
-            local e = K()
+            local e = V()
             if e then
                 return e
             end
@@ -1272,15 +1270,15 @@ local function s()
         end
 
         if (n.Commons.Enabled.Racials) then
-            local e = v()
+            local e = g()
             if e then
                 return e
             end
 
         end
 
-        if (e.ColdHeart:IsAvailable() and (t:BuffDown(e.KillingMachineBuff) or e.BreathofSindragosa:IsAvailable()) and ((i:DebuffStack(e.RazoriceDebuff) == 5 or ((not z) and (not e.GlacialAdvance:IsAvailable()) and not e.Avalanche:IsAvailable())) or c <= t:GCD() + .5)) then
-            local e = R()
+        if (e.ColdHeart:IsAvailable() and (t:BuffDown(e.KillingMachineBuff) or e.BreathofSindragosa:IsAvailable()) and ((i:DebuffStack(e.RazoriceDebuff) == 5 or ((not E) and (not e.GlacialAdvance:IsAvailable()) and not e.Avalanche:IsAvailable())) or u <= t:GCD() + .5)) then
+            local e = B()
             if e then
                 return e
             end
@@ -1288,7 +1286,7 @@ local function s()
         end
 
         if (t:BuffUp(e.BreathofSindragosa) and e.Obliteration:IsAvailable() and t:BuffUp(e.PillarofFrostBuff)) then
-            local t = ne()
+            local t = U()
             if t then
                 return t
             end
@@ -1300,7 +1298,7 @@ local function s()
         end
 
         if (t:BuffUp(e.BreathofSindragosa) and ((not e.Obliteration:IsAvailable()) or e.Obliteration:IsAvailable() and t:BuffDown(e.PillarofFrostBuff))) then
-            local t = W()
+            local t = ne()
             if t then
                 return t
             end
@@ -1312,7 +1310,7 @@ local function s()
         end
 
         if (e.Obliteration:IsAvailable() and t:BuffUp(e.PillarofFrostBuff) and t:BuffDown(e.BreathofSindragosa)) then
-            local t = g()
+            local t = k()
             if t then
                 return t
             end
@@ -1324,7 +1322,7 @@ local function s()
         end
 
         if (EnemiesCount10yd >= 2 and _()) then
-            local e = M()
+            local e = L()
             if e then
                 return e
             end
@@ -1332,7 +1330,7 @@ local function s()
         end
 
         if (EnemiesCount10yd == 1 or not _()) then
-            local e = l()
+            local e = m()
             if e then
                 return e
             end
