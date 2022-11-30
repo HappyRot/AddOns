@@ -2,10 +2,10 @@ local e, e = ...
 local e = HeroDBC.DBC
 local f = HeroLib
 local e = HeroCache
-local y = f.Unit
-local a = y.Player
-local i = y.Target
-local h = y.Pet
+local w = f.Unit
+local a = w.Player
+local i = w.Target
+local h = w.Pet
 local z = f.Spell
 local t = f.Item
 local x = f.Action
@@ -59,7 +59,7 @@ f:RegisterForEvent(function()
     N = 11111
     d = 11111
 end, "PLAYER_REGEN_ENABLED")
-local w, t, k
+local y, t, k
 local c, H
 local I
 local q
@@ -111,7 +111,7 @@ local function F(t)
 end
 
 local function re(a)
-                if ((a:DebuffStack(e.LatentPoisonDebuff) > 9 and ((h:BuffUp(e.FrenzyPetBuff) and h:BuffRemains(e.FrenzyPetBuff) <= s + .25) or (e.ScentofBlood:IsAvailable() and e.BestialWrath:CooldownRemains() < 12 + s) or (e.BarbedShot:FullRechargeTime() < s and e.BestialWrath:CooldownDown()))) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and a:GUID() == y("mouseover"):GUID()) then
+                if ((a:DebuffStack(e.LatentPoisonDebuff) > 9 and ((h:BuffUp(e.FrenzyPetBuff) and h:BuffRemains(e.FrenzyPetBuff) <= s + .25) or (e.ScentofBlood:IsAvailable() and e.BestialWrath:CooldownRemains() < 12 + s) or (e.BarbedShot:FullRechargeTime() < s and e.BestialWrath:CooldownDown()))) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and a:GUID() == w("mouseover"):GUID()) then
         u = 1217200
         return true
     elseif ((a:DebuffStack(e.LatentPoisonDebuff) > 9 and ((h:BuffUp(e.FrenzyPetBuff) and h:BuffRemains(e.FrenzyPetBuff) <= s + .25) or (e.ScentofBlood:IsAvailable() and e.BestialWrath:CooldownRemains() < 12 + s) or (e.BarbedShot:FullRechargeTime() < s and e.BestialWrath:CooldownDown()))) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and n.BeastMastery.TargetSwap == "AutoSwap" and a:GUID() ~= i:GUID() and not g) then
@@ -127,7 +127,7 @@ local function re(a)
 end
 
 local function he(a)
-                if (((h:BuffUp(e.FrenzyPetBuff) and h:BuffRemains(e.FrenzyPetBuff) <= s + .25) or (e.ScentofBlood:IsAvailable() and e.BestialWrath:CooldownRemains() < 12 + s) or (e.BarbedShot:FullRechargeTime() < s and e.BestialWrath:CooldownDown())) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and a:GUID() == y("mouseover"):GUID()) then
+                if (((h:BuffUp(e.FrenzyPetBuff) and h:BuffRemains(e.FrenzyPetBuff) <= s + .25) or (e.ScentofBlood:IsAvailable() and e.BestialWrath:CooldownRemains() < 12 + s) or (e.BarbedShot:FullRechargeTime() < s and e.BestialWrath:CooldownDown())) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and a:GUID() == w("mouseover"):GUID()) then
         u = 1217200
         return true
     elseif (((h:BuffUp(e.FrenzyPetBuff) and h:BuffRemains(e.FrenzyPetBuff) <= s + .25) or (e.ScentofBlood:IsAvailable() and e.BestialWrath:CooldownRemains() < 12 + s) or (e.BarbedShot:FullRechargeTime() < s and e.BestialWrath:CooldownDown())) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and n.BeastMastery.TargetSwap == "AutoSwap" and a:GUID() ~= i:GUID() and not g) then
@@ -143,7 +143,7 @@ local function he(a)
 end
 
 local function ae(o)
-                if ((o:DebuffStack(e.LatentPoisonDebuff) > 9 and ((e.WildInstincts:IsAvailable() and a:BuffUp(e.CalloftheWildBuff)) or d < 9 or (e.WildCall:IsAvailable() and e.BarbedShot:ChargesFractional() > 1.2))) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == y("mouseover"):GUID()) then
+                if ((o:DebuffStack(e.LatentPoisonDebuff) > 9 and ((e.WildInstincts:IsAvailable() and a:BuffUp(e.CalloftheWildBuff)) or d < 9 or (e.WildCall:IsAvailable() and e.BarbedShot:ChargesFractional() > 1.2))) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == w("mouseover"):GUID()) then
         u = 1217200
         return true
     elseif ((o:DebuffStack(e.LatentPoisonDebuff) > 9 and ((e.WildInstincts:IsAvailable() and a:BuffUp(e.CalloftheWildBuff)) or d < 9 or (e.WildCall:IsAvailable() and e.BarbedShot:ChargesFractional() > 1.2))) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and n.BeastMastery.TargetSwap == "AutoSwap" and o:GUID() ~= i:GUID() and not g) then
@@ -159,7 +159,7 @@ local function ae(o)
 end
 
 local function ne(o)
-                if (((e.WildInstincts:IsAvailable() and a:BuffUp(e.CalloftheWildBuff)) or d < 9 or (e.WildCall:IsAvailable() and e.BarbedShot:ChargesFractional() > 1.2)) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == y("mouseover"):GUID()) then
+                if (((e.WildInstincts:IsAvailable() and a:BuffUp(e.CalloftheWildBuff)) or d < 9 or (e.WildCall:IsAvailable() and e.BarbedShot:ChargesFractional() > 1.2)) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == w("mouseover"):GUID()) then
         u = 1217200
         return true
     elseif (((e.WildInstincts:IsAvailable() and a:BuffUp(e.CalloftheWildBuff)) or d < 9 or (e.WildCall:IsAvailable() and e.BarbedShot:ChargesFractional() > 1.2)) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and n.BeastMastery.TargetSwap == "AutoSwap" and o:GUID() ~= i:GUID() and not g) then
@@ -175,7 +175,7 @@ local function ne(o)
 end
 
 local function Q(a)
-                if ((a:DebuffRefreshable(e.SerpentStingDebuff) and a:TimeToDie() > e.SerpentStingDebuff:BaseDuration()) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and a:GUID() == y("mouseover"):GUID()) then
+                if ((a:DebuffRefreshable(e.SerpentStingDebuff) and a:TimeToDie() > e.SerpentStingDebuff:BaseDuration()) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and a:GUID() == w("mouseover"):GUID()) then
         u = 1271788
         return true
     elseif ((a:DebuffRefreshable(e.SerpentStingDebuff) and a:TimeToDie() > e.SerpentStingDebuff:BaseDuration()) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and n.BeastMastery.TargetSwap == "AutoSwap" and a:GUID() ~= i:GUID() and not g) then
@@ -191,7 +191,7 @@ local function Q(a)
 end
 
 local function K(a)
-                if (((h:BuffUp(e.FrenzyPetBuff) and h:BuffRemains(e.FrenzyPetBuff) <= s + .25) or (e.ScentofBlood:IsAvailable() and h:BuffStack(e.FrenzyPetBuff) < 3 and e.BestialWrath:CooldownUp())) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and a:GUID() == y("mouseover"):GUID()) then
+                if (((h:BuffUp(e.FrenzyPetBuff) and h:BuffRemains(e.FrenzyPetBuff) <= s + .25) or (e.ScentofBlood:IsAvailable() and h:BuffStack(e.FrenzyPetBuff) < 3 and e.BestialWrath:CooldownUp())) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and a:GUID() == w("mouseover"):GUID()) then
         u = 1217200
         return true
     elseif (((h:BuffUp(e.FrenzyPetBuff) and h:BuffRemains(e.FrenzyPetBuff) <= s + .25) or (e.ScentofBlood:IsAvailable() and h:BuffStack(e.FrenzyPetBuff) < 3 and e.BestialWrath:CooldownUp())) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and n.BeastMastery.TargetSwap == "AutoSwap" and a:GUID() ~= i:GUID() and not g) then
@@ -207,7 +207,7 @@ local function K(a)
 end
 
 local function J(o)
-                if (((e.WildInstincts:IsAvailable() and a:BuffUp(e.CalloftheWildBuff)) or (e.WildCall:IsAvailable() and e.BarbedShot:ChargesFractional() > 1.4) or (e.BarbedShot:FullRechargeTime() < s and e.BestialWrath:CooldownDown()) or (e.ScentofBlood:IsAvailable() and (e.BestialWrath:CooldownRemains() < 12 + s or (e.BarbedShot:FullRechargeTime() + s < 8 and e.BestialWrath:CooldownRemains() < 24 + (8 - s) + e.BarbedShot:FullRechargeTime()))) or d < 9) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == y("mouseover"):GUID()) then
+                if (((e.WildInstincts:IsAvailable() and a:BuffUp(e.CalloftheWildBuff)) or (e.WildCall:IsAvailable() and e.BarbedShot:ChargesFractional() > 1.4) or (e.BarbedShot:FullRechargeTime() < s and e.BestialWrath:CooldownDown()) or (e.ScentofBlood:IsAvailable() and (e.BestialWrath:CooldownRemains() < 12 + s or (e.BarbedShot:FullRechargeTime() + s < 8 and e.BestialWrath:CooldownRemains() < 24 + (8 - s) + e.BarbedShot:FullRechargeTime()))) or d < 9) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == w("mouseover"):GUID()) then
         u = 1217200
         return true
     elseif (((e.WildInstincts:IsAvailable() and a:BuffUp(e.CalloftheWildBuff)) or (e.WildCall:IsAvailable() and e.BarbedShot:ChargesFractional() > 1.4) or (e.BarbedShot:FullRechargeTime() < s and e.BestialWrath:CooldownDown()) or (e.ScentofBlood:IsAvailable() and (e.BestialWrath:CooldownRemains() < 12 + s or (e.BarbedShot:FullRechargeTime() + s < 8 and e.BestialWrath:CooldownRemains() < 24 + (8 - s) + e.BarbedShot:FullRechargeTime()))) or d < 9) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and n.BeastMastery.TargetSwap == "AutoSwap" and o:GUID() ~= i:GUID() and not g) then
@@ -223,7 +223,7 @@ local function J(o)
 end
 
 local function te(a)
-                if ((a:DebuffRefreshable(e.SerpentStingDebuff) and i:TimeToDie() > e.SerpentStingDebuff:BaseDuration()) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and a:GUID() == y("mouseover"):GUID()) then
+                if ((a:DebuffRefreshable(e.SerpentStingDebuff) and i:TimeToDie() > e.SerpentStingDebuff:BaseDuration()) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and a:GUID() == w("mouseover"):GUID()) then
         u = 1271788
         return true
     elseif ((a:DebuffRefreshable(e.SerpentStingDebuff) and i:TimeToDie() > e.SerpentStingDebuff:BaseDuration()) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285) and n.BeastMastery.TargetSwap == "AutoSwap" and a:GUID() ~= i:GUID() and not g) then
@@ -372,14 +372,14 @@ end
 
 local function Y()
     if e.BarbedShot:IsCastable() then
-        if m.CastTargetIf(e.BarbedShot, w, "max", W, re, not i:IsSpellInRange(e.BarbedShot)) then
+        if m.CastTargetIf(e.BarbedShot, y, "max", W, re, not i:IsSpellInRange(e.BarbedShot)) then
             return "barbed_shot cleave 2"
         end
 
     end
 
     if e.BarbedShot:IsCastable() then
-        if m.CastTargetIf(e.BarbedShot, w, "min", O, he, not i:IsSpellInRange(e.BarbedShot)) then
+        if m.CastTargetIf(e.BarbedShot, y, "min", O, he, not i:IsSpellInRange(e.BarbedShot)) then
             return "barbed_shot cleave 4"
         end
 
@@ -458,14 +458,14 @@ local function Y()
     end
 
     if e.BarbedShot:IsCastable() then
-        if m.CastTargetIf(e.BarbedShot, w, "max", W, ae, not i:IsSpellInRange(e.BarbedShot)) then
+        if m.CastTargetIf(e.BarbedShot, y, "max", W, ae, not i:IsSpellInRange(e.BarbedShot)) then
             return "barbed_shot cleave 26"
         end
 
     end
 
     if e.BarbedShot:IsCastable() then
-        if m.CastTargetIf(e.BarbedShot, w, "min", O, ne, not i:IsSpellInRange(e.BarbedShot)) then
+        if m.CastTargetIf(e.BarbedShot, y, "min", O, ne, not i:IsSpellInRange(e.BarbedShot)) then
             return "barbed_shot cleave 28"
         end
 
@@ -488,7 +488,7 @@ local function Y()
     end
 
     if e.SerpentSting:IsReady() then
-        if m.CastTargetIf(e.SerpentSting, w, "min", F, Q, not i:IsSpellInRange(e.SerpentSting)) then
+        if m.CastTargetIf(e.SerpentSting, y, "min", F, Q, not i:IsSpellInRange(e.SerpentSting)) then
             return "serpent_sting cleave 34"
         end
 
@@ -552,9 +552,9 @@ local function Y()
 
 end
 
-local function y()
+local function w()
     if e.BarbedShot:IsCastable() then
-        if m.CastTargetIf(e.BarbedShot, w, "min", O, K, not i:IsSpellInRange(e.BarbedShot)) then
+        if m.CastTargetIf(e.BarbedShot, y, "min", O, K, not i:IsSpellInRange(e.BarbedShot)) then
             return "barbed_shot st 2"
         end
 
@@ -633,7 +633,7 @@ local function y()
     end
 
     if e.BarbedShot:IsCastable() then
-        if m.CastTargetIf(e.BarbedShot, w, "min", O, J, not i:IsSpellInRange(e.BarbedShot)) then
+        if m.CastTargetIf(e.BarbedShot, y, "min", O, J, not i:IsSpellInRange(e.BarbedShot)) then
             return "barbed_shot st 24"
         end
 
@@ -648,7 +648,7 @@ local function y()
     end
 
     if e.SerpentSting:IsReady() then
-        if m.CastTargetIf(e.SerpentSting, w, "min", F, te, not i:IsSpellInRange(e.SerpentSting)) then
+        if m.CastTargetIf(e.SerpentSting, y, "min", F, te, not i:IsSpellInRange(e.SerpentSting)) then
             return "serpent_sting st 28"
         end
 
@@ -733,7 +733,7 @@ local function O()
         T = true
     end
 
-    if ((n.BeastMastery.BestialWrathCD == "CDs" and l()) or (n.BeastMastery.BestialWrathCD == "Small CDs" and (l() or v)) or (n.BeastMastery.BestialWrathCD == "Always")) and ((not a:IsInDungeonArea()) or (a:IsInDungeonArea() and AreaTTD(w) >= 15)) then
+    if ((n.BeastMastery.BestialWrathCD == "CDs" and l()) or (n.BeastMastery.BestialWrathCD == "Small CDs" and (l() or v)) or (n.BeastMastery.BestialWrathCD == "Always")) then
         j = true
     end
 
@@ -775,10 +775,10 @@ local function g()
     local d = (e.BloodBolt:IsPetKnown() and x.FindBySpellID(e.BloodBolt:ID()) and e.BloodBolt) or (e.Bite:IsPetKnown() and x.FindBySpellID(e.Bite:ID()) and e.Bite) or (e.Claw:IsPetKnown() and x.FindBySpellID(e.Claw:ID()) and e.Claw) or (e.Smack:IsPetKnown() and x.FindBySpellID(e.Smack:ID()) and e.Smack) or nil
     local f = (e.Growl:IsPetKnown() and x.FindBySpellID(e.Growl:ID()) and e.Growl) or nil
     if oe() then
-        w = a:GetEnemiesInRange(40)
+        y = a:GetEnemiesInRange(40)
         k = (d and #a:GetEnemiesInSpellActionRange(d)) or i:GetEnemiesInSplashRangeCount(8)
     else
-        w = {  }
+        y = {  }
         k = 0
     end
 
@@ -1006,7 +1006,7 @@ local function g()
 
     end
 
-    local d, f, w = GetSpellCooldown(34477)
+    local d, f, y = GetSpellCooldown(34477)
     if a:AffectingCombat() and n.Commons.AutoMisdirect and not G then
         if (d + f - GetTime()) <= 0 and e.Misdirection:IsAvailable() and e.Misdirection:CooldownRemains(BypassRecovery) <= 0 and UnitExists("focus") and (UnitInParty("focus") or UnitInRaid("focus") or UnitIsUnit("focus", "pet")) and IsItemInRange(32698, "focus") then
             if r.Cast(e.Misdirection) then
@@ -1064,7 +1064,7 @@ local function g()
         end
 
         if (k < 2 or ((not e.BeastCleave:IsAvailable()) and k < 3)) then
-            local e = y()
+            local e = w()
             if e then
                 return e
             end
