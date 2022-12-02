@@ -433,7 +433,7 @@ local function V()
 
     end
 
-    if e.AbominationLimb:IsCastable() and not T and ((e.Obliteration:IsAvailable() and t:BuffDown(e.PillarofFrostBuff) and (l or q)) or (u < 12)) then
+    if e.AbominationLimb:IsReady() and not T and ((e.Obliteration:IsAvailable() and t:BuffDown(e.PillarofFrostBuff) and (l or q)) or (u < 12)) then
         if o(e.AbominationLimb, nil, nil, not i:IsInRange(10)) then
             a = 315443
             return "abomination_limb cooldowns 10"
@@ -441,7 +441,7 @@ local function V()
 
     end
 
-    if e.AbominationLimb:IsCastable() and not T and (e.BreathofSindragosa:IsAvailable() and (l or q)) then
+    if e.AbominationLimb:IsReady() and not T and (e.BreathofSindragosa:IsAvailable() and (l or q)) then
         if o(e.AbominationLimb, nil, nil, not i:IsInRange(10)) then
             a = 315443
             return "abomination_limb cooldowns 10"
@@ -449,7 +449,7 @@ local function V()
 
     end
 
-    if e.AbominationLimb:IsCastable() and not T and ((not e.BreathofSindragosa:IsAvailable()) and (not e.Obliteration:IsAvailable()) and (l or q)) then
+    if e.AbominationLimb:IsReady() and not T and ((not e.BreathofSindragosa:IsAvailable()) and (not e.Obliteration:IsAvailable()) and (l or q)) then
         if o(e.AbominationLimb, nil, nil, not i:IsInRange(20)) then
             a = 315443
             return "abomination_limb_talent cooldowns 12"
