@@ -1066,7 +1066,7 @@ local function m()
                     return "Stealth (Opener): " .. s
                 end
 
-                if e.Ambush:IsCastable() then
+                if e.Ambush:IsReady() then
                     if a.Cast(e.Ambush) then
                         o = 8676
                         return "Cast Ambush (Opener)"
