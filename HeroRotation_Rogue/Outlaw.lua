@@ -463,7 +463,7 @@ local function z()
 
     end
 
-    if e.Ambush:IsCastable() and i:IsSpellInRange(e.Ambush) and (N() or e.HiddenOpportunity:IsAvailable() or (t:BuffUp(e.Stealth) or t:BuffUp(e.VanishBuff)) and e.FindWeakness:IsAvailable() and not i:DebuffUp(e.FindWeaknessDebuff)) then
+    if e.Ambush:IsReady() and i:IsSpellInRange(e.Ambush) and (N() or e.HiddenOpportunity:IsAvailable() or (t:BuffUp(e.Stealth) or t:BuffUp(e.VanishBuff)) and e.FindWeakness:IsAvailable() and not i:DebuffUp(e.FindWeaknessDebuff)) then
         if a.CastPooling(e.Ambush) then
             o = 8676
             return "Cast Ambush"
@@ -583,7 +583,7 @@ local function se()
 
     end
 
-    if e.Ambush:IsCastable() and (t:BuffUp(e.AudacityBuff) or t:StealthUp(true, true)) and (e.HiddenOpportunity:IsAvailable() or e.FindWeakness:IsAvailable() and not i:DebuffUp(e.FindWeaknessDebuff)) then
+    if e.Ambush:IsReady() and (t:BuffUp(e.AudacityBuff) or t:StealthUp(true, true)) and (e.HiddenOpportunity:IsAvailable() or e.FindWeakness:IsAvailable() and not i:DebuffUp(e.FindWeaknessDebuff)) then
         if a.CastPooling(e.Ambush) then
             o = 8676
             return "Cast Ambush (Pooling)"
