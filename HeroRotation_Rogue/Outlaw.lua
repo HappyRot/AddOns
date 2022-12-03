@@ -267,9 +267,9 @@ local function se()
     end
 
     if e.ShadowDance:IsCastable() and ee then
-        if i:DebuffUp(e.BetweentheEyes) and (not e.GhostlyStrike:IsAvailable() or i:DebuffUp(e.GhostlyStrike)) and (not e.Dreadblades:IsAvailable() or not e.Dreadblades:IsCastable()) and (not e.HiddenOpportunity:IsAvailable() or t:BuffDown(e.AudacityBuff) and (e.FanTheHammer:TalentRank() < 2 or t:BuffDown(e.Opportunity))) then
+        if i:DebuffUp(e.BetweentheEyes) and (not e.GhostlyStrike:IsAvailable() or i:DebuffUp(e.GhostlyStrike)) and (not e.Dreadblades:IsAvailable() or not e.Dreadblades:IsCastable()) and (not e.HiddenOpportunity:IsAvailable() or (t:BuffDown(e.AudacityBuff) and (e.FanTheHammer:TalentRank() < 2 or t:BuffDown(e.Opportunity)))) then
             if e.KeepItRolling:IsAvailable() then
-                if (e.KeepItRolling:CooldownRemains() <= 30 or e.KeepItRolling:CooldownRemains() > 120 and (b() or e.HiddenOpportunity:IsAvailable())) then
+                if (e.KeepItRolling:CooldownRemains() <= 30 or (e.KeepItRolling:CooldownRemains() > 120 and (b() or e.HiddenOpportunity:IsAvailable()))) then
                     if a.Cast(e.ShadowDance, nil) then
                         o = 185313
                         return "Cast Shadow Dance (KiR)"
