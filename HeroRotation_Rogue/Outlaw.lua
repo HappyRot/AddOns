@@ -256,6 +256,7 @@ local function se()
 
             if not e.FindWeakness:IsAvailable() and not e.HiddenOpportunity:IsAvailable() and b() then
                 if a.Cast(e.Vanish, nil) then
+                    o = 1856
                     return "Cast Vanish (Finish)"
                 end
 
