@@ -426,7 +426,7 @@ local function he()
         end
 
         local t = t:GetUseableTrinkets(x)
-        if t and (i:DebuffUp(e.BetweentheEyes) or p.BossFilteredFightRemains("<", 20) or t:TrinketHasStatAnyDps()) then
+        if t and u() and (i:DebuffUp(e.BetweentheEyes) or p.BossFilteredFightRemains("<", 20) or t:TrinketHasStatAnyDps()) then
             if t then
                 if a.Cast(t, nil, nil) then
                                         if t:ID() == GetInventoryItemID("player", 13) and n.Commons.Enabled.TopTrinket then
