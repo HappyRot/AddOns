@@ -678,10 +678,13 @@ local function j()
     O = e.ArmyoftheDead:TimeSinceLastCast() <= 30
     A = (A) and 30 - e.ArmyoftheDead:TimeSinceLastCast() or 0
     if d.TargetIsValid() or t:AffectingCombat() then
-        Y = q.BossFightRemains(nil, true)
-        l = Y
-        if l == 11111 then
-            l = q.FightRemains(Enemies10yd, false)
+        if IsInRaid() and UnitExists("boss1") then
+            Y = q.BossFightRemains(nil, true)
+            l = Y
+            if l == 11111 then
+                l = q.FightRemains(Enemies10yd, false)
+            end
+
         end
 
     end
@@ -790,18 +793,9 @@ local function c()
     end
 
     if e.RaiseDead:IsCastable() then
-        if n.Unholy.RaiseDeadCastLeft then
-            if r.CastLeft(e.RaiseDead) then
-                a = 46584
-                return "raise_dead precombat 2 left"
-            end
-
-        else
-            if i(e.RaiseDead, nil, nil) then
-                a = 46584
-                return "raise_dead precombat 2 displaystyle"
-            end
-
+        if i(e.RaiseDead, nil, nil) then
+            a = 46584
+            return "raise_dead precombat 2 displaystyle"
         end
 
     end
@@ -926,7 +920,7 @@ local function c()
             U = k >= (2 - _(e.InfectedClaws:IsAvailable()))
         end
 
-        C = ((e.Apocalypse:CooldownRemains() > H or not w or not e.Apocalypse:IsAvailable()) and b == 1 and (U or (k >= 1 and (not e.Apocalypse:IsAvailable())) or (k >= 1 and (e.UnholyAssault:CooldownRemains() < 20 and h()) and e.UnholyAssault:IsAvailable() and T) or (k > 4) or (l < k * t:GCD())))
+        C = ((e.Apocalypse:CooldownRemains() > H or not w or not e.Apocalypse:IsAvailable()) and b == 1 and (U or (k >= 1 and (not e.Apocalypse:IsAvailable())) or (k >= 1 and (e.UnholyAssault:CooldownRemains() < 20 and h()) and e.UnholyAssault:IsAvailable() and not e.SummonGargoyle:IsAvailable() and T) or (k > 4) or (l < k * t:GCD())))
         N = (e.VileContagion:IsAvailable() and e.VileContagion:CooldownRemains() < 3 and t:RunicPower() < 60 and not T)
         we = (e.SoulReaper:IsAvailable() and t:Rune() < 2 and o:TimeToX(35) < 5 and l > 5)
         T = (u <= 3 or not S())
