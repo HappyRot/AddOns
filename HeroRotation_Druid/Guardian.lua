@@ -34,7 +34,7 @@ local e = { 325552, 326836, 326092, 334926, 328395, 330725, 333299, 323831, 3284
 local b = s.Commons.Everyone
 local n = { General = s.GUISettings.General, Commons = s.GUISettings.APL.Druid.Commons, Guardian = s.GUISettings.APL.Druid.Guardian, Guardian2 = s.GUISettings.APL.Druid.Guardian2 }
 local e = h.Druid.Guardian
-local c = p.Druid.Guardian
+local u = p.Druid.Guardian
 local k = {  }
 local v = t:GetEquipment()
 local C = p(0)
@@ -59,9 +59,9 @@ local _ = t:HasLegendaryEquipped(58)
 local E = t:HasLegendaryEquipped(49)
 local T = t:HasLegendaryEquipped(48)
 local O = t:HasLegendaryEquipped(60)
-local u = t:CovenantID()
+local c = t:CovenantID()
 g:RegisterForEvent(function()
-    u = t:CovenantID()
+    c = t:CovenantID()
 end, "COVENANT_CHOSEN")
 g:RegisterForEvent(function()
     v = t:GetEquipment()
@@ -303,32 +303,32 @@ local function C()
 
     end
 
-    if t:HealthPercentage() < n.Guardian2.PhialHP and c.PhialofSerenity:IsReady() and c.PhialofSerenity:CooldownRemains() <= 0 then
-        if s.Cast(c.PhialofSerenity, nil) then
+    if t:HealthPercentage() < n.Guardian2.PhialHP and u.PhialofSerenity:IsReady() and u.PhialofSerenity:CooldownRemains() <= 0 then
+        if s.Cast(u.PhialofSerenity, nil) then
             a = 55
             return "PhialofSerenity HP"
         end
 
     end
 
-    if t:HealthPercentage() < n.Guardian2.HealthstoneHP and c.Healthstone:IsReady() and c.Healthstone:CooldownRemains() <= 0 then
-        if s.Cast(c.Healthstone, nil) then
+    if t:HealthPercentage() < n.Guardian2.HealthstoneHP and u.Healthstone:IsReady() and u.Healthstone:CooldownRemains() <= 0 then
+        if s.Cast(u.Healthstone, nil) then
             a = 40
             return "Healthstone HP"
         end
 
     end
 
-    if t:HealthPercentage() < n.Guardian2.HealPotHP and c.CosmicHealPot:IsReady() and c.CosmicHealPot:CooldownRemains() <= 0 then
-        if s.Cast(c.CosmicHealPot, nil) then
+    if t:HealthPercentage() < n.Guardian2.HealPotHP and u.CosmicHealPot:IsReady() and u.CosmicHealPot:CooldownRemains() <= 0 then
+        if s.Cast(u.CosmicHealPot, nil) then
             a = 45
             return "CosmicHealPot HP"
         end
 
     end
 
-    if t:HealthPercentage() < n.Guardian2.HealPotHP and c.HealPot:IsReady() and c.HealPot:CooldownRemains() <= 0 then
-        if s.Cast(c.HealPot, nil) then
+    if t:HealthPercentage() < n.Guardian2.HealPotHP and u.HealPot:IsReady() and u.HealPot:CooldownRemains() <= 0 then
+        if s.Cast(u.HealPot, nil) then
             a = 41
             return "HealPot HP"
         end
@@ -378,7 +378,7 @@ local function ie()
 
     end
 
-    if e.Wrath:IsCastable() and (f or (select(8, GetInstanceInfo())) == 1698) and t:BuffUp(e.MoonkinForm) and (u ~= 3 or (select(8, GetInstanceInfo())) == 1698) then
+    if e.Wrath:IsCastable() and (f or (select(8, GetInstanceInfo())) == 1698) and t:BuffUp(e.MoonkinForm) and (c ~= 3 or (select(8, GetInstanceInfo())) == 1698) then
         if o(e.Wrath) then
             a = 5176
             return "cat_form precombat 2"
@@ -386,7 +386,7 @@ local function ie()
 
     end
 
-    if e.Starfire:IsCastable() and (f or (select(8, GetInstanceInfo())) == 1698) and t:BuffUp(e.MoonkinForm) and u == 3 then
+    if e.Starfire:IsCastable() and (f or (select(8, GetInstanceInfo())) == 1698) and t:BuffUp(e.MoonkinForm) and c == 3 then
         if o(e.Starfire) then
             a = 197628
             return "cat_form precombat 2"
@@ -576,7 +576,7 @@ local function p()
 
     end
 
-    if (u == 2) and i:IsInMeleeRange(8) then
+    if (c == 2) and i:IsInMeleeRange(8) then
         local e = t:GetUseableTrinkets(k)
         if e then
             if o(e, nil, nil) then
@@ -633,16 +633,16 @@ local function p()
 
     end
 
-    if c.Jotungeirr:IsEquippedAndReady() and (u == 2) and i:IsInMeleeRange(8) then
-        if o(c.Jotungeirr, nil, nil) then
+    if u.Jotungeirr:IsEquippedAndReady() and (c == 2) and i:IsInMeleeRange(8) then
+        if o(u.Jotungeirr, nil, nil) then
             a = 16
             return "jotungeirr_destinys_call bear 8"
         end
 
     end
 
-    if n.Commons.Enabled.Potions and I and i:IsInMeleeRange(8) and c.PotionofPhantomFire:IsReady() and (((u == 2 and t:BuffRemains(e.IncarnationBuff) >= 23 and t:BuffRemains(e.IncarnationBuff) <= 26) and not s.GUISettings.General.HoldPotforBL) or (s.GUISettings.General.HoldPotforBL and t:BloodlustUp())) then
-        if o(c.PotionofPhantomFire, nil, nil) then
+    if n.Commons.Enabled.Potions and I and i:IsInMeleeRange(8) and u.PotionofPhantomFire:IsReady() and (((c == 2 and t:BuffRemains(e.IncarnationBuff) >= 23 and t:BuffRemains(e.IncarnationBuff) <= 26) and not s.GUISettings.General.HoldPotforBL) or (s.GUISettings.General.HoldPotforBL and t:BloodlustUp())) then
+        if o(u.PotionofPhantomFire, nil, nil) then
             a = 50
             return "potion bear 11"
         end
@@ -657,7 +657,7 @@ local function p()
 
     end
 
-    if e.Berserk:IsCastable() and not N and i:IsInMeleeRange(8) and w() and (z or i:IsDummy() or i:NPCID() == 153285) and (t:BuffUp(e.RavenousFrenzyBuff) or u ~= 2) then
+    if e.Berserk:IsCastable() and not N and i:IsInMeleeRange(8) and w() and (z or i:IsDummy() or i:NPCID() == 153285) and (t:BuffUp(e.RavenousFrenzyBuff) or c ~= 2) then
         if o(e.Berserk, nil) then
             a = 50334
             return "berserk bear 13"
@@ -665,7 +665,7 @@ local function p()
 
     end
 
-    if e.Incarnation:IsCastable() and not N and i:IsInMeleeRange(8) and w() and (z or i:IsDummy() or i:NPCID() == 153285) and (t:BuffUp(e.RavenousFrenzyBuff) or u ~= 2) then
+    if e.Incarnation:IsCastable() and not N and i:IsInMeleeRange(8) and w() and (z or i:IsDummy() or i:NPCID() == 153285) then
         if o(e.Incarnation, nil) then
             a = 102558
             return "incarnation bear 14"
@@ -957,7 +957,7 @@ local function _()
 
     end
 
-    if e.Starfire:IsCastable() and EclipseAnyNext and u == 3 and not t:IsMoving() then
+    if e.Starfire:IsCastable() and EclipseAnyNext and c == 3 and not t:IsMoving() then
         if o(e.Starfire) then
             a = 197628
             return "Starfire owl 2"
@@ -965,7 +965,7 @@ local function _()
 
     end
 
-    if e.Wrath:IsCastable() and EclipseAnyNext and u ~= 3 and not t:IsMoving() then
+    if e.Wrath:IsCastable() and EclipseAnyNext and c ~= 3 and not t:IsMoving() then
         if o(e.Wrath) then
             a = 5176
             return "Wrath owl 2"
@@ -1594,15 +1594,15 @@ local function x()
 
         end
 
-        if c.Jotungeirr:IsEquippedAndReady() and (u ~= 2) and w() then
-            if o(c.Jotungeirr, nil, nil) then
+        if u.Jotungeirr:IsEquippedAndReady() and (c ~= 2) and w() then
+            if o(u.Jotungeirr, nil, nil) then
                 a = 16
                 return "jotungeirr_destinys_call main"
             end
 
         end
 
-        if (u ~= 2) and w() then
+        if (c ~= 2) and w() then
             local e = t:GetUseableTrinkets(k)
             if e then
                 if o(e, nil, nil) then
@@ -1620,15 +1620,15 @@ local function x()
 
         end
 
-        if n.Commons.Enabled.Potions and I and c.PotionofPhantomFire:IsReady() and (((u ~= 2 and (t:BuffUp(e.BerserkBuff) or t:BuffUp(e.Incarnation)) and t:BuffRemains(e.IncarnationBuff) <= 26) and not s.GUISettings.General.HoldPotforBL) or (s.GUISettings.General.HoldPotforBL and t:BloodlustUp())) then
-            if o(c.PotionofPhantomFire, nil, nil) then
+        if n.Commons.Enabled.Potions and I and u.PotionofPhantomFire:IsReady() and (((c ~= 2 and (t:BuffUp(e.BerserkBuff) or t:BuffUp(e.Incarnation)) and t:BuffRemains(e.IncarnationBuff) <= 26) and not s.GUISettings.General.HoldPotforBL) or (s.GUISettings.General.HoldPotforBL and t:BloodlustUp())) then
+            if o(u.PotionofPhantomFire, nil, nil) then
                 a = 50
                 return "potion main"
             end
 
         end
 
-        if (f and e.FeralAffinity:IsAvailable() and u ~= 2 and t:BuffDown(e.IncarnationBuff) and ((e.Thrash:CooldownRemains() > 0 and e.Mangle:CooldownRemains() > 0 and i:DebuffRemains(e.MoonfireDebuff) >= (t:GCD() + .5) and t:Rage() < 40 and t:BuffDown(e.IncarnationBuff) and t:BuffDown(e.BerserkBuff) and t:BuffDown(e.GalacticGuardianBuff)) or (t:BuffUp(e.CatForm) and t:Energy() > 25) or (i:DebuffRefreshable(e.RakeDebuff) and i:DebuffRefreshable(e.Rip)) or (E and t:BuffDown(e.OathofElderDruidBuff) and (t:BuffUp(e.CatForm) and t:Energy() > 20) and t:BuffRemins(e.HeartoftheWild) <= 10) or (u == 1 and e.EmpowerBond:CooldownRemains() <= 1 and d < 2) or (t:BuffUp(e.HeartoftheWild) and t:Energy() > 90))) then
+        if (f and e.FeralAffinity:IsAvailable() and c ~= 2 and t:BuffDown(e.IncarnationBuff) and ((e.Thrash:CooldownRemains() > 0 and e.Mangle:CooldownRemains() > 0 and i:DebuffRemains(e.MoonfireDebuff) >= (t:GCD() + .5) and t:Rage() < 40 and t:BuffDown(e.IncarnationBuff) and t:BuffDown(e.BerserkBuff) and t:BuffDown(e.GalacticGuardianBuff)) or (t:BuffUp(e.CatForm) and t:Energy() > 25) or (i:DebuffRefreshable(e.RakeDebuff) and i:DebuffRefreshable(e.Rip)) or (E and t:BuffDown(e.OathofElderDruidBuff) and (t:BuffUp(e.CatForm) and t:Energy() > 20) and t:BuffRemins(e.HeartoftheWild) <= 10) or (c == 1 and e.EmpowerBond:CooldownRemains() <= 1 and d < 2) or (t:BuffUp(e.HeartoftheWild) and t:Energy() > 90))) then
             local e = g()
             if e then
                 return e
@@ -1636,7 +1636,7 @@ local function x()
 
         end
 
-        if (f and e.FeralAffinity:IsAvailable() and u == 2 and ((e.Thrash:CooldownRemains() > 0 and e.Mangle:CooldownRemains() > 0 and i:DebuffRemains(e.MoonfireDebuff) >= (t:GCD() + .5) and t:Rage() < 40 and t:BuffDown(e.IncarnationBuff) and t:BuffDown(e.BerserkBuff) and t:BuffDown(e.GalacticGuardianBuff)) or (t:BuffUp(e.CatForm) and t:Energy() > 25) or (i:DebuffRefreshable(e.RakeDebuff) and i:DebuffRefreshable(e.Rip) and t:Rage() < 40 and t:BuffDown(e.IncarnationBuff) and t:BuffDown(e.BerserkBuff) and t:BuffDown(e.GalacticGuardianBuff)))) then
+        if (f and e.FeralAffinity:IsAvailable() and c == 2 and ((e.Thrash:CooldownRemains() > 0 and e.Mangle:CooldownRemains() > 0 and i:DebuffRemains(e.MoonfireDebuff) >= (t:GCD() + .5) and t:Rage() < 40 and t:BuffDown(e.IncarnationBuff) and t:BuffDown(e.BerserkBuff) and t:BuffDown(e.GalacticGuardianBuff)) or (t:BuffUp(e.CatForm) and t:Energy() > 25) or (i:DebuffRefreshable(e.RakeDebuff) and i:DebuffRefreshable(e.Rip) and t:Rage() < 40 and t:BuffDown(e.IncarnationBuff) and t:BuffDown(e.BerserkBuff) and t:BuffDown(e.GalacticGuardianBuff)))) then
             local e = g()
             if e then
                 return e
@@ -1644,7 +1644,7 @@ local function x()
 
         end
 
-        if (f and e.BalanceAffinity:IsAvailable() and ((e.Thrash:CooldownRemains() > 0 and e.Mangle:CooldownRemains() > 0 and t:Rage() < 15 and t:BuffDown(e.IncarnationBuff) and t:BuffDown(e.BerserkBuff) and t:BuffDown(e.GalacticGuardianBuff)) or (t:BuffUp(e.MoonkinForm) and i:DebuffRefreshable(e.SunfireDebuff)) or (t:BuffUp(e.MoonkinForm) and t:BuffUp(e.HeartoftheWild)) or (E and t:BuffDown(e.OathofElderDruidBuff)) or (u == 3 and e.ConvoketheSpirits:CooldownRemains() <= 1) or (u == 1 and e.EmpowerBond:CooldownRemains() <= 1 and d < 2))) then
+        if (f and e.BalanceAffinity:IsAvailable() and ((e.Thrash:CooldownRemains() > 0 and e.Mangle:CooldownRemains() > 0 and t:Rage() < 15 and t:BuffDown(e.IncarnationBuff) and t:BuffDown(e.BerserkBuff) and t:BuffDown(e.GalacticGuardianBuff)) or (t:BuffUp(e.MoonkinForm) and i:DebuffRefreshable(e.SunfireDebuff)) or (t:BuffUp(e.MoonkinForm) and t:BuffUp(e.HeartoftheWild)) or (E and t:BuffDown(e.OathofElderDruidBuff)) or (c == 3 and e.ConvoketheSpirits:CooldownRemains() <= 1) or (c == 1 and e.EmpowerBond:CooldownRemains() <= 1 and d < 2))) then
             local e = _()
             if e then
                 return e
@@ -1668,7 +1668,7 @@ local function x()
 
         end
 
-        if n.Guardian.SwapForConvoke and m and ((e.BalanceAffinity:IsAvailable()) and not f and (u == 3 and e.ConvoketheSpirits:CooldownRemains() <= 1)) then
+        if n.Guardian.SwapForConvoke and m and ((e.BalanceAffinity:IsAvailable()) and not f and (c == 3 and e.ConvoketheSpirits:CooldownRemains() <= 1)) then
             local e = K()
             if e then
                 return e
@@ -1676,7 +1676,7 @@ local function x()
 
         end
 
-        if n.Guardian.SwapForConvoke and m and ((e.FeralAffinity:IsAvailable()) and not f and (u == 3 and e.ConvoketheSpirits:CooldownRemains() <= 1)) then
+        if n.Guardian.SwapForConvoke and m and ((e.FeralAffinity:IsAvailable()) and not f and (c == 3 and e.ConvoketheSpirits:CooldownRemains() <= 1)) then
             local e = M()
             if e then
                 return e
