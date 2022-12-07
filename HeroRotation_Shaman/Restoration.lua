@@ -866,14 +866,6 @@ local function we()
 
     end
 
-    if e.SummonSteward:IsCastable() and not ce() and not UnitAffectingCombat("player") then
-        if o(e.SummonSteward, nil, nil) then
-            a = 324739
-            return "Precombat SummonSteward"
-        end
-
-    end
-
     if j(e.Fleshcraft) and y.TargetIsValid() and T and O and not UnitAffectingCombat("player") then
         if o(e.Fleshcraft, nil, nil) then
             a = 324631
