@@ -6,7 +6,7 @@ local n = e.CreateChildPanel
 local e = e.CreatePanelOption
 local t = o.GUI.CreateARPanelOption
 local i = o.GUI.CreateARPanelOptions
-o.GUISettings.APL.DeathKnight = { Commons = { UseDefensives = true, HealthstoneHP = 50, HealPotHP = 0, PhialHP = 0, UseDeathStrikeHP = 60, UseDarkSuccorHP = 80, IceboundFortitudeHP = 30, LichborneHP = 30, AntiMagicShellHP = 40, DeathPactHP = 40, Enabled = { Potions = true, TopTrinket = true, BottomTrinket = true, Racials = true, Items = true }, DisplayStyle = {  } }, Blood = { RuneTapThreshold = 65, IceboundFortitudeThreshold = 30, VampiricBloodThreshold = 50, BonestormPower = 50, TopTrinketHP = 0, BotTrinketHP = 0, MinimumRP = 0, DefensiveList = "This is not currently functional!!!//n123 , 456", PotionType = { Selected = "Power" }, DisplayStyle = {  }, GCDasOffGCD = {  }, OffGCDasOffGCD = {  } }, Frost = { TargetSwap = "AutoSwap", PotionType = { Selected = "Power" }, MinimumBoS = 60, DisplayStyle = {  }, GCDasOffGCD = {  } }, Unholy = { DisableAotD = HeroRotationCharDB.Toggles[10], PotionType = { Selected = "Power" }, SacPacHP = 30, TargetSwap = "AutoSwap", GCDasOffGCD = {  } } }
+o.GUISettings.APL.DeathKnight = { Commons = { UseDefensives = true, HealthstoneHP = 50, HealPotHP = 0, PhialHP = 0, UseDeathStrikeHP = 60, UseDarkSuccorHP = 80, IceboundFortitudeHP = 30, LichborneHP = 30, AntiMagicShellHP = 40, DeathPactHP = 40, Enabled = { Potions = true, TopTrinket = true, BottomTrinket = true, Racials = true, Items = true }, DisplayStyle = {  } }, Blood = { RuneTapThreshold = 65, IceboundFortitudeThreshold = 30, VampiricBloodThreshold = 50, BonestormPower = 50, TopTrinketHP = 0, BotTrinketHP = 0, MinimumRP = 0, UseAbomLimbDefensive = false, DefensiveList = "This is not currently functional!!!//n123 , 456", PotionType = { Selected = "Power" }, DisplayStyle = {  }, GCDasOffGCD = {  }, OffGCDasOffGCD = {  } }, Frost = { TargetSwap = "AutoSwap", PotionType = { Selected = "Power" }, MinimumBoS = 60, DisplayStyle = {  }, GCDasOffGCD = {  } }, Unholy = { DisableAotD = HeroRotationCharDB.Toggles[10], PotionType = { Selected = "Power" }, SacPacHP = 30, TargetSwap = "AutoSwap", GCDasOffGCD = {  } } }
 o.GUI.LoadSettingsRecursively(o.GUISettings)
 local t = o.GUI.Panel
 local t = n(t, "DeathKnight")
@@ -34,6 +34,7 @@ e("Slider", a, "APL.DeathKnight.Blood.BonestormPower", { 5, 100, 1 }, "Bonestorm
 e("Slider", a, "APL.DeathKnight.Blood.TopTrinketHP", { 0, 100, 1 }, "Top Trinket Defensive Threshold", "Set the HP percentage threshold of when to use Top Trinket. Set to 0 if not defensive")
 e("Slider", a, "APL.DeathKnight.Blood.BotTrinketHP", { 0, 100, 1 }, "Bottom Trinket Defensive Threshold", "Set the HP percentage threshold of when to use Bottom Trinket. Set to 0 if not defensive")
 e("Slider", a, "APL.DeathKnight.Blood.MinimumRP", { 0, 100, 1 }, "Minimum RP to hold", "Set the Minumum RP to save for Defensives")
+e("CheckButton", a, "APL.DeathKnight.Blood.UseAbomLimbDefensive", "Use Abomination Limb for Defense", "Will use Abomination Limb to regen Boneshield instead of using for DPS")
 i(a, "APL.DeathKnight.Blood")
 e("Dropdown", s, "APL.DeathKnight.Frost.TargetSwap", { "Mouseover", "AutoSwap" }, "DoT Spread Method", "Choose Which Method to use to spread DoTs")
 e("Slider", s, "APL.DeathKnight.Frost.MinimumBoS", { 0, 100, 1 }, "Minimum RP for Bos", "Set the Minumum RP required before using BoS")
