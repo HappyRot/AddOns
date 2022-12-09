@@ -39,20 +39,20 @@ local e = string.match
 local e = E.DemonHunter.Havoc
 local h = j.DemonHunter.Havoc
 local V = { h.CacheofAcquiredTreasures }
-local d = a:GetEquipment()
+local r = a:GetEquipment()
 local f = j(0)
 local c = j(0)
-if d[13] then
-    f = j(d[13])
+if r[13] then
+    f = j(r[13])
 end
 
-if d[14] then
-    c = j(d[14])
+if r[14] then
+    c = j(r[14])
 end
 
 local o
 local z, se
-local r, U
+local d, U
 local L = a:HasLegendaryEquipped(20)
 local ae = a:HasLegendaryEquipped(23)
 local w = a:HasLegendaryEquipped(25)
@@ -94,15 +94,15 @@ x:RegisterForEvent(function()
     p = 11111
 end, "PLAYER_REGEN_ENABLED")
 x:RegisterForEvent(function()
-    d = a:GetEquipment()
+    r = a:GetEquipment()
     f = j(0)
     c = j(0)
-    if d[13] then
-        f = j(d[13])
+    if r[13] then
+        f = j(r[13])
     end
 
-    if d[14] then
-        c = j(d[14])
+    if r[14] then
+        c = j(r[14])
     end
 
     L = a:HasLegendaryEquipped(20)
@@ -119,7 +119,7 @@ local function j(e)
 
 end
 
-local function d(e)
+local function r(e)
     return e ~= 0
 end
 
@@ -139,7 +139,7 @@ local function pe(e)
     return t
 end
 
-local function d(o)
+local function r(o)
         if e.Felblade:TimeSinceLastCast() <= a:GCD() then
         return true
     elseif ((e.VengefulRetreat:TimeSinceLastCast() < 1. and e.VengefulRetreat:TimeSinceLastCast() > .25) or e.FelRush:TimeSinceLastCast() < 1.) then
@@ -288,8 +288,8 @@ local function we()
 
     end
 
-    local d = a:GetUseableTrinkets(V)
-    if h.CacheofAcquiredTreasures:IsEquippedAndReady() and s.CDsON() and (a:BuffUp(e.AcquiredAxeBuff) and ((r >= 1) and (r < 3 or e.EyeBeam:CooldownRemains() < 20) or p < 25)) then
+    local r = a:GetUseableTrinkets(V)
+    if h.CacheofAcquiredTreasures:IsEquippedAndReady() and s.CDsON() and (a:BuffUp(e.AcquiredAxeBuff) and ((d >= 1) and (d < 3 or e.EyeBeam:CooldownRemains() < 20) or p < 25)) then
         if i(h.CacheofAcquiredTreasures, nil, nil) then
                         if h.CacheofAcquiredTreasures:ID() == GetInventoryItemID("player", 13) and (n.Commons.Enabled.TopTrinket) then
                 o = 20
@@ -304,7 +304,7 @@ local function we()
     end
 
     if f:IsReady() and f:ID() ~= h.CacheofAcquiredTreasures:ID() and t:IsInRange(10) and (n.Commons.Enabled.TopTrinket) and s.CDsON() and (g == 1 and (a:BuffUp(e.MetamorphosisBuff) or ((not e.Demonic:IsAvailable()) and e.Metamorphosis:CooldownRemains() > ((p > f:Cooldown() / 2) and p or f:Cooldown() / 2)) or p <= 20) or (g == 2 and not c:IsReady()) or g == 0) then
-        if d then
+        if r then
             if i(f, nil, nil) then
                                 if f:ID() == GetInventoryItemID("player", 13) and (n.Commons.Enabled.TopTrinket) then
                     o = 20
@@ -321,7 +321,7 @@ local function we()
     end
 
     if c:IsReady() and c:ID() ~= h.CacheofAcquiredTreasures:ID() and t:IsInRange(10) and (n.Commons.Enabled.BottomTrinket) and s.CDsON() and (g == 2 and (a:BuffUp(e.MetamorphosisBuff) or ((not e.Demonic:IsAvailable()) and e.Metamorphosis:CooldownRemains() > ((p > c:Cooldown() / 2) and p or c:Cooldown() / 2)) or p <= 20) or (g == 1 and not f:IsReady()) or g == 0) then
-        if d then
+        if r then
             if i(c, nil, nil) then
                                 if c:ID() == GetInventoryItemID("player", 13) and (n.Commons.Enabled.TopTrinket) then
                     o = 20
@@ -337,7 +337,7 @@ local function we()
 
     end
 
-    if e.SinfulBrand:IsCastable() and t:IsInMeleeRange(30) and I and t:NPCID() ~= 185683 and t:NPCID() ~= 185685 and t:NPCID() ~= 185680 and (t:DebuffDown(e.SinfulBrandDebuff) and ((not O) or (e.EyeBeam:CooldownRemains() <= a:GCD() and a:Fury() >= 30)) and (e.Metamorphosis:CooldownDown() or r == 1 or not k)) then
+    if e.SinfulBrand:IsCastable() and t:IsInMeleeRange(30) and I and t:NPCID() ~= 185683 and t:NPCID() ~= 185685 and t:NPCID() ~= 185680 and (t:DebuffDown(e.SinfulBrandDebuff) and ((not O) or (e.EyeBeam:CooldownRemains() <= a:GCD() and a:Fury() >= 30)) and (e.Metamorphosis:CooldownDown() or d == 1 or not k)) then
         if i(e.SinfulBrand, nil, nil, not t:IsSpellInRange(e.SinfulBrand)) then
             o = 317009
             return "sinful_brand cooldown 12"
@@ -361,7 +361,7 @@ local function we()
 
     end
 
-    if e.ElysianDecree:IsCastable() and t:IsInRange(30) and I and (r > 0) then
+    if e.ElysianDecree:IsCastable() and t:IsInRange(30) and I and (d > 0) then
         if i(e.ElysianDecree, nil, nil, not t:IsInRange(30)) then
             o = 306830
             return "elysian_decree cooldown 16"
@@ -372,7 +372,7 @@ local function we()
 end
 
 local function me()
-    if e.EyeBeam:IsReady() and not a:IsMoving() and (u == 0 or u > e.EyeBeam:ExecuteTime()) and v and not t:IsCasting(E(355806)) and t:IsInMeleeRange(10) and e.VengefulRetreat:TimeSinceLastCast() >= 1 and (O and r > 1 and t:DebuffUp(e.SinfulBrandDebuff) and t:DebuffRemains(e.SinfulBrandDebuff) <= a:GCD()) then
+    if e.EyeBeam:IsReady() and not a:IsMoving() and (u == 0 or u > e.EyeBeam:ExecuteTime()) and v and not t:IsCasting(E(355806)) and t:IsInMeleeRange(10) and e.VengefulRetreat:TimeSinceLastCast() >= 1 and (O and d > 1 and t:DebuffUp(e.SinfulBrandDebuff) and t:DebuffRemains(e.SinfulBrandDebuff) <= a:GCD()) then
         if i(e.EyeBeam, nil, nil, not t:IsInRange(20)) then
             o = 198013
             return "eye_beam demonic 1"
@@ -389,14 +389,14 @@ local function me()
     end
 
     if e.DeathSweep:IsReady() and e.VengefulRetreat:TimeSinceLastCast() >= 1 and t:IsInMeleeRange(8) and (y) then
-        if i(e.DeathSweep, nil, nil, not d(8)) then
+        if i(e.DeathSweep, nil, nil, not r(8)) then
             o = 210152
             return "death_sweep demonic 4"
         end
 
     end
 
-    if e.GlaiveTempest:IsReady() and t:IsInMeleeRange(8) and (r > 0) then
+    if e.GlaiveTempest:IsReady() and t:IsInMeleeRange(8) and (d > 0) then
         if i(e.GlaiveTempest, nil, nil, not t:IsInMeleeRange(8)) then
             o = 342817
             return "glaive_tempest demonic 6"
@@ -412,7 +412,7 @@ local function me()
 
     end
 
-    if e.EyeBeam:IsReady() and not a:IsMoving() and (u == 0 or u > e.EyeBeam:ExecuteTime()) and v and not t:IsCasting(E(355806)) and t:IsInMeleeRange(10) and e.VengefulRetreat:TimeSinceLastCast() >= 1 and (r > 0 and ((not G) or r > 1 or a:Fury() < 70) and not N) then
+    if e.EyeBeam:IsReady() and not a:IsMoving() and (u == 0 or u > e.EyeBeam:ExecuteTime()) and v and not t:IsCasting(E(355806)) and t:IsInMeleeRange(10) and e.VengefulRetreat:TimeSinceLastCast() >= 1 and (d > 0 and ((not G) or d > 1 or a:Fury() < 70) and not N) then
         if i(e.EyeBeam, nil, nil, not t:IsInRange(20)) then
             o = 198013
             return "eye_beam demonic 10"
@@ -421,30 +421,30 @@ local function me()
     end
 
     if e.BladeDance:IsReady() and e.VengefulRetreat:TimeSinceLastCast() >= 1 and t:IsInMeleeRange(8) and (y and (not e.Metamorphosis:CooldownUp() or not k) and (e.EyeBeam:CooldownRemains() > 5 or not v)) then
-        if i(e.BladeDance, nil, nil, not d(8)) then
+        if i(e.BladeDance, nil, nil, not r(8)) then
             o = 188499
             return "blade_dance demonic 12"
         end
 
     end
 
-    if e.ImmolationAura:IsCastable() and not P and e.VengefulRetreat:TimeSinceLastCast() >= 1 and t:IsInMeleeRange(8) and (a:BuffDown(e.ImmolationAuraBuff)) then
-        if i(e.ImmolationAura, nil, nil, not d(8)) then
+    if e.ImmolationAura:IsCastable() and not P and e.VengefulRetreat:TimeSinceLastCast() >= 1 and r(10) and (a:BuffDown(e.ImmolationAuraBuff)) then
+        if i(e.ImmolationAura, nil, nil, not r(8)) then
             o = 258920
             return "immolation_aura demonic 14"
         end
 
     end
 
-    if e.SigilofFlame:IsCastable() and not P and e.VengefulRetreat:TimeSinceLastCast() >= 1 and t:IsInMeleeRange(8) and (a:BuffDown(e.ImmolationAuraBuff)) then
-        if i(e.SigilofFlame, nil, nil, not d(8)) then
+    if e.SigilofFlame:IsCastable() and not P and e.VengefulRetreat:TimeSinceLastCast() >= 1 and r(10) and (a:BuffDown(e.ImmolationAuraBuff)) then
+        if i(e.SigilofFlame, nil, nil, not r(8)) then
             o = 204596
             return "SigilofFlame demonic 14"
         end
 
     end
 
-    if e.Annihilation:IsReady() and t:IsInRange(8) and t:IsInMeleeRange(8) and (not A) then
+    if e.Annihilation:IsReady() and t:IsInRange(8) and r(10) and (not A) then
         if i(e.Annihilation, nil, nil, not t:IsSpellInRange(e.Annihilation)) then
             o = 201427
             return "annihilation demonic 16"
@@ -452,7 +452,7 @@ local function me()
 
     end
 
-    if e.Felblade:IsCastable() and not a:IsMoving() and not B and t:IsInRange(n.Commons.FelBladeRange) and (t:IsInRange(8) or not m) and (a:FuryDeficit() >= 40) and (not d() or e.VengefulRetreat:TimeSinceLastCast() >= 1.) then
+    if e.Felblade:IsCastable() and not a:IsMoving() and not B and t:IsInRange(n.Commons.FelBladeRange) and (t:IsInRange(8) or not m) and (a:FuryDeficit() >= 40) and (not r() or e.VengefulRetreat:TimeSinceLastCast() >= 1.) then
         if i(e.Felblade, nil, nil, not t:IsSpellInRange(e.Felblade)) then
             o = 183226
             return "felblade demonic 18"
@@ -461,7 +461,7 @@ local function me()
     end
 
     if e.EssenceBreak:IsCastable() and t:IsInMeleeRange(10) and e.VengefulRetreat:TimeSinceLastCast() > 1 then
-        if i(e.EssenceBreak, nil, nil, not d(10)) then
+        if i(e.EssenceBreak, nil, nil, not r(10)) then
             o = 258860
             return "essence_break demonic 20"
         end
@@ -499,7 +499,7 @@ local function me()
 
     end
 
-    if e.FelRush:IsCastable() and t:IsInRange(15) and e.VengefulRetreat:TimeSinceLastCast() > .75 and not m and (not e.DemonBlades:IsAvailable() and r > 1 and (e.FelRush:Charges() == 2)) and q then
+    if e.FelRush:IsCastable() and t:IsInRange(15) and e.VengefulRetreat:TimeSinceLastCast() > .75 and not m and (not e.DemonBlades:IsAvailable() and d > 1 and (e.FelRush:Charges() == 2)) and q then
         if i(e.FelRush, nil, nil) then
             o = 195072
             return "fel_rush demonic 28"
@@ -515,7 +515,7 @@ local function me()
 
     end
 
-    if e.ThrowGlaive:IsCastable() and t:IsInRange(n.Commons.ThrowGlaiveRange) and (not d()) then
+    if e.ThrowGlaive:IsCastable() and t:IsInRange(n.Commons.ThrowGlaiveRange) and (not r()) then
         if i(e.ThrowGlaive, nil, nil, not t:IsSpellInRange(e.ThrowGlaive)) then
             o = 185123
             return "throw_glaive demonic 32"
@@ -523,7 +523,7 @@ local function me()
 
     end
 
-    if e.FelRush:IsCastable() and t:IsInRange(15) and e.VengefulRetreat:TimeSinceLastCast() > .75 and not m and (not d() and H()) and q then
+    if e.FelRush:IsCastable() and t:IsInRange(15) and e.VengefulRetreat:TimeSinceLastCast() > .75 and not m and (not r() and H()) and q then
         if i(e.FelRush, nil, nil) then
             o = 195072
             return "fel_rush demonic 34"
@@ -531,7 +531,7 @@ local function me()
 
     end
 
-    if e.VengefulRetreat:IsCastable() and e.EyeBeam:TimeSinceLastCast() > 1 and t:IsInRange(5) and Y and not m and (not d()) then
+    if e.VengefulRetreat:IsCastable() and e.EyeBeam:TimeSinceLastCast() > 1 and t:IsInRange(5) and Y and not m and (not r()) then
         if i(e.VengefulRetreat, nil) then
             o = 198793
             return "vengeful_retreat demonic 36"
@@ -550,7 +550,7 @@ local function me()
 end
 
 local function de()
-    if e.EyeBeam:IsReady() and not a:IsMoving() and (u == 0 or u > e.EyeBeam:ExecuteTime()) and v and not t:IsCasting(E(355806)) and t:IsInMeleeRange(10) and e.VengefulRetreat:TimeSinceLastCast() >= 1 and (O and r > 1 and t:DebuffUp(e.SinfulBrandDebuff) and t:DebuffRemains(e.SinfulBrandDebuff) <= a:GCD()) then
+    if e.EyeBeam:IsReady() and not a:IsMoving() and (u == 0 or u > e.EyeBeam:ExecuteTime()) and v and not t:IsCasting(E(355806)) and t:IsInMeleeRange(10) and e.VengefulRetreat:TimeSinceLastCast() >= 1 and (O and d > 1 and t:DebuffUp(e.SinfulBrandDebuff) and t:DebuffRemains(e.SinfulBrandDebuff) <= a:GCD()) then
         if i(e.EyeBeam, nil, nil, not t:IsInRange(20)) then
             o = 198013
             return "eye_beam normal 1"
@@ -574,8 +574,8 @@ local function de()
 
     end
 
-    if e.FelBarrage:IsCastable() and e.VengefulRetreat:TimeSinceLastCast() > 1 and t:IsInMeleeRange(8) and (r > 1) then
-        if i(e.FelBarrage, nil, nil, not d(8)) then
+    if e.FelBarrage:IsCastable() and e.VengefulRetreat:TimeSinceLastCast() > 1 and t:IsInMeleeRange(8) and (d > 1) then
+        if i(e.FelBarrage, nil, nil, not r(8)) then
             o = 211053
             return "fel_barrage normal 6"
         end
@@ -583,7 +583,7 @@ local function de()
     end
 
     if e.DeathSweep:IsReady() and e.VengefulRetreat:TimeSinceLastCast() >= 1 and t:IsInMeleeRange(8) and (y) then
-        if i(e.DeathSweep, nil, nil, not d(8)) then
+        if i(e.DeathSweep, nil, nil, not r(8)) then
             o = 210152
             return "death_sweep normal 8"
         end
@@ -591,14 +591,14 @@ local function de()
     end
 
     if e.ImmolationAura:IsCastable() and not P and e.VengefulRetreat:TimeSinceLastCast() >= 1 and t:IsInMeleeRange(8) and (a:BuffDown(e.ImmolationAuraBuff)) then
-        if i(e.ImmolationAura, nil, nil, not d(8)) then
+        if i(e.ImmolationAura, nil, nil, not r(8)) then
             o = 258920
             return "immolation_aura normal 10"
         end
 
     end
 
-    if e.GlaiveTempest:IsReady() and e.VengefulRetreat:TimeSinceLastCast() > 1 and t:IsInMeleeRange(8) and (not b and r > 0) then
+    if e.GlaiveTempest:IsReady() and e.VengefulRetreat:TimeSinceLastCast() > 1 and t:IsInMeleeRange(8) and (not b and d > 0) then
         if i(e.GlaiveTempest, nil) then
             o = 342817
             return "glaive_tempest normal 12"
@@ -614,8 +614,8 @@ local function de()
 
     end
 
-    if e.EyeBeam:IsReady() and not a:IsMoving() and (u == 0 or u > e.EyeBeam:ExecuteTime()) and v and not t:IsCasting(E(355806)) and t:IsInMeleeRange(10) and e.VengefulRetreat:TimeSinceLastCast() >= 1 and ((not b) and (U > 0 and ((not G) or r > 1 or a:Fury() < 70) and not N)) then
-        if i(e.EyeBeam, nil, nil, not d(20)) then
+    if e.EyeBeam:IsReady() and not a:IsMoving() and (u == 0 or u > e.EyeBeam:ExecuteTime()) and v and not t:IsCasting(E(355806)) and t:IsInMeleeRange(10) and e.VengefulRetreat:TimeSinceLastCast() >= 1 and ((not b) and (U > 0 and ((not G) or d > 1 or a:Fury() < 70) and not N)) then
+        if i(e.EyeBeam, nil, nil, not r(20)) then
             o = 198013
             return "eye_beam normal 16"
         end
@@ -623,14 +623,14 @@ local function de()
     end
 
     if e.BladeDance:IsReady() and e.VengefulRetreat:TimeSinceLastCast() >= 1 and t:IsInMeleeRange(8) and (y) then
-        if i(e.BladeDance, nil, nil, not d(8)) then
+        if i(e.BladeDance, nil, nil, not r(8)) then
             o = 188499
             return "blade_dance normal 18"
         end
 
     end
 
-    if e.Felblade:IsCastable() and not a:IsMoving() and not B and t:IsInRange(n.Commons.FelBladeRange) and (t:IsInRange(8) or not m) and (a:FuryDeficit() >= 40) and (not d() or e.VengefulRetreat:TimeSinceLastCast() >= 1.) then
+    if e.Felblade:IsCastable() and not a:IsMoving() and not B and t:IsInRange(n.Commons.FelBladeRange) and (t:IsInRange(8) or not m) and (a:FuryDeficit() >= 40) and (not r() or e.VengefulRetreat:TimeSinceLastCast() >= 1.) then
         if i(e.Felblade, nil, nil, not t:IsSpellInRange(e.Felblade)) then
             o = 183226
             return "felblade normal 20"
@@ -639,7 +639,7 @@ local function de()
     end
 
     if e.EssenceBreak:IsCastable() and t:IsInMeleeRange(10) and e.VengefulRetreat:TimeSinceLastCast() > 1 then
-        if i(e.EssenceBreak, nil, nil, not d(10)) then
+        if i(e.EssenceBreak, nil, nil, not r(10)) then
             o = 258860
             return "essence_break normal 22"
         end
@@ -701,7 +701,7 @@ local function de()
 
     end
 
-    if e.Felblade:IsCastable() and not a:IsMoving() and not B and t:IsInRange(n.Commons.FelBladeRange) and (not d() and not m) then
+    if e.Felblade:IsCastable() and not a:IsMoving() and not B and t:IsInRange(n.Commons.FelBladeRange) and (not r() and not m) then
         if i(e.Felblade, nil, nil, not t:IsSpellInRange(e.Felblade)) then
             o = 183226
             return "felblade normal 34"
@@ -709,7 +709,7 @@ local function de()
 
     end
 
-    if e.FelRush:IsCastable() and t:IsInRange(15) and e.VengefulRetreat:TimeSinceLastCast() > .75 and not m and (not d() and not e.Momentum:IsAvailable() and H()) and q then
+    if e.FelRush:IsCastable() and t:IsInRange(15) and e.VengefulRetreat:TimeSinceLastCast() > .75 and not m and (not r() and not e.Momentum:IsAvailable() and H()) and q then
         if i(e.FelRush, nil, nil) then
             o = 195072
             return "fel_rush demonic 34"
@@ -717,7 +717,7 @@ local function de()
 
     end
 
-    if e.VengefulRetreat:IsCastable() and e.EyeBeam:TimeSinceLastCast() > 1 and t:IsInRange(5) and Y and not m and (not d()) then
+    if e.VengefulRetreat:IsCastable() and e.EyeBeam:TimeSinceLastCast() > 1 and t:IsInRange(5) and Y and not m and (not r()) then
         if i(e.VengefulRetreat, nil) then
             o = 198793
             return "vengeful_retreat normal 38"
@@ -733,7 +733,7 @@ local function de()
 
     end
 
-    if e.SigilofFlame:IsReady() and t:IsInMeleeRange(6) and ((not A) and (not R)) then
+    if e.SigilofFlame:IsReady() and r(10) and ((not A) and (not R)) then
         if i(e.SigilofFlame, nil, nil, not t:IsSpellInRange(e.SigilofFlame)) then
             o = 204596
             return "sigilofFlame demonic 42"
@@ -743,7 +743,7 @@ local function de()
 
 end
 
-local function d()
+local function r()
     ie = HeroRotationCharDB.Toggles[6]
     I = HeroRotationCharDB.Toggles[4]
     Z = HeroRotationCharDB.Toggles[5]
@@ -798,10 +798,10 @@ local function u()
     if J() then
         z = a:GetEnemiesInMeleeRange(8)
         se = a:GetEnemiesInMeleeRange(20)
-        r = #z
+        d = #z
         U = #se
     else
-        r = 1
+        d = 1
         U = 1
     end
 
@@ -813,7 +813,7 @@ local function u()
 
     UnitsWithoutBWCount = ve(z)
     UnitsWithoutSGCount = ye(z)
-    d()
+    r()
     if s.QueuedCast() then
         o = s.QueuedCast()
         return "Custom Queue " .. E(o):ID()
@@ -967,15 +967,15 @@ local function u()
         end
 
         if ((not ae) and not L) then
-            y = (e.FirstBlood:IsAvailable() or (r >= (3 - j(e.TrailofRuin:IsAvailable()))))
+            y = (e.FirstBlood:IsAvailable() or (d >= (3 - j(e.TrailofRuin:IsAvailable()))))
         end
 
         if (ae) then
-            y = (a:BuffDown(e.ChaosTheoryBuff) or e.FirstBlood:IsAvailable() and r >= (2 - j(e.TrailofRuin:IsAvailable())) or (not e.CycleofHatred:IsAvailable()) and r >= (4 - j(e.TrailofRuin:IsAvailable())))
+            y = (a:BuffDown(e.ChaosTheoryBuff) or e.FirstBlood:IsAvailable() and d >= (2 - j(e.TrailofRuin:IsAvailable())) or (not e.CycleofHatred:IsAvailable()) and d >= (4 - j(e.TrailofRuin:IsAvailable())))
         end
 
         if (L) then
-            y = (e.FirstBlood:IsAvailable() or (a:BuffUp(e.MetamorphosisBuff) or e.TrailofRuin:IsAvailable() or t:DebuffUp(e.EssenceBreakDebuff)) and r >= (3 - j(e.TrailofRuin:IsAvailable())) or (not e.Demonic:IsAvailable()) and r >= 4)
+            y = (e.FirstBlood:IsAvailable() or (a:BuffUp(e.MetamorphosisBuff) or e.TrailofRuin:IsAvailable() or t:DebuffUp(e.EssenceBreakDebuff)) and d >= (3 - j(e.TrailofRuin:IsAvailable())) or (not e.Demonic:IsAvailable()) and d >= 4)
         end
 
         if (e.EssenceBreak:IsAvailable() and e.EssenceBreak:CooldownUp()) then
@@ -991,7 +991,7 @@ local function u()
         R = e.Demonic:IsAvailable() and (not e.BlindFury:IsAvailable()) and e.EyeBeam:CooldownRemains() < (a:GCD() * 2) and v and a:FuryDeficit() > 20
         b = e.Momentum:IsAvailable() and a:BuffDown(e.MomentumBuff)
         if (O) then
-            N = t:DebuffDown(e.SinfulBrandDebuff) and e.SinfulBrand:CooldownRemains() < a:GCD() * 4 and (e.Metamorphosis:CooldownDown() or r == 1) and U <= 3
+            N = t:DebuffDown(e.SinfulBrandDebuff) and e.SinfulBrand:CooldownRemains() < a:GCD() * 4 and (e.Metamorphosis:CooldownDown() or d == 1) and U <= 3
         end
 
         for a = 1, 25 do
