@@ -1,109 +1,93 @@
 local e, e = ...
 local e = HeroDBC.DBC
-local w = HeroLib
+local c = HeroLib
 local e = HeroCache
-local _ = w.Unit
-local a = _.Player
-local t = _.Target
-local l = w.Spell
-local e = w.MultiSpell
-local p = w.Item
-local e = w.Utils.num
-local e = w.Utils.IntToBool
+local z = c.Unit
+local a = z.Player
+local t = z.Target
+local l = c.Spell
+local e = c.MultiSpell
+local g = c.Item
+local e = c.Utils.num
+local w = c.Utils.BoolToInt
+local e = c.Utils.IntToBool
+local ee = c.Utils.ValueIsInArray
 local r = HeroRotation
-local ze = r.AoEON
-local B = r.CDsON
-local Ee = HeroRotationCharDB.Toggles[4]
-local Ae = HeroRotationCharDB.Toggles[5]
-local Z = HeroRotationCharDB.Toggles[6]
-local O = HeroRotationCharDB.Toggles[12]
-local ae = not HeroRotationCharDB.Toggles[15]
-local Te = HeroRotationCharDB.Toggles[20]
-local xe = HeroRotationCharDB.Toggles[21]
-local _e = HeroRotationCharDB.Toggles[22]
-local je = HeroRotationCharDB.Toggles[23]
-local be = HeroRotationCharDB.Toggles[24]
-local ve = HeroRotationCharDB.Toggles[25]
-local pe = HeroRotationCharDB.Toggles[26]
-local ge = HeroRotationCharDB.Toggles[27]
-local Ie = HeroRotationCharDB.Toggles[28]
-local ke = HeroRotationCharDB.Toggles[29]
-local qe = HeroRotationCharDB.Toggles[30]
-local Oe = HeroRotationCharDB.Toggles[54]
+local xe = r.AoEON
+local E = r.CDsON
 local n = r.Cast
-local A = r.CastPooling
-local de = pairs
-local W = math.floor
-local j = r.Commons.Everyone
-local i = r.Commons.Rogue
-local h = { General = r.GUISettings.General, Commons = r.GUISettings.APL.Rogue.Commons, Assassination = r.GUISettings.APL.Rogue.Assassination }
+local j = r.CastPooling
+local R = r.CastLeftNameplate
+local ze = HeroRotationCharDB.Toggles[4]
+local X = HeroRotationCharDB.Toggles[5]
+local J = HeroRotationCharDB.Toggles[6]
+local O = HeroRotationCharDB.Toggles[12]
+local fe = not HeroRotationCharDB.Toggles[15]
+local we = HeroRotationCharDB.Toggles[20]
+local Q = HeroRotationCharDB.Toggles[21]
+local me = HeroRotationCharDB.Toggles[22]
+local le = HeroRotationCharDB.Toggles[23]
+local ye = HeroRotationCharDB.Toggles[24]
+local be = HeroRotationCharDB.Toggles[25]
+local ke = HeroRotationCharDB.Toggles[26]
+local je = HeroRotationCharDB.Toggles[27]
+local qe = HeroRotationCharDB.Toggles[28]
+local ve = HeroRotationCharDB.Toggles[29]
+local ge = HeroRotationCharDB.Toggles[30]
+local pe = HeroRotationCharDB.Toggles[54]
+local _ = pairs
+local Z = math.floor
+local e = math.max
+local H = r.Commons.Everyone
+local h = r.Commons.Rogue
+local i = { General = r.GUISettings.General, Commons = r.GUISettings.APL.Rogue.Commons, Assassination = r.GUISettings.APL.Rogue.Assassination }
 local e = l.Rogue.Assassination
-local k = p.Rogue.Assassination
-local o = {  }
-local ne, q, s, Q
-local d
-local o = i.ReturnSpell()
-local c = i.ReturnSpellMO()
-local he
-local g, m = 2 / a:SpellHaste(), 1 / a:SpellHaste()
-local f, u
-local S, J, F, ee, H, y, M
+local D = g.Rogue.Assassination
+local ie = {  }
+local V, U, m, q
+local M, k, d, T
+local s
+local Y, P = 2 * a:SpellHaste(), 1 * a:SpellHaste()
+local f, I
+local ae, oe, B, G, F, L, W
 local N
-local re, I, D, x, y
-local R
-local te
-local K = 11111
-local y = 11111
-local E = a:GetEquipment()
-local z = a:CovenantID()
-local ue, T, P, ce = (z == 1), (z == 2), (z == 3), (z == 4)
-local Y = a:HasLegendaryEquipped(118)
-local ie = a:HasLegendaryEquipped(129)
-local V = a:HasLegendaryEquipped(119)
-local U = a:HasLegendaryEquipped(121)
-local G = a:HasLegendaryEquipped(117)
-local C = a:HasLegendaryEquipped(229) or (a:HasUnity() and T)
-local oe = U and .55 or 1.
-local le = C and .56 or 1.
-local se, L = a:HasTier(28, 2), a:HasTier(28, 4)
-local b = E[13] and p(E[13]) or p(0)
-local v = E[14] and p(E[14]) or p(0)
-local function X()
-        if b:TrinketHasStatAnyDps() and (not v:TrinketHasStatAnyDps() or b:Cooldown() >= v:Cooldown()) or b:ID() == k.InscrutableQuantumDevice:ID() or T and not v:TrinketHasStatAnyDps() and b:ID() == k.ShadowgraspTotem:ID() then
-        TrinketSyncSlot = 1
-    elseif v:TrinketHasStatAnyDps() and (not b:TrinketHasStatAnyDps() or v:Cooldown() > b:Cooldown()) or v:ID() == k.InscrutableQuantumDevice:ID() or T and not b:TrinketHasStatAnyDps() and v:ID() == k.ShadowgraspTotem:ID() then
-        TrinketSyncSlot = 2
+local te, x, ue, S, A
+local v = 0
+local o = h.ReturnSpell()
+local u = h.ReturnSpellMO()
+local b = a:GetEquipment()
+local y = a:CovenantID()
+local y, p, y, y = (y == 1), (y == 2), (y == 3), (y == 4)
+local y = a:HasLegendaryEquipped(118)
+local y = a:HasLegendaryEquipped(129)
+local y = a:HasLegendaryEquipped(119)
+local y = a:HasLegendaryEquipped(121)
+local C = a:HasLegendaryEquipped(117)
+local p = a:HasLegendaryEquipped(229) or (a:HasUnity() and p)
+local y = y and .55 or 1.
+local y = p and .56 or 1.
+local y, y = a:HasTier(28, 2), a:HasTier(28, 4)
+local y = b[13] and g(b[13]) or g(0)
+local p = b[14] and g(b[14]) or g(0)
+local function C()
+        if y:TrinketHasStatAnyDps() and (not p:TrinketHasStatAnyDps() or y:Cooldown() >= p:Cooldown()) then
+        v = 1
+    elseif p:TrinketHasStatAnyDps() and (not y:TrinketHasStatAnyDps() or p:Cooldown() > y:Cooldown()) then
+        v = 2
     else
-        TrinketSyncSlot = 0
+        v = 0
     end
 
-    UseTrinket1PreVendetta = L and (b:ID() == k.InscrutableQuantumDevice:ID() or b:ID() == k.OverchargedAnimaBattery:ID())
-    UseTrinket2PreVendetta = L and (v:ID() == k.InscrutableQuantumDevice:ID() or v:ID() == k.OverchargedAnimaBattery:ID())
 end
 
-X()
-w:RegisterForEvent(function()
-    E = a:GetEquipment()
-    z = a:CovenantID()
-    ue, T, P, ce = (z == 1), (z == 2), (z == 3), (z == 4)
-    Y = a:HasLegendaryEquipped(118)
-    ie = a:HasLegendaryEquipped(129)
-    V = a:HasLegendaryEquipped(119)
-    U = a:HasLegendaryEquipped(121)
-    G = a:HasLegendaryEquipped(117)
-    C = a:HasLegendaryEquipped(229) or (a:HasUnity() and T)
-    oe = U and .55 or 1.
-    le = C and .56 or 1.
-    se, L = a:HasTier(28, 2), a:HasTier(28, 4)
-    b = E[13] and p(E[13]) or p(0)
-    v = E[14] and p(E[14]) or p(0)
-    X()
-end, "PLAYER_EQUIPMENT_CHANGED", "COVENANT_CHOSEN")
-w:RegisterForEvent(function()
-    K = 11111
-    y = 11111
-end, "PLAYER_REGEN_ENABLED")
-local function p(t)
+C()
+c:RegisterForEvent(function()
+    b = a:GetEquipment()
+    y = b[13] and g(b[13]) or g(0)
+    p = b[14] and g(b[14]) or g(0)
+    C()
+end, "PLAYER_EQUIPMENT_CHANGED")
+local function b(t)
     if t then
         return 1
     else
@@ -113,42 +97,131 @@ local function p(t)
 end
 
 e.Envenom:RegisterDamageFormula(function()
-    return a:AttackPowerDamageMod() * f * .16 * 1.51 * (t:DebuffUp(e.ShivDebuff) and 1.3 or 1) * (e.DeeperStratagem:IsAvailable() and 1.05 or 1) * (1 + a:MasteryPct() / 100) * (1 + a:VersatilityDmgPct() / 100)
+    return a:AttackPowerDamageMod() * f * .22 * 1. * (t:DebuffUp(e.ShivDebuff) and 1.3 or 1) * (e.DeeperStratagem:IsAvailable() and 1.05 or 1) * (1 + a:MasteryPct() / 100) * (1 + a:VersatilityDmgPct() / 100)
 end)
 e.Mutilate:RegisterDamageFormula(function()
-    return (a:AttackPowerDamageMod() + a:AttackPowerDamageMod(true)) * .35 * 1.51 * (1 + a:VersatilityDmgPct() / 100)
+    return (a:AttackPowerDamageMod() + a:AttackPowerDamageMod(true)) * .485 * 1. * (1 + a:VersatilityDmgPct() / 100)
 end)
-local function z()
-    return e.Nightstalker:IsAvailable() and a:StealthUp(true, false, true) and 1.5 or 1
+local function C()
+    if a:BuffRemains(e.MasterAssassinBuff) == 9999 then
+        return a:GCDRemains() + 3
+    end
+
+    return a:BuffRemains(e.MasterAssassinBuff)
 end
 
-local function E()
-    return e.Subterfuge:IsAvailable() and a:StealthUp(true, false, true) and 2 or 1
+local function g()
+    if a:BuffUp(e.ImprovedGarroteAura) then
+        return a:GCDRemains() + 3
+    end
+
+    return a:BuffRemains(e.ImprovedGarroteBuff)
 end
 
-e.Garrote:RegisterPMultiplier(z, E)
-e.Rupture:RegisterPMultiplier(z)
-local function z(i, s, r)
-    local n = s(t)
-    if i == "first" and n ~= 0 then
+local function b()
+    return e.ImprovedGarrote:IsAvailable() and g() > 0 and 1.5 or 1
+end
+
+e.Garrote:RegisterPMultiplier(b)
+e.Rupture:RegisterPMultiplier(b)
+local function _e()
+                if d < 2 then
+        return false
+    elseif i.Commons.UsePriorityRotation == "Always" then
+        return true
+    elseif i.Commons.UsePriorityRotation == "On Bosses" and t:IsInBossList() then
+        return true
+    elseif i.Commons.UsePriorityRotation == "Auto" then
+        if a:InstanceDifficulty() == 16 and t:NPCID() == 138967 then
+            return true
+        end
+
+    end
+
+    return false
+end
+
+local function b(t, e, a)
+    local a = a or e:PandemicThreshold()
+    return t:DebuffRefreshable(e, a)
+end
+
+local function se(a, h, s, d)
+    local e, n = nil, s
+    local r = t:GUID()
+    for o, t in _(d) do
+        if t:GUID() ~= r and H.UnitIsCycleValid(t, n, -t:DebuffRemains(a)) and h(t) then
+            e, n = t, t:TimeToDie()
+        end
+
+    end
+
+        if e then
+                        if e:GUID() == z("mouseover"):GUID() and i.Assassination.TargetSwap == "Mouseover" then
+                        if a:ID() == 703 then
+                u = 1703
+            elseif a:ID() == 1943 then
+                u = 11943
+            end
+
+        elseif i.Assassination.TargetSwap == "AutoSwap" and e:GUID() ~= t:GUID() and not O then
+            u = 9999
+        elseif e:GUID() == t:GUID() then
+            o = a:ID()
+        end
+
+        R(e, a)
+    elseif i.Commons.RangedMultiDoT then
+        e, n = nil, s
+        for o, t in _(k) do
+            if t:GUID() ~= r and H.UnitIsCycleValid(t, n, -t:DebuffRemains(a)) and h(t) then
+                e, n = t, t:TimeToDie()
+            end
+
+        end
+
+        if e then
+                                    if e:GUID() == z("mouseover"):GUID() and i.Assassination.TargetSwap == "Mouseover" then
+                                if a:ID() == 703 then
+                    u = 1703
+                elseif a:ID() == 1943 then
+                    u = 11943
+                end
+
+            elseif i.Assassination.TargetSwap == "AutoSwap" and e:GUID() ~= t:GUID() and not O then
+                u = 9999
+            elseif e:GUID() == t:GUID() then
+                o = a:ID()
+            end
+
+            R(e, a)
+        end
+
+    end
+
+end
+
+local function ce(n, r, d)
+    local s = r(t)
+    if n == "first" and s ~= 0 then
         return t
     end
 
     local e, a = nil, 0
-    local function d(t)
-        for t, o in de(t) do
-            local t = s(o)
-                                    if not e and i == "first" then
+    local function h(t)
+        for t, o in _(t) do
+            local t = r(o)
+                                    if not e and n == "first" then
                 if t ~= 0 then
                     e, a = o, t
                 end
 
-            elseif i == "min" then
+            elseif n == "min" then
                 if not e or t < a then
                     e, a = o, t
                 end
 
-            elseif i == "max" then
+            elseif n == "max" then
                 if not e or t > a then
                     e, a = o, t
                 end
@@ -163,59 +236,42 @@ local function z(i, s, r)
 
     end
 
-    d(Q)
-    if h.Commons.RangedMultiDoT then
-        d(q)
+    h(T)
+    if i.Commons.RangedMultiDoT then
+        h(k)
     end
 
-    if e and a == n and r(t) then
+    if e and a == s and d(t) then
         return t
     end
 
-    if e and r(e) then
+    if e and d(e) then
         return e
     end
 
     return nil
 end
 
-local function Ne(o, a, t)
-    local t = t or a:PandemicThreshold()
-    if L and o:DebuffUp(e.Vendetta) then
-        t = t * .5
-    end
-
-    return o:DebuffRefreshable(a, t)
+local function K()
+    return e.ResoundingClarity:IsAvailable() and 7 or h.CPMaxSpend()
 end
 
-local function z()
-    local t = i.MasterAssassinsMarkRemains()
-        if t > 0 then
-        return t
-    elseif a:BuffRemains(e.MasterAssassinBuff) < 0 then
-        return a:GCDRemains() + 3
-    else
-        return a:BuffRemains(e.MasterAssassinBuff)
-    end
-
-end
-
-local function se(o, i, a)
+local function ne(o, i, a)
     local e = t:TimeToDie()
-        if not w.BossFightRemainsIsNotValid() then
-        e = w.BossFightRemains()
+        if not c.BossFightRemainsIsNotValid() then
+        e = c.BossFightRemains()
     elseif e < a then
         return false
     end
 
-    if W((e - a) / o) > W((e - a - i) / o) then
+    if Z((e - a) / o) > Z((e - a - i) / o) then
         return true
     end
 
     return false
 end
 
-local function le(t)
+local function he(t)
     if t:DebuffUp(e.SerratedBoneSpikeDebuff) then
         return 1000000
     end
@@ -223,439 +279,251 @@ local function le(t)
     return t:TimeToDie()
 end
 
-local function ue(e)
-    return e:TimeToDie()
-end
-
-local function E(t)
-    return t:DebuffRemains(e.Garrote)
-end
-
-local function L(t)
-    return t:DebuffRemains(e.DeadlyPoisonDebuff)
-end
-
-local function E(t)
-    return t:DebuffRemains(e.Garrote)
-end
-
-local function ye(t)
-    return t:DebuffRemains(e.Rupture)
-end
-
-local function ce(a)
-                if ((not a:DebuffUp(e.SerratedBoneSpikeDebuff)) and a:GUID() == _("mouseover"):GUID() and h.Assassination.TargetSwap == "Mouseover") then
-        c = 1328547
+local function de(a)
+                if ((not a:DebuffUp(e.SerratedBoneSpikeDebuff)) and a:GUID() == z("mouseover"):GUID() and i.Assassination.TargetSwap == "Mouseover") then
+        u = 1328547
         return true
-    elseif ((not a:DebuffUp(e.SerratedBoneSpikeDebuff)) and h.Assassination.TargetSwap == "AutoSwap" and a:GUID() ~= t:GUID() and not O) then
-        c = 9999
+    elseif ((not a:DebuffUp(e.SerratedBoneSpikeDebuff)) and i.Assassination.TargetSwap == "AutoSwap" and a:GUID() ~= t:GUID() and not O) then
+        u = 9999
         return true
     elseif ((not a:DebuffUp(e.SerratedBoneSpikeDebuff)) and a:GUID() == t:GUID()) then
         o = 328547
         return true
-    elseif not (a:DebuffUp(e.SerratedBoneSpikeDebuff)) then
+    elseif (not a:DebuffUp(e.SerratedBoneSpikeDebuff)) then
         return true
     end
 
 end
 
-local function fe(e)
-                if ((((not x or e:FilteredTimeToDie("<", 30)) and e:FilteredTimeToDie("<", (u * 1.5))) or (u >= i.CPMaxSpend())) and e:GUID() == _("mouseover"):GUID() and h.Assassination.TargetSwap == "Mouseover") then
-        c = 1137619
-        return true
-    elseif ((((not x or e:FilteredTimeToDie("<", 30)) and e:FilteredTimeToDie("<", (u * 1.5))) or (u >= i.CPMaxSpend())) and h.Assassination.TargetSwap == "AutoSwap" and e:GUID() ~= t:GUID() and not O) then
-        c = 9999
-        return true
-    elseif ((((not x or e:FilteredTimeToDie("<", 30)) and e:FilteredTimeToDie("<", (u * 1.5))) or (u >= i.CPMaxSpend())) and e:GUID() == t:GUID()) then
-        o = 137619
-        return true
-    elseif (((not x or e:FilteredTimeToDie("<", 30)) and e:FilteredTimeToDie("<", (u * 1.5))) or (u >= i.CPMaxSpend())) then
-        return true
-    end
-
-end
-
-local function X(n)
-                if ((a:BuffUp(e.ImprovedGarroteBuff) and not i.WillLoseExsanguinate(n, e.Garrote) and (n:DebuffRemains(e.Garrote) < (12 / i.ExsanguinatedRate(n, e.Garrote)) or n:PMultiplier(e.Garrote) <= 1) and (n:FilteredTimeToDie(">", 2, -n:DebuffRemains(e.Garrote)) or n:TimeToDieIsNotValid())) and n:GUID() == _("mouseover"):GUID() and h.Assassination.TargetSwap == "Mouseover") then
-        c = 1703
-        return true
-    elseif ((a:BuffUp(e.ImprovedGarroteBuff) and not i.WillLoseExsanguinate(n, e.Garrote) and (n:DebuffRemains(e.Garrote) < (12 / i.ExsanguinatedRate(n, e.Garrote)) or n:PMultiplier(e.Garrote) <= 1) and (n:FilteredTimeToDie(">", 2, -n:DebuffRemains(e.Garrote)) or n:TimeToDieIsNotValid())) and h.Assassination.TargetSwap == "AutoSwap" and n:GUID() ~= t:GUID() and not O) then
-        c = 9999
-        return true
-    elseif ((a:BuffUp(e.ImprovedGarroteBuff) and not i.WillLoseExsanguinate(n, e.Garrote) and (n:DebuffRemains(e.Garrote) < (12 / i.ExsanguinatedRate(n, e.Garrote)) or n:PMultiplier(e.Garrote) <= 1) and (n:FilteredTimeToDie(">", 2, -n:DebuffRemains(e.Garrote)) or n:TimeToDieIsNotValid())) and n:GUID() == t:GUID()) then
-        o = 703
-        return true
-    elseif (a:BuffUp(e.ImprovedGarroteBuff) and not i.WillLoseExsanguinate(n, e.Garrote) and (n:DebuffRemains(e.Garrote) < (12 / i.ExsanguinatedRate(n, e.Garrote)) or n:PMultiplier(e.Garrote) <= 1) and (n:FilteredTimeToDie(">", 2, -n:DebuffRemains(e.Garrote)) or n:TimeToDieIsNotValid())) then
-        return true
-    end
-
-end
-
-local function we(a)
-                if ((a:DebuffDown(e.DeadlyPoisonDebuff) and (not N or a:DebuffUp(e.Garrote) or a:DebuffUp(e.Rupture))) and a:GUID() == _("mouseover"):GUID() and h.Assassination.TargetSwap == "Mouseover") then
-        c = 151723
-        return true
-    elseif ((a:DebuffDown(e.DeadlyPoisonDebuff) and (not N or a:DebuffUp(e.Garrote) or a:DebuffUp(e.Rupture))) and h.Assassination.TargetSwap == "AutoSwap" and a:GUID() ~= t:GUID() and not O) then
-        c = 9999
-        return true
-    elseif ((a:DebuffDown(e.DeadlyPoisonDebuff) and (not N or a:DebuffUp(e.Garrote) or a:DebuffUp(e.Rupture))) and a:GUID() == t:GUID()) then
-        o = 51723
-        return true
-    elseif (a:DebuffDown(e.DeadlyPoisonDebuff) and (not N or a:DebuffUp(e.Garrote) or a:DebuffUp(e.Rupture))) then
-        return true
-    end
-
-end
-
-local function me(a)
-                if ((a:DebuffDown(e.DeadlyPoisonDebuff)) and a:GUID() == _("mouseover"):GUID() and h.Assassination.TargetSwap == "Mouseover") then
-        c = 11329
-        return true
-    elseif ((a:DebuffDown(e.DeadlyPoisonDebuff)) and h.Assassination.TargetSwap == "AutoSwap" and a:GUID() ~= t:GUID() and not O) then
-        c = 9999
-        return true
-    elseif ((a:DebuffDown(e.DeadlyPoisonDebuff)) and a:GUID() == t:GUID()) then
-        o = 1329
-        return true
-    elseif (a:DebuffDown(e.DeadlyPoisonDebuff)) then
-        return true
-    end
-
-end
-
-local function ie(a)
-                if ((a:DebuffRefreshable(e.Rupture, S) and (a:PMultiplier(e.Rupture) <= 1 or a:DebuffRemains(e.Rupture) <= (i.Exsanguinated(a, e.Rupture) and m or g) and s >= 3) and (not i.WillLoseExsanguinate(a, e.Rupture) or (a:DebuffRemains(e.Rupture) <= m * 2 and s >= 3)) and (a:FilteredTimeToDie(">", H, -a:DebuffRemains(e.Rupture)) or a:TimeToDieIsNotValid())) and a:GUID() == _("mouseover"):GUID() and h.Assassination.TargetSwap == "Mouseover") then
-        c = 1137619
-        return true
-    elseif ((a:DebuffRefreshable(e.Rupture, S) and (a:PMultiplier(e.Rupture) <= 1 or a:DebuffRemains(e.Rupture) <= (i.Exsanguinated(a, e.Rupture) and m or g) and s >= 3) and (not i.WillLoseExsanguinate(a, e.Rupture) or (a:DebuffRemains(e.Rupture) <= m * 2 and s >= 3)) and (a:FilteredTimeToDie(">", H, -a:DebuffRemains(e.Rupture)) or a:TimeToDieIsNotValid())) and h.Assassination.TargetSwap == "AutoSwap" and a:GUID() ~= t:GUID() and not O) then
-        c = 9999
-        return true
-    elseif ((a:DebuffRefreshable(e.Rupture, S) and (a:PMultiplier(e.Rupture) <= 1 or a:DebuffRemains(e.Rupture) <= (i.Exsanguinated(a, e.Rupture) and m or g) and s >= 3) and (not i.WillLoseExsanguinate(a, e.Rupture) or (a:DebuffRemains(e.Rupture) <= m * 2 and s >= 3)) and (a:FilteredTimeToDie(">", H, -a:DebuffRemains(e.Rupture)) or a:TimeToDieIsNotValid())) and a:GUID() == t:GUID()) then
-        o = 137619
-        return true
-    elseif (a:DebuffRefreshable(e.Rupture, S) and (a:PMultiplier(e.Rupture) <= 1 or a:DebuffRemains(e.Rupture) <= (i.Exsanguinated(a, e.Rupture) and m or g) and s >= 3) and (not i.WillLoseExsanguinate(a, e.Rupture) or (a:DebuffRemains(e.Rupture) <= m * 2 and s >= 3)) and (a:FilteredTimeToDie(">", H, -a:DebuffRemains(e.Rupture)) or a:TimeToDieIsNotValid())) then
-        return true
-    end
-
-end
-
-local function de(a)
-    M = i.Exsanguinated(a, e.Garrote) and m or g
-                if ((not SkipCycleGarrote and a:DebuffRefreshable(e.Garrote) and u >= 1 and (a:PMultiplier(e.Garrote) <= 1 or (a:DebuffRemains(e.Garrote) <= (i.Exsanguinated(a, e.Garrote) and m or g) and s >= 3)) and (not i.WillLoseExsanguinate(a, e.Garrote) or (a:DebuffRemains(e.Garrote) <= m * 2 and s >= 3)) and a:FilteredTimeToDie(">", 12, -a:DebuffRemains(e.Garrote)) and z() == 0) and a:GUID() == _("mouseover"):GUID() and h.Assassination.TargetSwap == "Mouseover") then
-        c = 1137619
-        return true
-    elseif ((not SkipCycleGarrote and a:DebuffRefreshable(e.Garrote) and u >= 1 and (a:PMultiplier(e.Garrote) <= 1 or (a:DebuffRemains(e.Garrote) <= (i.Exsanguinated(a, e.Garrote) and m or g) and s >= 3)) and (not i.WillLoseExsanguinate(a, e.Garrote) or (a:DebuffRemains(e.Garrote) <= m * 2 and s >= 3)) and a:FilteredTimeToDie(">", 12, -a:DebuffRemains(e.Garrote)) and z() == 0) and h.Assassination.TargetSwap == "AutoSwap" and a:GUID() ~= t:GUID() and not O) then
-        c = 9999
-        return true
-    elseif ((not SkipCycleGarrote and a:DebuffRefreshable(e.Garrote) and u >= 1 and (a:PMultiplier(e.Garrote) <= 1 or (a:DebuffRemains(e.Garrote) <= (i.Exsanguinated(a, e.Garrote) and m or g) and s >= 3)) and (not i.WillLoseExsanguinate(a, e.Garrote) or (a:DebuffRemains(e.Garrote) <= m * 2 and s >= 3)) and a:FilteredTimeToDie(">", 12, -a:DebuffRemains(e.Garrote)) and z() == 0) and a:GUID() == t:GUID()) then
-        o = 137619
-        return true
-    elseif (not SkipCycleGarrote and a:DebuffRefreshable(e.Garrote) and u >= 1 and (a:PMultiplier(e.Garrote) <= 1 or (a:DebuffRemains(e.Garrote) <= (i.Exsanguinated(a, e.Garrote) and m or g) and s >= 3)) and (not i.WillLoseExsanguinate(a, e.Garrote) or (a:DebuffRemains(e.Garrote) <= m * 2 and s >= 3)) and a:FilteredTimeToDie(">", 12, -a:DebuffRemains(e.Garrote)) and z() == 0) then
-        return true
-    end
-
-end
-
-local function _()
-    if a:EnergyPredicted() < 45 then
-        if n(e.PoolEnergy) then
-            shadowcast = 9999999999
-            return "Pool for Vanish (Exsanguinated)"
+local function ne()
+    if e.BloodFury:IsReady() and E() and i.Commons.Enabled.Racials then
+        if r.Cast(e.BloodFury, nil) then
+            o = 20572
+            return "Cast Blood Fury"
         end
 
     end
 
-    if e.Vanish:IsReady() and (e.ImprovedGarrote:IsAvailable() and not i.Exsanguinated(t, e.Garrote) and t:PMultiplier(e.Garrote) <= 1 and (t:DebuffUp(e.Deathmark) or e.Deathmark:CooldownRemains() < 4) and u >= math.min(s, 4)) then
-        if n(e.Vanish, nil) then
-            o = 1856
-            return "Cast Vanish (Exsanguinate)"
+    if e.Berserking:IsReady() and E() and i.Commons.Enabled.Racials then
+        if r.Cast(e.Berserking, nil) then
+            o = 26297
+            return "Cast Berserking"
         end
 
     end
 
-    if a:EnergyPredicted() < 45 then
-        if n(e.PoolEnergy) then
-            shadowcast = 9999999999
-            return "Pool for Vanish (Indiscriminate Carnage/Improved Garrote)"
+    if e.Fireblood:IsReady() and E() and i.Commons.Enabled.Racials then
+        if r.Cast(e.Fireblood, nil) then
+            o = 265221
+            return "Cast Fireblood"
         end
 
     end
 
-    if e.Vanish:IsReady() and (e.ImprovedGarrote:IsAvailable() and e.Garrote:CooldownUp() and not i.Exsanguinated(t, e.Garrote) and t:PMultiplier(e.Garrote) <= 1 and s > (3 - p(e.IndiscriminateCarnage:IsAvailable())) and (not e.IndiscriminateCarnage:IsAvailable() or e.IndiscriminateCarnage:IsReady())) then
-        if n(e.Vanish, nil) then
-            o = 1856
-            return "Cast Vanish (Indiscriminate Carnage/Improved Garrote)"
-        end
-
-    end
-
-    if e.Vanish:IsReady() and (not e.ImprovedGarrote:IsAvailable() and (e.MasterAssassin:IsAvailable() or G) and not t:DebuffRefreshable(e.Rupture) and t:DebuffRemains(e.Rupture) > 3 and t:DebuffUp(e.Deathmark) and (t:DebuffUp(e.ShivDebuff) or t:DebuffRemains(e.Deathmark) < 4 or t:DebuffUp(e.Sepsis)) and t:DebuffRemains(e.Sepsis) < 3) then
-        if n(e.Vanish, nil) then
-            o = 1856
-            return "Cast Vanish (MasterAssassin)"
-        end
-
-    end
-
-    if a:EnergyPredicted() < 45 then
-        if n(e.PoolEnergy) then
-            shadowcast = 9999999999
-            return "Pool for ShadowDance"
-        end
-
-    end
-
-    if e.ShadowDance:IsReady() and (e.ImprovedGarrote:IsAvailable() and e.Garrote:CooldownUp() and not i.Exsanguinated(t, e.Garrote) and t:PMultiplier(e.Garrote) <= 1 and (t:DebuffUp(e.Deathmark) or (e.Deathmark:CooldownRemains() < 4) or e.Deathmark:CooldownRemains() > 60) and u >= math.min(s, 4)) then
-        if n(e.ShadowDance) then
-            o = 185313
-            return "Cast ShadowDance (Garrote)"
-        end
-
-    end
-
-    if e.ShadowDance:IsReady() and (e.ImprovedGarrote:IsAvailable() and (e.MasterAssassin:IsAvailable() or G) and not t:DebuffRefreshable(e.Rupture) and t:DebuffRemains(e.Rupture) > 3 and (t:DebuffUp(e.Deathmark) or (e.Deathmark:CooldownRemains() < 4) or e.Deathmark:CooldownRemains() > 60) and (t:DebuffUp(e.ShivDebuff) or t:DebuffRemains(e.Deathmark) < 4 or t:DebuffUp(e.Sepsis)) and t:DebuffRemains() < 3) then
-        if n(e.ShadowDance) then
-            o = 185313
-            return "Cast ShadowDance (Master Assassin)"
+    if e.AncestralCall:IsReady() and E() and i.Commons.Enabled.Racials then
+        if r.Cast(e.AncestralCall, nil) then
+            o = 274738
+            return "Cast Ancestral Call"
         end
 
     end
 
 end
 
-local function G()
-    if e.MarkedforDeath:IsCastable() then
-        if j.CastTargetIf(e.MarkedforDeath, q, "min", ue, fe, not t:IsInMeleeRange(8)) then
-            return "Cast Marked for Death"
-        end
-
-    end
-
-    if e.MarkedforDeath:IsReady() and (UnitIsUnit("target", "boss1") or UnitIsUnit("target", "boss2") or UnitIsUnit("target", "boss3") or UnitIsUnit("target", "boss4")) and (u >= i.CPMaxSpend() and (not T or ((a:BuffUp(e.FlagellationBuff) or e.Flagellation:CooldownRemains() > 15) and (e.CrimsonTempest:IsAvailable() or e.Shiv:CooldownRemains() > 0)))) then
-        if n(e.MarkedforDeath, nil) then
-            o = 137619
-            return "Cast Marked for Death 2"
-        end
-
-    end
-
-    VarDeathmarkExsanguinate = not e.Exsanguinate:IsAvailable() or e.Exsanguinate:CooldownRemains() > 15 or i.Exsanguinated(t, e.Garrote)
-    VarDeathmarkMACondition = not e.MasterAssassin:IsAvailable() or t:DebuffUp(e.Garrote) or (T and u == 0)
-    if not T then
-        VarDeathmarkCovenantCondition = true
-    else
-        VarDeathmarkCovenantCondition = ((W((y - 20) / (120 * R)) > W((y - 20 - e.Flagellation:CooldownRemains()) / (120 * R)) and e.Flagellation:CooldownRemains() > 10) or a:BuffUp(e.FlagellationBuff) or t:DebuffUp(e.Flagellation) or y < 20)
-    end
-
-    if not a:StealthUp(true, false) then
-        if e.Flagellation:IsReady() then
-                        if ((VarDeathmarkCooldownRemains < 3 and VarDeathmarkMACondition and f >= 4 and (t:FilteredTimeToDie(">", 10) or t:TimeToDieIsNotValid())) or (t:DebuffUp(e.Deathmark) or w.BossFilteredFightRemains("<=", 24))) then
-                if n(e.Flagellation, nil, nil) then
-                    o = 323654
-                    return "Cast Flagellation (Sync)"
-                end
-
-            elseif f >= 4 and se(120, e.Flagellation:CooldownRemains() * te, 24) then
-                if n(e.Flagellation, nil, nil) then
-                    o = 323654
-                    return "Cast Flagellation (Burn)"
-                end
-
-            end
-
-        end
-
-        if e.Sepsis:IsReady() and CovenantsOn then
-                        if e.Vendetta:CooldownRemains() < 1 and (t:FilteredTimeToDie(">", 10) or t:TimeToDieIsNotValid()) or t:DebuffUp(e.Vendetta) or w.BossFilteredFightRemains("<=", 10) then
-                if n(e.Sepsis, nil, nil) then
-                    o = 328305
-                    return "Cast Sepsis (Sync)"
-                end
-
-            elseif se(90, e.Vendetta:CooldownRemains() * oe, 10) then
-                if n(e.Sepsis, nil, nil) then
-                    o = 328305
-                    return "Cast Sepsis (Burn)"
-                end
-
-            end
-
-        end
-
-        VarDeathmarkCondition = not a:StealthUp(true, false) and t:DebuffUp(e.Rupture) and t:DebuffDown(e.Deathmark) and VarDeathmarkExsanguinate and VarDeathmarkMACondition and VarDeathmarkCovenantCondition
-        if DefaultTrinketCondition then
-            if TrinketToUse and (a:BuffUp(e.SymbolsofDeath) or y < 20) then
-                if r.Cast(TrinketToUse, nil, nil) then
-                                        if TrinketToUse:ID() == TopTrinketID and h.Commons.Enabled.TopTrinket and ((TrinketSyncSlot == 1 and (t:DebuffUp(e.Deathmark) or y <= 20)) or (TrinketSyncSlot == 2 and (not v:IsReady() or VarDeathmarkCooldownRemains > 20)) or (TrinketSyncSlot == 0)) then
-                        o = 24
-                        return "Generic use_items for " .. TrinketToUse:Name()
-                    elseif TrinketToUse:ID() == BotTrinketID and h.Commons.Enabled.BottomTrinket and ((TrinketSyncSlot == 2 and (t:DebuffUp(e.Deathmark) or y <= 20)) or (TrinketSyncSlot == 1 and (not b:IsReady() or VarDeathmarkCooldownRemains > 20)) or (TrinketSyncSlot == 0)) then
-                        o = 25
-                        return "Generic use_items for " .. TrinketToUse:Name()
+local function Z()
+    if e.Vanish:IsCastable() and E() and not Q and t:IsInMeleeRange(10) and not a:IsTanking(t) then
+        if e.ImprovedGarrote:IsAvailable() and e.Garrote:CooldownUp() and not h.Exsanguinated(t, e.Garrote) and t:PMultiplier(e.Garrote) <= 1 then
+            if (e.Deathmark:AnyDebuffUp() or e.Deathmark:CooldownRemains() < 4) and I >= math.min(d, 4) then
+                if i.Commons.ShowPooling and a:EnergyPredicted() < 45 then
+                    if n(e.PoolEnergy) then
+                        o = 999999
+                        return "Pool for Vanish (Garrote Deathmark)"
                     end
 
                 end
 
+                if n(e.Vanish, nil) then
+                    o = 1856
+                    return "Cast Vanish (Garrote Deathmark)"
+                end
+
+            end
+
+            if d > (3 - w(e.IndiscriminateCarnage:IsAvailable())) and (not e.IndiscriminateCarnage:IsAvailable() or e.IndiscriminateCarnage:CooldownUp()) then
+                if i.Commons.ShowPooling and a:EnergyPredicted() < 45 then
+                    if n(e.PoolEnergy) then
+                        o = 999999
+                        return "Pool for Vanish (Garrote)"
+                    end
+
+                end
+
+                if n(e.Vanish, nil) then
+                    o = 1856
+                    return "Cast Vanish (Garrote)"
+                end
+
             end
 
         end
 
-        if e.Deathmark:IsReady() and VarDeathmarkCondition then
-            if n(e.Deathmark, nil, nil) then
-                o = 360194
-                return "Cast Deathmark CDs"
-            end
-
-        end
-
-        if e.Kingsbane:IsReady() and ((t:DebuffUp(e.Shiv) or e.Shiv:CooldownRemains() < 6) and a:BuffUp(e.Envenom) and (e.Deathmark:CooldownRemains() >= 50 or t:DebuffUp(e.Deathmark))) then
-            if n(e.Kingsbane, nil, nil) then
-                o = 385627
-                return "Cast Kingsbane CDs"
-            end
-
-        end
-
-        if e.Exsanguinate:IsCastable() and (not a:BuffUp(e.ImprovedGarroteBuff) and not t:DebuffUp(e.Deathmark) and ((not t:DebuffRefreshable(e.Garrote) and t:DebuffRemains(e.Rupture) > 4 + 4 * i.CPMaxSpend()) or (t:FilteredTimeToDie("<", t:DebuffRemains(e.Rupture) * .5)) and (t:FilteredTimeToDie(">", 4) or t:TimeToDieIsNotValid())) and i.CanDoTUnit(t, F)) then
-            if n(e.Exsanguinate) then
-                o = 200806
-                return "Cast Exsanguinate"
-            end
-
-        end
-
-    end
-
-    if e.Shiv:IsCastable() and (e.Kingsbane:IsAvailable() and not t:DebuffUp(e.ShivDebuff) and t:DebuffUp(e.Kingsbane) and t:DebuffUp(e.Garrote) and t:DebuffUp(e.Rupture) and (not e.CrimsonTempest:IsAvailable() or x or t:DebuffUp(e.CrimsonTempest))) then
-        if n(e.Shiv, nil) then
-            o = 5938
-            return "Cast Shiv"
-        end
-
-    end
-
-    if e.Shiv:IsCastable() and (not e.Kingsbane:IsAvailable() and not P and not t:DebuffUp(e.ShivDebuff) and t:DebuffUp(e.Garrote) and t:DebuffUp(e.Rupture) and (not e.CrimsonTempest:IsAvailable() or x or t:DebuffUp(e.CrimsonTempest))) then
-        if n(e.Shiv, nil) then
-            o = 5938
-            return "Cast Shiv2"
-        end
-
-    end
-
-    if e.Shiv:IsCastable() and (not e.Kingsbane:IsAvailable() and P and not t:DebuffUp(e.ShivDebuff) and t:DebuffUp(e.Garrote) and (p(e.Sepsis:IsReady() or e.Sepsis:CooldownRemains() > 12) + p(e.Deathmark:IsReady() or VarDeathmarkCooldownRemains > 12) == 2)) then
-        if n(e.Shiv, nil) then
-            o = 5938
-            return "Cast Shiv3"
-        end
-
-    end
-
-    if e.ThistleTea:IsReady() and (a:EnergyDeficitPredicted() >= 100 and not a:BuffUp(e.ThistleTea) and (e.ThistleTea:ChargesFractional() == 3. or t:DebuffUp(e.Deathmark) or y < e.Deathmark:CooldownRemains())) then
-        if n(e.ThistleTea, nil) then
-            o = 381623
-            return "Cast ThistleTea"
-        end
-
-    end
-
-    if e.IndiscriminateCarnage:IsReady() and (not e.ImprovedGarrote:IsAvailable() or e.Vanish:CooldownRemains() > 45) then
-        if n(e.IndiscriminateCarnage, nil) then
-            o = 381802
-            return "Cast IndiscriminateCarnage"
-        end
-
-    end
-
-    if h.Commons.Enabled.Potions and B() and h.Commons.Enabled.Potions and ae and (((a:BloodlustUp() or y < 30 or t:DebuffUp(e.Deathmark)) and not r.GUISettings.General.HoldPotforBL) or (r.GUISettings.General.HoldPotforBL and a:BloodlustUp())) then
-        local e = j.PotionSelected()
-        if e and e:IsReady() then
-            if n(e, nil, nil) then
-                o = 37
-                return "potion cooldowns 2"
+        if not e.ImprovedGarrote:IsAvailable() and e.MasterAssassin:IsAvailable() and not b(t, e.Rupture) and t:DebuffRemains(e.Garrote) > 3 and t:DebuffUp(e.Deathmark) and (t:DebuffUp(e.ShivDebuff) or t:DebuffRemains(e.Deathmark) < 4 or t:DebuffUp(e.Sepsis)) and t:DebuffRemains(e.Sepsis) < 3 then
+            if n(e.Vanish, nil) then
+                o = 1856
+                return "Cast Vanish (Master Assassin)"
             end
 
         end
 
     end
 
-    if t:DebuffUp(e.Deathmark) and B() then
-        if e.BloodFury:IsReady() and h.Commons.Enabled.Racials then
-            if r.Cast(e.BloodFury, nil) then
-                o = 20572
-                return "Cast Blood Fury"
+    if e.ShadowDance:IsCastable() and t:IsInMeleeRange(10) then
+        if e.ImprovedGarrote:IsAvailable() and e.Garrote:CooldownUp() and not h.Exsanguinated(t, e.Garrote) and t:PMultiplier(e.Garrote) <= 1 and (e.Deathmark:AnyDebuffUp() or e.Deathmark:CooldownRemains() < 4 or e.Deathmark:CooldownRemains() > 60) and I >= math.min(d, 4) then
+            if n(e.ShadowDance, nil) then
+                o = 185313
+                return "Cast Shadow Dance (Garrote)"
             end
 
         end
 
-        if e.Berserking:IsReady() and h.Commons.Enabled.Racials then
-            if r.Cast(e.Berserking, nil) then
-                o = 26297
-                return "Cast Berserking"
-            end
-
-        end
-
-        if e.Fireblood:IsReady() and h.Commons.Enabled.Racials then
-            if r.Cast(e.Fireblood, nil) then
-                o = 265221
-                return "Cast Fireblood"
-            end
-
-        end
-
-        if e.AncestralCall:IsReady() and h.Commons.Enabled.Racials then
-            if r.Cast(e.AncestralCall, nil) then
-                o = 274738
-                return "Cast Ancestral Call"
+        if not e.ImprovedGarrote:IsAvailable() and e.MasterAssassin:IsAvailable() and not b(t, e.Rupture) and t:DebuffRemains(e.Garrote) > 3 and (t:DebuffUp(e.Deathmark) or e.Deathmark:CooldownRemains() > 60) and (t:DebuffUp(e.ShivDebuff) or t:DebuffRemains(e.Deathmark) < 4 or t:DebuffUp(e.Sepsis)) and t:DebuffRemains(e.Sepsis) < 3 then
+            if n(e.ShadowDance, nil) then
+                o = 185313
+                return "Cast Shadow Dance (Master Assassin)"
             end
 
         end
 
     end
 
-    if not a:StealthUp(true, true) and z() <= 0 then
-        d = _()
-        if d then
-            return d
-        end
-
-    end
-
-    return false
 end
 
-local function _()
-    if e.Envenom:IsReady() and (f >= 4 + p(e.DeeperStratagem:IsAvailable()) and (t:DebuffUp(e.Deathmark) or t:DebuffUp(e.ShivDebuff) or t:DebuffStack(e.AmplifyingPoisonDebuff) <= 10 or a:BuffUp(e.Flagellation) or a:EnergyDeficitPredicted() <= (25 + I) or not x or f > i.CPMaxSpend) and (not e.Exsanguinate:IsAvailable() or e.Exsanguinate:CooldownRemains() > 2)) then
-        if n(e.Envenom, nil, nil, not t:IsInMeleeRange(8)) then
-            o = 32645
-            return "Cast Envenom"
+local function re()
+    if e.MarkedforDeath:IsCastable() and t:IsInMeleeRange(10) then
+        if t:FilteredTimeToDie("<", a:ComboPointsDeficit() * 1.5) then
+            if n(e.MarkedforDeath, nil) then
+                o = 137619
+                return "Cast Marked for Death"
+            end
+
+        end
+
+        if r.CDsON() then
+            if n(e.MarkedforDeath, nil) then
+                o = 137619
+                return "Cast Marked for Death"
+            end
+
         end
 
     end
 
-    if not (u > 1 or a:EnergyDeficitPredicted() <= 25 + I or not x) then
-        return false
+    if not q or not r.CDsON() then
+        return 
     end
 
-    if e.SerratedBoneSpike:IsReady() then
-        if not t:DebuffUp(e.SerratedBoneSpikeDebuff) then
-            if n(e.SerratedBoneSpike, nil, nil, not t:IsInMeleeRange(10)) then
-                o = 328547
-                return "Cast Serrated Bone Spike"
+    if not a:StealthUp(true, false) then
+        if e.Sepsis:IsReady() and t:DebuffUp(e.Garrote) and (t:FilteredTimeToDie(">", 10) or c.BossFilteredFightRemains("<=", 10)) then
+            if n(e.Sepsis, nil, nil) then
+                o = 328305
+                return "Cast Sepsis"
+            end
+
+        end
+
+                if y:IsReady() and not ee(ie, y:ID()) and (v == 1 and (e.Deathmark:AnyDebuffUp() or c.BossFilteredFightRemains("<", 20)) or (v == 2 and (not p:IsReady() or e.Deathmark:CooldownRemains() > 20)) or v == 0) then
+                        if y:ID() == TopTrinketID and i.Commons.Enabled.TopTrinket then
+                o = 24
+                return "Generic use_items for " .. y:Name()
+            elseif y:ID() == BotTrinketID and i.Commons.Enabled.BottomTrinket then
+                o = 25
+                return "Generic use_items for " .. y:Name()
+            end
+
+        elseif p:IsReady() and not ee(ie, p:ID()) and (v == 2 and (e.Deathmark:AnyDebuffUp() or c.BossFilteredFightRemains("<", 20)) or (v == 1 and (not y:IsReady() or e.Deathmark:CooldownRemains() > 20)) or v == 0) then
+                        if p:ID() == TopTrinketID and i.Commons.Enabled.TopTrinket then
+                o = 24
+                return "Generic use_items for " .. p:Name()
+            elseif p:ID() == BotTrinketID and i.Commons.Enabled.BottomTrinket then
+                o = 25
+                return "Generic use_items for " .. p:Name()
+            end
+
+        end
+
+        if e.Deathmark:IsCastable() then
+            if t:DebuffUp(e.Rupture) and not e.Deathmark:AnyDebuffUp() and (not e.Exsanguinate:IsAvailable() or e.Exsanguinate:CooldownRemains() > 15 or h.Exsanguinated(t, e.Rupture) or h.Exsanguinated(t, e.Garrote)) and (not e.MasterAssassin:IsAvailable() or t:DebuffUp(e.Garrote)) then
+                if n(e.Deathmark, nil) then
+                    o = 360194
+                    return "Cast Deathmark"
+                end
+
+            end
+
+        end
+
+        if e.Kingsbane:IsReady() and (t:DebuffUp(e.ShivDebuff) or e.Shiv:CooldownRemains() < 6) and a:BuffUp(e.Envenom) and (e.Deathmark:CooldownRemains() >= 50 or t:DebuffUp(e.Deathmark)) then
+            if n(e.Kingsbane, nil) then
+                o = 385627
+                s = "Cast Kingsbane"
+            end
+
+        end
+
+        if e.Exsanguinate:IsAvailable() then
+                        if g() == 0 and t:DebuffDown(e.Deathmark) and t:FilteredTimeToDie(">", e.Exsanguinate:CooldownRemains() + 4) then
+                if e.ResoundingClarity:IsAvailable() and e.EchoingReprimand:IsReady() and a:ComboPoints() <= 2 and e.Exsanguinate:CooldownRemains() <= 2 and not b(t, e.Garrote) and t:DebuffRemains(e.Rupture) > 9.6 then
+                    if n(e.EchoingReprimand, nil, nil, not m) then
+                        o = 323547
+                        return "Cast Echoing Reprimand (Exsang Sync)"
+                    end
+
+                end
+
+                if e.Exsanguinate:IsReady() and not b(t, e.Garrote) and t:DebuffRemains(e.Rupture) > 4 + 4 * K() or t:FilteredTimeToDie("<", t:DebuffRemains(e.Rupture) * .5) then
+                    if n(e.Exsanguinate, nil) then
+                        o = 200806
+                        s = "Cast Exsanguinate"
+                    end
+
+                end
+
+            elseif e.ResoundingClarity:IsAvailable() and e.EchoingReprimand:IsReady() and e.Exsanguinate:CooldownRemains() > 40 then
+                if n(e.EchoingReprimand, nil, nil, not m) then
+                    o = 323547
+                    return "Cast Echoing Reprimand (Exsang Desync)"
+                end
+
+            end
+
+        end
+
+    end
+
+    if e.Shiv:IsCastable() and not t:DebuffUp(e.ShivDebuff) and t:DebuffUp(e.Garrote) and t:DebuffUp(e.Rupture) then
+                if e.Kingsbane:IsAvailable() then
+            if t:DebuffUp(e.Kingsbane) and (not e.CrimsonTempest:IsAvailable() or A or t:DebuffUp(e.CrimsonTempest)) then
+                if n(e.Shiv, nil) then
+                    o = 5938
+                    s = "Cast Shiv (Kingsbane)"
+                end
+
+            end
+
+        elseif e.Sepsis:IsAvailable() then
+            if (w(e.Sepsis:CooldownUp() or e.Sepsis:CooldownRemains() > 12) + w(e.Deathmark:CooldownUp() or e.Deathmark:CooldownRemains() > 12) == 2) then
+                if n(e.Shiv, nil) then
+                    o = 5938
+                    s = "Cast Shiv (Sepsis)"
+                end
+
             end
 
         else
-            if r.AoEON() then
-                if j.CastTargetIf(e.SerratedBoneSpike, q, "min", le, ce) then
-                    return "Cast Serrated Bone (AoE)"
-                end
-
-            end
-
-            if z() < .8 and ((y <= 5 or e.SerratedBoneSpike:ChargesFractional() >= 2.75) or ((e.LeadbyExample:SoulbindEnabled() and not a:BuffUp(e.LeadbyExampleBuff) and t:DebuffUp(e.Deathmark)) or a:BuffUp(e.MarrowedGemstoneBuff) or (not x and t:DebuffUp(e.ShivDebuff)))) then
-                if n(e.SerratedBoneSpike, nil, nil, not t:IsInMeleeRange(10)) then
-                    o = 328547
-                    return "Cast Serrated Bone Spike (Filler)"
+            if (not e.CrimsonTempest:IsAvailable() or A or t:DebuffUp(e.CrimsonTempest)) then
+                if n(e.Shiv, nil) then
+                    o = 5938
+                    s = "Cast Shiv"
                 end
 
             end
@@ -664,77 +532,118 @@ local function _()
 
     end
 
-    if e.FanofKnives:IsCastable() then
-        if r.AoEON() and (not N and s >= (3 + p(a:StealthUp(true, false)) + p(e.DragonTemperedBlades:IsAvailable()))) then
-            if A(e.FanofKnives) then
-                o = 51723
-                return "Cast Fan of Knives"
-            end
-
-        end
-
-        if r.AoEON() and s >= 3 then
-            if j.CastTargetIf(e.FanofKnives, q, "min", L, we) then
-                return "FanofKnives Tab"
-            end
-
+    if e.ThistleTea:IsCastable() and not a:BuffUp(e.ThistleTea) and (a:EnergyDeficit() >= 100 + x or e.ThistleTea:Charges() == 3 and (t:DebuffUp(e.Kingsbane) or e.Deathmark:AnyDebuffUp()) or c.BossFilteredFightRemains("<", e.ThistleTea:Charges() * 6)) then
+        if r.Cast(e.ThistleTea, nil) then
+            o = 381623
+            return "Cast Thistle Tea"
         end
 
     end
 
-    if e.EchoingReprimand:IsReady() and CovenantsOn and VarDeathmarkCooldownRemains > 10 then
-        if n(e.EchoingReprimand, nil, nil, not t:IsInMeleeRange(8)) then
-            o = 323547
-            return "Cast Echoing Reprimand"
+    if e.IndiscriminateCarnage:IsReady() and d > 1 and (not e.ImprovedGarrote:IsAvailable() or e.Vanish:CooldownRemains() > 45) then
+        if n(e.IndiscriminateCarnage, nil) then
+            o = 381802
+            return "Cast Indiscriminate Carnage"
         end
 
     end
 
-    if e.Ambush:IsReady() and ((z() <= 0 and not V) or a:BuffUp(e.BlindsideBuff)) then
-        if A(e.Ambush, nil, not t:IsInMeleeRange(8)) then
-            o = 8676
-            return "Cast Ambush"
+    if e.Deathmark:AnyDebuffUp() then
+        if s then
+            ne()
+        else
+            s = ne()
         end
 
     end
 
-    if e.Mutilate:IsCastable() and s == 2 then
-        if j.CastTargetIf(e.Mutilate, q, "min", L, me) then
-            return "Mutilate Tab"
+    if not a:StealthUp(true, true) and g() <= 0 and C() <= 0 then
+        if s then
+            Z()
+        else
+            s = Z()
         end
 
     end
 
-    if e.Mutilate:IsCastable() then
-        if A(e.Mutilate, nil, not t:IsInMeleeRange(8)) then
-            o = 1329
-            return "Cast Mutilate"
-        end
-
-    end
-
-    return false
+    return s
 end
 
-local function T()
-    local a, d, h = false, false, false
-    if N then
-        a = (t:DebuffRemains(e.Garrote) < 6 or D)
-        a = (t:DebuffUp(e.Shiv) and s > 2) or D
+local function p()
+    if e.IndiscriminateCarnage:IsReady() and X and t:IsInMeleeRange(10) and d > 1 then
+        if n(e.IndiscriminateCarnage, i.Assassination.OffGCDasOffGCD.IndiscriminateCarnage) then
+            o = 381802
+            return "Cast Indiscriminate Carnage"
+        end
+
     end
 
-    h = t:DebuffUp(e.Deathmark) and (t:DebuffUp(e.ShivDebuff) or z() > 0) and t:DebuffRemains(e.Rupture) > 2
-    if r.CDsON() and e.Exsanguinate:IsAvailable() then
-        M = i.Exsanguinated(t, e.Garrote) and m or g
-        if e.Garrote:IsCastable() and t:IsInMeleeRange(8) and (not i.WillLoseExsanguinate(t, e.Garrote) and e.Exsanguinate:CooldownRemains() < 2 and t:PMultiplier(e.Garrote) <= 1 and e.Exsanguinate:CooldownRemains() < 2 and s == 1 and t:FilteredTimeToDie(">", t:DebuffRemains(e.Garrote) * .5)) then
-            if A(e.Garrote) then
+    if e.Garrote:IsCastable() and t:IsInMeleeRange(10) and g() > 0 then
+        local function s(t)
+            return t:DebuffRemains(e.Garrote)
+        end
+
+        local function n(a)
+            if (not h.WillLoseExsanguinate(a, e.Garrote) and (a:PMultiplier(e.Garrote) <= 1 or a:DebuffRemains(e.Garrote) < (12 / h.ExsanguinatedRate(a, e.Garrote))) and (a:FilteredTimeToDie(">", 2, -a:DebuffRemains(e.Garrote)) or a:TimeToDieIsNotValid()) and h.CanDoTUnit(a, G)) then
+                                                if a:GUID() == z("mouseover"):GUID() and i.Assassination.TargetSwap == "Mouseover" then
+                    u = 1703
+                    return true
+                elseif i.Assassination.TargetSwap == "AutoSwap" and a:GUID() ~= t:GUID() and not O then
+                    u = 9999
+                    return true
+                elseif a:GUID() == t:GUID() then
+                    o = 703
+                    return true
+                else
+                    return true
+                end
+
+            end
+
+        end
+
+        local a = ce("min", s, n)
+        if a and a:GUID() ~= t:GUID() then
+            R(a, e.Garrote)
+        end
+
+        if n(t) then
+            if j(e.Garrote, nil, not m) then
+                o = 703
+                return "Cast Garrote (Improved Garrote)"
+            end
+
+        end
+
+        if e.Exsanguinate:IsAvailable() and d == 1 and g() < 1.3 then
+            if j(e.Garrote, nil, not m) then
+                o = 703
+                return "Pool for Garrote (Exsanguinate Refresh)"
+            end
+
+        end
+
+    end
+
+end
+
+local function y()
+    local l, i, s = false, false, false
+    if N then
+        l = d > 3 and (t:DebuffRemains(e.Garrote) < 6 or S)
+        i = (t:DebuffUp(e.ShivDebuff) and d > 2) or S
+    end
+
+    if r.CDsON() and t:IsInMeleeRange(10) and e.Exsanguinate:IsAvailable() and e.Exsanguinate:CooldownRemains() < 2 then
+        if e.Garrote:IsCastable() and m and d == 1 and not h.WillLoseExsanguinate(t, e.Garrote) and t:PMultiplier(e.Garrote) <= 1 and t:FilteredTimeToDie(">", t:DebuffRemains(e.Garrote) * .5) then
+            if j(e.Garrote) then
                 o = 703
                 return "Cast Garrote (Pre-Exsanguinate)"
             end
 
         end
 
-        if e.Rupture:IsReady() and t:IsInMeleeRange(8) and (not i.WillLoseExsanguinate(t, e.Garrote) and t:PMultiplier(e.Garrote) <= 1 and (f >= i.CPMaxSpend() and e.Exsanguinate:CooldownRemains() < 1 and t:FilteredTimeToDie(">", t:DebuffRemains(e.Rupture) * .5))) then
+        if e.Rupture:IsReady() and m and t:PMultiplier(e.Rupture) <= 1 and not h.WillLoseExsanguinate(t, e.Rupture) and (f >= K() and e.Exsanguinate:CooldownRemains() < 1 and t:FilteredTimeToDie(">", t:DebuffRemains(e.Rupture) * .5)) then
             if n(e.Rupture) then
                 o = 1943
                 return "Cast Rupture (Pre-Exsanguinate)"
@@ -744,68 +653,76 @@ local function T()
 
     end
 
-    if e.Garrote:IsCastable() and u >= 1 then
-        if (t:DebuffRefreshable(e.Garrote) and u >= 1 and (t:PMultiplier(e.Garrote) <= 1 or (t:DebuffRemains(e.Garrote) <= M and s >= 3)) and (not i.WillLoseExsanguinate(t, e.Garrote) or (t:DebuffRemains(e.Garrote) <= M and s >= 3)) and t:FilteredTimeToDie(">", 4, -t:DebuffRemains(e.Garrote)) and z() == 0) then
-            if A(e.Garrote, nil, not t:IsInMeleeRange(8)) then
+    if e.Garrote:IsCastable() and t:IsInMeleeRange(10) and I >= 1 then
+        local function a(t)
+            W = h.Exsanguinated(t, e.Garrote) and P or Y
+            return b(t, e.Garrote) and C() <= 0 and (t:PMultiplier(e.Garrote) <= 1 or (d >= 3 and t:DebuffRemains(e.Garrote) <= W)) and (not h.WillLoseExsanguinate(t, e.Garrote) or t:DebuffRemains(e.Garrote) <= W * (1 + w(d >= 3)))
+        end
+
+        if a(t) and h.CanDoTUnit(t, G) and (t:FilteredTimeToDie(">", 4, -t:DebuffRemains(e.Garrote)) or t:TimeToDieIsNotValid()) then
+            if j(e.Garrote, nil, not m) then
                 o = 703
                 return "Pool for Garrote (ST)"
             end
 
         end
 
-        if de(t) and i.CanDoTUnit(t, ee) and (t:FilteredTimeToDie(">", 4, -t:DebuffRemains(e.Garrote)) or t:TimeToDieIsNotValid()) then
-            if A(e.Garrote, nil, not t:IsInMeleeRange(8)) then
-                o = 703
-                return "Pool for Garrote Tab (ST)"
-            end
-
+        if not l then
+            se(e.Garrote, a, 12, T)
         end
 
-        if r.AoEON() and not a then
-            if j.CastTargetIf(e.Mutilate, q, "min", E, de) then
-                return "Garrote Tab"
+    end
+
+    if e.CrimsonTempest:IsReady() and t:IsInMeleeRange(10) and d >= 2 and f >= 4 and x > 20 and (not e.Deathmark:CooldownUp() or t:DebuffUp(e.Rupture)) then
+        for a, t in _(k) do
+            if t:DebuffRemains(e.CrimsonTempest) < (2 + 3 * w(d >= 4)) then
+                if n(e.CrimsonTempest) then
+                    o = 121411
+                    return "Cast Crimson Tempest (AoE)"
+                end
+
             end
 
         end
 
     end
 
-    if r.AoEON() and e.CrimsonTempest:IsReady() and s >= 2 and f >= 4 and I > 20 and (not e.Deathmark:IsReady() or t:DebuffUp(e.Rupture)) and t:DebuffRemains(e.CrimsonTempest) < 2 + 3 * p(s >= 4) then
-        if n(e.CrimsonTempest) then
-            o = 121411
-            return "Cast Crimson Tempest (AoE)"
+    if e.Rupture:IsReady() and t:IsInMeleeRange(10) and f >= 4 then
+        F = 4 + w(e.DashingScoundrel:IsAvailable()) * 5 + w(e.Doomblade:IsAvailable()) * 5 + w(S) * 6
+        local function a(t)
+            L = h.Exsanguinated(t, e.Rupture) and P or Y
+            return b(t, e.Rupture, ae) and (t:PMultiplier(e.Rupture) <= 1 or t:DebuffRemains(e.Rupture) <= L and d >= 3) and (not h.WillLoseExsanguinate(t, e.Rupture) or t:DebuffRemains(e.Rupture) <= L * (1 + w(d >= 3))) and (t:FilteredTimeToDie(">", F, -t:DebuffRemains(e.Rupture)) or t:TimeToDieIsNotValid())
         end
 
-    end
-
-    if not h and e.Rupture:IsReady() and f >= 4 then
-        H = 4 + p(Y) * 5 + p(V) * 5 + p(D) * 6
-        if ie(t) and i.CanDoTUnit(t, F) then
-            if n(e.Rupture, nil, nil, not t:IsInMeleeRange(8)) then
+        if not s and a(t) and h.CanDoTUnit(t, B) then
+            if n(e.Rupture, nil, nil, not m) then
                 o = 1943
                 return "Cast Rupture (Refresh)"
             end
 
         end
 
-        if r.AoEON() and not d then
-            if j.CastTargetIf(e.Mutilate, q, "min", ye, ie) then
-                return "Garrote Tab"
+        if not s and not i and r.AoEON() then
+            se(e.Rupture, a, F, T)
+        end
+
+    end
+
+    if r.AoEON() and t:IsInMeleeRange(10) and e.CrimsonTempest:IsReady() and d >= 2 and f >= 4 then
+        for a, t in _(k) do
+            if t:DebuffRemains(e.CrimsonTempest) < 2 + 3 * w(d >= 4) then
+                if n(e.CrimsonTempest) then
+                    o = 121411
+                    return "Cast Crimson Tempest (AoE Fallback)"
+                end
+
             end
 
         end
 
     end
 
-    if r.AoEON() and e.CrimsonTempest:IsReady() and s >= 2 and f >= 4 and t:DebuffRemains(e.CrimsonTempest) < 2 + 3 * p(s >= 4) then
-        if n(e.CrimsonTempest) then
-            o = 121411
-            return "Cast Crimson Tempest (AoE Fallback)"
-        end
-
-    end
-
-    if e.CrimsonTempest:IsReady() and t:IsInMeleeRange(10) and (s == 1 and not Y and f >= (i.CPMaxSpend() - 1) and Ne(t, e.CrimsonTempest, J) and not i.WillLoseExsanguinate(t, e.CrimsonTempest) and not t:DebuffUp(e.ShivDebuff) and t:DebuffStack(AmplifyingPoisonDebuff) < 15 and (t:FilteredTimeToDie(">", 4, -t:DebuffRemains(e.CrimsonTempest)) or t:TimeToDieIsNotValid()) and i.CanDoTUnit(t, F)) then
+    if e.CrimsonTempest:IsReady() and q and d == 1 and not e.DashingScoundrel:IsAvailable() and f >= (h.CPMaxSpend() - 1) and b(t, e.CrimsonTempest, oe) and not h.WillLoseExsanguinate(t, e.CrimsonTempest) and not t:DebuffUp(e.ShivDebuff) and t:DebuffStack(e.AmplifyingPoisonDebuff) < 15 and (t:FilteredTimeToDie(">", 4, -t:DebuffRemains(e.CrimsonTempest)) or t:TimeToDieIsNotValid()) and h.CanDoTUnit(t, B) then
         if n(e.CrimsonTempest) then
             o = 121411
             return "Cast Crimson Tempest (ST)"
@@ -817,33 +734,119 @@ local function T()
 end
 
 local function v()
-    if e.IndiscriminateCarnage:IsReady() and (s > 1) then
-        if n(e.IndiscriminateCarnage, nil) then
-            o = 381802
-            return "Cast IndiscriminateCarnage stealth"
+    if e.Envenom:IsReady() and t:IsInMeleeRange(10) and f >= 4 + w(e.DeeperStratagem:IsAvailable()) and (t:DebuffUp(e.Deathmark) or t:DebuffUp(e.ShivDebuff) or t:DebuffStack(e.AmplifyingPoisonDebuff) >= 10 or a:EnergyDeficit() <= (25 + x) or not A or f > h.CPMaxSpend()) and (not e.Exsanguinate:IsAvailable() or e.Exsanguinate:CooldownRemains() > 2 or not r.CDsON() or e.ResoundingClarity:IsAvailable() and (e.EchoingReprimand:IsReady() and a:ComboPoints() > 2 or f > 5)) then
+        if n(e.Envenom, nil, nil, not m) then
+            o = 32645
+            return "Cast Envenom"
         end
 
     end
 
-    if e.Garrote:IsReady() then
-        if (X(t)) then
-            if A(e.Garrote, nil, not t:IsInMeleeRange(8)) then
-                o = 703
-                return "Cast Garrote (Improved Garrote)"
+    if not (I > 1 or a:EnergyDeficit() <= 25 + x or not A) then
+        return false
+    end
+
+    if e.SerratedBoneSpike:IsReady() and t:IsInMeleeRange(10) then
+        if not t:DebuffUp(e.SerratedBoneSpikeDebuff) then
+            if n(e.SerratedBoneSpike, nil, nil, not q) then
+                o = 328547
+                return "Cast Serrated Bone Spike"
+            end
+
+        else
+            if r.AoEON() then
+                if H.CastTargetIf(e.SerratedBoneSpike, M, "min", he, de) then
+                    return "Cast Serrated Bone (AoE)"
+                end
+
+            end
+
+            if C() < .8 then
+                                if (c.BossFightRemains() <= 5 or (e.SerratedBoneSpike:MaxCharges() - e.SerratedBoneSpike:ChargesFractional() <= .25)) then
+                    if n(e.SerratedBoneSpike, nil, nil, not q) then
+                        o = 328547
+                        return "Cast Serrated Bone Spike (Dump Charge)"
+                    end
+
+                elseif not A and t:DebuffUp(e.ShivDebuff) then
+                    if n(e.SerratedBoneSpike, nil, nil, not q) then
+                        o = 328547
+                        return "Cast Serrated Bone Spike (Shiv)"
+                    end
+
+                end
+
             end
 
         end
 
-        if j.CastTargetIf(e.Garrote, q, "min", E, X, not t:IsInMeleeRange(8)) then
-            return "Cast Garrote stealth"
+    end
+
+    if e.FanofKnives:IsCastable() and t:IsInMeleeRange(10) then
+        if r.AoEON() and d >= 1 and (not N and d >= 3 + w(a:StealthUp(true, false)) + w(e.DragonTemperedBlades:IsAvailable())) then
+            if j(e.FanofKnives) then
+                o = 51723
+                return "Cast Fan of Knives"
+            end
+
+        end
+
+        if r.AoEON() and a:BuffUp(e.DeadlyPoison) and d >= 3 then
+            for a, t in _(k) do
+                if not t:DebuffUp(e.DeadlyPoisonDebuff, true) and (not N or t:DebuffUp(e.Garrote) or t:DebuffUp(e.Rupture)) then
+                    if j(e.FanofKnives) then
+                        o = 51723
+                        return "Cast Fan of Knives (DP Refresh)"
+                    end
+
+                end
+
+            end
+
         end
 
     end
 
-    if e.Garrote:IsReady() and (e.Exsanguinate:IsAvailable() and a:BuffUp(e.ImprovedGarroteBuff) and s == 1 and not i.WillLoseExsanguinate(t, e.Garrote) and a:BuffRemains(e.ImprovedGarroteBuff) < 1.3) then
-        if A(e.Garrote, nil, not t:IsInMeleeRange(8)) then
-            o = 703
-            return "Cast Garrote (Improved Garrote)"
+    if E() and t:IsInMeleeRange(10) and e.EchoingReprimand:IsReady() and ((not e.Exsanguinate:IsAvailable() or not e.ResoundingClarity:IsAvailable()) and (not e.Deathmark:IsAvailable() or e.Deathmark:CooldownRemains() > 10) or c.BossFilteredFightRemains("<=", 20)) then
+        if n(e.EchoingReprimand, nil, nil, not m) then
+            o = 323547
+            return "Cast Echoing Reprimand"
+        end
+
+    end
+
+    if e.Ambush:IsCastable() and t:IsInMeleeRange(10) and (a:StealthUp(true, true) or a:BuffUp(e.BlindsideBuff)) then
+        if j(e.Ambush, nil, not m) then
+            o = 8676
+            return "Cast Ambush"
+        end
+
+    end
+
+    if e.Mutilate:IsCastable() and t:IsInMeleeRange(10) and d == 2 and t:DebuffUp(e.DeadlyPoisonDebuff, true) then
+        local n = t:GUID()
+        for s, a in _(T) do
+            if a:GUID() ~= n and (a:DebuffUp(e.Garrote) or a:DebuffUp(e.Rupture)) and not a:DebuffUp(e.DeadlyPoisonDebuff, true) and not a:DebuffUp(e.AmplifyingPoisonDebuff, true) then
+                                                if a:GUID() == z("mouseover"):GUID() and i.Assassination.TargetSwap == "Mouseover" then
+                    u = 11329
+                elseif i.Assassination.TargetSwap == "AutoSwap" and a:GUID() ~= t:GUID() and not O then
+                    u = 9999
+                elseif a:GUID() == t:GUID() then
+                    o = 1329
+                end
+
+                R(a, e.Mutilate)
+                break
+            end
+
+        end
+
+    end
+
+    if e.Mutilate:IsCastable() and t:IsInMeleeRange(10) then
+        if j(e.Mutilate, nil, not m) then
+            o = 1329
+            return "Cast Mutilate"
         end
 
     end
@@ -851,100 +854,89 @@ local function v()
     return false
 end
 
-local function b()
-    Z = HeroRotationCharDB.Toggles[6]
-    Ee = HeroRotationCharDB.Toggles[4]
-    Ae = HeroRotationCharDB.Toggles[5]
+local function c()
+    J = HeroRotationCharDB.Toggles[6]
+    ze = HeroRotationCharDB.Toggles[4]
+    X = HeroRotationCharDB.Toggles[5]
     O = HeroRotationCharDB.Toggles[12]
-    ae = not HeroRotationCharDB.Toggles[15]
-    Te = HeroRotationCharDB.Toggles[20]
-    xe = HeroRotationCharDB.Toggles[21]
-    _e = HeroRotationCharDB.Toggles[22]
-    je = HeroRotationCharDB.Toggles[23]
-    be = HeroRotationCharDB.Toggles[24]
-    ve = HeroRotationCharDB.Toggles[25]
-    pe = HeroRotationCharDB.Toggles[26]
-    ge = HeroRotationCharDB.Toggles[27]
-    Ie = HeroRotationCharDB.Toggles[28]
-    ke = HeroRotationCharDB.Toggles[29]
-    qe = HeroRotationCharDB.Toggles[30]
-    Oe = HeroRotationCharDB.Toggles[54]
+    fe = not HeroRotationCharDB.Toggles[15]
+    we = HeroRotationCharDB.Toggles[20]
+    Q = HeroRotationCharDB.Toggles[21]
+    me = HeroRotationCharDB.Toggles[22]
+    le = HeroRotationCharDB.Toggles[23]
+    ye = HeroRotationCharDB.Toggles[24]
+    be = HeroRotationCharDB.Toggles[25]
+    ke = HeroRotationCharDB.Toggles[26]
+    je = HeroRotationCharDB.Toggles[27]
+    qe = HeroRotationCharDB.Toggles[28]
+    ve = HeroRotationCharDB.Toggles[29]
+    ge = HeroRotationCharDB.Toggles[30]
+    pe = HeroRotationCharDB.Toggles[54]
     TopTrinketID = GetInventoryItemID("player", 13)
     BotTrinketID = GetInventoryItemID("player", 14)
-            if not h.Commons.Enabled.TopTrinket and not h.Commons.Enabled.BotTrinket then
-        OnUseExcludes = { TopTrinketID, BotTrinketID, k.CacheOfAcquiredTreasures:ID() }
-    elseif not h.Commons.Enabled.TopTrinket and h.Commons.Enabled.BotTrinket then
-        OnUseExcludes = { TopTrinketID, k.CacheOfAcquiredTreasures:ID() }
-    elseif not h.Commons.Enabled.BotTrinket and h.Commons.Enabled.TopTrinket then
-        OnUseExcludes = { BotTrinketID, k.CacheOfAcquiredTreasures:ID() }
+            if not i.Commons.Enabled.TopTrinket and not i.Commons.Enabled.BotTrinket then
+        OnUseExcludes = { TopTrinketID, BotTrinketID, D.CacheOfAcquiredTreasures:ID() }
+    elseif not i.Commons.Enabled.TopTrinket and i.Commons.Enabled.BotTrinket then
+        OnUseExcludes = { TopTrinketID, D.CacheOfAcquiredTreasures:ID() }
+    elseif not i.Commons.Enabled.BotTrinket and i.Commons.Enabled.TopTrinket then
+        OnUseExcludes = { BotTrinketID, D.CacheOfAcquiredTreasures:ID() }
     end
 
 end
 
-local function k()
-    if ze() then
-        ne = a:GetEnemiesInRange(30)
-        q = a:GetEnemiesInMeleeRange(10)
-        s = #q
-        Q = a:GetEnemiesInMeleeRange(5)
+local function w()
+    V = e.AcrobaticStrikes:IsAvailable() and 8 or 5
+    U = e.AcrobaticStrikes:IsAvailable() and 10 or 13
+    m = t:IsInMeleeRange(V)
+    q = t:IsInMeleeRange(U)
+    if xe() then
+        M = a:GetEnemiesInRange(30)
+        k = a:GetEnemiesInMeleeRange(U)
+        d = #k
+        T = a:GetEnemiesInMeleeRange(V)
     else
-        ne = {  }
-        q = {  }
-        s = 1
-        Q = {  }
+        M = {  }
+        k = {  }
+        d = 1
+        T = {  }
     end
 
-    he = e.Subterfuge:IsAvailable() and e.Stealth2 or e.Stealth
-    g, m = 2 / a:SpellHaste(), 1 / a:SpellHaste()
-    f = i.EffectiveComboPoints(a:ComboPoints())
-    u = a:ComboPointsMax() - f
-    S = (4 + f * 4) * .3
-    J = (2 + f * 2) * .3
-    F = e.Envenom:Damage() * 3
-    ee = e.Mutilate:Damage() * 3
-    N = false
-    R = 1 - (p(U) * .45)
-    te = 1 - (p(C) * .44)
-    if j.TargetIsValid() or a:AffectingCombat() then
-        if IsInRaid() and UnitExists("boss1") then
-            K = w.BossFightRemains(nil, true)
-            y = K
-            if y == 11111 then
-                y = w.FightRemains(Enemies10yd, false)
-            end
-
-        end
-
+    Y, P = 2 * a:SpellHaste(), 1 * a:SpellHaste()
+    f = h.EffectiveComboPoints(a:ComboPoints())
+    I = a:ComboPointsMax() - f
+    ae = (4 + f * 4) * .3
+    oe = (2 + f * 2) * .3
+    B = e.Envenom:Damage() * i.Assassination.EnvenomDMGOffset
+    G = e.Mutilate:Damage() * i.Assassination.MutilateDMGOffset
+    N = _e()
+    s = c()
+    if s then
+        return s
     end
 
-    d = b()
-    if d then
-        return d
-    end
-
-    if c > 0 then
-        c = 0
+    if u > 0 then
+        u = 0
     end
 
     if o > 0 then
         o = 0
     end
 
-    o = i.ReturnSpell()
-    c = i.ReturnSpellMO()
-    d = i.CrimsonVial()
-    if d then
-        return d
+    o = h.ReturnSpell()
+    u = h.ReturnSpellMO()
+    s = h.CrimsonVial()
+    if s then
+        return s
     end
 
-    d = i.Feint()
-    if d then
-        return d
+    s = h.Feint()
+    if s then
+        return s
     end
 
     local c = a:AffectingCombat() and 180 or 900
     local u
-            if l(8679):IsAvailable() and h.Commons.LethalPoison == "Wound Poison" then
+                if l(8679):IsAvailable() and (i.Assassination.LethalPoison1 == "Wound Poison" or (e.DragonTemperedBlades:IsAvailable() and i.Assassination.LethalPoison2 == "Wound Poison")) then
         u = a:BuffRemains(l(8679))
         if u < c and not a:IsCasting(l(8679)) then
             if r.Cast(l(8679)) then
@@ -954,7 +946,7 @@ local function k()
 
         end
 
-    elseif l(2823):IsAvailable() and h.Commons.LethalPoison == "Deadly Poison" then
+    elseif l(2823):IsAvailable() and (i.Assassination.LethalPoison1 == "Deadly Poison" or (e.DragonTemperedBlades:IsAvailable() and i.Assassination.LethalPoison2 == "Deadly Poison")) then
         u = a:BuffRemains(l(2823))
         if u < c and not a:IsCasting(l(2823)) then
             if r.Cast(l(2823)) then
@@ -964,7 +956,7 @@ local function k()
 
         end
 
-    elseif l(315584):IsAvailable() and h.Commons.LethalPoison == "Instant Poison" then
+    elseif l(315584):IsAvailable() and (i.Assassination.LethalPoison1 == "Instant Poison" or (e.DragonTemperedBlades:IsAvailable() and i.Assassination.LethalPoison2 == "Instant Poison")) then
         u = a:BuffRemains(l(315584))
         if u < c and not a:IsCasting(l(315584)) then
             if r.Cast(l(315584)) then
@@ -974,9 +966,19 @@ local function k()
 
         end
 
+    elseif l(381664):IsAvailable() and (i.Assassination.LethalPoison1 == "Amplifying Poison" or (e.DragonTemperedBlades:IsAvailable() and i.Assassination.LethalPoison2 == "Amplifying Poison")) then
+        u = a:BuffRemains(l(381664))
+        if u < c and not a:IsCasting(l(381664)) then
+            if r.Cast(l(381664)) then
+                o = 209
+                return "Amplifying Poison Refresh"
+            end
+
+        end
+
     end
 
-        if l(381637):IsAvailable() and h.Commons.NonLethalPoison == "Atrophic Poison" then
+        if l(381637):IsAvailable() and (i.Assassination.NonLethalPoison1 == "Atrophic Poison" or (e.DragonTemperedBlades:IsAvailable() and i.Assassination.NonLethalPoison2 == "Atrophic Poison")) then
         u = a:BuffRemains(l(381637))
         if u < c and not a:IsCasting(l(381637)) then
             if r.Cast(l(381637)) then
@@ -986,7 +988,7 @@ local function k()
 
         end
 
-    elseif l(5761):IsAvailable() and h.Commons.NonLethalPoison == "Numbing Poison" then
+    elseif l(5761):IsAvailable() and (i.Assassination.NonLethalPoison1 == "Numbing Poison" or (e.DragonTemperedBlades:IsAvailable() and i.Assassination.NonLethalPoison2 == "Numbing Poison")) then
         u = a:BuffRemains(l(5761))
         if u < c and not a:IsCasting(NumbingPoison) then
             if r.Cast(l(5761)) then
@@ -998,50 +1000,16 @@ local function k()
 
     end
 
-    if a:IsChanneling(l(324631)) then
-        if r.Cast(e.PoolEnergy, nil, nil, nil) then
-            o = 99999
-            return "channeling Fleashcraft"
-        end
-
-    end
-
     if not a:AffectingCombat() and not a:IsDeadOrGhost() then
-        if not a:BuffUp(e.VanishBuff) then
-            d = i.Stealth(he)
-            if d then
-                return d
+        if not a:BuffUp(h.VanishBuffSpell()) then
+            s = h.Stealth(h.StealthSpell())
+            if s then
+                return s
             end
 
         end
 
-    end
-
-    i.MfDSniping(e.MarkedforDeath)
-    if j.TargetIsValid() and ((a:AffectingCombat() and not t:DebuffUp(e.Sap)) or Z) then
-        re = i.PoisonedBleeds()
-        I = a:EnergyRegen() + re * 8 / (2 * a:SpellHaste())
-        EnergyTimeToMaxCombined = a:EnergyDeficitPredicted() / I
-        x = s < 2
-        D = I > 35
-        VarDeathmarkCooldownRemains = e.Deathmark:CooldownRemains() * R
-        if (a:StealthUp(true, false) or a:BuffUp(e.ImprovedGarroteBuff)) then
-            d = v()
-            if d then
-                return d .. " (Stealthed)"
-            end
-
-        end
-
-        if true then
-            d = G()
-            if d then
-                return d
-            end
-
-        end
-
-                if not a:BuffUp(e.SliceandDice) then
+        if not a:BuffUp(e.SliceandDice) then
             if e.SliceandDice:IsReady() and f >= 2 then
                 if n(e.SliceandDice) then
                     o = 5171
@@ -1050,9 +1018,46 @@ local function k()
 
             end
 
-        elseif t:IsInMeleeRange(10) then
-            if e.Envenom:IsReady() and a:BuffRemains(e.SliceandDice) < 5 and f >= 4 then
-                if n(e.Envenom, nil, nil, not t:IsInMeleeRange(8)) then
+        end
+
+    end
+
+    h.MfDSniping(e.MarkedforDeath)
+    if H.TargetIsValid() and ((a:AffectingCombat() and not t:DebuffUp(e.Sap)) or J) then
+        if s then
+            return s
+        end
+
+        te = h.PoisonedBleeds()
+        x = a:EnergyRegen() + te * 6 / (2 * a:SpellHaste())
+        ue = a:EnergyDeficit() / x
+        S = x > 35
+        A = d < 2
+        if a:StealthUp(true, false) or g() > 0 then
+            s = p()
+            if s then
+                return s .. " (Stealthed)"
+            end
+
+        end
+
+        s = re()
+        if s then
+            return s
+        end
+
+                if not a:BuffUp(e.SliceandDice) and t:IsInMeleeRange(10) then
+            if e.SliceandDice:IsReady() and a:ComboPoints() >= 2 or not e.CutToTheChase:IsAvailable() and a:ComboPoints() >= 4 and a:BuffRemains(e.SliceandDice) < (1 + a:ComboPoints()) * 1.8 then
+                if n(e.SliceandDice) then
+                    o = 5171
+                    return "Cast Slice and Dice"
+                end
+
+            end
+
+        elseif q and e.CutToTheChase:IsAvailable() then
+            if e.Envenom:IsReady() and t:IsInMeleeRange(10) and a:BuffRemains(e.SliceandDice) < 5 and a:ComboPoints() >= 4 then
+                if n(e.Envenom, nil, nil, not m) then
                     o = 32645
                     return "Cast Envenom (CttC)"
                 end
@@ -1060,8 +1065,9 @@ local function k()
             end
 
         else
-            if e.PoisonedKnife:IsCastable() and t:IsInRange(30) and not a:StealthUp(true, true) and s == 0 and a:EnergyTimeToMax() <= a:GCD() * 1.5 then
+            if e.PoisonedKnife:IsCastable() and t:IsInRange(30) and not a:StealthUp(true, true) and a:AffectingCombat() and d == 0 and a:EnergyTimeToMax() <= a:GCD() * 1.5 then
                 if n(e.PoisonedKnife) then
+                    o = 185565
                     return "Cast Poisoned Knife"
                 end
 
@@ -1069,26 +1075,18 @@ local function k()
 
         end
 
-        if e.Envenom:IsReady() and t:IsInMeleeRange(10) and a:BuffUp(e.FlagellationBuff) and a:BuffRemains(e.FlagellationBuff) < 1 and a:BuffStack(e.FlagellationBuff) < 30 and f >= 2 then
-            if n(e.Envenom, nil, nil, not t:IsInMeleeRange(8)) then
-                o = 32645
-                return "Cast Envenom (flag)"
-            end
-
+        s = y()
+        if s then
+            return s
         end
 
-        d = T()
-        if d then
-            return d
+        s = v()
+        if s then
+            return s
         end
 
-        d = _()
-        if d then
-            return d
-        end
-
-        if B() and h.Commons.Enabled.Racials then
-            if e.ArcaneTorrent:IsCastable() and t:IsInMeleeRange(8) and a:EnergyDeficitPredicted() > 15 + I then
+        if E() and i.Commons.Enabled.Racials then
+            if e.ArcaneTorrent:IsCastable() and t:IsInMeleeRange(8) and a:EnergyDeficitPredicted() > 15 + x then
                 if n(e.ArcaneTorrent, nil) then
                     o = 155145
                     return "Cast Arcane Torrent"
@@ -1122,7 +1120,7 @@ local function k()
 
         end
 
-        if e.Mutilate:IsCastable() and t:IsInMeleeRange(10) then
+        if e.Mutilate:IsCastable() and q then
             if n(e.PoolEnergy) then
                 shadowcast = 9999999999
                 return "Normal Pooling"
@@ -1135,7 +1133,7 @@ local function k()
 end
 
 local function t()
-    e.Vendetta:RegisterAuraTracking()
+    e.Deathmark:RegisterAuraTracking()
     e.Sepsis:RegisterAuraTracking()
 end
 
@@ -1149,13 +1147,13 @@ function ReturnSpellAss()
 end
 
 function ReturnSpellMOAss()
-    if c == 0 then
+    if u == 0 then
         return 0
     else
-        return c
+        return u
     end
 
 end
 
-r.SetAPL(259, k, t)
+r.SetAPL(259, w, t)
 
