@@ -19,7 +19,7 @@ local he = HeroRotationCharDB.Toggles[4]
 local v = HeroRotationCharDB.Toggles[5]
 local D = HeroRotationCharDB.Toggles[6]
 local b = HeroRotationCharDB.Toggles[12]
-local ee = HeroRotationCharDB.Toggles[15]
+local ee = not HeroRotationCharDB.Toggles[15]
 local R = HeroRotationCharDB.Toggles[120]
 local H = HeroRotationCharDB.Toggles[121]
 local S = HeroRotationCharDB.Toggles[122]
@@ -321,7 +321,7 @@ local function te()
 
     end
 
-    if s.Commons.Enabled.Potions and n() and s.Commons.Enabled.Potions and ee and (((a:BuffUp(e.CalloftheWildBuff) or ((not e.CalloftheWild:IsAvailable()) and (a:BuffUp(e.BestialWrathBuff) and (a:BloodlustUp() or i:HealthPercentage() < 20))) or l < 31) and not d.GUISettings.General.HoldPotforBL) or (d.GUISettings.General.HoldPotforBL and a:BloodlustUp())) then
+    if s.Commons.Enabled.Potions and n() and ee and (((a:BuffUp(e.CalloftheWildBuff) or ((not e.CalloftheWild:IsAvailable()) and (a:BuffUp(e.BestialWrathBuff) and (a:BloodlustUp() or i:HealthPercentage() < 20))) or l < 31) and not d.GUISettings.General.HoldPotforBL) or (d.GUISettings.General.HoldPotforBL and a:BloodlustUp())) then
         local e = m.PotionSelected()
         if e and e:IsReady() then
             if o(e, nil, nil) then
@@ -760,7 +760,7 @@ local function q()
     he = HeroRotationCharDB.Toggles[4]
     v = HeroRotationCharDB.Toggles[5] or n()
     b = HeroRotationCharDB.Toggles[12]
-    ee = HeroRotationCharDB.Toggles[15]
+    ee = not HeroRotationCharDB.Toggles[15]
     R = HeroRotationCharDB.Toggles[120]
     H = HeroRotationCharDB.Toggles[121]
     S = HeroRotationCharDB.Toggles[122]

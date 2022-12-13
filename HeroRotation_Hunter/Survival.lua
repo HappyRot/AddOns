@@ -8,36 +8,36 @@ local t = m.Target
 local I = m.Pet
 local T = A.Spell
 local o = A.Item
-local S = A.Action
+local H = A.Action
 local d = HeroRotation
 local be = d.AoEON
 local k = d.CDsON
 local i = d.Cast
 local e = d.CastSuggested
-local E = HeroRotationCharDB.Toggles[4]
+local _ = HeroRotationCharDB.Toggles[4]
 local ve = HeroRotationCharDB.Toggles[5]
 local R = HeroRotationCharDB.Toggles[6]
 local f = HeroRotationCharDB.Toggles[12]
-local pe = HeroRotationCharDB.Toggles[15]
-local Y = HeroRotationCharDB.Toggles[120]
-local M = HeroRotationCharDB.Toggles[121]
-local C = HeroRotationCharDB.Toggles[122]
-local B = HeroRotationCharDB.Toggles[123]
-local G = HeroRotationCharDB.Toggles[124]
-local me = HeroRotationCharDB.Toggles[125]
-local P = HeroRotationCharDB.Toggles[140]
+local pe = not HeroRotationCharDB.Toggles[15]
+local M = HeroRotationCharDB.Toggles[120]
+local P = HeroRotationCharDB.Toggles[121]
+local G = HeroRotationCharDB.Toggles[122]
+local V = HeroRotationCharDB.Toggles[123]
+local B = HeroRotationCharDB.Toggles[124]
+local ce = HeroRotationCharDB.Toggles[125]
+local F = HeroRotationCharDB.Toggles[140]
 local z = HeroRotationCharDB.Toggles[141]
-local ce = HeroRotationCharDB.Toggles[142]
+local ue = HeroRotationCharDB.Toggles[142]
 local e = false
 local e = false
 local e = false
 local e = false
-local W = 0
-local U = false
-local we = 0
+local C = 0
+local L = false
+local me = 0
 local e = false
-local fe = { 355782, 333875, 344739, 228318, 332158, 321764, 324914, 326046, 324776, 340544, 324736, 328015, 322433, 334324, 317936, 327332, 328288, 343470, 333293, 320272, 342139, 355888, 349933, 356549, 355934, 353706, 347775, 357284, 335141, 327155, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 344739, 368477, 368396, 355057, 356133, 158337, 164426 }
-local c = d.Commons.Everyone
+local we = { 355782, 333875, 344739, 228318, 332158, 321764, 324914, 326046, 324776, 340544, 324736, 328015, 322433, 334324, 317936, 327332, 328288, 343470, 333293, 320272, 342139, 355888, 349933, 356549, 355934, 353706, 347775, 357284, 335141, 327155, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 344739, 368477, 368396, 355057, 356133, 158337, 164426 }
+local u = d.Commons.Everyone
 local n = { General = d.GUISettings.General, Commons = d.GUISettings.APL.Hunter.Commons, Survival = d.GUISettings.APL.Hunter.Survival }
 local e = T.Hunter.Survival
 local q = o.Hunter.Survival
@@ -49,54 +49,54 @@ end, "COVENANT_CHOSEN")
 A:RegisterForEvent(function(e, ...)
     local e, t, t, t = ...
     if e == 284 then
-        U = true
-        we = GetTime()
+        L = true
+        me = GetTime()
     end
 
 end, "UI_ERROR_MESSAGE")
 local s = a:GetEquipment()
-local h = o(0)
 local r = o(0)
-local F = GetInventoryItemID("player", 13)
-local V = GetInventoryItemID("player", 14)
+local h = o(0)
+local W = GetInventoryItemID("player", 13)
+local Y = GetInventoryItemID("player", 14)
 if s[13] then
-    h = o(s[13])
+    r = o(s[13])
 end
 
 if s[14] then
-    r = o(s[14])
+    h = o(s[14])
 end
 
 local w = a:HasLegendaryEquipped(67)
-local H = a:HasLegendaryEquipped(68)
-local L = a:HasLegendaryEquipped(79)
-local ge = a:HasLegendaryEquipped(253)
+local S = a:HasLegendaryEquipped(68)
+local U = a:HasLegendaryEquipped(79)
+local ye = a:HasLegendaryEquipped(253)
 A:RegisterForEvent(function()
     s = a:GetEquipment()
-    h = o(0)
     r = o(0)
+    h = o(0)
     if s[13] then
-        h = o(s[13])
+        r = o(s[13])
     end
 
     if s[14] then
-        r = o(s[14])
+        h = o(s[14])
     end
 
     w = a:HasLegendaryEquipped(67)
-    H = a:HasLegendaryEquipped(68)
-    L = a:HasLegendaryEquipped(79)
-    ge = a:HasLegendaryEquipped(253) or (a:HasUnity() and e.DeathChakram:IsAvailable())
+    S = a:HasLegendaryEquipped(68)
+    U = a:HasLegendaryEquipped(79)
+    ye = a:HasLegendaryEquipped(253) or (a:HasUnity() and e.DeathChakram:IsAvailable())
 end, "PLAYER_EQUIPMENT_CHANGED")
 local x = { e.SummonPet, e.SummonPet2, e.SummonPet3, e.SummonPet4, e.SummonPet5 }
-local y, u
-local p = ((e.MongooseBite:IsAvailable() and e.MongooseBite:Cost()) or (e.RaptorStrike:Cost()))
+local y, c
+local v = ((e.MongooseBite:IsAvailable() and e.MongooseBite:Cost()) or (e.RaptorStrike:Cost()))
 local o
 local o
 local o = 0
 local s = 0
 A:RegisterForEvent(function()
-    p = ((e.MongooseBite:IsAvailable() and e.MongooseBite:Cost()) or (e.RaptorStrike:Cost()))
+    v = ((e.MongooseBite:IsAvailable() and e.MongooseBite:Cost()) or (e.RaptorStrike:Cost()))
 end, "PLAYER_TALENT_UPDATE")
 local l = { { e.Intimidation, "Cast Intimidation (Interrupt)", function()
     return true
@@ -106,7 +106,7 @@ local function l(t, e)
     return (a:Focus() + a:FocusCastRegen(t) + e < a:FocusMax())
 end
 
-local function ze(e)
+local function xe(e)
     local t = 0
     if e ~= nil then
         for a in pairs(e) do
@@ -122,7 +122,7 @@ local function ze(e)
     return t
 end
 
-local function _()
+local function E()
     if e.ShrapnelBomb:TimeSinceLastCast() < .5 or e.PheromoneBomb:TimeSinceLastCast() < .5 or e.VolatileBomb:TimeSinceLastCast() < .5 or e.WildfireBomb:TimeSinceLastCast() < .5 or z then
         return true
     else
@@ -135,11 +135,11 @@ local function g(t)
     return (t:DebuffRemains(e.SerpentStingDebuff))
 end
 
-local function v(t)
+local function b(t)
     return (t:DebuffRemains(e.BloodseekerDebuff))
 end
 
-local function b(t)
+local function p(t)
     return (t:DebuffStack(e.LatentPoisonDebuff))
 end
 
@@ -147,7 +147,7 @@ local function ke(e)
     return (e:HealthPercentage())
 end
 
-local function xe(i)
+local function ge(i)
                 if (((i:DebuffDown(e.SerpentStingDebuff) and i:TimeToDie() > 7) or (a:BuffUp(e.VipersVenomBuff) and a:BuffRemains(e.VipersVenomBuff) < a:GCD())) and (i:IsInMeleeRange(n.Survival.SerpantStingRange) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == m("mouseover"):GUID()) then
         s = 1259491
         return true
@@ -195,7 +195,7 @@ local function de(a)
 
 end
 
-local function ue(a)
+local function ze(a)
                 if ((a:DebuffRefreshable(e.SerpentStingDebuff) and a:TimeToDie() > 8) and (a:IsInMeleeRange(n.Survival.SerpantStingRange) or (EagleUp and a:IsInMeleeRange(15))) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285 or a:NPCID() == 168326 or UnitExists("boss1")) and a:GUID() == m("mouseover"):GUID()) then
         s = 1259491
         return true
@@ -243,7 +243,7 @@ local function N(i)
 
 end
 
-local function ye(a)
+local function fe(a)
                 if ((l(e.KillCommand:ExecuteTime(), 15) and (TargetInRangePet30y)) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285 or a:NPCID() == 168326 or UnitExists("boss1")) and a:GUID() == m("mouseover"):GUID()) then
         s = 1259489
         return true
@@ -275,7 +275,7 @@ local function D(e)
 
 end
 
-local function K(i)
+local function Q(i)
                 if ((a:BuffStack(e.TipoftheSpearBuff) == 3 or i:DebuffUp(e.ShrapnelBombDebuff)) and (i:IsInMeleeRange(8) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == m("mouseover"):GUID()) then
         s = 1186270
         return true
@@ -323,7 +323,7 @@ local function O(e)
 
 end
 
-local function oe(e)
+local function re(e)
                 if ((e:AffectingCombat() or e:IsDummy() or e:NPCID() == 153285 or e:NPCID() == 168326 or UnitExists("boss1")) and (e:IsInMeleeRange(8) or (EagleUp and e:IsInMeleeRange(15))) and e:GUID() == m("mouseover"):GUID()) then
         s = 1324149
         return true
@@ -339,23 +339,23 @@ local function oe(e)
 
 end
 
-local function X(i)
-                if ((e.AlphaPredator:IsAvailable() and ((a:BuffUp(e.MongooseFuryBuff) and a:BuffRemains(e.MongooseFuryBuff) < a:Focus() / (p - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD() and i:DebuffDown(e.WildSpiritsDebuff)) or (a:BuffRemains(e.MongooseFuryBuff) and e.PheromoneBomb:IsCastable()))) and (i:IsInMeleeRange(8) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == m("mouseover"):GUID()) then
+local function J(i)
+                if ((e.AlphaPredator:IsAvailable() and ((a:BuffUp(e.MongooseFuryBuff) and a:BuffRemains(e.MongooseFuryBuff) < a:Focus() / (v - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD() and i:DebuffDown(e.WildSpiritsDebuff)) or (a:BuffRemains(e.MongooseFuryBuff) and e.PheromoneBomb:IsCastable()))) and (i:IsInMeleeRange(8) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == m("mouseover"):GUID()) then
         s = 1259387
         return true
-    elseif ((e.AlphaPredator:IsAvailable() and ((a:BuffUp(e.MongooseFuryBuff) and a:BuffRemains(e.MongooseFuryBuff) < a:Focus() / (p - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD() and i:DebuffDown(e.WildSpiritsDebuff)) or (a:BuffRemains(e.MongooseFuryBuff) and e.PheromoneBomb:IsCastable()))) and (i:IsInMeleeRange(8) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and n.Survival.KillCommandTargetSwap == "AutoSwap" and i:GUID() ~= t:GUID() and not f) then
+    elseif ((e.AlphaPredator:IsAvailable() and ((a:BuffUp(e.MongooseFuryBuff) and a:BuffRemains(e.MongooseFuryBuff) < a:Focus() / (v - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD() and i:DebuffDown(e.WildSpiritsDebuff)) or (a:BuffRemains(e.MongooseFuryBuff) and e.PheromoneBomb:IsCastable()))) and (i:IsInMeleeRange(8) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and n.Survival.KillCommandTargetSwap == "AutoSwap" and i:GUID() ~= t:GUID() and not f) then
         s = 999
         return true
-    elseif ((e.AlphaPredator:IsAvailable() and ((a:BuffUp(e.MongooseFuryBuff) and a:BuffRemains(e.MongooseFuryBuff) < a:Focus() / (p - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD() and i:DebuffDown(e.WildSpiritsDebuff)) or (a:BuffRemains(e.MongooseFuryBuff) and e.PheromoneBomb:IsCastable()))) and (i:IsInMeleeRange(8) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == t:GUID()) then
+    elseif ((e.AlphaPredator:IsAvailable() and ((a:BuffUp(e.MongooseFuryBuff) and a:BuffRemains(e.MongooseFuryBuff) < a:Focus() / (v - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD() and i:DebuffDown(e.WildSpiritsDebuff)) or (a:BuffRemains(e.MongooseFuryBuff) and e.PheromoneBomb:IsCastable()))) and (i:IsInMeleeRange(8) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == t:GUID()) then
         o = 259387
         return true
-    elseif (e.AlphaPredator:IsAvailable() and ((a:BuffUp(e.MongooseFuryBuff) and a:BuffRemains(e.MongooseFuryBuff) < a:Focus() / (p - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD() and i:DebuffDown(e.WildSpiritsDebuff)) or (a:BuffRemains(e.MongooseFuryBuff) and e.PheromoneBomb:IsCastable()))) and (i:IsInMeleeRange(8) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) then
+    elseif (e.AlphaPredator:IsAvailable() and ((a:BuffUp(e.MongooseFuryBuff) and a:BuffRemains(e.MongooseFuryBuff) < a:Focus() / (v - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD() and i:DebuffDown(e.WildSpiritsDebuff)) or (a:BuffRemains(e.MongooseFuryBuff) and e.PheromoneBomb:IsCastable()))) and (i:IsInMeleeRange(8) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) then
         return true
     end
 
 end
 
-local function he(i)
+local function ae(i)
                 if ((a:BuffUp(e.MongooseFuryBuff) or (a:Focus() + a:FocusCastRegen(e.MongooseBite:ExecuteTime()) > a:FocusMax() - 15) or (i:DebuffUp(e.ShrapnelBombDebuff)) or (i:DebuffRemains(e.WildSpiritsDebuff))) and (i:IsInMeleeRange(8) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == m("mouseover"):GUID()) then
         s = 1259387
         return true
@@ -371,7 +371,7 @@ local function he(i)
 
 end
 
-local function re(i)
+local function K(i)
                 if ((a:BuffUp(e.VipersVenomBuff) and (a:BuffRemains(e.VipersVenomBuff) < a:GCD() or i:DebuffRefreshable(e.SerpentStingDebuff))) and (i:IsInMeleeRange(n.Survival.SerpantStingRange) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == m("mouseover"):GUID()) then
         s = 1259491
         return true
@@ -403,30 +403,30 @@ local function ne(i)
 
 end
 
-local function J(i)
-                if ((l(e.KillCommand:ExecuteTime(), 15) and (not w or a:Focus() < p)) and ((TargetInRangePet30y) or not PetRangeAbility) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == m("mouseover"):GUID()) then
+local function he(i)
+                if ((l(e.KillCommand:ExecuteTime(), 15) and (not w or a:Focus() < v)) and ((TargetInRangePet30y) or not PetRangeAbility) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == m("mouseover"):GUID()) then
         s = 1259489
         return true
-    elseif ((l(e.KillCommand:ExecuteTime(), 15) and (not w or a:Focus() < p)) and ((TargetInRangePet30y) or not PetRangeAbility) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and n.Survival.KillCommandTargetSwap == "AutoSwap" and i:GUID() ~= t:GUID() and not f) then
+    elseif ((l(e.KillCommand:ExecuteTime(), 15) and (not w or a:Focus() < v)) and ((TargetInRangePet30y) or not PetRangeAbility) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and n.Survival.KillCommandTargetSwap == "AutoSwap" and i:GUID() ~= t:GUID() and not f) then
         s = 999
         return true
-    elseif ((l(e.KillCommand:ExecuteTime(), 15) and (not w or a:Focus() < p)) and ((TargetInRangePet30y) or not PetRangeAbility) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == t:GUID()) then
+    elseif ((l(e.KillCommand:ExecuteTime(), 15) and (not w or a:Focus() < v)) and ((TargetInRangePet30y) or not PetRangeAbility) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == t:GUID()) then
         o = 259489
         return true
-    elseif (l(e.KillCommand:ExecuteTime(), 15) and (not w or a:Focus() < p)) and ((TargetInRangePet30y) or not PetRangeAbility) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) then
+    elseif (l(e.KillCommand:ExecuteTime(), 15) and (not w or a:Focus() < v)) and ((TargetInRangePet30y) or not PetRangeAbility) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) then
         return true
     end
 
 end
 
-local function se(i)
+local function Z(i)
     local h = l(e.KillCommand:ExecuteTime(), 15)
-    local u = a:FocusCastRegen(e.KillCommand:ExecuteTime())
+    local l = a:FocusCastRegen(e.KillCommand:ExecuteTime())
     local r = a:Focus()
-    local l = a:GCD()
-    local d = e.FreezingTrap:CooldownRemains() > (a:Focus() / (p - u) * l)
-    local r = e.TarTrap:CooldownRemains() > (a:Focus() / (p - u) * l)
-    local a = e.SteelTrap:IsAvailable() and (e.SteelTrap:CooldownRemains() > (a:Focus() / (p - u) * l))
+    local u = a:GCD()
+    local d = e.FreezingTrap:CooldownRemains() > (a:Focus() / (v - l) * u)
+    local r = e.TarTrap:CooldownRemains() > (a:Focus() / (v - l) * u)
+    local a = e.SteelTrap:IsAvailable() and (e.SteelTrap:CooldownRemains() > (a:Focus() / (v - l) * u))
                 if ((h and w and d and r and (not e.SteelTrap:IsAvailable() or a)) and ((TargetInRangePet30y) or not PetRangeAbility) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == m("mouseover"):GUID()) then
         s = 1259489
         return true
@@ -474,23 +474,23 @@ local function ee(i)
 
 end
 
-local function Z(i)
-                if ((e.AlphaPredator:IsAvailable() and (a:BuffUp(e.MongooseFuryBuff) and a:BuffRemains(e.MongooseFuryBuff) < a:Focus() / (p - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD())) and (i:IsInMeleeRange(8) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == m("mouseover"):GUID()) then
+local function se(i)
+                if ((e.AlphaPredator:IsAvailable() and (a:BuffUp(e.MongooseFuryBuff) and a:BuffRemains(e.MongooseFuryBuff) < a:Focus() / (v - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD())) and (i:IsInMeleeRange(8) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == m("mouseover"):GUID()) then
         s = 1259387
         return true
-    elseif ((e.AlphaPredator:IsAvailable() and (a:BuffUp(e.MongooseFuryBuff) and a:BuffRemains(e.MongooseFuryBuff) < a:Focus() / (p - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD())) and (i:IsInMeleeRange(8) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and n.Survival.KillCommandTargetSwap == "AutoSwap" and i:GUID() ~= t:GUID() and not f) then
+    elseif ((e.AlphaPredator:IsAvailable() and (a:BuffUp(e.MongooseFuryBuff) and a:BuffRemains(e.MongooseFuryBuff) < a:Focus() / (v - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD())) and (i:IsInMeleeRange(8) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and n.Survival.KillCommandTargetSwap == "AutoSwap" and i:GUID() ~= t:GUID() and not f) then
         s = 999
         return true
-    elseif ((e.AlphaPredator:IsAvailable() and (a:BuffUp(e.MongooseFuryBuff) and a:BuffRemains(e.MongooseFuryBuff) < a:Focus() / (p - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD())) and (i:IsInMeleeRange(8) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == t:GUID()) then
+    elseif ((e.AlphaPredator:IsAvailable() and (a:BuffUp(e.MongooseFuryBuff) and a:BuffRemains(e.MongooseFuryBuff) < a:Focus() / (v - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD())) and (i:IsInMeleeRange(8) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == t:GUID()) then
         o = 259387
         return true
-    elseif (e.AlphaPredator:IsAvailable() and (a:BuffUp(e.MongooseFuryBuff) and a:BuffRemains(e.MongooseFuryBuff) < a:Focus() / (p - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD())) and (i:IsInMeleeRange(8) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) then
+    elseif (e.AlphaPredator:IsAvailable() and (a:BuffUp(e.MongooseFuryBuff) and a:BuffRemains(e.MongooseFuryBuff) < a:Focus() / (v - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD())) and (i:IsInMeleeRange(8) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) then
         return true
     end
 
 end
 
-local function te(i)
+local function oe(i)
                 if (((i:DebuffRefreshable(e.SerpentStingDebuff) and a:BuffDown(e.CoordinatedAssault)) or (e.AlphaPredator:IsAvailable() and i:DebuffRefreshable(e.SerpentStingDebuff) and not a:BuffUp(e.MongooseFuryBuff))) and (i:IsInMeleeRange(n.Survival.SerpantStingRange) or (EagleUp and i:IsInMeleeRange(15))) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == m("mouseover"):GUID()) then
         s = 1259491
         return true
@@ -506,7 +506,7 @@ local function te(i)
 
 end
 
-local function ae(i)
+local function X(i)
                 if ((l(e.KillCommand:ExecuteTime(), 15) and e.KillCommand:FullRechargeTime() < a:GCD() and ((w and not e.FreezingTrap:CooldownUp() and not e.TarTrap:CooldownUp()) or not w)) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == m("mouseover"):GUID()) then
         s = 1259489
         return true
@@ -522,7 +522,7 @@ local function ae(i)
 
 end
 
-local function le(i)
+local function qe(i)
                 if ((i:DebuffUp(e.PheromoneBombDebuff) and a:HasTier(28, 2)) and (i:AffectingCombat() or i:IsDummy() or i:NPCID() == 153285 or i:NPCID() == 168326 or UnitExists("boss1")) and i:GUID() == m("mouseover"):GUID()) then
         s = 1259489
         return true
@@ -538,7 +538,7 @@ local function le(i)
 
 end
 
-local function Q(a)
+local function te(a)
                 if ((l(e.KillCommand:ExecuteTime(), 15) and ((w and not e.FreezingTrap:CooldownUp() and not e.TarTrap:CooldownUp()) or not w)) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285 or a:NPCID() == 168326 or UnitExists("boss1")) and a:GUID() == m("mouseover"):GUID()) then
         s = 1259489
         return true
@@ -554,7 +554,7 @@ local function Q(a)
 
 end
 
-local function qe(a)
+local function le(a)
                 if ((a:DebuffDown(e.SerpentStingDebuff) and a:TimeToDie() > 15) and (a:IsInMeleeRange(n.Survival.SerpantStingRange) or (EagleUp and a:IsInMeleeRange(15))) and (a:AffectingCombat() or a:IsDummy() or a:NPCID() == 153285 or a:NPCID() == 168326 or UnitExists("boss1")) and a:GUID() == m("mouseover"):GUID()) then
         s = 1259491
         return true
@@ -570,8 +570,8 @@ local function qe(a)
 
 end
 
-local function m()
-    if T(257284):IsCastable() and T(339264):ConduitEnabled() and t:DebuffDown(T(257284)) and ze(Enemies40y) <= 0 and (UnitName("target") == "Nalthor the Rimebinder" or UnitName("target") == "Tirnenn Villager" or UnitName("target") == "Drust Boughbreaker" or UnitName("target") == "Ingra Maloch" or UnitName("target") == "Mistveil Stalker" or UnitName("target") == "Mistcaller" or UnitName("target") == "Blightbone" or UnitName("target") == "Rotspew" or UnitName("target") == "Amarth" or UnitName("target") == "Surgeon Stitchflesh" or UnitName("target") == "Lubricator" or UnitName("target") == "Tred'ova" or UnitName("target") == "Azules" or UnitName("target") == "Ventunax" or UnitName("target") == "Oryphion" or UnitName("target") == "Astronos" or UnitName("target") == "Lakesis" or UnitName("target") == "Klotos" or UnitName("target") == "Devos" or UnitName("target") == "Halkias" or UnitName("target") == "High Adjudicator Aleez" or UnitName("target") == "Wo Drifter" or UnitName("target") == "Lord Chamberlain" or UnitName("target") == "Enraged Spirit" or UnitName("target") == "Hakkar The Soulflayer" or UnitName("target") == "Sentient Oil" or UnitName("target") == "Millhouse Manastorm" or UnitName("target") == "Millificent Manastorm" or UnitName("target") == "Dealer Xy’exa" or UnitName("target") == "Mueh'zala" or UnitName("target") == "Fungi Stormer" or UnitName("target") == "Globgrog" or UnitName("target") == "Slime Tentacle" or UnitName("target") == "Virulax Blightweaver" or UnitName("target") == "Doctor Ickus" or UnitName("target") == "Domina Venomblade" or UnitName("target") == "Margrave Stradama" or UnitName("target") == "Dreadful Huntmaster" or UnitName("target") == "Insatiable Brute" or UnitName("target") == "Kryxis the Voracious" or UnitName("target") == "Grand Overseer" or UnitName("target") == "Research Scribe" or UnitName("target") == "Executor Tarvold" or UnitName("target") == "Grand Proctor Beryllia" or UnitName("target") == "General Kaal" or UnitName("target") == "Paceran the Virulent" or UnitName("target") == "Shard of Halkias" or UnitName("target") == "Shambling Arbalest" or UnitName("target") == "Nekthara the Mangler" or UnitName("target") == "Harugia the Bloodthirtsy" or UnitName("target") == "Heavin the Breaker" or UnitName("target") == "Echelon" or UnitName("target") == "Advent Nevermore" or UnitName("target") == "Xav the Unfallen" or UnitName("target") == "Portal Guardian" or UnitName("target") == "Kul'Tharok" or UnitName("target") == "Gorechop" or UnitName("target") == "Mordretha, the Endless Empress" or UnitName("target") == "Gatewarden Zo'mazz" or UnitName("target") == "Zophex" or UnitName("target") == "Alcruux" or UnitName("target") == "Achillite" or UnitName("target") == "Venza Goldfuse" or UnitName("target") == "Zo'gron" or UnitName("target") == "P.O.S.T Master" or UnitName("target") == "So'azmi" or UnitName("target") == "Portalmancer Zo'dahh" or (IsInRaid() and UnitName("boss1") == UnitName("boss1"))) then
+local function _e()
+    if T(257284):IsCastable() and T(339264):ConduitEnabled() and t:DebuffDown(T(257284)) and xe(Enemies40y) <= 0 and (UnitName("target") == "Nalthor the Rimebinder" or UnitName("target") == "Tirnenn Villager" or UnitName("target") == "Drust Boughbreaker" or UnitName("target") == "Ingra Maloch" or UnitName("target") == "Mistveil Stalker" or UnitName("target") == "Mistcaller" or UnitName("target") == "Blightbone" or UnitName("target") == "Rotspew" or UnitName("target") == "Amarth" or UnitName("target") == "Surgeon Stitchflesh" or UnitName("target") == "Lubricator" or UnitName("target") == "Tred'ova" or UnitName("target") == "Azules" or UnitName("target") == "Ventunax" or UnitName("target") == "Oryphion" or UnitName("target") == "Astronos" or UnitName("target") == "Lakesis" or UnitName("target") == "Klotos" or UnitName("target") == "Devos" or UnitName("target") == "Halkias" or UnitName("target") == "High Adjudicator Aleez" or UnitName("target") == "Wo Drifter" or UnitName("target") == "Lord Chamberlain" or UnitName("target") == "Enraged Spirit" or UnitName("target") == "Hakkar The Soulflayer" or UnitName("target") == "Sentient Oil" or UnitName("target") == "Millhouse Manastorm" or UnitName("target") == "Millificent Manastorm" or UnitName("target") == "Dealer Xy’exa" or UnitName("target") == "Mueh'zala" or UnitName("target") == "Fungi Stormer" or UnitName("target") == "Globgrog" or UnitName("target") == "Slime Tentacle" or UnitName("target") == "Virulax Blightweaver" or UnitName("target") == "Doctor Ickus" or UnitName("target") == "Domina Venomblade" or UnitName("target") == "Margrave Stradama" or UnitName("target") == "Dreadful Huntmaster" or UnitName("target") == "Insatiable Brute" or UnitName("target") == "Kryxis the Voracious" or UnitName("target") == "Grand Overseer" or UnitName("target") == "Research Scribe" or UnitName("target") == "Executor Tarvold" or UnitName("target") == "Grand Proctor Beryllia" or UnitName("target") == "General Kaal" or UnitName("target") == "Paceran the Virulent" or UnitName("target") == "Shard of Halkias" or UnitName("target") == "Shambling Arbalest" or UnitName("target") == "Nekthara the Mangler" or UnitName("target") == "Harugia the Bloodthirtsy" or UnitName("target") == "Heavin the Breaker" or UnitName("target") == "Echelon" or UnitName("target") == "Advent Nevermore" or UnitName("target") == "Xav the Unfallen" or UnitName("target") == "Portal Guardian" or UnitName("target") == "Kul'Tharok" or UnitName("target") == "Gorechop" or UnitName("target") == "Mordretha, the Endless Empress" or UnitName("target") == "Gatewarden Zo'mazz" or UnitName("target") == "Zophex" or UnitName("target") == "Alcruux" or UnitName("target") == "Achillite" or UnitName("target") == "Venza Goldfuse" or UnitName("target") == "Zo'gron" or UnitName("target") == "P.O.S.T Master" or UnitName("target") == "So'azmi" or UnitName("target") == "Portalmancer Zo'dahh" or (IsInRaid() and UnitName("boss1") == UnitName("boss1"))) then
         if i(e.HuntersMark, nil) then
             o = 257284
             return "HuntersMark M+ open"
@@ -622,7 +622,7 @@ local function m()
 
     end
 
-    if (c.TargetIsValid() or t:NPCID() == 179733) then
+    if (u.TargetIsValid() or t:NPCID() == 179733) then
         if e.KillShot:IsReady() then
             if i(e.KillShot, nil, nil, not t:IsSpellInRange(e.KillShot)) then
                 o = 320976
@@ -631,7 +631,7 @@ local function m()
 
         end
 
-        if e.TarTrap:IsCastable() and (H) then
+        if e.TarTrap:IsCastable() and (S) then
             if i(e.TarTrap, nil, nil, not t:IsInRange(40)) then
                 o = 187698
                 return "tar_trap precombat 6"
@@ -639,7 +639,7 @@ local function m()
 
         end
 
-        if e.Flare:IsCastable() and (H and a:PrevGCD(1, e.TarTrap)) then
+        if e.Flare:IsCastable() and (S and a:PrevGCD(1, e.TarTrap)) then
             if i(e.Flare, nil) then
                 o = 1543
                 return "flare precombat 8"
@@ -668,7 +668,7 @@ local function m()
 
 end
 
-local function Ee()
+local function m()
     VarSyncUp = (t:DebuffUp(e.ResonatingArrowDebuff) or a:BuffUp(e.CoordinatedAssault) or not e.CoordinatedAssault:IsAvailable())
     VarStrongSyncUp = (j == 1 and t:DebuffUp(e.ResonatingArrowDebuff) and a:BuffUp(e.CoordinatedAssault)) or not e.CoordinatedAssault:IsAvailable() or ((j ~= 1 and a:BuffUp(e.CoordinatedAssault)) or not e.CoordinatedAssault:IsAvailable())
     if (a:BuffDown(e.CoordinatedAssault)) then
@@ -695,12 +695,12 @@ local function Ee()
         VarSyncRemains = e.CoordinatedAssault:CooldownRemains()
     end
 
-    if h:IsReady() and k() and h:ID() ~= q.MistcallerOcarina:ID() and (n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket) and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and ((((h:TrinketHasUseBuff() or j == 1 and h:HasCooldown()) and (VarStrongSyncUp and (j ~= 1 and (not r:TrinketHasUseBuff()) or j == 1 and (not r:HasCooldown()) or r:CooldownRemains() > 0 or h:TrinketHasUseBuff() and ((not r:TrinketHasUseBuff()) or h:Cooldown() >= r:Cooldown()) or h:HasCooldown() and (not r:TrinketHasUseBuff()) and h:Cooldown() >= r:Cooldown()) or (not VarStrongSyncUp) and ((not r:TrinketHasUseBuff()) and (h:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > h:Cooldown() / 2) or r:TrinketHasUseBuff() and (h:TrinketHasUseBuff() and h:Cooldown() >= r:Cooldown() and (h:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > h:Cooldown() / 2) or ((not h:TrinketHasUseBuff()) or r:Cooldown() >= h:Cooldown()) and (r:IsReady() and r:Cooldown() - 5 > VarSyncRemains and VarSyncRemains < r:Cooldown() / 2 or (not r:IsReady()) and (r:CooldownRemains() - 5 < VarStrongSyncRemains and VarStrongSyncRemains > 20 and (h:Cooldown() - 5 < VarSyncRemains or r:CooldownRemains() - 5 < VarSyncRemains and r:Cooldown() - 10 + VarSyncRemains < VarStrongSyncRemains or VarSyncRemains > h:Cooldown() / 2 or VarSyncUp) or r:CooldownRemains() - 5 > VarStrongSyncRemains and (h:Cooldown() - 5 < VarStrongSyncRemains or h:Cooldown() < FightRemains and VarStrongSyncRemains + h:Cooldown() > FightRemains or (not h:TrinketHasUseBuff()) and (VarSyncRemains > h:Cooldown() / 2 or VarSyncUp)))))) or t:TimeToDie() < VarSyncRemains) or (not h:TrinketHasUseBuff()) and j ~= 1 and (r:TrinketHasUseBuff() and (((not VarSyncUp) or r:CooldownRemains() > 5) and (VarSyncRemains > 20 or r:CooldownRemains() - 5 > VarSyncRemains)) or (not r:TrinketHasUseBuff()) and ((not r:HasCooldown()) or r:CooldownRemains() > 0 or r:Cooldown() >= h:Cooldown()))) and (h:ID() ~= q.CacheofAcquiredTreasures:ID() or y < 2 and a:BuffUp(e.AcquiredWandBuff) or y > 1 and a:BuffDown(e.AcquiredWandBuff))) or not e.CoordinatedAssault:IsAvailable()) then
-        if i(h, nil, nil) then
-                        if h:ID() == F and n.Commons.Enabled.TopTrinket then
+    if r:IsReady() and k() and r:ID() ~= q.MistcallerOcarina:ID() and (n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket) and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and ((((r:TrinketHasUseBuff() or j == 1 and r:HasCooldown()) and (VarStrongSyncUp and (j ~= 1 and (not h:TrinketHasUseBuff()) or j == 1 and (not h:HasCooldown()) or h:CooldownRemains() > 0 or r:TrinketHasUseBuff() and ((not h:TrinketHasUseBuff()) or r:Cooldown() >= h:Cooldown()) or r:HasCooldown() and (not h:TrinketHasUseBuff()) and r:Cooldown() >= h:Cooldown()) or (not VarStrongSyncUp) and ((not h:TrinketHasUseBuff()) and (r:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > r:Cooldown() / 2) or h:TrinketHasUseBuff() and (r:TrinketHasUseBuff() and r:Cooldown() >= h:Cooldown() and (r:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > r:Cooldown() / 2) or ((not r:TrinketHasUseBuff()) or h:Cooldown() >= r:Cooldown()) and (h:IsReady() and h:Cooldown() - 5 > VarSyncRemains and VarSyncRemains < h:Cooldown() / 2 or (not h:IsReady()) and (h:CooldownRemains() - 5 < VarStrongSyncRemains and VarStrongSyncRemains > 20 and (r:Cooldown() - 5 < VarSyncRemains or h:CooldownRemains() - 5 < VarSyncRemains and h:Cooldown() - 10 + VarSyncRemains < VarStrongSyncRemains or VarSyncRemains > r:Cooldown() / 2 or VarSyncUp) or h:CooldownRemains() - 5 > VarStrongSyncRemains and (r:Cooldown() - 5 < VarStrongSyncRemains or r:Cooldown() < FightRemains and VarStrongSyncRemains + r:Cooldown() > FightRemains or (not r:TrinketHasUseBuff()) and (VarSyncRemains > r:Cooldown() / 2 or VarSyncUp)))))) or t:TimeToDie() < VarSyncRemains) or (not r:TrinketHasUseBuff()) and j ~= 1 and (h:TrinketHasUseBuff() and (((not VarSyncUp) or h:CooldownRemains() > 5) and (VarSyncRemains > 20 or h:CooldownRemains() - 5 > VarSyncRemains)) or (not h:TrinketHasUseBuff()) and ((not h:HasCooldown()) or h:CooldownRemains() > 0 or h:Cooldown() >= r:Cooldown()))) and (r:ID() ~= q.CacheofAcquiredTreasures:ID() or y < 2 and a:BuffUp(e.AcquiredWandBuff) or y > 1 and a:BuffDown(e.AcquiredWandBuff))) or not e.CoordinatedAssault:IsAvailable()) then
+        if i(r, nil, nil) then
+                        if r:ID() == W and n.Commons.Enabled.TopTrinket then
                 o = 24
                 return "Top trinket1 trinkets 4"
-            elseif h:ID() == V and n.Commons.Enabled.BottomTrinket then
+            elseif r:ID() == Y and n.Commons.Enabled.BottomTrinket then
                 o = 30
                 return " Bot trinket1 trinkets 4"
             end
@@ -709,12 +709,12 @@ local function Ee()
 
     end
 
-    if r:IsReady() and r:ID() ~= q.MistcallerOcarina:ID() and k() and (n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket) and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and ((((r:TrinketHasUseBuff() or j == 1 and r:HasCooldown()) and (VarStrongSyncUp and (j ~= 1 and (not h:TrinketHasUseBuff()) or j == 1 and (not h:HasCooldown()) or h:CooldownRemains() > 0 or r:TrinketHasUseBuff() and ((not h:TrinketHasUseBuff()) or r:Cooldown() >= h:Cooldown()) or r:HasCooldown() and (not h:TrinketHasUseBuff()) and r:Cooldown() >= h:Cooldown()) or (not VarStrongSyncUp) and ((not h:TrinketHasUseBuff()) and (r:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > r:Cooldown() / 2) or h:TrinketHasUseBuff() and (r:TrinketHasUseBuff() and r:Cooldown() >= h:Cooldown() and (r:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > r:Cooldown() / 2) or ((not r:TrinketHasUseBuff()) or h:Cooldown() >= r:Cooldown()) and (h:IsReady() and h:Cooldown() - 5 > VarSyncRemains and VarSyncRemains < h:Cooldown() / 2 or (not h:IsReady()) and (h:CooldownRemains() - 5 < VarStrongSyncRemains and VarStrongSyncRemains > 20 and (r:Cooldown() - 5 < VarSyncRemains or h:CooldownRemains() - 5 < VarSyncRemains and h:Cooldown() - 10 + VarSyncRemains < VarStrongSyncRemains or VarSyncRemains > r:Cooldown() / 2 or VarSyncUp) or h:CooldownRemains() - 5 > VarStrongSyncRemains and (r:Cooldown() - 5 < VarStrongSyncRemains or r:Cooldown() < FightRemains and VarStrongSyncRemains + r:Cooldown() > FightRemains or (not r:TrinketHasUseBuff()) and (VarSyncRemains > r:Cooldown() / 2 or VarSyncUp)))))) or t:TimeToDie() < VarSyncRemains) or (not r:TrinketHasUseBuff()) and j ~= 1 and (h:TrinketHasUseBuff() and (((not VarSyncUp) or h:CooldownRemains() > 5) and (VarSyncRemains > 20 or h:CooldownRemains() - 5 > VarSyncRemains)) or (not h:TrinketHasUseBuff()) and ((not h:HasCooldown()) or h:CooldownRemains() > 0 or h:Cooldown() >= r:Cooldown()))) and (r:ID() ~= q.CacheofAcquiredTreasures:ID() or y < 2 and a:BuffUp(e.AcquiredWandBuff) or y > 1 and a:BuffDown(e.AcquiredWandBuff))) or not e.CoordinatedAssault:IsAvailable()) then
-        if i(r, nil, nil) then
-                        if r:ID() == F and n.Commons.Enabled.TopTrinket then
+    if h:IsReady() and h:ID() ~= q.MistcallerOcarina:ID() and k() and (n.Commons.Enabled.TopTrinket or n.Commons.Enabled.BottomTrinket) and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and ((((h:TrinketHasUseBuff() or j == 1 and h:HasCooldown()) and (VarStrongSyncUp and (j ~= 1 and (not r:TrinketHasUseBuff()) or j == 1 and (not r:HasCooldown()) or r:CooldownRemains() > 0 or h:TrinketHasUseBuff() and ((not r:TrinketHasUseBuff()) or h:Cooldown() >= r:Cooldown()) or h:HasCooldown() and (not r:TrinketHasUseBuff()) and h:Cooldown() >= r:Cooldown()) or (not VarStrongSyncUp) and ((not r:TrinketHasUseBuff()) and (h:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > h:Cooldown() / 2) or r:TrinketHasUseBuff() and (h:TrinketHasUseBuff() and h:Cooldown() >= r:Cooldown() and (h:Cooldown() - 5 < VarSyncRemains or VarSyncRemains > h:Cooldown() / 2) or ((not h:TrinketHasUseBuff()) or r:Cooldown() >= h:Cooldown()) and (r:IsReady() and r:Cooldown() - 5 > VarSyncRemains and VarSyncRemains < r:Cooldown() / 2 or (not r:IsReady()) and (r:CooldownRemains() - 5 < VarStrongSyncRemains and VarStrongSyncRemains > 20 and (h:Cooldown() - 5 < VarSyncRemains or r:CooldownRemains() - 5 < VarSyncRemains and r:Cooldown() - 10 + VarSyncRemains < VarStrongSyncRemains or VarSyncRemains > h:Cooldown() / 2 or VarSyncUp) or r:CooldownRemains() - 5 > VarStrongSyncRemains and (h:Cooldown() - 5 < VarStrongSyncRemains or h:Cooldown() < FightRemains and VarStrongSyncRemains + h:Cooldown() > FightRemains or (not h:TrinketHasUseBuff()) and (VarSyncRemains > h:Cooldown() / 2 or VarSyncUp)))))) or t:TimeToDie() < VarSyncRemains) or (not h:TrinketHasUseBuff()) and j ~= 1 and (r:TrinketHasUseBuff() and (((not VarSyncUp) or r:CooldownRemains() > 5) and (VarSyncRemains > 20 or r:CooldownRemains() - 5 > VarSyncRemains)) or (not r:TrinketHasUseBuff()) and ((not r:HasCooldown()) or r:CooldownRemains() > 0 or r:Cooldown() >= h:Cooldown()))) and (h:ID() ~= q.CacheofAcquiredTreasures:ID() or y < 2 and a:BuffUp(e.AcquiredWandBuff) or y > 1 and a:BuffDown(e.AcquiredWandBuff))) or not e.CoordinatedAssault:IsAvailable()) then
+        if i(h, nil, nil) then
+                        if h:ID() == W and n.Commons.Enabled.TopTrinket then
                 o = 24
                 return "Top trinket2 trinkets 6"
-            elseif r:ID() == V and n.Commons.Enabled.BottomTrinket then
+            elseif h:ID() == Y and n.Commons.Enabled.BottomTrinket then
                 o = 30
                 return " Bot trinket2 trinkets 6"
             end
@@ -733,7 +733,7 @@ local function Ee()
 
 end
 
-local function _e()
+local function Ee()
     if (a:BuffUp(e.CoordinatedAssault) or not e.CoordinatedAssault:IsAvailable()) and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
         if e.BloodFury:IsCastable() and k() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
             if i(e.BloodFury, nil) then
@@ -785,15 +785,19 @@ local function _e()
 
     end
 
-    if q.PotionOfSpectralAgility:IsReady() and pe and k and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (((t:TimeToDie() < 25 or a:BuffUp(e.CoordinatedAssault) or not e.CoordinatedAssault:IsAvailable()) and not d.GUISettings.General.HoldPotforBL) or (a:BloodlustUp() and d.GUISettings.General.HoldPotforBL)) then
-        if i(q.PotionOfSpectralAgility, nil, nil) then
-            o = 50
-            return "potion cds 18"
+    if n.Commons.Enabled.Potions and k() and pe and (((FightRemains < 30 or a:BuffUp(e.CoordinatedAssault) or a:BuffUp(e.SpearheadBuff) or (not e.Spearhead:IsAvailable() and not e.CoordinatedAssault:IsAvailable())) and not d.GUISettings.General.HoldPotforBL) or (d.GUISettings.General.HoldPotforBL and a:BloodlustUp())) then
+        local e = u.PotionSelected()
+        if e and e:IsReady() then
+            if i(e, nil, nil) then
+                o = 50
+                return "potion cooldowns 2"
+            end
+
         end
 
     end
 
-    if e.TarTrap:IsCastable() and (l(e.TarTrap:ExecuteTime()) and H and t:DebuffDown(e.SoulforgeEmbersDebuff) and (y > 1 or y == 1 and t:TimeToDie() > 5 * a:GCD())) then
+    if e.TarTrap:IsCastable() and (l(e.TarTrap:ExecuteTime()) and S and t:DebuffDown(e.SoulforgeEmbersDebuff) and (y > 1 or y == 1 and t:TimeToDie() > 5 * a:GCD())) then
         if i(e.TarTrap, nil, nil, not t:IsInRange(40)) then
             o = 187698
             return "tar_trap cds 20"
@@ -801,7 +805,7 @@ local function _e()
 
     end
 
-    if e.Flare:IsCastable() and (l(e.Flare:ExecuteTime()) and H and t:TimeToDie() > 4 * a:GCD()) then
+    if e.Flare:IsCastable() and (l(e.Flare:ExecuteTime()) and S and t:TimeToDie() > 4 * a:GCD()) then
         if i(e.Flare, nil) then
             o = 1543
             return "flare cds 22"
@@ -809,7 +813,7 @@ local function _e()
 
     end
 
-    if e.KillShot:IsReady() and (y == 1 and t:TimeToDie() < a:Focus() / (p - a:FocusCastRegen(e.KillShot:ExecuteTime())) * a:GCD()) then
+    if e.KillShot:IsReady() and (y == 1 and t:TimeToDie() < a:Focus() / (v - a:FocusCastRegen(e.KillShot:ExecuteTime())) * a:GCD()) then
         if i(e.KillShot, nil, nil, not t:IsSpellInRange(e.KillShot)) then
             o = 320976
             return "kill_shot cds 24"
@@ -817,7 +821,7 @@ local function _e()
 
     end
 
-    if e.MongooseBite:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (y == 1 and t:TimeToDie() < a:Focus() / (p - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD()) then
+    if e.MongooseBite:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (y == 1 and t:TimeToDie() < a:Focus() / (v - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD()) then
         if i(e.MongooseBite, nil, nil, not t:IsSpellInRange(e.MongooseBite)) then
             o = 259387
             return "mongoose_bite cds 26"
@@ -825,7 +829,7 @@ local function _e()
 
     end
 
-    if e.RaptorStrike:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (y == 1 and t:TimeToDie() < a:Focus() / (p - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD()) then
+    if e.RaptorStrike:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (y == 1 and t:TimeToDie() < a:Focus() / (v - a:FocusCastRegen(e.MongooseBite:ExecuteTime())) * a:GCD()) then
         if i(e.RaptorStrike, nil, nil, not t:IsSpellInRange(e.RaptorStrike)) then
             o = 186270
             return "raptor_strike cds 28"
@@ -888,11 +892,11 @@ local function Te()
     end
 
     if e.SerpentSting:IsReady() then
-        if c.CastTargetIf(e.SerpentSting, u, "min", g, xe, not t:IsSpellInRange(e.SerpentSting)) then
+        if u.CastTargetIf(e.SerpentSting, c, "min", g, ge, not t:IsSpellInRange(e.SerpentSting)) then
             return "serpent_sting st 4"
         end
 
-        if g(t) and xe(t) then
+        if g(t) and ge(t) then
             if i(e.SerpentSting, nil, nil, not t:IsInRange(40)) then
                 o = 259491
                 return "serpent_sting st 4"
@@ -903,7 +907,7 @@ local function Te()
     end
 
     if true then
-        if e.FlayedShot:IsCastable() and E then
+        if e.FlayedShot:IsCastable() and _ then
             if i(e.FlayedShot, nil, nil, not t:IsSpellInRange(e.FlayedShot)) then
                 o = 324149
                 return "flayed_shot st 6"
@@ -911,7 +915,7 @@ local function Te()
 
         end
 
-        if e.ResonatingArrow:IsCastable() and E and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
+        if e.ResonatingArrow:IsCastable() and _ and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
             if i(e.ResonatingArrow, nil, nil, not t:IsInRange(40)) then
                 o = 308491
                 return "resonating_arrow st 8"
@@ -919,7 +923,7 @@ local function Te()
 
         end
 
-        if e.WildSpirits:IsCastable() and E and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
+        if e.WildSpirits:IsCastable() and _ and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
             if i(e.WildSpirits, nil, nil, not t:IsInRange(40)) then
                 o = 328231
                 return "wild_spirits st 10"
@@ -953,7 +957,7 @@ local function Te()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and ((e.WildfireBomb:FullRechargeTime() < 2 * a:GCD() and a:HasTier(28, 2)) or (a:BuffUp(e.MadBombardierBuff)) or (not a:HasTier(28, 2) and (e.WildfireBomb:FullRechargeTime() < a:GCD() or ((l(e.WildfireBomb:ExecuteTime()) and ((e.VolatileBomb:IsReady() and t:DebuffUp(e.SerpentStingDebuff) and t:DebuffRefreshable(e.SerpentStingDebuff)) or (e.PheromoneBomb:IsReady() and a:BuffDown(e.MongooseFuryBuff) and a:Focus() + a:FocusCastRegen(e.WildfireBomb:ExecuteTime()) < a:FocusMax() - a:FocusCastRegen(e.KillCommand:ExecuteTime()) * 3))) or t:TimeToDie() < 10)))) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and ((e.WildfireBomb:FullRechargeTime() < 2 * a:GCD() and a:HasTier(28, 2)) or (a:BuffUp(e.MadBombardierBuff)) or (not a:HasTier(28, 2) and (e.WildfireBomb:FullRechargeTime() < a:GCD() or ((l(e.WildfireBomb:ExecuteTime()) and ((e.VolatileBomb:IsReady() and t:DebuffUp(e.SerpentStingDebuff) and t:DebuffRefreshable(e.SerpentStingDebuff)) or (e.PheromoneBomb:IsReady() and a:BuffDown(e.MongooseFuryBuff) and a:Focus() + a:FocusCastRegen(e.WildfireBomb:ExecuteTime()) < a:FocusMax() - a:FocusCastRegen(e.KillCommand:ExecuteTime()) * 3))) or t:TimeToDie() < 10)))) then
         if e.WildfireInfusion:IsAvailable() then
             if e.ShrapnelBomb:IsCastable() then
                 if i(e.ShrapnelBomb, nil, nil, not t:IsSpellInRange(e.ShrapnelBomb)) then
@@ -993,11 +997,11 @@ local function Te()
     end
 
     if e.KillCommand:IsReady() and (a:HasTier(28, 2) and a:BuffDown(e.MadBombardierBuff)) then
-        if c.CastTargetIf(e.KillCommand, u, "min", v, D, not t:IsSpellInRange(e.KillCommand)) then
+        if u.CastTargetIf(e.KillCommand, c, "min", b, D, not t:IsSpellInRange(e.KillCommand)) then
             return "kill_command st 23"
         end
 
-        if v(t) and D(t) and TargetInRangePet30y then
+        if b(t) and D(t) and TargetInRangePet30y then
             if i(e.KillCommand, nil, nil, not t:IsInRange(40)) then
                 o = 259489
                 return "kill_command st 23"
@@ -1008,11 +1012,11 @@ local function Te()
     end
 
     if e.KillCommand:IsCastable() and e.AlphaPredator:IsAvailable() then
-        if c.CastTargetIf(e.KillCommand, u, "min", v, N, not t:IsSpellInRange(e.KillCommand)) then
+        if u.CastTargetIf(e.KillCommand, c, "min", b, N, not t:IsSpellInRange(e.KillCommand)) then
             return "kill_command st 32a"
         end
 
-        if v(t) and N(t) and TargetInRangePet30y then
+        if b(t) and N(t) and TargetInRangePet30y then
             if i(e.KillCommand, nil, nil, not t:IsInRange(40)) then
                 o = 259489
                 return "kill_command st 32"
@@ -1022,7 +1026,7 @@ local function Te()
 
     end
 
-    if e.Carve:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (y > 1 and not L) then
+    if e.Carve:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (y > 1 and not U) then
         if i(e.Carve, nil, nil, not t:IsInRange(8)) then
             o = 187708
             return "carve st 24"
@@ -1030,7 +1034,7 @@ local function Te()
 
     end
 
-    if e.Butchery:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (y > 1 and not L and e.WildfireBomb:FullRechargeTime() > y and (e.Butchery:ChargesFractional() > 2.5 or t:DebuffUp(e.ShrapnelBombDebuff))) then
+    if e.Butchery:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (y > 1 and not U and e.WildfireBomb:FullRechargeTime() > y and (e.Butchery:ChargesFractional() > 2.5 or t:DebuffUp(e.ShrapnelBombDebuff))) then
         if i(e.Butchery, nil, nil, not t:IsInRange(8)) then
             o = 212436
             return "butchery st 26"
@@ -1039,11 +1043,11 @@ local function Te()
     end
 
     if e.MongooseBite:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
-        if c.CastTargetIf(e.MongooseBite, u, "max", b, X, not t:IsSpellInRange(e.MongooseBite)) then
+        if u.CastTargetIf(e.MongooseBite, c, "max", p, J, not t:IsSpellInRange(e.MongooseBite)) then
             return "mongoose_bite st 30"
         end
 
-        if b(t) and X(t) then
+        if p(t) and J(t) then
             if i(e.MongooseBite, nil, nil, not t:IsInRange(40)) then
                 o = 259387
                 return "mongoose_bite st 30"
@@ -1054,11 +1058,11 @@ local function Te()
     end
 
     if e.KillCommand:IsCastable() then
-        if c.CastTargetIf(e.KillCommand, u, "min", v, N, not t:IsSpellInRange(e.KillCommand)) then
+        if u.CastTargetIf(e.KillCommand, c, "min", b, N, not t:IsSpellInRange(e.KillCommand)) then
             return "kill_command st 33a"
         end
 
-        if v(t) and N(t) and TargetInRangePet30y then
+        if b(t) and N(t) and TargetInRangePet30y then
             if i(e.KillCommand, nil, nil, not t:IsInRange(40)) then
                 o = 259489
                 return "kill_command st 33"
@@ -1069,11 +1073,11 @@ local function Te()
     end
 
     if e.RaptorStrike:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
-        if c.CastTargetIf(e.RaptorStrike, u, "max", b, K, not t:IsSpellInRange(e.RaptorStrike)) then
+        if u.CastTargetIf(e.RaptorStrike, c, "max", p, Q, not t:IsSpellInRange(e.RaptorStrike)) then
             return "raptor_strike st 34"
         end
 
-        if b(t) and K(t) then
+        if p(t) and Q(t) then
             if i(e.RaptorStrike, nil, nil, not t:IsInRange(40)) then
                 o = 186270
                 return "raptor_strike st 34"
@@ -1092,7 +1096,7 @@ local function Te()
     end
 
     if e.SerpentSting:IsReady() then
-        if c.CastTargetIf(e.SerpentSting, u, "min", g, je, not t:IsSpellInRange(e.SerpentSting)) then
+        if u.CastTargetIf(e.SerpentSting, c, "min", g, je, not t:IsSpellInRange(e.SerpentSting)) then
             return "serpent_sting st 38"
         end
 
@@ -1106,7 +1110,7 @@ local function Te()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.ShrapnelBomb:IsCastable() and (a:Focus() > p * 2 and t:DebuffRemains(e.SerpentStingDebuff) > 5 * a:GCD() and not a:HasTier(28, 2)) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.ShrapnelBomb:IsCastable() and (a:Focus() > v * 2 and t:DebuffRemains(e.SerpentStingDebuff) > 5 * a:GCD() and not a:HasTier(28, 2)) then
         if i(e.ShrapnelBomb, nil, nil, not t:IsSpellInRange(e.ShrapnelBomb)) then
             o = 259495
             return "shrapnel_bomb st 40"
@@ -1123,11 +1127,11 @@ local function Te()
     end
 
     if e.KillCommand:IsCastable() then
-        if c.CastTargetIf(e.KillCommand, u, "min", v, ye, not t:IsSpellInRange(e.KillCommand)) then
+        if u.CastTargetIf(e.KillCommand, c, "min", b, fe, not t:IsSpellInRange(e.KillCommand)) then
             return "kill_command st 44"
         end
 
-        if v(t) and ye(t) and TargetInRangePet30y then
+        if b(t) and fe(t) and TargetInRangePet30y then
             if i(e.KillCommand, nil, nil, not t:IsInRange(40)) then
                 o = 259489
                 return "kill_command st 44"
@@ -1137,7 +1141,7 @@ local function Te()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and L then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and U then
         if e.ShrapnelBomb:IsCastable() then
             if i(e.ShrapnelBomb, nil, nil, not t:IsSpellInRange(e.ShrapnelBomb)) then
                 o = 259495
@@ -1165,11 +1169,11 @@ local function Te()
     end
 
     if e.MongooseBite:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
-        if c.CastTargetIf(e.MongooseBite, u, "max", b, he, not t:IsSpellInRange(e.MongooseBite)) then
+        if u.CastTargetIf(e.MongooseBite, c, "max", p, ae, not t:IsSpellInRange(e.MongooseBite)) then
             return "mongoose_bite st 52"
         end
 
-        if b(t) and he(t) then
+        if p(t) and ae(t) then
             if i(e.MongooseBite, nil, nil, not t:IsInRange(40)) then
                 o = 259387
                 return "mongoose_bite st 52"
@@ -1180,11 +1184,11 @@ local function Te()
     end
 
     if e.RaptorStrike:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
-        if c.CastTargetIf(e.RaptorStrike, u, "max", b, O, not t:IsSpellInRange(e.RaptorStrike)) then
+        if u.CastTargetIf(e.RaptorStrike, c, "max", p, O, not t:IsSpellInRange(e.RaptorStrike)) then
             return "raptor_strike st 54"
         end
 
-        if b(t) and O(t) then
+        if p(t) and O(t) then
             if i(e.RaptorStrike, nil, nil, not t:IsInRange(40)) then
                 o = 186270
                 return "raptor_strike st 54"
@@ -1194,7 +1198,7 @@ local function Te()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.VolatileBomb:IsCastable() and (t:DebuffUp(e.SerpentStingDebuff)) and not a:HasTier(28, 2) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.VolatileBomb:IsCastable() and (t:DebuffUp(e.SerpentStingDebuff)) and not a:HasTier(28, 2) then
         if i(e.VolatileBomb, nil, nil, not t:IsSpellInRange(e.VolatileBomb)) then
             o = 259495
             return "volatile_bomb st 56"
@@ -1202,7 +1206,7 @@ local function Te()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.PheromoneBomb:IsCastable() and not a:HasTier(28, 2) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.PheromoneBomb:IsCastable() and not a:HasTier(28, 2) then
         if i(e.PheromoneBomb, nil, nil, not t:IsSpellInRange(e.PheromoneBomb)) then
             o = 259495
             return "pheromone_bomb st 58"
@@ -1210,7 +1214,7 @@ local function Te()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.ShrapnelBomb:IsCastable() and (a:Focus() > 50) and not a:HasTier(28, 2) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.ShrapnelBomb:IsCastable() and (a:Focus() > 50) and not a:HasTier(28, 2) then
         if i(e.ShrapnelBomb, nil, nil, not t:IsSpellInRange(e.ShrapnelBomb)) then
             o = 259495
             return "shrapnel_bomb st 60"
@@ -1228,13 +1232,13 @@ local function Te()
 
 end
 
-local function L()
+local function U()
     if e.SerpentSting:IsReady() then
-        if c.CastTargetIf(e.SerpentSting, u, "min", g, re, not t:IsSpellInRange(e.SerpentSting)) then
+        if u.CastTargetIf(e.SerpentSting, c, "min", g, K, not t:IsSpellInRange(e.SerpentSting)) then
             return "serpent_sting bop 2"
         end
 
-        if g(t) and re(t) then
+        if g(t) and K(t) then
             if i(e.SerpentSting, nil, nil, not t:IsInRange(40)) then
                 o = 259491
                 return "serpent_sting bop 2"
@@ -1245,11 +1249,11 @@ local function L()
     end
 
     if e.KillCommand:IsCastable() then
-        if c.CastTargetIf(e.KillCommand, u, "min", v, ne, not t:IsSpellInRange(e.KillCommand)) then
+        if u.CastTargetIf(e.KillCommand, c, "min", b, ne, not t:IsSpellInRange(e.KillCommand)) then
             return "kill_command bop 6"
         end
 
-        if v(t) and ne(t) and TargetInRangePet30y then
+        if b(t) and ne(t) and TargetInRangePet30y then
             if i(e.KillCommand, nil, nil, not t:IsInRange(40)) then
                 o = 259489
                 return "kill_command bop 6"
@@ -1267,7 +1271,7 @@ local function L()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.WildfireBomb:IsCastable() and ((l(e.WildfireBomb:ExecuteTime()) and t:DebuffDown(e.WildfireBombDebuff) and e.WildfireBomb:FullRechargeTime() < a:GCD()) or (a:BuffUp(e.MadBombardierBuff))) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.WildfireBomb:IsCastable() and ((l(e.WildfireBomb:ExecuteTime()) and t:DebuffDown(e.WildfireBombDebuff) and e.WildfireBomb:FullRechargeTime() < a:GCD()) or (a:BuffUp(e.MadBombardierBuff))) then
         if i(e.WildfireBomb, nil, nil, not t:IsSpellInRange(e.WildfireBomb)) then
             o = 259495
             return "wildfire_bomb bop 8"
@@ -1283,7 +1287,7 @@ local function L()
 
     end
 
-    if E and e.FlayedShot:IsCastable() then
+    if _ and e.FlayedShot:IsCastable() then
         if i(e.FlayedShot, nil, nil, not t:IsSpellInRange(e.FlayedShot)) then
             o = 324149
             return "flayed_shot bop 12"
@@ -1291,7 +1295,7 @@ local function L()
 
     end
 
-    if (w and a:Focus() < p) then
+    if (w and a:Focus() < v) then
         local e = h()
         if e then
             return e
@@ -1299,7 +1303,7 @@ local function L()
 
     end
 
-    if (E or e.DeathChakram:IsAvailable() and k()) and e.DeathChakram:IsCastable() and (l(2)) then
+    if (_ or e.DeathChakram:IsAvailable() and k()) and e.DeathChakram:IsCastable() and (l(2)) then
         if i(e.DeathChakram, nil, nil, not t:IsSpellInRange(e.DeathChakram)) then
             o = 325028
             return "death_chakram bop 14"
@@ -1308,11 +1312,11 @@ local function L()
     end
 
     if e.RaptorStrike:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
-        if c.CastTargetIf(e.RaptorStrike, u, "max", b, ie, not t:IsSpellInRange(e.RaptorStrike)) then
+        if u.CastTargetIf(e.RaptorStrike, c, "max", p, ie, not t:IsSpellInRange(e.RaptorStrike)) then
             return "raptor_strike bop 16"
         end
 
-        if b(t) and ie(t) then
+        if p(t) and ie(t) then
             if i(e.RaptorStrike, nil, nil, not t:IsInRange(40)) then
                 o = 186270
                 return "raptor_strike bop 16"
@@ -1323,11 +1327,11 @@ local function L()
     end
 
     if e.MongooseBite:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
-        if c.CastTargetIf(e.MongooseBite, u, "max", b, ee, not t:IsSpellInRange(e.MongooseBite)) then
+        if u.CastTargetIf(e.MongooseBite, c, "max", p, ee, not t:IsSpellInRange(e.MongooseBite)) then
             return "mongoose_bite bop 18"
         end
 
-        if b(t) and ee(t) then
+        if p(t) and ee(t) then
             if i(e.MongooseBite, nil, nil, not t:IsInRange(40)) then
                 o = 259387
                 return "mongoose_bite bop 18"
@@ -1346,11 +1350,11 @@ local function L()
     end
 
     if e.RaptorStrike:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) and (a:BuffStack(e.TipoftheSpearBuff) == 3) then
-        if c.CastTargetIf(e.RaptorStrike, u, "max", b, O, not t:IsSpellInRange(e.RaptorStrike)) then
+        if u.CastTargetIf(e.RaptorStrike, c, "max", p, O, not t:IsSpellInRange(e.RaptorStrike)) then
             return "raptor_strike bop 22"
         end
 
-        if b(t) and O(t) then
+        if p(t) and O(t) then
             if i(e.RaptorStrike, nil, nil, not t:IsInRange(40)) then
                 o = 186270
                 return "raptor_strike bop 22"
@@ -1361,11 +1365,11 @@ local function L()
     end
 
     if e.MongooseBite:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
-        if c.CastTargetIf(e.MongooseBite, u, "max", b, Z, not t:IsSpellInRange(e.MongooseBite)) then
+        if u.CastTargetIf(e.MongooseBite, c, "max", p, se, not t:IsSpellInRange(e.MongooseBite)) then
             return "mongoose_bite bop 18"
         end
 
-        if b(t) and Z(t) then
+        if p(t) and se(t) then
             if i(e.MongooseBite, nil, nil, not t:IsInRange(40)) then
                 o = 259387
                 return "mongoose_bite bop 18"
@@ -1375,7 +1379,7 @@ local function L()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.WildfireBomb:IsCastable() and (l(e.WildfireBomb:ExecuteTime()) and t:DebuffDown(e.WildfireBombDebuff) and (e.WildfireBomb:FullRechargeTime() < a:GCD() or t:DebuffDown(e.WildfireBombDebuff) and a:BuffRemains(e.MongooseFuryBuff) > e.WildfireBomb:FullRechargeTime() - a:GCD() or t:DebuffDown(e.WildfireBombDebuff) and a:BuffDown(e.MongooseFuryBuff)) or t:TimeToDie() < 18 and t:DebuffDown(e.WildfireBombDebuff)) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.WildfireBomb:IsCastable() and (l(e.WildfireBomb:ExecuteTime()) and t:DebuffDown(e.WildfireBombDebuff) and (e.WildfireBomb:FullRechargeTime() < a:GCD() or t:DebuffDown(e.WildfireBombDebuff) and a:BuffRemains(e.MongooseFuryBuff) > e.WildfireBomb:FullRechargeTime() - a:GCD() or t:DebuffDown(e.WildfireBombDebuff) and a:BuffDown(e.MongooseFuryBuff)) or t:TimeToDie() < 18 and t:DebuffDown(e.WildfireBombDebuff)) then
         if i(e.WildfireBomb, nil, nil, not t:IsSpellInRange(e.WildfireBomb)) then
             o = 259495
             return "wildfire_bomb bop 24"
@@ -1384,11 +1388,11 @@ local function L()
     end
 
     if e.KillCommand:IsCastable() then
-        if c.CastTargetIf(e.KillCommand, u, "min", v, J, not t:IsSpellInRange(e.KillCommand)) then
+        if u.CastTargetIf(e.KillCommand, c, "min", b, he, not t:IsSpellInRange(e.KillCommand)) then
             return "kill_command bop 26"
         end
 
-        if v(t) and J(t) and TargetInRangePet30y then
+        if b(t) and he(t) and TargetInRangePet30y then
             if i(e.KillCommand, nil, nil, not t:IsInRange(40)) then
                 o = 259489
                 return "kill_command bop 26"
@@ -1399,11 +1403,11 @@ local function L()
     end
 
     if e.KillCommand:IsCastable() then
-        if c.CastTargetIf(e.KillCommand, u, "min", v, se, not t:IsSpellInRange(e.KillCommand)) then
+        if u.CastTargetIf(e.KillCommand, c, "min", b, Z, not t:IsSpellInRange(e.KillCommand)) then
             return "kill_command bop 28"
         end
 
-        if v(t) and se(t) and TargetInRangePet30y then
+        if b(t) and Z(t) and TargetInRangePet30y then
             if i(e.KillCommand, nil, nil, not t:IsInRange(40)) then
                 o = 259489
                 return "kill_command bop 28"
@@ -1414,11 +1418,11 @@ local function L()
     end
 
     if e.SerpentSting:IsReady() then
-        if c.CastTargetIf(e.SerpentSting, u, "min", g, te, not t:IsSpellInRange(e.SerpentSting)) then
+        if u.CastTargetIf(e.SerpentSting, c, "min", g, oe, not t:IsSpellInRange(e.SerpentSting)) then
             return "serpent_sting bop 34"
         end
 
-        if g(t) and te(t) then
+        if g(t) and oe(t) then
             if i(e.SerpentSting, nil, nil, not t:IsInRange(40)) then
                 o = 259491
                 return "serpent_sting bop 34"
@@ -1429,7 +1433,7 @@ local function L()
     end
 
     if true then
-        if e.ResonatingArrow:IsCastable() and E and (t:IsInMeleeRange(8)) then
+        if e.ResonatingArrow:IsCastable() and _ and (t:IsInMeleeRange(8)) then
             if i(e.ResonatingArrow, nil, nil, not t:IsInRange(40)) then
                 o = 308491
                 return "resonating_arrow bop 36"
@@ -1437,7 +1441,7 @@ local function L()
 
         end
 
-        if e.WildSpirits:IsCastable() and E and (t:IsInMeleeRange(8)) then
+        if e.WildSpirits:IsCastable() and _ and (t:IsInMeleeRange(8)) then
             if i(e.WildSpirits, nil, nil, not t:IsInRange(40)) then
                 o = 328231
                 return "wild_spirits bop 38"
@@ -1464,11 +1468,11 @@ local function L()
     end
 
     if e.RaptorStrike:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
-        if c.CastTargetIf(e.RaptorStrike, u, "max", b, O, not t:IsSpellInRange(e.RaptorStrike)) then
+        if u.CastTargetIf(e.RaptorStrike, c, "max", p, O, not t:IsSpellInRange(e.RaptorStrike)) then
             return "raptor_strike bop 44"
         end
 
-        if b(t) and O(t) then
+        if p(t) and O(t) then
             if i(e.RaptorStrike, nil, nil, not t:IsInRange(40)) then
                 o = 186270
                 return "raptor_strike bop 44"
@@ -1478,7 +1482,7 @@ local function L()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.WildfireBomb:IsCastable() and (t:DebuffRefreshable(e.WildfireBombDebuff)) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.WildfireBomb:IsCastable() and (t:DebuffRefreshable(e.WildfireBombDebuff)) then
         if i(e.WildfireBomb, nil, nil, not t:IsSpellInRange(e.WildfireBomb)) then
             o = 259495
             return "wildfire_bomb bop 46"
@@ -1487,7 +1491,7 @@ local function L()
     end
 
     if e.SerpentSting:IsReady() and (a:BuffUp(e.VipersVenomBuff)) then
-        if c.CastTargetIf(e.SerpentSting, u, "min", g, nil, not t:IsSpellInRange(e.SerpentSting)) then
+        if u.CastTargetIf(e.SerpentSting, c, "min", g, nil, not t:IsSpellInRange(e.SerpentSting)) then
             return "serpent_sting bop 48"
         end
 
@@ -1503,9 +1507,9 @@ local function L()
 
 end
 
-local function H()
+local function S()
     if e.SerpentSting:IsReady() and (e.HydrasBite:IsAvailable() and a:BuffUp(e.VipersVenomBuff) and a:BuffRemains(e.VipersVenomBuff) < a:GCD()) then
-        if c.CastTargetIf(e.SerpentSting, u, "min", g, nil, not t:IsSpellInRange(e.SerpentSting)) then
+        if u.CastTargetIf(e.SerpentSting, c, "min", g, nil, not t:IsSpellInRange(e.SerpentSting)) then
             return "serpent_sting cleave 2"
         end
 
@@ -1520,7 +1524,7 @@ local function H()
     end
 
     if true then
-        if e.WildSpirits:IsCastable() and E and (t:IsInMeleeRange(8)) then
+        if e.WildSpirits:IsCastable() and _ and (t:IsInMeleeRange(8)) then
             if i(e.WildSpirits, nil, nil, not t:IsInRange(40)) then
                 o = 328231
                 return "wild_spirits cleave 4"
@@ -1528,7 +1532,7 @@ local function H()
 
         end
 
-        if e.ResonatingArrow:IsCastable() and E and (t:IsInMeleeRange(8)) then
+        if e.ResonatingArrow:IsCastable() and _ and (t:IsInMeleeRange(8)) then
             if i(e.ResonatingArrow, nil, nil, not t:IsInRange(40)) then
                 o = 308491
                 return "resonating_arrow cleave 6"
@@ -1546,7 +1550,7 @@ local function H()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and (e.WildfireBomb:FullRechargeTime() < a:GCD() or (a:BuffUp(e.MadBombardierBuff) and a:HasTier(28, 2))) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and (e.WildfireBomb:FullRechargeTime() < a:GCD() or (a:BuffUp(e.MadBombardierBuff) and a:HasTier(28, 2))) then
         if e.WildfireInfusion:IsAvailable() then
             if e.ShrapnelBomb:IsCastable() then
                 if i(e.ShrapnelBomb, nil, nil, not t:IsSpellInRange(e.ShrapnelBomb)) then
@@ -1586,11 +1590,11 @@ local function H()
     end
 
     if e.KillCommand:IsReady() and (a:HasTier(28, 2) and a:BuffDown(e.MadBombardierBuff)) and n.Survival.KCFish then
-        if c.CastTargetIf(e.KillCommand, u, "min", v, D, not t:IsSpellInRange(e.KillCommand)) then
+        if u.CastTargetIf(e.KillCommand, c, "min", b, D, not t:IsSpellInRange(e.KillCommand)) then
             return "kill_command st 23"
         end
 
-        if v(t) and D(t) and TargetInRangePet30y then
+        if b(t) and D(t) and TargetInRangePet30y then
             if i(e.KillCommand, nil, nil, not t:IsInRange(40)) then
                 o = 259489
                 return "kill_command st 23"
@@ -1600,7 +1604,7 @@ local function H()
 
     end
 
-    if e.DeathChakram:IsCastable() and (E or e.DeathChakram:IsAvailable() and k()) and (l(2) and not ge) then
+    if e.DeathChakram:IsCastable() and (_ or e.DeathChakram:IsAvailable() and k()) and (l(2) and not ye) then
         if i(e.DeathChakram, nil, nil, not t:IsSpellInRange(e.DeathChakram)) then
             o = 325028
             return "death_chakram cleave 16"
@@ -1608,7 +1612,7 @@ local function H()
 
     end
 
-    if (w and a:Focus() < p) then
+    if (w and a:Focus() < v) then
         local e = h()
         if e then
             return e
@@ -1664,7 +1668,7 @@ local function H()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.WildfireBomb:IsCastable() and (a:BuffUp(e.MadBombardierBuff)) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.WildfireBomb:IsCastable() and (a:BuffUp(e.MadBombardierBuff)) then
         if e.WildfireInfusion:IsAvailable() then
             if e.ShrapnelBomb:IsCastable() then
                 if i(e.ShrapnelBomb, nil, nil, not t:IsSpellInRange(e.ShrapnelBomb)) then
@@ -1704,11 +1708,11 @@ local function H()
     end
 
     if e.KillCommand:IsCastable() then
-        if c.CastTargetIf(e.KillCommand, u, "min", v, le, not t:IsSpellInRange(e.KillCommand)) then
+        if u.CastTargetIf(e.KillCommand, c, "min", b, qe, not t:IsSpellInRange(e.KillCommand)) then
             return "kill_command cleave 26"
         end
 
-        if v(t) and le(t) and TargetInRangePet30y then
+        if b(t) and qe(t) and TargetInRangePet30y then
             if i(e.KillCommand, nil, nil, not t:IsInRange(40)) then
                 o = 259489
                 return "kill_command cleave 26"
@@ -1719,11 +1723,11 @@ local function H()
     end
 
     if e.KillCommand:IsCastable() then
-        if c.CastTargetIf(e.KillCommand, u, "min", v, N, not t:IsSpellInRange(e.KillCommand)) then
+        if u.CastTargetIf(e.KillCommand, c, "min", b, N, not t:IsSpellInRange(e.KillCommand)) then
             return "kill_command st 34a"
         end
 
-        if v(t) and N(t) and TargetInRangePet30y then
+        if b(t) and N(t) and TargetInRangePet30y then
             if i(e.KillCommand, nil, nil, not t:IsInRange(40)) then
                 o = 259489
                 return "kill_command st 34"
@@ -1741,12 +1745,12 @@ local function H()
 
     end
 
-    if E and e.FlayedShot:IsCastable() then
-        if c.CastTargetIf(e.FlayedShot, u, "max", ke, oe, not t:IsSpellInRange(e.FlayedShot)) then
+    if _ and e.FlayedShot:IsCastable() then
+        if u.CastTargetIf(e.FlayedShot, c, "max", ke, re, not t:IsSpellInRange(e.FlayedShot)) then
             return "flayed_shot cleave 28"
         end
 
-        if ke(t) and oe(t) then
+        if ke(t) and re(t) then
             if i(e.FlayedShot, nil, nil, not t:IsInRange(40)) then
                 o = 324149
                 return "flayed_shot cleave 28"
@@ -1757,11 +1761,11 @@ local function H()
     end
 
     if e.SerpentSting:IsReady() and (e.VolatileBomb:IsCastable() and a:Focus() + a:FocusCastRegen(e.SerpentSting:ExecuteTime()) > 35 and y <= 4) then
-        if c.CastTargetIf(e.SerpentSting, u, "min", g, qe, not t:IsSpellInRange(e.SerpentSting)) then
+        if u.CastTargetIf(e.SerpentSting, c, "min", g, le, not t:IsSpellInRange(e.SerpentSting)) then
             return "serpent_sting cleave 28.5"
         end
 
-        if g(t) and qe(t) then
+        if g(t) and le(t) then
             if i(e.SerpentSting, nil, nil, not t:IsInRange(40)) then
                 o = 259491
                 return "serpent_sting cleave 28.5"
@@ -1772,11 +1776,11 @@ local function H()
     end
 
     if e.KillCommand:IsCastable() then
-        if c.CastTargetIf(e.KillCommand, u, "min", v, ae, not t:IsSpellInRange(e.KillCommand)) then
+        if u.CastTargetIf(e.KillCommand, c, "min", b, X, not t:IsSpellInRange(e.KillCommand)) then
             return "kill_command cleave 26"
         end
 
-        if v(t) and ae(t) and TargetInRangePet30y then
+        if b(t) and X(t) and TargetInRangePet30y then
             if i(e.KillCommand, nil, nil, not t:IsInRange(40)) then
                 o = 259489
                 return "kill_command cleave 26"
@@ -1786,7 +1790,7 @@ local function H()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.WildfireBomb:IsCastable() and ((t:DebuffDown(e.WildfireBombDebuff) and not a:HasTier(28, 2)) or e.WildfireBomb:ChargesFractional() > 1.3) then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.WildfireBomb:IsCastable() and ((t:DebuffDown(e.WildfireBombDebuff) and not a:HasTier(28, 2)) or e.WildfireBomb:ChargesFractional() > 1.3) then
         if e.WildfireInfusion:IsAvailable() then
             if e.ShrapnelBomb:IsCastable() then
                 if i(e.ShrapnelBomb, nil, nil, not t:IsSpellInRange(e.ShrapnelBomb)) then
@@ -1825,7 +1829,7 @@ local function H()
 
     end
 
-    if t:IsInMeleeRange(n.Survival.BombRange) and not _() and not z and e.WildfireInfusion:IsAvailable() then
+    if t:IsInMeleeRange(n.Survival.BombRange) and not E() and not z and e.WildfireInfusion:IsAvailable() then
         if e.ShrapnelBomb:IsCastable() then
             if i(e.ShrapnelBomb, nil, nil, not t:IsSpellInRange(e.ShrapnelBomb)) then
                 o = 259495
@@ -1869,7 +1873,7 @@ local function H()
     end
 
     if e.SerpentSting:IsReady() then
-        if c.CastTargetIf(e.SerpentSting, u, "min", g, de, not t:IsSpellInRange(e.SerpentSting)) then
+        if u.CastTargetIf(e.SerpentSting, c, "min", g, de, not t:IsSpellInRange(e.SerpentSting)) then
             return "serpent_sting cleave 42"
         end
 
@@ -1892,11 +1896,11 @@ local function H()
     end
 
     if e.KillCommand:IsCastable() then
-        if c.CastCycle(e.KillCommand, u, Q, not t:IsSpellInRange(e.KillCommand)) then
+        if u.CastCycle(e.KillCommand, c, te, not t:IsSpellInRange(e.KillCommand)) then
             return "kill_command cleave 46"
         end
 
-        if Q(t) and TargetInRangePet30y then
+        if te(t) and TargetInRangePet30y then
             if i(e.KillCommand, nil, nil, not t:IsInRange(40)) then
                 o = 259489
                 return "kill_command cleave 46"
@@ -1915,11 +1919,11 @@ local function H()
     end
 
     if e.SerpentSting:IsReady() and ((a:Focus() >= 35) or y <= 4) then
-        if c.CastTargetIf(e.SerpentSting, u, "min", g, ue, not t:IsSpellInRange(e.SerpentSting)) then
+        if u.CastTargetIf(e.SerpentSting, c, "min", g, ze, not t:IsSpellInRange(e.SerpentSting)) then
             return "serpent_sting cleave 48"
         end
 
-        if g(t) and ue(t) then
+        if g(t) and ze(t) then
             if i(e.SerpentSting, nil, nil, not t:IsInRange(40)) then
                 o = 259491
                 return "serpent_sting cleave 48"
@@ -1930,11 +1934,11 @@ local function H()
     end
 
     if e.MongooseBite:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
-        if c.CastTargetIf(e.MongooseBite, u, "max", b, O, not t:IsSpellInRange(e.MongooseBite)) then
+        if u.CastTargetIf(e.MongooseBite, c, "max", p, O, not t:IsSpellInRange(e.MongooseBite)) then
             return "mongoose_bite cleave 50"
         end
 
-        if b(t) and Ae(t) then
+        if p(t) and Ae(t) then
             if i(e.MongooseBite, nil, nil, not t:IsInRange(40)) then
                 o = 259387
                 return "mongoose_bite cleave 50"
@@ -1945,11 +1949,11 @@ local function H()
     end
 
     if e.RaptorStrike:IsReady() and (t:IsInMeleeRange(8) or (EagleUp and t:IsInMeleeRange(40))) then
-        if c.CastTargetIf(e.RaptorStrike, u, "max", b, O, not t:IsSpellInRange(e.RaptorStrike)) then
+        if u.CastTargetIf(e.RaptorStrike, c, "max", p, O, not t:IsSpellInRange(e.RaptorStrike)) then
             return "raptor_strike cleave 52"
         end
 
-        if b(t) and O(t) then
+        if p(t) and O(t) then
             if i(e.RaptorStrike, nil, nil, not t:IsInRange(40)) then
                 o = 186270
                 return "raptor_strike cleave 52"
@@ -1971,28 +1975,28 @@ end
 
 local function l()
     R = HeroRotationCharDB.Toggles[6]
-    E = HeroRotationCharDB.Toggles[4]
+    _ = HeroRotationCharDB.Toggles[4]
     ve = HeroRotationCharDB.Toggles[5] or k()
     f = HeroRotationCharDB.Toggles[12]
-    pe = HeroRotationCharDB.Toggles[15]
-    Y = HeroRotationCharDB.Toggles[120]
-    M = HeroRotationCharDB.Toggles[121]
-    C = HeroRotationCharDB.Toggles[122]
-    B = HeroRotationCharDB.Toggles[123]
-    G = HeroRotationCharDB.Toggles[124]
-    me = HeroRotationCharDB.Toggles[125]
-    P = HeroRotationCharDB.Toggles[140]
+    pe = not HeroRotationCharDB.Toggles[15]
+    M = HeroRotationCharDB.Toggles[120]
+    P = HeroRotationCharDB.Toggles[121]
+    G = HeroRotationCharDB.Toggles[122]
+    V = HeroRotationCharDB.Toggles[123]
+    B = HeroRotationCharDB.Toggles[124]
+    ce = HeroRotationCharDB.Toggles[125]
+    F = HeroRotationCharDB.Toggles[140]
     z = HeroRotationCharDB.Toggles[141]
-    ce = HeroRotationCharDB.Toggles[142]
-    W = GetTime()
-    F = GetInventoryItemID("player", 13)
-    V = GetInventoryItemID("player", 14)
+    ue = HeroRotationCharDB.Toggles[142]
+    C = GetTime()
+    W = GetInventoryItemID("player", 13)
+    Y = GetInventoryItemID("player", 14)
 end
 
 local function w()
     Enemies40y = a:GetEnemiesInRange(40)
-    local r = (e.BloodBolt:IsPetKnown() and S.FindBySpellID(e.BloodBolt:ID()) and e.BloodBolt) or (e.Bite:IsPetKnown() and S.FindBySpellID(e.Bite:ID()) and e.Bite) or (e.Claw:IsPetKnown() and S.FindBySpellID(e.Claw:ID()) and e.Claw) or (e.Smack:IsPetKnown() and S.FindBySpellID(e.Smack:ID()) and e.Smack) or nil
-    local h = (e.Growl:IsPetKnown() and S.FindBySpellID(e.Growl:ID()) and e.Growl) or nil
+    local r = (e.BloodBolt:IsPetKnown() and H.FindBySpellID(e.BloodBolt:ID()) and e.BloodBolt) or (e.Bite:IsPetKnown() and H.FindBySpellID(e.Bite:ID()) and e.Bite) or (e.Claw:IsPetKnown() and H.FindBySpellID(e.Claw:ID()) and e.Claw) or (e.Smack:IsPetKnown() and H.FindBySpellID(e.Smack:ID()) and e.Smack) or nil
+    local h = (e.Growl:IsPetKnown() and H.FindBySpellID(e.Growl:ID()) and e.Growl) or nil
     if be() then
         if EagleUp and not t:IsInMeleeRange(8) then
             Enemies40y = a:GetEnemiesInRange(40)
@@ -2037,9 +2041,9 @@ local function w()
     end
 
     if h then
-        u = a:GetEnemiesInRange(40)
+        c = a:GetEnemiesInRange(40)
     else
-        u = a:GetEnemiesInRange(5)
+        c = a:GetEnemiesInRange(5)
     end
 
     if a:BuffUp(T(5384)) then
@@ -2086,7 +2090,7 @@ local function w()
 
     end
 
-    if not t:IsInMeleeRange(10) and not h and not e.Harpoon:IsCastable() and #u > 0 and n.Survival.TargetSwap == "AutoSwap" and not f then
+    if not t:IsInMeleeRange(10) and not h and not e.Harpoon:IsCastable() and #c > 0 and n.Survival.TargetSwap == "AutoSwap" and not f then
         s = 999
     end
 
@@ -2124,12 +2128,12 @@ local function w()
 
     end
 
-    fe = { 333875, 344739, 228318, 332158, 321764, 324914, 326046, 324776, 340544, 324736, 328015, 322433, 334324, 317936, 327332, 328288, 195181, 333293, 320272, 342139, 355888, 349933, 356549, 355934, 353706, 347775, 357284, 335141, 327155, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 344739, 368477, 368396, 355057, 356133, 158337, 164426 }
-    if UnitExists("target") and e.TranqualizingShot:IsCastable() and not ce then
+    we = { 333875, 344739, 228318, 332158, 321764, 324914, 326046, 324776, 340544, 324736, 328015, 322433, 334324, 317936, 327332, 328288, 195181, 333293, 320272, 342139, 355888, 349933, 356549, 355934, 353706, 347775, 357284, 335141, 327155, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 344739, 368477, 368396, 355057, 356133, 158337, 164426 }
+    if UnitExists("target") and e.TranqualizingShot:IsCastable() and not ue then
         if UnitCanAttack("player", "target") and UnitAffectingCombat("target") and UnitIsDead("target") ~= true and e.TranqualizingShot:IsCastable() and e.TranqualizingShot:CooldownRemains(BypassRecovery) <= 0 then
             for t = 0, 40 do
                 local a, a, a, a, a, a, a, a, a, t = UnitBuff("target", t)
-                for i, a in pairs(fe) do
+                for i, a in pairs(we) do
                     if a == t then
                         if d.Cast(e.TranqualizingShot, nil) then
                             o = 19801
@@ -2147,76 +2151,76 @@ local function w()
     end
 
         if d.GUISettings.General.OpenerReset > 0 and not HeroRotationCharDB.Toggles[6] then
-        W = GetTime()
-        endtime = W + (d.GUISettings.General.OpenerReset)
+        C = GetTime()
+        endtime = C + (d.GUISettings.General.OpenerReset)
     elseif d.GUISettings.General.OpenerReset > 0 and endtime ~= nil and GetTime() > endtime and HeroRotationCharDB.Toggles[6] then
         HeroRotationCharDB.Toggles[6] = not HeroRotationCharDB.Toggles[6]
         d.ToggleIconFrame:UpdateButtonText(6)
         d.Print("Opener is now " .. (HeroRotationCharDB.Toggles[6] and "|cff00ff00enabled|r." or "|cffff0000disabled|r."))
     end
 
-        if (Y and e.Bindingshot:IsAvailable() and e.Bindingshot:CooldownRemains(BypassRecovery) <= 0) then
+        if (M and e.Bindingshot:IsAvailable() and e.Bindingshot:CooldownRemains(BypassRecovery) <= 0) then
         if d.Cast(e.Bindingshot, nil, nil, nil) then
             o = 109248
             return "queue Binding Shot"
         end
 
-    elseif ((not e.Bindingshot:IsAvailable() or e.Bindingshot:CooldownRemains(BypassRecovery) > 0) and Y) then
+    elseif ((not e.Bindingshot:IsAvailable() or e.Bindingshot:CooldownRemains(BypassRecovery) > 0) and M) then
         HeroRotationCharDB.Toggles[120] = not HeroRotationCharDB.Toggles[120]
         d.Print("Binding Shot Queue is now " .. (HeroRotationCharDB.Toggles[120] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-        if (M and e.FreezingTrap:IsAvailable() and e.FreezingTrap:CooldownRemains(BypassRecovery) <= 0) then
+        if (P and e.FreezingTrap:IsAvailable() and e.FreezingTrap:CooldownRemains(BypassRecovery) <= 0) then
         if d.Cast(e.FreezingTrap, nil, nil, nil) then
             o = 187650
             return "queue Freezing Trap"
         end
 
-    elseif ((not e.FreezingTrap:IsUsableP() or e.FreezingTrap:CooldownRemains() > 0) and M) then
+    elseif ((not e.FreezingTrap:IsUsableP() or e.FreezingTrap:CooldownRemains() > 0) and P) then
         HeroRotationCharDB.Toggles[121] = not HeroRotationCharDB.Toggles[121]
         d.Print("Freezing Trap Queue is now " .. (HeroRotationCharDB.Toggles[121] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-        if (C and e.Intimidation:IsAvailable() and e.Intimidation:CooldownRemains(BypassRecovery) <= 0) then
+        if (G and e.Intimidation:IsAvailable() and e.Intimidation:CooldownRemains(BypassRecovery) <= 0) then
         if d.Cast(e.Intimidation, nil, nil, nil) then
             o = 19577
             return "queue Intimidation"
         end
 
-    elseif ((not e.Intimidation:IsUsableP() or e.Intimidation:CooldownRemains() > 0) and C) then
+    elseif ((not e.Intimidation:IsUsableP() or e.Intimidation:CooldownRemains() > 0) and G) then
         HeroRotationCharDB.Toggles[122] = not HeroRotationCharDB.Toggles[122]
         d.Print("Intimidation Queue is now " .. (HeroRotationCharDB.Toggles[122] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-        if (B and e.Flare:IsAvailable() and e.Flare:CooldownRemains(BypassRecovery) <= 0) then
+        if (V and e.Flare:IsAvailable() and e.Flare:CooldownRemains(BypassRecovery) <= 0) then
         if d.Cast(e.Flare, nil, nil, nil) then
             o = 1543
             return "queue Flare"
         end
 
-    elseif ((not e.Flare:IsUsableP() or e.Flare:CooldownRemains() > 0) and B) then
+    elseif ((not e.Flare:IsUsableP() or e.Flare:CooldownRemains() > 0) and V) then
         HeroRotationCharDB.Toggles[123] = not HeroRotationCharDB.Toggles[123]
         d.Print("Flare Queue is now " .. (HeroRotationCharDB.Toggles[123] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-        if (G and e.TarTrap:IsAvailable() and e.TarTrap:CooldownRemains(BypassRecovery) <= 0) then
+        if (B and e.TarTrap:IsAvailable() and e.TarTrap:CooldownRemains(BypassRecovery) <= 0) then
         if d.Cast(e.TarTrap, nil, nil, nil) then
             o = 187698
             return "queue TarTrap"
         end
 
-    elseif ((not e.TarTrap:IsUsableP() or e.TarTrap:CooldownRemains() > 0) and G) then
+    elseif ((not e.TarTrap:IsUsableP() or e.TarTrap:CooldownRemains() > 0) and B) then
         HeroRotationCharDB.Toggles[124] = not HeroRotationCharDB.Toggles[124]
         d.Print("Tar Trap Queue is now " .. (HeroRotationCharDB.Toggles[124] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-        if (P and e.HuntersMark:IsAvailable() and e.HuntersMark:CooldownRemains(BypassRecovery) <= 0) then
+        if (F and e.HuntersMark:IsAvailable() and e.HuntersMark:CooldownRemains(BypassRecovery) <= 0) then
         if d.Cast(e.HuntersMark, nil, nil, nil) then
             o = 257284
             return "queue HuntersMark"
         end
 
-    elseif ((not e.HuntersMark:IsUsableP() or e.HuntersMark:CooldownRemains() > 0) and P) then
+    elseif ((not e.HuntersMark:IsUsableP() or e.HuntersMark:CooldownRemains() > 0) and F) then
         HeroRotationCharDB.Toggles[140] = not HeroRotationCharDB.Toggles[140]
         d.Print("Hunter's Mark Quaue is now " .. (HeroRotationCharDB.Toggles[140] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
@@ -2229,8 +2233,8 @@ local function w()
 
     end
 
-    if U and we + 1 < GetTime() then
-        U = false
+    if L and me + 1 < GetTime() then
+        L = false
     end
 
     if (I:IsActive() and select(2, GetStablePetInfo(n.Commons.SummonPetSlot)) ~= select(1, UnitName("pet"))) and n.Commons.SummonPetSlot ~= 0 and not a:IsMoving() and not a:PrevGCD(1, e.DismissPet) and not a:IsCasting(e.DismissPet) then
@@ -2276,7 +2280,7 @@ local function w()
 
     end
 
-    if (I:IsDeadOrGhost() or not UnitExists("pet")) and not a:IsDeadOrGhost() and e.RevivePet:IsCastable() and not a:IsMoving() and n.Commons.SummonPetSlot ~= 0 and not U then
+    if (I:IsDeadOrGhost() or not UnitExists("pet")) and not a:IsDeadOrGhost() and e.RevivePet:IsCastable() and not a:IsMoving() and n.Commons.SummonPetSlot ~= 0 and not L then
         if i(e.RevivePet, nil) then
             o = 982
             return "Revive Pet"
@@ -2284,9 +2288,9 @@ local function w()
 
     end
 
-    local r, l, u = GetSpellCooldown(34477)
-    if a:AffectingCombat() and n.Commons.AutoMisdirect and not a:IsDeadOrGhost() and not me then
-        if (r + l - GetTime()) <= 0 and e.Misdirection:IsAvailable() and e.Misdirection:CooldownRemains(BypassRecovery) <= 0 and UnitExists("focus") and (UnitInParty("focus") or UnitInRaid("focus") or UnitIsUnit("focus", "pet")) and IsItemInRange(32698, "focus") then
+    local l, r, c = GetSpellCooldown(34477)
+    if a:AffectingCombat() and n.Commons.AutoMisdirect and not a:IsDeadOrGhost() and not ce then
+        if (l + r - GetTime()) <= 0 and e.Misdirection:IsAvailable() and e.Misdirection:CooldownRemains(BypassRecovery) <= 0 and UnitExists("focus") and (UnitInParty("focus") or UnitInRaid("focus") or UnitIsUnit("focus", "pet")) and IsItemInRange(32698, "focus") then
             if d.Cast(e.Misdirection) then
                 s = 134477
                 return "MD Focus"
@@ -2304,8 +2308,8 @@ local function w()
 
     end
 
-    if not a:AffectingCombat() and not a:IsDeadOrGhost() and ((R) or (n.Survival.DBMSupport and ((d.BossMods:GetPullTimer() < a:GCD() and d.BossMods:GetPullTimer() > 0) or d.BossMods:GetPullTimer() < .5 and d.BossMods:GetPullTimer() > 0))) and (c.TargetIsValid() or t:NPCID() == 179733) then
-        local e = m()
+    if not a:AffectingCombat() and not a:IsDeadOrGhost() and ((R) or (n.Survival.DBMSupport and ((d.BossMods:GetPullTimer() < a:GCD() and d.BossMods:GetPullTimer() > 0) or d.BossMods:GetPullTimer() < .5 and d.BossMods:GetPullTimer() > 0))) and (u.TargetIsValid() or t:NPCID() == 179733) then
+        local e = _e()
         if e then
             return e
         end
@@ -2316,8 +2320,8 @@ local function w()
         return false
     end
 
-    if c.TargetIsValid() and (a:AffectingCombat() or R) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285 or t:NPCID() == 168326 or t:NPCID() == 176581 or t:NPCID() == 176920 or t:NPCID() == 177892 or t:NPCID() == 182778 or t:NPCID() == 185402 or t:NPCID() == 183945 or t:NPCID() == 182074 or t:NPCID() == 184737 or t:NPCID() == 179733 or t:NPCID() == 115402 or t:NPCID() == 115406 or t:NPCID() == 115395 or UnitExists("boss1") or t:NPCID() == 115388 or R) and not a:IsDeadOrGhost() then
-        if T(257284):IsCastable() and T(339264):ConduitEnabled() and t:DebuffDown(T(257284)) and (ze(Enemies40y) <= 0 or UnitName("target") == "Fleeting Manifestation") and (UnitName("target") == "Nalthor the Rimebinder" or UnitName("target") == "Tirnenn Villager" or UnitName("target") == "Drust Boughbreaker" or UnitName("target") == "Ingra Maloch" or UnitName("target") == "Mistveil Stalker" or UnitName("target") == "Mistcaller" or UnitName("target") == "Blightbone" or UnitName("target") == "Rotspew" or UnitName("target") == "Amarth" or UnitName("target") == "Surgeon Stitchflesh" or UnitName("target") == "Lubricator" or UnitName("target") == "Tred'ova" or UnitName("target") == "Azules" or UnitName("target") == "Ventunax" or UnitName("target") == "Oryphion" or UnitName("target") == "Astronos" or UnitName("target") == "Lakesis" or UnitName("target") == "Klotos" or UnitName("target") == "Devos" or UnitName("target") == "Halkias" or UnitName("target") == "High Adjudicator Aleez" or UnitName("target") == "Wo Drifter" or UnitName("target") == "Lord Chamberlain" or UnitName("target") == "Enraged Spirit" or UnitName("target") == "Hakkar The Soulflayer" or UnitName("target") == "Sentient Oil" or UnitName("target") == "Millhouse Manastorm" or UnitName("target") == "Millificent Manastorm" or UnitName("target") == "Dealer Xy’exa" or UnitName("target") == "Mueh'zala" or UnitName("target") == "Fungi Stormer" or UnitName("target") == "Globgrog" or UnitName("target") == "Slime Tentacle" or UnitName("target") == "Virulax Blightweaver" or UnitName("target") == "Doctor Ickus" or UnitName("target") == "Domina Venomblade" or UnitName("target") == "Margrave Stradama" or UnitName("target") == "Dreadful Huntmaster" or UnitName("target") == "Insatiable Brute" or UnitName("target") == "Kryxis the Voracious" or UnitName("target") == "Grand Overseer" or UnitName("target") == "Research Scribe" or UnitName("target") == "Executor Tarvold" or UnitName("target") == "Grand Proctor Beryllia" or UnitName("target") == "General Kaal" or UnitName("target") == "Paceran the Virulent" or UnitName("target") == "Shard of Halkias" or UnitName("target") == "Shambling Arbalest" or UnitName("target") == "Nekthara the Mangler" or UnitName("target") == "Harugia the Bloodthirtsy" or UnitName("target") == "Heavin the Breaker" or UnitName("target") == "Echelon" or UnitName("target") == "Advent Nevermore" or UnitName("target") == "Xav the Unfallen" or UnitName("target") == "Portal Guardian" or UnitName("target") == "Kul'Tharok" or UnitName("target") == "Gorechop" or UnitName("target") == "Mordretha, the Endless Empress" or UnitName("target") == "Gatewarden Zo'mazz" or UnitName("target") == "Zophex" or UnitName("target") == "Alcruux" or UnitName("target") == "Achillite" or UnitName("target") == "Venza Goldfuse" or UnitName("target") == "Zo'gron" or UnitName("target") == "P.O.S.T Master" or UnitName("target") == "So'azmi" or UnitName("target") == "Portalmancer Zo'dahh" or UnitName("target") == "4.RF-4.RF" or UnitName("target") == "Inquisitor Sigar" or UnitName("target") == "Fleeting Manifestation" or UnitName("target") == "Corpse Harvester" or UnitName("target") == "Zolramus Necromancer" or UnitName("target") == "Nar'zudah" or UnitName("target") == "Raging Bloodhorn" or UnitName("target") == "Harugia the Bloodthirsty" or UnitName("target") == "Portalmancer Zo'honn" or UnitName("target") == "Enraged Direhorn" or UnitName("target") == "Coastwalker Goliath" or UnitName("target") == "Adorned Starseer" or UnitName("target") == "Wandering Pulsar" or (IsInRaid() and UnitName("target") == UnitName("boss1"))) then
+    if u.TargetIsValid() and (a:AffectingCombat() or R) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285 or t:NPCID() == 168326 or t:NPCID() == 176581 or t:NPCID() == 176920 or t:NPCID() == 177892 or t:NPCID() == 182778 or t:NPCID() == 185402 or t:NPCID() == 183945 or t:NPCID() == 182074 or t:NPCID() == 184737 or t:NPCID() == 179733 or t:NPCID() == 115402 or t:NPCID() == 115406 or t:NPCID() == 115395 or UnitExists("boss1") or t:NPCID() == 115388 or R) and not a:IsDeadOrGhost() then
+        if T(257284):IsCastable() and T(339264):ConduitEnabled() and t:DebuffDown(T(257284)) and (xe(Enemies40y) <= 0 or UnitName("target") == "Fleeting Manifestation") and (UnitName("target") == "Nalthor the Rimebinder" or UnitName("target") == "Tirnenn Villager" or UnitName("target") == "Drust Boughbreaker" or UnitName("target") == "Ingra Maloch" or UnitName("target") == "Mistveil Stalker" or UnitName("target") == "Mistcaller" or UnitName("target") == "Blightbone" or UnitName("target") == "Rotspew" or UnitName("target") == "Amarth" or UnitName("target") == "Surgeon Stitchflesh" or UnitName("target") == "Lubricator" or UnitName("target") == "Tred'ova" or UnitName("target") == "Azules" or UnitName("target") == "Ventunax" or UnitName("target") == "Oryphion" or UnitName("target") == "Astronos" or UnitName("target") == "Lakesis" or UnitName("target") == "Klotos" or UnitName("target") == "Devos" or UnitName("target") == "Halkias" or UnitName("target") == "High Adjudicator Aleez" or UnitName("target") == "Wo Drifter" or UnitName("target") == "Lord Chamberlain" or UnitName("target") == "Enraged Spirit" or UnitName("target") == "Hakkar The Soulflayer" or UnitName("target") == "Sentient Oil" or UnitName("target") == "Millhouse Manastorm" or UnitName("target") == "Millificent Manastorm" or UnitName("target") == "Dealer Xy’exa" or UnitName("target") == "Mueh'zala" or UnitName("target") == "Fungi Stormer" or UnitName("target") == "Globgrog" or UnitName("target") == "Slime Tentacle" or UnitName("target") == "Virulax Blightweaver" or UnitName("target") == "Doctor Ickus" or UnitName("target") == "Domina Venomblade" or UnitName("target") == "Margrave Stradama" or UnitName("target") == "Dreadful Huntmaster" or UnitName("target") == "Insatiable Brute" or UnitName("target") == "Kryxis the Voracious" or UnitName("target") == "Grand Overseer" or UnitName("target") == "Research Scribe" or UnitName("target") == "Executor Tarvold" or UnitName("target") == "Grand Proctor Beryllia" or UnitName("target") == "General Kaal" or UnitName("target") == "Paceran the Virulent" or UnitName("target") == "Shard of Halkias" or UnitName("target") == "Shambling Arbalest" or UnitName("target") == "Nekthara the Mangler" or UnitName("target") == "Harugia the Bloodthirtsy" or UnitName("target") == "Heavin the Breaker" or UnitName("target") == "Echelon" or UnitName("target") == "Advent Nevermore" or UnitName("target") == "Xav the Unfallen" or UnitName("target") == "Portal Guardian" or UnitName("target") == "Kul'Tharok" or UnitName("target") == "Gorechop" or UnitName("target") == "Mordretha, the Endless Empress" or UnitName("target") == "Gatewarden Zo'mazz" or UnitName("target") == "Zophex" or UnitName("target") == "Alcruux" or UnitName("target") == "Achillite" or UnitName("target") == "Venza Goldfuse" or UnitName("target") == "Zo'gron" or UnitName("target") == "P.O.S.T Master" or UnitName("target") == "So'azmi" or UnitName("target") == "Portalmancer Zo'dahh" or UnitName("target") == "4.RF-4.RF" or UnitName("target") == "Inquisitor Sigar" or UnitName("target") == "Fleeting Manifestation" or UnitName("target") == "Corpse Harvester" or UnitName("target") == "Zolramus Necromancer" or UnitName("target") == "Nar'zudah" or UnitName("target") == "Raging Bloodhorn" or UnitName("target") == "Harugia the Bloodthirsty" or UnitName("target") == "Portalmancer Zo'honn" or UnitName("target") == "Enraged Direhorn" or UnitName("target") == "Coastwalker Goliath" or UnitName("target") == "Adorned Starseer" or UnitName("target") == "Wandering Pulsar" or (IsInRaid() and UnitName("target") == UnitName("boss1"))) then
             if i(e.HuntersMark, nil) then
                 o = 257284
                 return "HuntersMark M+"
@@ -2336,8 +2340,8 @@ local function w()
 
         end
 
-        if ((j == 1 and (e.CoordinatedAssault:CooldownRemains() > 0 or not e.CoordinatedAssault:IsAvailable()) and (e.ResonatingArrow:CooldownRemains() > 0 or not E)) or (j ~= 1 and (e.CoordinatedAssault:CooldownRemains() > 0 or not e.CoordinatedAssault:IsAvailable()))) then
-            local e = Ee()
+        if ((j == 1 and (e.CoordinatedAssault:CooldownRemains() > 0 or not e.CoordinatedAssault:IsAvailable()) and (e.ResonatingArrow:CooldownRemains() > 0 or not _)) or (j ~= 1 and (e.CoordinatedAssault:CooldownRemains() > 0 or not e.CoordinatedAssault:IsAvailable()))) then
+            local e = m()
             if e then
                 return e
             end
@@ -2345,7 +2349,7 @@ local function w()
         end
 
         if (true) then
-            local e = _e()
+            local e = Ee()
             if e then
                 return e
             end
@@ -2353,7 +2357,7 @@ local function w()
         end
 
         if (y < 3 and e.BirdsofPrey:IsAvailable()) then
-            local e = L()
+            local e = U()
             if e then
                 return e
             end
@@ -2377,7 +2381,7 @@ local function w()
         end
 
         if (y > 2) then
-            local e = H()
+            local e = S()
             if e then
                 return e
             end

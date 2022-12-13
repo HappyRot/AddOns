@@ -1,14 +1,14 @@
 local e, e = ...
 local e = HeroDBC.DBC
-local p = HeroLib
+local y = HeroLib
 local e = HeroCache
-local w = p.Unit
+local w = y.Unit
 local t = w.Player
 local h = w.Target
 local e = w.Pet
-local E = p.Spell
-local e = p.MultiSpell
-local f = p.Item
+local E = y.Spell
+local e = y.MultiSpell
+local f = y.Item
 local s = HeroRotation
 local X = s.AoEON
 local u = s.CDsON
@@ -17,7 +17,7 @@ local e = s.CastSuggested
 local A = HeroRotationCharDB.Toggles[4]
 local Q = HeroRotationCharDB.Toggles[5]
 local D = HeroRotationCharDB.Toggles[6]
-local R = HeroRotationCharDB.Toggles[15]
+local R = not HeroRotationCharDB.Toggles[15]
 local g = HeroRotationCharDB.Toggles[12]
 local U = HeroRotationCharDB.Toggles[60]
 local N = HeroRotationCharDB.Toggles[120]
@@ -31,7 +31,7 @@ local L = { 228318, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 3264
 local _ = GetTime
 local e = s.Commons.Hunter
 local e = E.Hunter.Marksmanship
-local v = f.Hunter.Marksmanship
+local p = f.Hunter.Marksmanship
 local a = { e.SummonPet, e.SummonPet2, e.SummonPet3, e.SummonPet4, e.SummonPet5 }
 local k = {  }
 local c = t:GetEquipment()
@@ -51,27 +51,27 @@ local a = (x:IsEquippedAndReady() or x:CooldownRemains() > 0)
 local a = (z:IsEquippedAndReady() or z:CooldownRemains() > 0)
 local l = { LastCast = 0, Count = 0 }
 local O = 11111
-local y = 11111
+local b = 11111
 local a = 0
 local d = 0
-local b
+local v
 local I
 local r
-local n
+local i
 local m = s.Commons.Everyone
-local i = { General = s.GUISettings.General, Commons = s.GUISettings.APL.Hunter.Commons, Commons2 = s.GUISettings.APL.Hunter.Commons2, Marksmanship = s.GUISettings.APL.Hunter.Marksmanship }
+local n = { General = s.GUISettings.General, Commons = s.GUISettings.APL.Hunter.Commons, Commons2 = s.GUISettings.APL.Hunter.Commons2, Marksmanship = s.GUISettings.APL.Hunter.Marksmanship }
 local M = h:HealthPercentage() > 70 and e.CarefulAim:IsAvailable()
-p:RegisterForEvent(function()
+y:RegisterForEvent(function()
     c = t:GetEquipment()
     x = (c[13]) and f(c[13]) or f(0)
     z = (c[14]) and f(c[14]) or f(0)
 end, "PLAYER_EQUIPMENT_CHANGED")
-p:RegisterForEvent(function()
+y:RegisterForEvent(function()
     l = { LastCast = 0, Count = 0 }
     O = 11111
-    y = 11111
+    b = 11111
 end, "PLAYER_REGEN_ENABLED")
-p:RegisterForEvent(function()
+y:RegisterForEvent(function()
     e.SerpentSting:RegisterInFlight()
     e.SteadyShot:RegisterInFlight()
     e.AimedShot:RegisterInFlight()
@@ -125,10 +125,10 @@ local function z(t)
 end
 
 local function K(t)
-                if ((t:DebuffRefreshable(e.SerpentStingDebuff) and (not e.SerpentstalkersTrickery:IsAvailable())) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and t:GUID() == w("mouseover"):GUID() and i.Marksmanship.TargetSwap == "Mouseover") then
+                if ((t:DebuffRefreshable(e.SerpentStingDebuff) and (not e.SerpentstalkersTrickery:IsAvailable())) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and t:GUID() == w("mouseover"):GUID() and n.Marksmanship.TargetSwap == "Mouseover") then
         d = 1271788
         return true
-    elseif ((t:DebuffRefreshable(e.SerpentStingDebuff) and (not e.SerpentstalkersTrickery:IsAvailable())) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and i.Marksmanship.TargetSwap == "AutoSwap" and t:GUID() ~= h:GUID() and not g) then
+    elseif ((t:DebuffRefreshable(e.SerpentStingDebuff) and (not e.SerpentstalkersTrickery:IsAvailable())) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and n.Marksmanship.TargetSwap == "AutoSwap" and t:GUID() ~= h:GUID() and not g) then
         d = 999
         return true
     elseif ((t:DebuffRefreshable(e.SerpentStingDebuff) and (not e.SerpentstalkersTrickery:IsAvailable())) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and t:GUID() == h:GUID()) then
@@ -141,10 +141,10 @@ local function K(t)
 end
 
 local function J(t)
-                if ((t:DebuffRefreshable(e.SerpentStingDebuff) and e.HydrasBite:IsAvailable()) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and t:GUID() == w("mouseover"):GUID() and i.Marksmanship.TargetSwap == "Mouseover") then
+                if ((t:DebuffRefreshable(e.SerpentStingDebuff) and e.HydrasBite:IsAvailable()) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and t:GUID() == w("mouseover"):GUID() and n.Marksmanship.TargetSwap == "Mouseover") then
         d = 1271788
         return true
-    elseif ((t:DebuffRefreshable(e.SerpentStingDebuff) and e.HydrasBite:IsAvailable()) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and i.Marksmanship.TargetSwap == "AutoSwap" and t:GUID() ~= h:GUID() and not g) then
+    elseif ((t:DebuffRefreshable(e.SerpentStingDebuff) and e.HydrasBite:IsAvailable()) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and n.Marksmanship.TargetSwap == "AutoSwap" and t:GUID() ~= h:GUID() and not g) then
         d = 999
         return true
     elseif ((t:DebuffRefreshable(e.SerpentStingDebuff) and e.HydrasBite:IsAvailable()) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and t:GUID() == h:GUID()) then
@@ -157,10 +157,10 @@ local function J(t)
 end
 
 local function W(t)
-                if ((t:DebuffRefreshable(e.SerpentStingDebuff) and e.PoisonInjection:IsAvailable() and not e.SerpentstalkersTrickery:IsAvailable()) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and t:GUID() == w("mouseover"):GUID() and i.Marksmanship.TargetSwap == "Mouseover") then
+                if ((t:DebuffRefreshable(e.SerpentStingDebuff) and e.PoisonInjection:IsAvailable() and not e.SerpentstalkersTrickery:IsAvailable()) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and t:GUID() == w("mouseover"):GUID() and n.Marksmanship.TargetSwap == "Mouseover") then
         d = 1271788
         return true
-    elseif ((t:DebuffRefreshable(e.SerpentStingDebuff) and e.PoisonInjection:IsAvailable() and not e.SerpentstalkersTrickery:IsAvailable()) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and i.Marksmanship.TargetSwap == "AutoSwap" and t:GUID() ~= h:GUID() and not g) then
+    elseif ((t:DebuffRefreshable(e.SerpentStingDebuff) and e.PoisonInjection:IsAvailable() and not e.SerpentstalkersTrickery:IsAvailable()) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and n.Marksmanship.TargetSwap == "AutoSwap" and t:GUID() ~= h:GUID() and not g) then
         d = 999
         return true
     elseif ((t:DebuffRefreshable(e.SerpentStingDebuff) and e.PoisonInjection:IsAvailable() and not e.SerpentstalkersTrickery:IsAvailable()) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and t:GUID() == h:GUID()) then
@@ -173,10 +173,10 @@ local function W(t)
 end
 
 local function F(o)
-                if ((e.SerpentstalkersTrickery:IsAvailable() and ((t:BuffDown(e.PreciseShotsBuff) or (t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < t:GCD() + e.AimedShot:CastTime()) and ((not e.ChimaeraShot:IsAvailable()) or r < 2)) or (t:BuffRemains(e.TrickShotsBuff) > e.AimedShot:ExecuteTime() and r > 1))) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == w("mouseover"):GUID() and i.Marksmanship.TargetSwap == "Mouseover") then
+                if ((e.SerpentstalkersTrickery:IsAvailable() and ((t:BuffDown(e.PreciseShotsBuff) or (t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < t:GCD() + e.AimedShot:CastTime()) and ((not e.ChimaeraShot:IsAvailable()) or r < 2)) or (t:BuffRemains(e.TrickShotsBuff) > e.AimedShot:ExecuteTime() and r > 1))) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == w("mouseover"):GUID() and n.Marksmanship.TargetSwap == "Mouseover") then
         d = 119434
         return true
-    elseif ((e.SerpentstalkersTrickery:IsAvailable() and ((t:BuffDown(e.PreciseShotsBuff) or (t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < t:GCD() + e.AimedShot:CastTime()) and ((not e.ChimaeraShot:IsAvailable()) or r < 2)) or (t:BuffRemains(e.TrickShotsBuff) > e.AimedShot:ExecuteTime() and r > 1))) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and i.Marksmanship.TargetSwap == "AutoSwap" and o:GUID() ~= h:GUID() and not g) then
+    elseif ((e.SerpentstalkersTrickery:IsAvailable() and ((t:BuffDown(e.PreciseShotsBuff) or (t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < t:GCD() + e.AimedShot:CastTime()) and ((not e.ChimaeraShot:IsAvailable()) or r < 2)) or (t:BuffRemains(e.TrickShotsBuff) > e.AimedShot:ExecuteTime() and r > 1))) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and n.Marksmanship.TargetSwap == "AutoSwap" and o:GUID() ~= h:GUID() and not g) then
         d = 999
         return true
     elseif ((e.SerpentstalkersTrickery:IsAvailable() and ((t:BuffDown(e.PreciseShotsBuff) or (t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < t:GCD() + e.AimedShot:CastTime()) and ((not e.ChimaeraShot:IsAvailable()) or r < 2)) or (t:BuffRemains(e.TrickShotsBuff) > e.AimedShot:ExecuteTime() and r > 1))) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == h:GUID()) then
@@ -189,10 +189,10 @@ local function F(o)
 end
 
 local function M(o)
-                if (((t:BuffDown(e.PreciseShotsBuff) or ((t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < t:GCD() + e.AimedShot:CastTime()) and ((not e.ChimaeraShot:IsAvailable()) or r < 2))) or (t:BuffRemains(e.TrickShotsBuff) > e.AimedShot:ExecuteTime() and r > 1)) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == w("mouseover"):GUID() and i.Marksmanship.TargetSwap == "Mouseover") then
+                if (((t:BuffDown(e.PreciseShotsBuff) or ((t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < t:GCD() + e.AimedShot:CastTime()) and ((not e.ChimaeraShot:IsAvailable()) or r < 2))) or (t:BuffRemains(e.TrickShotsBuff) > e.AimedShot:ExecuteTime() and r > 1)) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == w("mouseover"):GUID() and n.Marksmanship.TargetSwap == "Mouseover") then
         d = 119434
         return true
-    elseif (((t:BuffDown(e.PreciseShotsBuff) or ((t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < t:GCD() + e.AimedShot:CastTime()) and ((not e.ChimaeraShot:IsAvailable()) or r < 2))) or (t:BuffRemains(e.TrickShotsBuff) > e.AimedShot:ExecuteTime() and r > 1)) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and i.Marksmanship.TargetSwap == "AutoSwap" and o:GUID() ~= h:GUID() and not g) then
+    elseif (((t:BuffDown(e.PreciseShotsBuff) or ((t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < t:GCD() + e.AimedShot:CastTime()) and ((not e.ChimaeraShot:IsAvailable()) or r < 2))) or (t:BuffRemains(e.TrickShotsBuff) > e.AimedShot:ExecuteTime() and r > 1)) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and n.Marksmanship.TargetSwap == "AutoSwap" and o:GUID() ~= h:GUID() and not g) then
         d = 999
         return true
     elseif (((t:BuffDown(e.PreciseShotsBuff) or ((t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < t:GCD() + e.AimedShot:CastTime()) and ((not e.ChimaeraShot:IsAvailable()) or r < 2))) or (t:BuffRemains(e.TrickShotsBuff) > e.AimedShot:ExecuteTime() and r > 1)) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == h:GUID()) then
@@ -205,10 +205,10 @@ local function M(o)
 end
 
 local function V(o)
-                if ((e.SerpentstalkersTrickery:IsAvailable() and (t:BuffRemains(e.TrickShotsBuff) >= e.AimedShot:ExecuteTime() and (t:BuffDown(e.PreciseShotsBuff) or t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < e.AimedShot:CastTime() + t:GCD()))) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == w("mouseover"):GUID() and i.Marksmanship.TargetSwap == "Mouseover") then
+                if ((e.SerpentstalkersTrickery:IsAvailable() and (t:BuffRemains(e.TrickShotsBuff) >= e.AimedShot:ExecuteTime() and (t:BuffDown(e.PreciseShotsBuff) or t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < e.AimedShot:CastTime() + t:GCD()))) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == w("mouseover"):GUID() and n.Marksmanship.TargetSwap == "Mouseover") then
         d = 119434
         return true
-    elseif ((e.SerpentstalkersTrickery:IsAvailable() and (t:BuffRemains(e.TrickShotsBuff) >= e.AimedShot:ExecuteTime() and (t:BuffDown(e.PreciseShotsBuff) or t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < e.AimedShot:CastTime() + t:GCD()))) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and i.Marksmanship.TargetSwap == "AutoSwap" and o:GUID() ~= h:GUID() and not g) then
+    elseif ((e.SerpentstalkersTrickery:IsAvailable() and (t:BuffRemains(e.TrickShotsBuff) >= e.AimedShot:ExecuteTime() and (t:BuffDown(e.PreciseShotsBuff) or t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < e.AimedShot:CastTime() + t:GCD()))) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and n.Marksmanship.TargetSwap == "AutoSwap" and o:GUID() ~= h:GUID() and not g) then
         d = 999
         return true
     elseif ((e.SerpentstalkersTrickery:IsAvailable() and (t:BuffRemains(e.TrickShotsBuff) >= e.AimedShot:ExecuteTime() and (t:BuffDown(e.PreciseShotsBuff) or t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < e.AimedShot:CastTime() + t:GCD()))) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == h:GUID()) then
@@ -221,10 +221,10 @@ local function V(o)
 end
 
 local function Y(o)
-                if ((t:BuffRemains(e.TrickShotsBuff) >= e.AimedShot:ExecuteTime() and (t:BuffDown(e.PreciseShotsBuff) or t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < e.AimedShot:CastTime() + t:GCD())) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == w("mouseover"):GUID() and i.Marksmanship.TargetSwap == "Mouseover") then
+                if ((t:BuffRemains(e.TrickShotsBuff) >= e.AimedShot:ExecuteTime() and (t:BuffDown(e.PreciseShotsBuff) or t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < e.AimedShot:CastTime() + t:GCD())) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == w("mouseover"):GUID() and n.Marksmanship.TargetSwap == "Mouseover") then
         d = 119434
         return true
-    elseif ((t:BuffRemains(e.TrickShotsBuff) >= e.AimedShot:ExecuteTime() and (t:BuffDown(e.PreciseShotsBuff) or t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < e.AimedShot:CastTime() + t:GCD())) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and i.Marksmanship.TargetSwap == "AutoSwap" and o:GUID() ~= h:GUID() and not g) then
+    elseif ((t:BuffRemains(e.TrickShotsBuff) >= e.AimedShot:ExecuteTime() and (t:BuffDown(e.PreciseShotsBuff) or t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < e.AimedShot:CastTime() + t:GCD())) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and n.Marksmanship.TargetSwap == "AutoSwap" and o:GUID() ~= h:GUID() and not g) then
         d = 999
         return true
     elseif ((t:BuffRemains(e.TrickShotsBuff) >= e.AimedShot:ExecuteTime() and (t:BuffDown(e.PreciseShotsBuff) or t:BuffUp(e.TrueshotBuff) or e.AimedShot:FullRechargeTime() < e.AimedShot:CastTime() + t:GCD())) and (o:AffectingCombat() or o:IsDummy() or o:NPCID() == 153285) and o:GUID() == h:GUID()) then
@@ -247,7 +247,7 @@ local function B()
         end
 
         if e.AimedShot:IsReady() and (not t:IsCasting(e.AimedShot)) and (r < 3 and ((not e.Volley:IsAvailable()) or r < 2)) then
-            if o(e.AimedShot, nil, nil, not n) then
+            if o(e.AimedShot, nil, nil, not i) then
                 a = 19434
                 return "aimed_shot opener"
             end
@@ -255,7 +255,7 @@ local function B()
         end
 
         if e.WailingArrow:IsReady() and u() and (not t:IsCasting(e.WailingArrow)) and (r > 2 or not e.SteadyFocus:IsAvailable()) then
-            if o(e.WailingArrow, nil, nil, not n) then
+            if o(e.WailingArrow, nil, nil, not i) then
                 a = 355589
                 return "wailing_arrow opener"
             end
@@ -263,7 +263,7 @@ local function B()
         end
 
         if e.SteadyShot:IsCastable() and (r > 2 or e.Volley:IsAvailable() and r == 2) then
-            if o(e.SteadyShot, nil, nil, not n) then
+            if o(e.SteadyShot, nil, nil, not i) then
                 a = 56641
                 return "steady_shot opener"
             end
@@ -275,7 +275,7 @@ local function B()
 end
 
 local function G()
-    if e.Berserking:IsReady() and i.Commons.Enabled.Racials and u() and (y < 13) then
+    if e.Berserking:IsReady() and n.Commons.Enabled.Racials and u() and (b < 13) then
         if o(e.Berserking, nil) then
             a = 137096
             return "berserking cds 2"
@@ -283,7 +283,7 @@ local function G()
 
     end
 
-    if e.BloodFury:IsReady() and i.Commons.Enabled.Racials and u() and (t:BuffUp(e.TrueshotBuff) or e.Trueshot:CooldownRemains() > 30 or y < 16) then
+    if e.BloodFury:IsReady() and n.Commons.Enabled.Racials and u() and (t:BuffUp(e.TrueshotBuff) or e.Trueshot:CooldownRemains() > 30 or b < 16) then
         if o(e.BloodFury, nil) then
             a = 20572
             return "blood_fury cds 4"
@@ -291,7 +291,7 @@ local function G()
 
     end
 
-    if e.AncestralCall:IsReady() and i.Commons.Enabled.Racials and u() and (t:BuffUp(e.TrueshotBuff) or e.Trueshot:CooldownRemains() > 30 or y < 16) then
+    if e.AncestralCall:IsReady() and n.Commons.Enabled.Racials and u() and (t:BuffUp(e.TrueshotBuff) or e.Trueshot:CooldownRemains() > 30 or b < 16) then
         if o(e.AncestralCall, nil) then
             a = 274738
             return "ancestral_call cds 6"
@@ -299,7 +299,7 @@ local function G()
 
     end
 
-    if e.Fireblood:IsReady() and i.Commons.Enabled.Racials and u() and (t:BuffUp(e.TrueshotBuff) or e.Trueshot:CooldownRemains() > 30 or y < 9) then
+    if e.Fireblood:IsReady() and n.Commons.Enabled.Racials and u() and (t:BuffUp(e.TrueshotBuff) or e.Trueshot:CooldownRemains() > 30 or b < 9) then
         if o(e.Fireblood, nil) then
             a = 273104
             return "fireblood cds 8"
@@ -307,7 +307,7 @@ local function G()
 
     end
 
-    if e.LightsJudgment:IsReady() and i.Commons.Enabled.Racials and u() and (t:BuffDown(e.TrueshotBuff)) then
+    if e.LightsJudgment:IsReady() and n.Commons.Enabled.Racials and u() and (t:BuffDown(e.TrueshotBuff)) then
         if o(e.LightsJudgment, nil, nil, not h:IsSpellInRange(e.LightsJudgment)) then
             a = 255647
             return "lights_judgment cds 10"
@@ -315,11 +315,11 @@ local function G()
 
     end
 
-    if i.Commons.Enabled.Potions and u() and i.Commons.Enabled.Potions and R and ((((t:BuffUp(e.TrueshotBuff) and (t:BloodlustUp() or h:HealthPercentage() < 20)) or y < 26) and not s.GUISettings.General.HoldPotforBL) or (s.GUISettings.General.HoldPotforBL and t:BloodlustUp())) then
+    if n.Commons.Enabled.Potions and u() and R and (((t:BuffUp(e.TrueshotBuff)) and not s.GUISettings.General.HoldPotforBL) or (s.GUISettings.General.HoldPotforBL and t:BloodlustUp())) then
         local e = m.PotionSelected()
         if e and e:IsReady() then
             if o(e, nil, nil) then
-                a = 37
+                a = 12
                 return "potion cds 12"
             end
 
@@ -331,7 +331,7 @@ end
 
 local function P()
     if e.SteadyShot:IsCastable() and (e.SteadyFocus:IsAvailable() and ((l.Count == 1 and t:BuffRemains(e.SteadyFocusBuff) < 5) or (t:BuffDown(e.SteadyFocusBuff) and t:BuffDown(e.TrueshotBuff) and l.Count ~= 2))) then
-        if o(e.SteadyShot, nil, nil, not n) then
+        if o(e.SteadyShot, nil, nil, not i) then
             a = 56641
             return "steady_shot st 2"
         end
@@ -339,7 +339,7 @@ local function P()
     end
 
     if e.KillShot:IsReady() then
-        if o(e.KillShot, nil, nil, not n) then
+        if o(e.KillShot, nil, nil, not i) then
             a = 53351
             return "KillShot st 4"
         end
@@ -347,14 +347,14 @@ local function P()
     end
 
     if e.SerpentSting:IsReady() and (t:BuffDown(e.TrueshotBuff)) then
-        if m.CastTargetIf(e.SerpentSting, b, "min", c, K, not n) then
+        if m.CastTargetIf(e.SerpentSting, v, "min", c, K, not i) then
             return "serpent_sting st 8"
         end
 
     end
 
     if e.ExplosiveShot:IsReady() then
-        if o(e.ExplosiveShot, nil, nil, not n) then
+        if o(e.ExplosiveShot, nil, nil, not i) then
             a = 212431
             return "explosive_shot 10"
         end
@@ -378,7 +378,7 @@ local function P()
     end
 
     if e.DeathChakram:IsReady() and A then
-        if o(e.DeathChakram, nil, nil, not n) then
+        if o(e.DeathChakram, nil, nil, not i) then
             a = 325028
             return "dark_chakram st 16"
         end
@@ -386,7 +386,7 @@ local function P()
     end
 
     if e.WailingArrow:IsReady() and u() and (r > 1) then
-        if o(e.WailingArrow, nil, nil, not n) then
+        if o(e.WailingArrow, nil, nil, not i) then
             a = 354831
             return "wailing_arrow st 18"
         end
@@ -394,7 +394,7 @@ local function P()
     end
 
     if e.Volley:IsReady() then
-        if o(e.Volley, nil, nil, not n) then
+        if o(e.Volley, nil, nil, not i) then
             a = 260243
             return "volley st 20 "
         end
@@ -402,7 +402,7 @@ local function P()
     end
 
     if e.RapidFire:IsCastable() and (e.SurgingShots:IsAvailable() or (t:BuffUp(e.DoubleTapBuff) and e.Streamline:IsAvailable() and h:HealthPercentage() < 70)) then
-        if o(e.RapidFire, nil, nil, not n) then
+        if o(e.RapidFire, nil, nil, not i) then
             a = 257044
             return "rapid_fire st 22"
         end
@@ -418,7 +418,7 @@ local function P()
     end
 
     if e.MultiShot:IsReady() and (t:BuffUp(e.BombardmentBuff) and (not f()) and r > 1 or e.Salvo:IsAvailable() and not e.Volley:IsAvailable()) then
-        if o(e.MultiShot, nil, nil, not n) then
+        if o(e.MultiShot, nil, nil, not i) then
             a = 257620
             return "MultiShot trickshots 26"
         end
@@ -426,21 +426,21 @@ local function P()
     end
 
     if e.AimedShot:IsReady() then
-        if m.CastTargetIf(e.AimedShot, b, "min", x, F, not n) then
+        if m.CastTargetIf(e.AimedShot, v, "min", x, F, not i) then
             return "aimed_shot st 28"
         end
 
     end
 
     if e.AimedShot:IsReady() then
-        if m.CastTargetIf(e.AimedShot, b, "max", z, M, not n) then
+        if m.CastTargetIf(e.AimedShot, v, "max", z, M, not i) then
             return "aimed_shot st 30"
         end
 
     end
 
     if e.SteadyShot:IsCastable() and (e.SteadyFocus:IsAvailable() and t:BuffRemains(e.SteadyFocusBuff) < e.SteadyShot:ExecuteTime() * 2) and l.Count ~= 2 then
-        if o(e.SteadyShot, nil, nil, not n) then
+        if o(e.SteadyShot, nil, nil, not i) then
             a = 56641
             return "steady_shot st 32"
         end
@@ -448,7 +448,7 @@ local function P()
     end
 
     if e.RapidFire:IsCastable() then
-        if o(e.RapidFire, nil, nil, not n) then
+        if o(e.RapidFire, nil, nil, not i) then
             a = 257044
             return "rapid_fire st 34"
         end
@@ -456,7 +456,7 @@ local function P()
     end
 
     if e.WailingArrow:IsReady() and (t:BuffDown(e.TrueshotBuff)) then
-        if o(e.WailingArrow, nil, nil, not n) then
+        if o(e.WailingArrow, nil, nil, not i) then
             a = 354831
             return "wailing_arrow st 36"
         end
@@ -464,7 +464,7 @@ local function P()
     end
 
     if e.ChimaeraShot:IsReady() and (t:BuffUp(e.PreciseShotsBuff) or t:FocusPredicted() > e.ChimaeraShot:Cost() + e.AimedShot:Cost()) then
-        if o(e.ChimaeraShot, nil, nil, not n) then
+        if o(e.ChimaeraShot, nil, nil, not i) then
             a = 342049
             return "chimaera_shot st 38"
         end
@@ -472,14 +472,14 @@ local function P()
     end
 
     if e.ArcaneShot:IsReady() and (t:BuffUp(e.PreciseShotsBuff) or t:FocusPredicted() > e.ArcaneShot:Cost() + e.AimedShot:Cost()) then
-        if o(e.ArcaneShot, nil, nil, not n) then
+        if o(e.ArcaneShot, nil, nil, not i) then
             a = 185358
             return "arcane_shot st 40"
         end
 
     end
 
-    if e.BagofTricks:IsReady() and u() and i.Commons.Enabled.Racials and t:BuffDown(e.Trueshot) then
+    if e.BagofTricks:IsReady() and u() and n.Commons.Enabled.Racials and t:BuffDown(e.Trueshot) then
         if o(e.BagofTricks, nil, nil, not h:IsSpellInRange(e.BagofTricks)) then
             a = 312411
             return "bag_of_tricks st 42"
@@ -488,7 +488,7 @@ local function P()
     end
 
     if e.SteadyShot:IsCastable() then
-        if o(e.SteadyShot, nil, nil, not n) then
+        if o(e.SteadyShot, nil, nil, not i) then
             a = 56641
             return "steady_shot st 44"
         end
@@ -499,7 +499,7 @@ end
 
 local function M()
     if e.SteadyShot:IsCastable() and (e.SteadyFocus:IsAvailable() and l.Count == 1 and t:BuffRemains(e.SteadyFocusBuff) < 8) then
-        if o(e.SteadyShot, nil, nil, not n) then
+        if o(e.SteadyShot, nil, nil, not i) then
             a = 56641
             return "steady_shot trickshots 2"
         end
@@ -507,7 +507,7 @@ local function M()
     end
 
     if e.KillShot:IsReady() and (t:BuffUp(e.RazorFragmentsBuff)) then
-        if o(e.KillShot, nil, nil, not n) then
+        if o(e.KillShot, nil, nil, not i) then
             a = 53351
             return "KillShot Razor trickshots 2"
         end
@@ -523,7 +523,7 @@ local function M()
     end
 
     if e.ExplosiveShot:IsReady() then
-        if o(e.ExplosiveShot, nil, nil, not n) then
+        if o(e.ExplosiveShot, nil, nil, not i) then
             a = 212431
             return "explosive_shot trickshots 10"
         end
@@ -531,7 +531,7 @@ local function M()
     end
 
     if e.FlayedShot:IsReady() and PouchofRazorFragmentsEquiped then
-        if o(e.FlayedShot, nil, nil, not n) then
+        if o(e.FlayedShot, nil, nil, not i) then
             a = 324149
             return "Flayed Razor trickshots 2"
         end
@@ -571,7 +571,7 @@ local function M()
     end
 
     if e.WailingArrow:IsReady() then
-        if o(e.WailingArrow, nil, nil, not n) then
+        if o(e.WailingArrow, nil, nil, not i) then
             a = 354831
             return "wailing_arrow trickshots 13"
         end
@@ -579,14 +579,14 @@ local function M()
     end
 
     if e.SerpentSting:IsReady() then
-        if m.CastTargetIf(e.SerpentSting, b, "min", c, J, not n) then
+        if m.CastTargetIf(e.SerpentSting, v, "min", c, J, not i) then
             return "serpent_sting trickshots 16"
         end
 
     end
 
     if e.Barrage:IsReady() and (r > 7) then
-        if o(e.Barrage, nil, nil, not n) then
+        if o(e.Barrage, nil, nil, not i) then
             a = 120360
             return "barrage trickshots 18"
         end
@@ -602,7 +602,7 @@ local function M()
     end
 
     if e.Trueshot:IsReady() and u() then
-        if o(e.Trueshot, nil, nil, not n) then
+        if o(e.Trueshot, nil, nil, not i) then
             a = 288613
             return "trueshot trickshots 20"
         end
@@ -610,7 +610,7 @@ local function M()
     end
 
     if e.RapidFire:IsCastable() and (t:BuffRemains(e.TrickShotsBuff) >= e.RapidFire:ExecuteTime() and (e.SurgingShots:IsAvailable() or (t:BuffUp(e.DoubleTapBuff) and e.Streamline:IsAvailable() and h:HealthPercentage() < 70))) then
-        if o(e.RapidFire, nil, nil, not n) then
+        if o(e.RapidFire, nil, nil, not i) then
             a = 257044
             return "rapid_fire trickshots 22"
         end
@@ -618,21 +618,21 @@ local function M()
     end
 
     if e.AimedShot:IsReady() then
-        if m.CastTargetIf(e.AimedShot, b, "min", x, V, not n) then
+        if m.CastTargetIf(e.AimedShot, v, "min", x, V, not i) then
             return "aimed_shot trickshots 26"
         end
 
     end
 
     if e.AimedShot:IsReady() then
-        if m.CastTargetIf(e.AimedShot, b, "max", z, Y, not n) then
+        if m.CastTargetIf(e.AimedShot, v, "max", z, Y, not i) then
             return "aimed_shot trickshots 28"
         end
 
     end
 
     if e.RapidFire:IsCastable() and (t:BuffRemains(e.TrickShotsBuff) >= e.RapidFire:ExecuteTime()) then
-        if o(e.RapidFire, nil, nil, not n) then
+        if o(e.RapidFire, nil, nil, not i) then
             a = 257044
             return "rapid_fire trickshots 28"
         end
@@ -640,7 +640,7 @@ local function M()
     end
 
     if e.ChimaeraShot:IsReady() and (t:BuffUp(e.TrickShotsBuff) and t:BuffUp(e.PreciseShotsBuff) and t:FocusPredicted() > e.ChimaeraShot:Cost() + e.AimedShot:Cost() and r < 4) then
-        if o(e.ChimaeraShot, nil, nil, not n) then
+        if o(e.ChimaeraShot, nil, nil, not i) then
             a = 342049
             return "chimaera_shot trickshots 32"
         end
@@ -648,7 +648,7 @@ local function M()
     end
 
     if e.MultiShot:IsReady() and ((not f()) or ((t:BuffUp(e.PreciseShotsBuff) or t:BuffStack(e.BulletstormBuff) == 10) and t:FocusPredicted() > e.MultiShot:Cost() + e.AimedShot:Cost())) then
-        if o(e.MultiShot, nil, nil, not n) then
+        if o(e.MultiShot, nil, nil, not i) then
             a = 257620
             return "MultiShot trickshots 30"
         end
@@ -656,14 +656,14 @@ local function M()
     end
 
     if e.SerpentSting:IsReady() then
-        if m.CastTargetIf(e.SerpentSting, b, "min", c, W, not n) then
+        if m.CastTargetIf(e.SerpentSting, v, "min", c, W, not i) then
             return "serpent_sting trickshots 36"
         end
 
     end
 
     if e.KillShot:IsReady() and (t:FocusPredicted() > e.KillShot:Cost() + e.AimedShot:Cost()) then
-        if o(e.KillShot, nil, nil, not n) then
+        if o(e.KillShot, nil, nil, not i) then
             a = 53351
             return "kill_shot trickshots 35"
         end
@@ -671,14 +671,14 @@ local function M()
     end
 
     if e.MultiShot:IsReady() and (t:FocusPredicted() > e.MultiShot:Cost() + e.AimedShot:Cost()) then
-        if o(e.MultiShot, nil, nil, not n) then
+        if o(e.MultiShot, nil, nil, not i) then
             a = 257620
             return "MultiShot trickshots 42"
         end
 
     end
 
-    if e.BagofTricks:IsReady() and u() and i.Commons.Enabled.Racials and t:BuffDown(e.Trueshot) then
+    if e.BagofTricks:IsReady() and u() and n.Commons.Enabled.Racials and t:BuffDown(e.Trueshot) then
         if o(e.BagofTricks, nil, nil, not h:IsSpellInRange(e.BagofTricks)) then
             a = 312411
             return "bag_of_tricks st 42"
@@ -687,7 +687,7 @@ local function M()
     end
 
     if e.SteadyShot:IsCastable() then
-        if o(e.SteadyShot, nil, nil, not n) then
+        if o(e.SteadyShot, nil, nil, not i) then
             a = 56641
             return "steady_shot trickshots 46"
         end
@@ -701,7 +701,7 @@ local function l()
     A = HeroRotationCharDB.Toggles[4]
     Q = HeroRotationCharDB.Toggles[5]
     g = HeroRotationCharDB.Toggles[12]
-    R = HeroRotationCharDB.Toggles[15]
+    R = not HeroRotationCharDB.Toggles[15]
     U = HeroRotationCharDB.Toggles[60]
     N = HeroRotationCharDB.Toggles[120]
     H = HeroRotationCharDB.Toggles[121]
@@ -713,21 +713,21 @@ local function l()
     te = HeroRotationCharDB.Toggles[17]
     j = GetInventoryItemID("player", 13)
     q = GetInventoryItemID("player", 14)
-                if not i.Commons.Enabled.TopTrinket and not i.Commons.Enabled.BotTrinket then
+                if not n.Commons.Enabled.TopTrinket and not n.Commons.Enabled.BotTrinket then
         k = { j, q }
-    elseif not i.Commons.Enabled.TopTrinket and i.Commons.Enabled.BotTrinket then
+    elseif not n.Commons.Enabled.TopTrinket and n.Commons.Enabled.BotTrinket then
         k = { j }
-    elseif not i.Commons.Enabled.BotTrinket and i.Commons.Enabled.TopTrinket then
+    elseif not n.Commons.Enabled.BotTrinket and n.Commons.Enabled.TopTrinket then
         k = { q }
-    elseif not i.Commons.Enabled.BotTrinket and not i.Commons.Enabled.TopTrinket then
+    elseif not n.Commons.Enabled.BotTrinket and not n.Commons.Enabled.TopTrinket then
         k = {  }
     end
 
 end
 
 local function u()
-    n = h:IsSpellInRange(e.AimedShot)
-    b = t:GetEnemiesInRange(e.AimedShot.MaximumRange)
+    i = h:IsSpellInRange(e.AimedShot)
+    v = t:GetEnemiesInRange(e.AimedShot.MaximumRange)
     I = h:GetEnemiesInSplashRange(10)
     j, C = GetInventoryItemID("player", 13)
     q, C = GetInventoryItemID("player", 14)
@@ -742,10 +742,10 @@ local function u()
     end
 
     if m.TargetIsValid() or t:AffectingCombat() then
-        O = p.BossFightRemains(nil, true)
-        y = O
-        if y == 11111 then
-            y = p.FightRemains(I, false)
+        O = y.BossFightRemains(nil, true)
+        b = O
+        if b == 11111 then
+            b = y.FightRemains(I, false)
         end
 
     end
@@ -826,7 +826,7 @@ local function u()
         s.Print("Tar Trap Queue is now " .. (HeroRotationCharDB.Toggles[124] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
 
-    if e.Exhilaration:IsCastable() and t:HealthPercentage() <= i.Commons.ExhilarationHP then
+    if e.Exhilaration:IsCastable() and t:HealthPercentage() <= n.Commons.ExhilarationHP then
         if o(e.Exhilaration, nil) then
             a = 109304
             return "Exhilaration"
@@ -834,31 +834,31 @@ local function u()
 
     end
 
-    if t:HealthPercentage() < i.Commons.HealthstoneHP and v.Healthstone:IsReady() and v.Healthstone:CooldownRemains() <= 0 then
-        if s.Cast(v.Healthstone, nil) then
+    if t:HealthPercentage() < n.Commons.HealthstoneHP and p.Healthstone:IsReady() and p.Healthstone:CooldownRemains() <= 0 then
+        if s.Cast(p.Healthstone, nil) then
             a = 40
             return "Healthstone HP"
         end
 
     end
 
-    if t:HealthPercentage() < i.Commons.HealPotHP and v.CosmicHealPot:IsReady() and v.CosmicHealPot:CooldownRemains() <= 0 then
-        if s.Cast(v.CosmicHealPot, nil) then
+    if t:HealthPercentage() < n.Commons.HealPotHP and p.CosmicHealPot:IsReady() and p.CosmicHealPot:CooldownRemains() <= 0 then
+        if s.Cast(p.CosmicHealPot, nil) then
             a = 45
             return "CosmicHealPot HP"
         end
 
     end
 
-    if t:HealthPercentage() < i.Commons.HealPotHP and v.HealPot:IsReady() and v.HealPot:CooldownRemains() <= 0 then
-        if s.Cast(v.HealPot, nil) then
+    if t:HealthPercentage() < n.Commons.HealPotHP and p.HealPot:IsReady() and p.HealPot:CooldownRemains() <= 0 then
+        if s.Cast(p.HealPot, nil) then
             a = 41
             return "HealPot HP"
         end
 
     end
 
-    if e.AspectoftheTurtle:IsCastable() and t:HealthPercentage() <= i.Commons.TurtleHP then
+    if e.AspectoftheTurtle:IsCastable() and t:HealthPercentage() <= n.Commons.TurtleHP then
         if o(e.AspectoftheTurtle, nil) then
             a = 186265
             return "AspectoftheTurtle"
@@ -920,9 +920,9 @@ local function u()
 
     if m.TargetIsValid() and t:AffectingCombat() and (h:AffectingCombat() or h:IsDummy() or h:NPCID() == 153285) then
         ae()
-        local n = t:GetUseableTrinkets(k, 13)
-        if n and ((not n:TrinketHasUseBuff()) or t:BuffUp(e.TrueshotBuff)) then
-            if o(n, nil, nil) then
+        local i = t:GetUseableTrinkets(k, 13)
+        if i and ((not i:TrinketHasUseBuff()) or t:BuffUp(e.TrueshotBuff)) then
+            if o(i, nil, nil) then
                 a = 24
                 return "trinket1 main 2"
             end
@@ -930,7 +930,7 @@ local function u()
         end
 
         local h = t:GetUseableTrinkets(k, 14)
-        if h and i.Commons.Enabled.BottomTrinket and ((not h:TrinketHasUseBuff()) or t:BuffUp(e.TrueshotBuff)) then
+        if h and n.Commons.Enabled.BottomTrinket and ((not h:TrinketHasUseBuff()) or t:BuffUp(e.TrueshotBuff)) then
             if o(h, nil, nil) then
                 a = 25
                 return "trinket2 main 4"
@@ -938,13 +938,13 @@ local function u()
 
         end
 
-        if n or h then
-            local e = n or h
+        if i or h then
+            local e = i or h
             if s.Cast(e, nil, nil) then
-                                if e:ID() == j and i.Commons.Enabled.TopTrinket then
+                                if e:ID() == j and n.Commons.Enabled.TopTrinket then
                     a = 24
                     return "Generic use_items for " .. e:Name()
-                elseif e:ID() == q and i.Commons.Enabled.BottomTrinket then
+                elseif e:ID() == q and n.Commons.Enabled.BottomTrinket then
                     a = 25
                     return "Generic use_items for " .. e:Name()
                 end
