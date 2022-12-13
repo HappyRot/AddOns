@@ -368,10 +368,10 @@ local function H()
 
     end
 
-    if i.Commons.Enabled.Potions and f() and i.Commons.Enabled.Potions and oe and (((t:BloodlustUp() or v < 30 or (t:BuffUp(e.SymbolsofDeath) and (t:BuffUp(e.ShadowBlades) or e.ShadowBlades:CooldownRemains() <= 10))) and not a.GUISettings.General.HoldPotforBL) or (a.GUISettings.General.HoldPotforBL and t:BloodlustUp())) then
+    if i.Commons.Enabled.Potions and f() and oe and (((t:BloodlustUp() or v < 30 or (t:BuffUp(e.SymbolsofDeath) and (t:BuffUp(e.ShadowBlades) or e.ShadowBlades:CooldownRemains() <= 10))) and not a.GUISettings.General.HoldPotforBL) or (a.GUISettings.General.HoldPotforBL and t:BloodlustUp())) then
         local e = q.PotionSelected()
         if e and e:IsReady() then
-            if Cast(e, nil, nil) then
+            if a.Cast(e, nil, nil) then
                 o = 37
                 return "potion cooldowns 2"
             end
