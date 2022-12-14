@@ -14,8 +14,8 @@ local X = s.AoEON
 local u = s.CDsON
 local o = s.Cast
 local e = s.CastSuggested
-local A = HeroRotationCharDB.Toggles[4]
-local Q = HeroRotationCharDB.Toggles[5]
+local Q = HeroRotationCharDB.Toggles[4]
+local O = HeroRotationCharDB.Toggles[5]
 local D = HeroRotationCharDB.Toggles[6]
 local R = not HeroRotationCharDB.Toggles[15]
 local g = HeroRotationCharDB.Toggles[12]
@@ -50,7 +50,7 @@ end
 local a = (x:IsEquippedAndReady() or x:CooldownRemains() > 0)
 local a = (z:IsEquippedAndReady() or z:CooldownRemains() > 0)
 local l = { LastCast = 0, Count = 0 }
-local O = 11111
+local A = 11111
 local b = 11111
 local a = 0
 local d = 0
@@ -68,7 +68,7 @@ y:RegisterForEvent(function()
 end, "PLAYER_EQUIPMENT_CHANGED")
 y:RegisterForEvent(function()
     l = { LastCast = 0, Count = 0 }
-    O = 11111
+    A = 11111
     b = 11111
 end, "PLAYER_REGEN_ENABLED")
 y:RegisterForEvent(function()
@@ -377,7 +377,7 @@ local function P()
 
     end
 
-    if e.DeathChakram:IsReady() and A then
+    if e.DeathChakram:IsReady() and O then
         if o(e.DeathChakram, nil, nil, not i) then
             a = 325028
             return "dark_chakram st 16"
@@ -554,7 +554,7 @@ local function M()
 
     end
 
-    if e.DeathChakram:IsReady() and A then
+    if e.DeathChakram:IsReady() and O then
         if o(e.DeathChakram, nil, nil) then
             a = 325028
             return "dark_chakram trickshots 26"
@@ -698,8 +698,8 @@ end
 
 local function l()
     D = HeroRotationCharDB.Toggles[6]
-    A = HeroRotationCharDB.Toggles[4]
-    Q = HeroRotationCharDB.Toggles[5]
+    Q = HeroRotationCharDB.Toggles[4]
+    O = HeroRotationCharDB.Toggles[5]
     g = HeroRotationCharDB.Toggles[12]
     R = not HeroRotationCharDB.Toggles[15]
     U = HeroRotationCharDB.Toggles[60]
@@ -742,8 +742,8 @@ local function u()
     end
 
     if m.TargetIsValid() or t:AffectingCombat() then
-        O = y.BossFightRemains(nil, true)
-        b = O
+        A = y.BossFightRemains(nil, true)
+        b = A
         if b == 11111 then
             b = y.FightRemains(I, false)
         end
