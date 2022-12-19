@@ -419,7 +419,7 @@ local function oe()
     end
 
     if e.TouchofDeath:IsReady() and not Y and t:IsInRange(8) and (e.InvokeXuenTheWhiteTiger:IsAvailable() and (l(e.TouchofDeath) and (d > 60 or (q and o:BuffUp(e.BonedustBrewBuff)) or ((e.InvokeXuenTheWhiteTiger:CooldownRemains() > d) and o:BuffUp(e.BonedustBrewBuff)) or d < 10))) then
-        if i(e.TouchofDeath, s.Windwalker.GCDasOffGCD.TouchOfDeath, nil, not t:IsInMeleeRange(5)) then
+        if i(e.TouchofDeath, nil, nil, not t:IsInMeleeRange(5)) then
             a = 322109
             return "touch_of_death cd_serenity 12"
         end
@@ -546,6 +546,7 @@ local function ae()
 
     if e.TouchofDeath:IsReady() and not Y and t:IsInRange(8) and ((e.InvokeXuenTheWhiteTiger:IsAvailable() and (l(e.TouchofDeath) and ((d > 60 or (o:BuffDown(e.StormEarthAndFireBuff) and q and o:BuffUp(e.BonedustBrewBuff)) or ((e.InvokeXuenTheWhiteTiger:CooldownRemains() > d) and o:BuffUp(e.BonedustBrewBuff)) or d < 10)))) or (not e.InvokeXuenTheWhiteTiger:IsAvailable() and (l(e.TouchofDeath) and ((d > 60 or (o:BuffDown(e.StormEarthAndFireBuff) and o:BuffUp(e.BonedustBrewBuff)) or d < 10))))) then
         if i(e.TouchofDeath, nil, nil, not t:IsInMeleeRange(5)) then
+            a = 322109
             return "touch_of_death cd_sef 14"
         end
 
@@ -738,6 +739,7 @@ local function K()
 
     if e.BlackoutKick:IsReady() and t:IsInRange(8) and (l(e.BlackoutKick)) then
         if i(e.BlackoutKick, nil, nil, not t:IsInMeleeRange(5)) then
+            a = 100784
             return "blackout_kick serenity 26"
         end
 
