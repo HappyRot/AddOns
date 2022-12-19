@@ -18,7 +18,7 @@ local D = HeroRotationCharDB.Toggles[6]
 local ae = HeroRotationCharDB.Toggles[12]
 local A = HeroRotationCharDB.Toggles[13]
 local I = HeroRotationCharDB.Toggles[14]
-local R = HeroRotationCharDB.Toggles[15]
+local R = not HeroRotationCharDB.Toggles[15]
 local N = HeroRotationCharDB.Toggles[16]
 local E = HeroRotationCharDB.Toggles[80]
 local O = HeroRotationCharDB.Toggles[81]
@@ -675,7 +675,7 @@ local function y()
     ae = HeroRotationCharDB.Toggles[12]
     A = HeroRotationCharDB.Toggles[13]
     I = HeroRotationCharDB.Toggles[14]
-    R = HeroRotationCharDB.Toggles[15]
+    R = not HeroRotationCharDB.Toggles[15]
     N = HeroRotationCharDB.Toggles[16]
     E = HeroRotationCharDB.Toggles[80]
     O = HeroRotationCharDB.Toggles[81]
@@ -953,8 +953,8 @@ local function f()
         if n.Commons.Enabled.Potions then
             local a = m.PotionSelected()
             if a then
-                local r = a:BuffDuration()
-                if a:IsReady() and h() and n.Commons.Enabled.Potions and R and ((t:BloodlustUp() and s.GUISettings.General.HoldPotforBL) or (not s.GUISettings.General.HoldPotforBL and t:BuffUp(e.DancingRuneWeaponBuff))) then
+                local n = a:BuffDuration()
+                if a:IsReady() and h() and R and ((t:BloodlustUp() and s.GUISettings.General.HoldPotforBL) or (not s.GUISettings.General.HoldPotforBL and t:BuffUp(e.DancingRuneWeaponBuff))) then
                     if i(a, nil) then
                         o = 50
                         return "potion cooldowns 2"
@@ -1032,7 +1032,7 @@ local function f()
 
         end
 
-        if e.RaiseDead:TimeSinceLastCast() <= 60 and Y.active() and (t:BuffDown(e.DancingRuneWeaponBuff) and (Y.remains() < 2 or a:TimeToDie() < t:GCD())) then
+        if e.SacrificialPact:IsReady() and e.RaiseDead:TimeSinceLastCast() <= 60 and Y.active() and (t:BuffDown(e.DancingRuneWeaponBuff) and (Y.remains() < 2 or a:TimeToDie() < t:GCD())) then
             if i(e.SacrificialPact, nil) then
                 o = 237574
                 return "sacrificial_pact covenants 8"
