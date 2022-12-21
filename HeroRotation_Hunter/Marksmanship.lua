@@ -888,27 +888,27 @@ local function u()
 
     end
 
-    L = { 228318, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 326450, 320703, 320012, 324085, 333241, 331510 }
-    if UnitExists("target") then
-        if UnitCanAttack("player", "target") and UnitAffectingCombat("target") and UnitIsDead("target") ~= true then
-            for t = 0, 40 do
-                local o, o, o, o, o, o, o, o, o, t = UnitBuff("target", t)
-                for i, o in pairs(L) do
-                    if o == t then
-                        if s.Cast(e.TranqualizingShot, nil) then
-                            a = 19801
-                            return "Tranq Enrage"
-                        end
+    -- L = { 228318, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 326450, 320703, 320012, 324085, 333241, 331510 }
+    -- if UnitExists("target") then
+        -- if UnitCanAttack("player", "target") and UnitAffectingCombat("target") and UnitIsDead("target") ~= true then
+            -- for t = 0, 40 do
+                -- local o, o, o, o, o, o, o, o, o, t = UnitBuff("target", t)
+                -- for i, o in pairs(L) do
+                    -- if o == t then
+                        -- if s.Cast(e.TranqualizingShot, nil) then
+                            -- a = 19801
+                            -- return "Tranq Enrage"
+                        -- end
 
-                    end
+                    -- end
 
-                end
+                -- end
 
-            end
+            -- end
 
-        end
+        -- end
 
-    end
+    -- end
 
     if not t:AffectingCombat() and m.TargetIsValid() and D then
         local e = B()
