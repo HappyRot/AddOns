@@ -59,7 +59,7 @@ local T
 local z
 local _, I
 local O, A
-local U
+local C
 local g
 local v
 local a, a
@@ -71,7 +71,7 @@ local y = q.GhoulTable
 local a = 0
 local s = 0
 local p, l
-local C, w
+local U, w
 local Q
 q:RegisterForEvent(function()
     j = t:GetEquipment()
@@ -399,8 +399,8 @@ local function J()
     if n.Commons.Enabled.Potions then
         local s = d.PotionSelected()
         if s then
-            local o = s:BuffDuration()
-            if s:IsReady() and h() and n.Commons.Enabled.Potions and B and ((t:BloodlustUp() and r.GUISettings.General.HoldPotforBL) or (not r.GUISettings.General.HoldPotforBL and ((y:gargactive() and o >= y:gargremains()) or ((not e.SummonGargoyle:IsAvailable() or e.SummonGargoyle:CooldownRemains() > 60) and u:BuffUp(e.DarkTransformation) and o >= u:BuffRemains(e.DarkTransformation)) or (O and A <= o) or (_ and I <= o)) or m <= o)) then
+            local o = 30
+            if s:IsReady() and h() and n.Commons.Enabled.Potions and B and ((t:BloodlustUp() and r.GUISettings.General.HoldPotforBL) or (not r.GUISettings.General.HoldPotforBL and (((o >= y:gargremains() and y:gargactive()) or (((not e.SummonGargoyle:IsAvailable()) or e.SummonGargoyle:CooldownRemains() > 60) and ((u:BuffUp(e.DarkTransformation) and o >= u:BuffRemains(e.DarkTransformation)) or (O and A <= o) or (_ and I <= o))) or m <= o)))) then
                 if i(s, nil) then
                     a = 50
                     return "potion cooldowns 2"
@@ -421,7 +421,7 @@ local function J()
 
         end
 
-        if d.CastTargetIf(e.VileContagion, C, "max", j, oe, not o:IsSpellInRange(e.VileContagion), nil) then
+        if d.CastTargetIf(e.VileContagion, U, "max", j, oe, not o:IsSpellInRange(e.VileContagion), nil) then
             return "vile_contagion cooldowns 4"
         end
 
@@ -686,7 +686,7 @@ local function se()
 
     end
 
-    U = e.Apocalypse:CooldownRemains() or (not e.Apocalypse:IsAvailable() and (e.DarkTransformation:CooldownRemains() > 0 or e.SummonGargoyle:CooldownRemains() > 0))
+    C = e.Apocalypse:CooldownRemains() or (not e.Apocalypse:IsAvailable() and (e.DarkTransformation:CooldownRemains() > 0 or e.SummonGargoyle:CooldownRemains() > 0))
 end
 
 local function j()
@@ -721,7 +721,7 @@ end
 local function u()
     pe = not be()
     p = t:GetEnemiesInMeleeRange(8)
-    C = t:GetEnemiesInMeleeRange(10)
+    U = t:GetEnemiesInMeleeRange(10)
     te, ie = GetInventoryItemID("player", 13)
     ee, ie = GetInventoryItemID("player", 14)
     if S() then
@@ -732,7 +732,7 @@ local function u()
         w = 1
     end
 
-    Q = ge(C)
+    Q = ge(U)
     _ = e.Apocalypse:TimeSinceLastCast() <= 15
     I = (_) and 15 - e.Apocalypse:TimeSinceLastCast() or 0
     O = e.ArmyoftheDead:TimeSinceLastCast() <= 30
@@ -896,18 +896,10 @@ local function p()
 
             end
 
-            if t:HealthPercentage() < n.Commons.HealPotHP and b.CosmicHealPot:IsReady() and b.CosmicHealPot:CooldownRemains() <= 0 then
-                if i(b.CosmicHealPot, nil) then
-                    a = 48707
-                    return "CosmicHealPot HP"
-                end
-
-            end
-
-            if t:HealthPercentage() < n.Commons.HealPotHP and b.HealPot:IsReady() and b.HealPot:CooldownRemains() <= 0 then
-                if i(b.HealPot, nil) then
+            if t:HealthPercentage() < n.Commons.HealPotHP and ((b.RefreshingHealingPotion1:IsReady() and b.RefreshingHealingPotion1:CooldownRemains() <= 0) or (b.RefreshingHealingPotion2:IsReady() and b.RefreshingHealingPotion2:CooldownRemains() <= 0) or (b.RefreshingHealingPotion3:IsReady() and b.RefreshingHealingPotion3:CooldownRemains() <= 0)) then
+                if r.Cast(b.RefreshingHealingPotion1, nil) then
                     a = 41
-                    return "HealPot HP"
+                    return "RefreshingHealingPotion HP"
                 end
 
             end
@@ -962,7 +954,7 @@ local function p()
 
         end
 
-        U = l >= 3 or e.Apocalypse:CooldownRemains() > 0 or q.CombatTime() > 15 or not e.Apocalypse:IsAvailable()
+        C = l >= 3 or e.Apocalypse:CooldownRemains() > 0 or q.CombatTime() > 15 or not e.Apocalypse:IsAvailable()
         if e.Apocalypse:CooldownRemains() < 10 and f and k <= 4 then
             R = 10
         else
@@ -1023,7 +1015,7 @@ local function p()
 
         end
 
-        if not U then
+        if not C then
             local e = se()
             if e then
                 return e

@@ -23,7 +23,7 @@ if not t.DeathKnight then
     t.DeathKnight = {  }
 end
 
-t.DeathKnight.Commons = { PotionofSpectralStrength = t(171275), InscrutableQuantumDevice = t(179350, { 13, 14 }), OverwhelmingPowerCrystal = t(179342, { 13, 14 }), ScarsofFraternalStrife = t(188253, { 13, 14 }), TheFirstSigil = t(188271, { 13, 14 }), GaveloftheFirstArbiter = t(189862), Healthstone = t(5512), HealPot = t(171267), CosmicHealPot = t(187802), PhialofSerenity = t(177278) }
+t.DeathKnight.Commons = { PotionofSpectralStrength = t(171275), InscrutableQuantumDevice = t(179350, { 13, 14 }), OverwhelmingPowerCrystal = t(179342, { 13, 14 }), ScarsofFraternalStrife = t(188253, { 13, 14 }), TheFirstSigil = t(188271, { 13, 14 }), GaveloftheFirstArbiter = t(189862), Healthstone = t(5512), HealPot = t(171267), CosmicHealPot = t(187802), PhialofSerenity = t(177278), RefreshingHealingPotion1 = t(191378), RefreshingHealingPotion2 = t(191379), RefreshingHealingPotion3 = t(1911380) }
 t.DeathKnight.Blood = a(t.DeathKnight.Commons, {  })
 t.DeathKnight.Frost = a(t.DeathKnight.Commons, {  })
 t.DeathKnight.Unholy = a(t.DeathKnight.Commons, {  })
