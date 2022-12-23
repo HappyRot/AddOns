@@ -23,7 +23,7 @@ if not t.Monk then
     t.Monk = {  }
 end
 
-t.Monk.Commons = { Healthstone = t(5512) }
+t.Monk.Commons = { Healthstone = t(5512), RefreshingHealingPotion1 = t(191378), RefreshingHealingPotion2 = t(191379), RefreshingHealingPotion3 = t(1911380) }
 t.Monk.Windwalker = a(t.Monk.Commons, {  })
 t.Monk.Brewmaster = a(t.Monk.Commons, {  })
 t.Monk.Mistweaver = a(t.Monk.Commons, {  })
