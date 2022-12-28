@@ -265,7 +265,7 @@ local function H()
 
     end
 
-    if e.ColdBlood:IsReady() and g and (e.SecretTechnique:IsAvailable() and t:BuffUp(e.SecretTechnique)) then
+    if e.ColdBlood:IsReady() and g and (e.SecretTechnique:IsAvailable()) then
         if a.Cast(e.ColdBlood) then
             o = 382245
             return "Cast ColdBlood 2"
@@ -527,7 +527,7 @@ local function k()
         end
 
     end
-
+    
 end
 
 local function D()
