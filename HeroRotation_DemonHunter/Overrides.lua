@@ -1,33 +1,31 @@
-local e = HeroLib
-local t = HeroCache
-local t = e.Unit
-local i = t.Player
-local a = t.Pet
-local t = t.Target
-local t = e.Spell
-local a = e.Item
-local n = HeroRotation
-local o = t.DemonHunter.Havoc
-local a = t.DemonHunter.Vengeance
-local t
-t = e.AddCoreOverride("Spell.IsCastable", function(e, a, d, h, r, s)
-    local t = t(e, a, d, h, r, s)
-    if e == o.Metamorphosis then
-        local e = n.GUISettings.APL.DemonHunter.Havoc.HideMetaIfActive
-        return t and ((e and i:BuffDown(o.MetamorphosisBuff)) or not e)
+local a = HeroLib;
+local b = HeroCache;
+local c = a.Unit;
+local d = c.Player;
+local e = c.Pet;
+local f = c.Target;
+local g = a.Spell;
+local h = a.Item;
+local i = HeroRotation;
+local j = g.DemonHunter.Havoc;
+local k = g.DemonHunter.Vengeance;
+local IsInJailersTower = IsInJailersTower;
+local l;
+l = a.AddCoreOverride("Spell.IsCastable", function(self, m, n, o, p, q)
+    local r = l(self, m, n, o, p, q)
+    if self == j.Metamorphosis then
+        local s = i.GUISettings.APL.DemonHunter.Havoc.HideMetaIfActive;
+        return r and (s and d:BuffDown(j.MetamorphosisBuff) or not s)
     else
-        return t
+        return r
     end
-
 end, 577)
-local t
-t = e.AddCoreOverride("Spell.IsCastable", function(e, s, r, n, o, h)
-    local t = t(e, s, r, n, o, h)
-    if e == a.ImmolationAura and IsInJailersTower() then
-        return t and i:BuffDown(a.ImmolationAuraBuff)
+local t;
+t = a.AddCoreOverride("Spell.IsCastable", function(self, m, n, o, p, q)
+    local r = t(self, m, n, o, p, q)
+    if self == k.FieryBrand then
+        return r and f:DebuffDown(k.FieryBrandDebuff)
     else
-        return t
+        return r
     end
-
 end, 581)
-

@@ -1,1128 +1,1002 @@
-local e, e = ...
-local e = HeroDBC.DBC
-local x = HeroLib
-local e = HeroCache
-local _ = x.Unit
-local a = _.Player
-local t = _.Target
-local e = _.Pet
-local E = x.Spell
-local j = x.Item
-local s = HeroRotation
-local J = s.AoEON
-local me = s.CDsON
-local I = HeroRotationCharDB.Toggles[4]
-local Z = HeroRotationCharDB.Toggles[5]
-local ie = HeroRotationCharDB.Toggles[6]
-local W = HeroRotationCharDB.Toggles[12]
-local ne = not HeroRotationCharDB.Toggles[15]
-local m = HeroRotationCharDB.Toggles[40]
-local P = HeroRotationCharDB.Toggles[42]
-local B = HeroRotationCharDB.Toggles[43]
-local M = HeroRotationCharDB.Toggles[41]
-local C = HeroRotationCharDB.Toggles[45]
-local D = HeroRotationCharDB.Toggles[46]
-local F = HeroRotationCharDB.Toggles[47]
-local te = HeroRotationCharDB.Toggles[48]
-local ee = HeroRotationCharDB.Toggles[49]
-local re = HeroRotationCharDB.Toggles[44]
-local q = false
-local Y = false
-local k = false
-local v = false
-local X = GetInventoryItemID("player", 13)
-local oe = GetInventoryItemID("player", 14)
-local u = 0
-local i = s.Cast
-local e = s.CastSuggested
-local e = string.match
-local e = E.DemonHunter.Havoc
-local h = j.DemonHunter.Havoc
-local V = { h.CacheofAcquiredTreasures }
-local r = a:GetEquipment()
-local f = j(0)
-local c = j(0)
-if r[13] then
-    f = j(r[13])
+local a, b = ...
+local c = HeroDBC.DBC;
+local d = HeroLib;
+local e = HeroCache;
+local f = d.Unit;
+local g = f.Player;
+local h = f.Target;
+local i = f.Pet;
+local j = d.Spell;
+local k = d.Item;
+local l = HeroRotation;
+local m = l.AoEON;
+local n = l.CDsON;
+local o = HeroRotationCharDB.Toggles[4]
+local p = HeroRotationCharDB.Toggles[5]
+local q = HeroRotationCharDB.Toggles[6]
+local r = HeroRotationCharDB.Toggles[12]
+local s = not HeroRotationCharDB.Toggles[15]
+local t = HeroRotationCharDB.Toggles[40]
+local u = HeroRotationCharDB.Toggles[42]
+local v = HeroRotationCharDB.Toggles[43]
+local w = HeroRotationCharDB.Toggles[41]
+local x = HeroRotationCharDB.Toggles[45]
+local y = HeroRotationCharDB.Toggles[46]
+local z = HeroRotationCharDB.Toggles[47]
+local A = HeroRotationCharDB.Toggles[48]
+local B = HeroRotationCharDB.Toggles[49]
+local C = HeroRotationCharDB.Toggles[44]
+local D = false;
+local E = false;
+local F = false;
+local G = false;
+local H = GetInventoryItemID("player", 13)
+local I = GetInventoryItemID("player", 14)
+local J = 0;
+local K = l.Cast;
+local L = l.CastSuggested;
+local M = string.match;
+local N = j.DemonHunter.Havoc;
+local O = k.DemonHunter.Havoc;
+local P = {O.CacheofAcquiredTreasures}
+local R = g:GetEquipment()
+local S = k(0)
+local T = k(0)
+if R[13] then
+    S = k(R[13])
 end
-
-if r[14] then
-    c = j(r[14])
+if R[14] then
+    T = k(R[14])
 end
-
-local o
-local z, se
-local d, U
-local L = a:HasLegendaryEquipped(20)
-local ae = a:HasLegendaryEquipped(23)
-local w = a:HasLegendaryEquipped(25)
-local O = a:HasLegendaryEquipped(236) or (a:HasUnity() and e.SinfulBrand:IsAvailable())
-local T = s.Commons.Everyone
-local n = { General = s.GUISettings.General, Commons = s.GUISettings.APL.DemonHunter.Commons, Havoc = s.GUISettings.APL.DemonHunter.Havoc }
-local o = { { e.FelEruption, "Cast Fel Eruption (Interrupt)", function()
+local U;
+local V, W;
+local X, Y;
+local Z = g:HasLegendaryEquipped(20)
+local _ = g:HasLegendaryEquipped(23)
+local a0 = g:HasLegendaryEquipped(25)
+local a1 = g:HasLegendaryEquipped(236) or g:HasUnity() and N.SinfulBrand:IsAvailable()
+local a2 = l.Commons.Everyone;
+local a3 = {
+    General = l.GUISettings.General,
+    Commons = l.GUISettings.APL.DemonHunter.Commons,
+    Havoc = l.GUISettings.APL.DemonHunter.Havoc
+}
+local a4 = {{N.FelEruption, "Cast Fel Eruption (Interrupt)", function()
     return true
-end }, { e.ChaosNova, "Cast Chaos Nova (Interrupt)", function()
+end}, {N.ChaosNova, "Cast Chaos Nova (Interrupt)", function()
     return true
-end } }
-local o = 0
-local l = 0
-local K = false
-local S = false
-local y = false
-local A = false
-local R = false
-local H = false
-local b = false
-local N = false
-local g = 0
-local G = false
-local de = 11111
-local p = 11111
-local he = a:CovenantID()
-x:RegisterForEvent(function()
-    he = a:CovenantID()
+end}}
+local a5 = 0;
+local a6 = 0;
+local a7 = false;
+local a8 = false;
+local a9 = false;
+local aa = false;
+local ab = false;
+local ac = false;
+local ad = false;
+local ae = false;
+local af = 0;
+local ag = false;
+local ah = 11111;
+local ai = 11111;
+local aj = g:CovenantID()
+d:RegisterForEvent(function()
+    aj = g:CovenantID()
 end, "COVENANT_CHOSEN")
-x:RegisterForEvent(function()
-    S = false
-    y = false
-    A = false
-    R = false
-    H = false
-    b = false
-    N = false
-    de = 11111
-    p = 11111
+d:RegisterForEvent(function()
+    a8 = false;
+    a9 = false;
+    aa = false;
+    ab = false;
+    ac = false;
+    ad = false;
+    ae = false;
+    ah = 11111;
+    ai = 11111
 end, "PLAYER_REGEN_ENABLED")
-x:RegisterForEvent(function()
-    r = a:GetEquipment()
-    f = j(0)
-    c = j(0)
-    if r[13] then
-        f = j(r[13])
+d:RegisterForEvent(function()
+    R = g:GetEquipment()
+    S = k(0)
+    T = k(0)
+    if R[13] then
+        S = k(R[13])
     end
-
-    if r[14] then
-        c = j(r[14])
+    if R[14] then
+        T = k(R[14])
     end
-
-    L = a:HasLegendaryEquipped(20)
-    ae = a:HasLegendaryEquipped(23)
-    w = a:HasLegendaryEquipped(25)
-    O = a:HasLegendaryEquipped(236) or (a:HasUnity() and e.SinfulBrand:IsAvailable())
+    Z = g:HasLegendaryEquipped(20)
+    _ = g:HasLegendaryEquipped(23)
+    a0 = g:HasLegendaryEquipped(25)
+    a1 = g:HasLegendaryEquipped(236) or g:HasUnity() and N.SinfulBrand:IsAvailable()
 end, "PLAYER_EQUIPMENT_CHANGED")
-local function j(e)
-    if e then
+local function ak(al)
+    if al then
         return 1
     else
         return 0
     end
-
 end
-
-local function r(e)
-    return e ~= 0
+local function am(al)
+    return al ~= 0
 end
-
-local function pe(e)
-    local t = 0
-    if e ~= nil then
-        for a in pairs(e) do
-            local e = e[a]
-            if e:NPCID() == 169421 or e:NPCID() == 169425 or e:NPCID() == 168932 or e:NPCID() == 169426 or e:NPCID() == 169429 or e:NPCID() == 169428 or e:NPCID() == 169430 then
-                t = t + 1
+local function an(ao)
+    local an = 0;
+    if ao ~= nil then
+        for ap in pairs(ao) do
+            local aq = ao[ap]
+            if aq:NPCID() == 169421 or aq:NPCID() == 169425 or aq:NPCID() == 168932 or aq:NPCID() == 169426 or
+                aq:NPCID() == 169429 or aq:NPCID() == 169428 or aq:NPCID() == 169430 then
+                an = an + 1
             end
-
         end
-
     end
-
-    return t
+    return an
 end
-
-local function r(o)
-        if e.Felblade:TimeSinceLastCast() <= a:GCD() then
+local function ar(as)
+    if N.Felblade:TimeSinceLastCast() <= g:GCD() then
         return true
-    elseif ((e.VengefulRetreat:TimeSinceLastCast() < 1. and e.VengefulRetreat:TimeSinceLastCast() > .25) or e.FelRush:TimeSinceLastCast() < 1.) then
+    elseif N.VengefulRetreat:TimeSinceLastCast() < 1.0 and N.VengefulRetreat:TimeSinceLastCast() > 0.25 or
+        N.FelRush:TimeSinceLastCast() < 1.0 then
         return false
     end
-
-    return o and t:IsInMeleeRange(o) or t:IsInMeleeRange(5)
+    return as and h:IsInMeleeRange(as) or h:IsInMeleeRange(5)
 end
-
-local function H()
+local function at()
     return true
 end
-
-local function ve(t)
-    local a = 0
-    if t ~= nil then
-        for o in pairs(t) do
-            local t = t[o]
-            if t:DebuffDown(e.BurningWoundDebuff) then
-                a = a + 1
+local function au(ao)
+    local av = 0;
+    if ao ~= nil then
+        for ap in pairs(ao) do
+            local aq = ao[ap]
+            if aq:DebuffDown(N.BurningWoundDebuff) then
+                av = av + 1
             end
-
         end
-
     end
-
-    return a
+    return av
 end
-
-local function ye(a)
-    local t = 0
-    if a ~= nil then
-        for o in pairs(a) do
-            local a = a[o]
-            if a:DebuffDown(e.SadisticGleeDebuff) then
-                t = t + 1
+local function aw(ao)
+    local ax = 0;
+    if ao ~= nil then
+        for ap in pairs(ao) do
+            local aq = ao[ap]
+            if aq:DebuffDown(N.SadisticGleeDebuff) then
+                ax = ax + 1
             end
-
         end
-
     end
-
-    return t
+    return ax
 end
-
-local function fe(t)
-    return t:DebuffRemains(e.BurningWoundDebuff)
+local function ay(az)
+    return az:DebuffRemains(N.BurningWoundDebuff)
 end
-
-local function le(a)
-                if (w and a:DebuffRemains(e.BurningWoundDebuff) < 4 and a:IsInRange(8) and a:GUID() == _("mouseover"):GUID()) then
-        if (e.DemonBlades:IsAvailable()) then
-            l = 1111
+local function aA(az)
+    if a0 and az:DebuffRemains(N.BurningWoundDebuff) < 4 and az:IsInRange(8) and az:GUID() == f("mouseover"):GUID() then
+        if N.DemonBlades:IsAvailable() then
+            a6 = 1111
         else
-            l = 111
+            a6 = 111
         end
-
         return true
-    elseif (w and a:DebuffRemains(e.BurningWoundDebuff) < 4 and a:IsInRange(8) and n.Havoc.TargetSwap == "AutoSwap" and a:GUID() ~= t:GUID() and not W) then
-        l = 999
+    elseif a0 and az:DebuffRemains(N.BurningWoundDebuff) < 4 and az:IsInRange(8) and a3.Havoc.TargetSwap == "AutoSwap" and
+        az:GUID() ~= h:GUID() and not r then
+        a6 = 999;
         return true
-    elseif (w and a:DebuffRemains(e.BurningWoundDebuff) < 4 and a:IsInRange(8) and a:GUID() == t:GUID() and t:IsInRange(8)) then
-        o = 162243
+    elseif a0 and az:DebuffRemains(N.BurningWoundDebuff) < 4 and az:IsInRange(8) and az:GUID() == h:GUID() and
+        h:IsInRange(8) then
+        a5 = 162243;
         return true
-    elseif (w and a:DebuffRemains(e.BurningWoundDebuff) < 4 and a:IsInRange(8)) then
+    elseif a0 and az:DebuffRemains(N.BurningWoundDebuff) < 4 and az:IsInRange(8) then
         return true
     end
-
 end
-
-local function de(t)
-    return t:DebuffRemains(e.BurningWoundDebuff)
+local function aB(az)
+    return az:DebuffRemains(N.BurningWoundDebuff)
 end
-
-local function ue(a)
-                if (w and a:DebuffRemains(e.BurningWoundDebuff) < 4 and a:IsInRange(8) and a:GUID() == _("mouseover"):GUID()) then
-        if (e.DemonBlades:IsAvailable()) then
-            l = 1111
+local function aC(az)
+    if a0 and az:DebuffRemains(N.BurningWoundDebuff) < 4 and az:IsInRange(8) and az:GUID() == f("mouseover"):GUID() then
+        if N.DemonBlades:IsAvailable() then
+            a6 = 1111
         else
-            l = 111
+            a6 = 111
         end
-
         return true
-    elseif (w and a:DebuffRemains(e.BurningWoundDebuff) < 4 and a:IsInRange(8) and n.Havoc.TargetSwap == "AutoSwap" and a:GUID() ~= t:GUID() and not W) then
-        l = 999
+    elseif a0 and az:DebuffRemains(N.BurningWoundDebuff) < 4 and az:IsInRange(8) and a3.Havoc.TargetSwap == "AutoSwap" and
+        az:GUID() ~= h:GUID() and not r then
+        a6 = 999;
         return true
-    elseif (w and a:DebuffRemains(e.BurningWoundDebuff) < 4 and a:IsInRange(8) and a:GUID() == t:GUID()) then
-        o = 162243
+    elseif a0 and az:DebuffRemains(N.BurningWoundDebuff) < 4 and az:IsInRange(8) and az:GUID() == h:GUID() then
+        a5 = 162243;
         return true
-    elseif (w and a:DebuffRemains(e.BurningWoundDebuff) < 4 and a:IsInRange(8)) then
+    elseif a0 and az:DebuffRemains(N.BurningWoundDebuff) < 4 and az:IsInRange(8) then
         return true
     end
-
 end
-
-local function ce()
-    if not t:IsInMeleeRange(5) and e.VengefulRetreat:TimeSinceLastCast() > .75 and not m and t:IsInRange(15) and e.FelRush:IsCastable() and q then
-        if i(e.FelRush, nil, nil, not t:IsInRange(15)) then
-            o = 195072
+local function aD()
+    if not h:IsInMeleeRange(5) and N.VengefulRetreat:TimeSinceLastCast() > 0.75 and not t and h:IsInRange(15) and
+        N.FelRush:IsCastable() and D then
+        if K(N.FelRush, nil, nil, not h:IsInRange(15)) then
+            a5 = 195072;
             return "fel_rush precombat 2"
         end
-
     end
-
-    if t:IsInMeleeRange(5) and (e.DemonsBite:IsCastable() or e.DemonBlades:IsAvailable()) then
-        if (e.DemonBlades:IsAvailable() and IsCurrentSpell(6603) ~= true) then
-            if i(e.DemonsBite, nil, nil, not t:IsInMeleeRange(5)) then
-                o = 1162243
+    if h:IsInMeleeRange(5) and (N.DemonsBite:IsCastable() or N.DemonBlades:IsAvailable()) then
+        if N.DemonBlades:IsAvailable() and IsCurrentSpell(6603) ~= true then
+            if K(N.DemonsBite, nil, nil, not h:IsInMeleeRange(5)) then
+                a5 = 1162243;
                 return "demons_bite or demon_blades precombat 4"
             end
-
         else
-            if i(e.DemonsBite, nil, nil, not t:IsInMeleeRange(5)) then
-                o = 162243
+            if K(N.DemonsBite, nil, nil, not h:IsInMeleeRange(5)) then
+                a5 = 162243;
                 return "demons_bite or demon_blades precombat 4"
             end
-
         end
-
     end
-
 end
-
-local function we()
-    if e.Metamorphosis:IsCastable() and k and t:IsInRange(8) and (not e.Demonic:IsAvailable() and ((e.EyeBeam:CooldownRemains() > 20 or not v) or p < 25)) then
-        if s.CastAnnotated(e.Metamorphosis, nil, "AWAY") then
-            o = 191427
+local function aE()
+    if N.Metamorphosis:IsCastable() and F and h:IsInRange(8) and
+        (not N.Demonic:IsAvailable() and (N.EyeBeam:CooldownRemains() > 20 or not G or ai < 25)) then
+        if l.CastAnnotated(N.Metamorphosis, nil, "AWAY") then
+            a5 = 191427;
             return "metamorphosis cooldown 2"
         end
-
     end
-
-    if e.Metamorphosis:IsCastable() and k and t:IsInRange(8) and (e.Demonic:IsAvailable() and ((e.EyeBeam:CooldownRemains() > 20 or not v) and ((not y) or (e.BladeDance:CooldownRemains() > a:GCD() + .5) or p < 25))) then
-        if i(e.Metamorphosis, nil, nil, not t:IsInRange(40)) then
-            o = 191427
+    if N.Metamorphosis:IsCastable() and F and h:IsInRange(8) and (N.Demonic:IsAvailable() and
+        ((N.EyeBeam:CooldownRemains() > 20 or not G) and
+            (not a9 or N.BladeDance:CooldownRemains() > g:GCD() + 0.5 or ai < 25))) then
+        if K(N.Metamorphosis, nil, nil, not h:IsInRange(40)) then
+            a5 = 191427;
             return "metamorphosis cooldown 4"
         end
-
     end
-
-    if (h.PotionofPhantomFire:IsReady() or h.PotionofSpectralAgility:IsReady()) and t:IsInMeleeRange(8) and s.CDsON() and ne and n.Commons.Enabled.Potions and (((a:BuffRemains(e.MetamorphosisBuff) > 25 or p < 60) and not s.GUISettings.General.HoldPotforBL) or (s.GUISettings.General.HoldPotforBL and a:BloodlustUp())) then
-        if i(h.PotionofPhantomFire, nil, nil) then
-            o = 4
+    if (O.PotionofPhantomFire:IsReady() or O.PotionofSpectralAgility:IsReady()) and h:IsInMeleeRange(8) and l.CDsON() and
+        s and a3.Commons.Enabled.Potions and
+        ((g:BuffRemains(N.MetamorphosisBuff) > 25 or ai < 60) and not l.GUISettings.General.HoldPotforBL or
+            l.GUISettings.General.HoldPotforBL and g:BloodlustUp()) then
+        if K(O.PotionofPhantomFire, nil, nil) then
+            a5 = 4;
             return "potion cooldown 6"
         end
-
     end
-
-    local r = a:GetUseableTrinkets(V)
-    if h.CacheofAcquiredTreasures:IsEquippedAndReady() and s.CDsON() and (a:BuffUp(e.AcquiredAxeBuff) and ((d >= 1) and (d < 3 or e.EyeBeam:CooldownRemains() < 20) or p < 25)) then
-        if i(h.CacheofAcquiredTreasures, nil, nil) then
-                        if h.CacheofAcquiredTreasures:ID() == GetInventoryItemID("player", 13) and (n.Commons.Enabled.TopTrinket) then
-                o = 20
+    local aF = g:GetUseableTrinkets(P)
+    if O.CacheofAcquiredTreasures:IsEquippedAndReady() and l.CDsON() and
+        (g:BuffUp(N.AcquiredAxeBuff) and (X >= 1 and (X < 3 or N.EyeBeam:CooldownRemains() < 20) or ai < 25)) then
+        if K(O.CacheofAcquiredTreasures, nil, nil) then
+            if O.CacheofAcquiredTreasures:ID() == GetInventoryItemID("player", 13) and a3.Commons.Enabled.TopTrinket then
+                a5 = 20;
                 return "cache_of_acquired_treasures cooldown 7"
-            elseif h.CacheofAcquiredTreasures:ID() == GetInventoryItemID("player", 14) and (n.Commons.Enabled.BottomTrinket) then
-                o = 25
+            elseif O.CacheofAcquiredTreasures:ID() == GetInventoryItemID("player", 14) and
+                a3.Commons.Enabled.BottomTrinket then
+                a5 = 25;
                 return "cache_of_acquired_treasures cooldown 7"
             end
-
         end
-
     end
-
-    if f:IsReady() and f:ID() ~= h.CacheofAcquiredTreasures:ID() and t:IsInRange(10) and (n.Commons.Enabled.TopTrinket) and s.CDsON() and (g == 1 and (a:BuffUp(e.MetamorphosisBuff) or ((not e.Demonic:IsAvailable()) and e.Metamorphosis:CooldownRemains() > ((p > f:Cooldown() / 2) and p or f:Cooldown() / 2)) or p <= 20) or (g == 2 and not c:IsReady()) or g == 0) then
-        if r then
-            if i(f, nil, nil) then
-                                if f:ID() == GetInventoryItemID("player", 13) and (n.Commons.Enabled.TopTrinket) then
-                    o = 20
+    if S:IsReady() and S:ID() ~= O.CacheofAcquiredTreasures:ID() and h:IsInRange(10) and a3.Commons.Enabled.TopTrinket and
+        l.CDsON() and
+        (af == 1 and
+            (g:BuffUp(N.MetamorphosisBuff) or not N.Demonic:IsAvailable() and N.Metamorphosis:CooldownRemains() >
+                (ai > S:Cooldown() / 2 and ai or S:Cooldown() / 2) or ai <= 20) or af == 2 and not T:IsReady() or af ==
+            0) then
+        if aF then
+            if K(S, nil, nil) then
+                if S:ID() == GetInventoryItemID("player", 13) and a3.Commons.Enabled.TopTrinket then
+                    a5 = 20;
                     return "top trinket 1"
-                elseif f:ID() == GetInventoryItemID("player", 14) and (n.Commons.Enabled.BottomTrinket) then
-                    o = 25
+                elseif S:ID() == GetInventoryItemID("player", 14) and a3.Commons.Enabled.BottomTrinket then
+                    a5 = 25;
                     return "bot trinket 1"
                 end
-
             end
-
         end
-
     end
-
-    if c:IsReady() and c:ID() ~= h.CacheofAcquiredTreasures:ID() and t:IsInRange(10) and (n.Commons.Enabled.BottomTrinket) and s.CDsON() and (g == 2 and (a:BuffUp(e.MetamorphosisBuff) or ((not e.Demonic:IsAvailable()) and e.Metamorphosis:CooldownRemains() > ((p > c:Cooldown() / 2) and p or c:Cooldown() / 2)) or p <= 20) or (g == 1 and not f:IsReady()) or g == 0) then
-        if r then
-            if i(c, nil, nil) then
-                                if c:ID() == GetInventoryItemID("player", 13) and (n.Commons.Enabled.TopTrinket) then
-                    o = 20
+    if T:IsReady() and T:ID() ~= O.CacheofAcquiredTreasures:ID() and h:IsInRange(10) and
+        a3.Commons.Enabled.BottomTrinket and l.CDsON() and
+        (af == 2 and
+            (g:BuffUp(N.MetamorphosisBuff) or not N.Demonic:IsAvailable() and N.Metamorphosis:CooldownRemains() >
+                (ai > T:Cooldown() / 2 and ai or T:Cooldown() / 2) or ai <= 20) or af == 1 and not S:IsReady() or af ==
+            0) then
+        if aF then
+            if K(T, nil, nil) then
+                if T:ID() == GetInventoryItemID("player", 13) and a3.Commons.Enabled.TopTrinket then
+                    a5 = 20;
                     return "top trinket 1"
-                elseif c:ID() == GetInventoryItemID("player", 14) and (n.Commons.Enabled.BottomTrinket) then
-                    o = 25
+                elseif T:ID() == GetInventoryItemID("player", 14) and a3.Commons.Enabled.BottomTrinket then
+                    a5 = 25;
                     return "bot trinket 1"
                 end
-
             end
-
         end
-
     end
-
-    if e.SinfulBrand:IsCastable() and t:IsInMeleeRange(30) and I and t:NPCID() ~= 185683 and t:NPCID() ~= 185685 and t:NPCID() ~= 185680 and (t:DebuffDown(e.SinfulBrandDebuff) and ((not O) or (e.EyeBeam:CooldownRemains() <= a:GCD() and a:Fury() >= 30)) and (e.Metamorphosis:CooldownDown() or d == 1 or not k)) then
-        if i(e.SinfulBrand, nil, nil, not t:IsSpellInRange(e.SinfulBrand)) then
-            o = 317009
+    if N.SinfulBrand:IsCastable() and h:IsInMeleeRange(30) and o and h:NPCID() ~= 185683 and h:NPCID() ~= 185685 and
+        h:NPCID() ~= 185680 and
+        (h:DebuffDown(N.SinfulBrandDebuff) and (not a1 or N.EyeBeam:CooldownRemains() <= g:GCD() and g:Fury() >= 30) and
+            (N.Metamorphosis:CooldownDown() or X == 1 or not F)) then
+        if K(N.SinfulBrand, nil, nil, not h:IsSpellInRange(N.SinfulBrand)) then
+            a5 = 317009;
             return "sinful_brand cooldown 12"
         end
-
     end
-
-    if e.TheHunt:IsReady() and not a:IsMoving() and (u == 0 or u > e.TheHunt:CastTime()) and t:IsInRange(40) and I and (((not b) and (not S)) or a:BuffUp(e.FuriousGazeBuff)) then
-        if i(e.TheHunt, nil, nil, not t:IsSpellInRange(e.TheHunt)) then
-            o = 323639
+    if N.TheHunt:IsReady() and not g:IsMoving() and (J == 0 or J > N.TheHunt:CastTime()) and h:IsInRange(40) and o and
+        (not ad and not a8 or g:BuffUp(N.FuriousGazeBuff)) then
+        if K(N.TheHunt, nil, nil, not h:IsSpellInRange(N.TheHunt)) then
+            a5 = 323639;
             return "the_hunt cooldown 14"
         end
-
     end
-
-    if e.TheHuntTalent:IsReady() and e.TheHuntTalent:IsAvailable() and not a:IsMoving() and (u == 0 or u > e.TheHunt:CastTime()) and t:IsInRange(40) and me() and (((not b) and (not S)) or a:BuffUp(e.FuriousGazeBuff)) then
-        if i(e.TheHunt, nil, nil, not t:IsSpellInRange(e.TheHunt)) then
-            o = 323639
+    if N.TheHuntTalent:IsReady() and N.TheHuntTalent:IsAvailable() and not g:IsMoving() and
+        (J == 0 or J > N.TheHunt:CastTime()) and h:IsInRange(40) and n() and
+        (not ad and not a8 or g:BuffUp(N.FuriousGazeBuff)) then
+        if K(N.TheHunt, nil, nil, not h:IsSpellInRange(N.TheHunt)) then
+            a5 = 323639;
             return "the_hunt cooldown 14"
         end
-
     end
-
-    if e.ElysianDecree:IsCastable() and t:IsInRange(30) and I and (d > 0) then
-        if i(e.ElysianDecree, nil, nil, not t:IsInRange(30)) then
-            o = 306830
+    if N.ElysianDecree:IsCastable() and h:IsInRange(30) and o and X > 0 then
+        if K(N.ElysianDecree, nil, nil, not h:IsInRange(30)) then
+            a5 = 306830;
             return "elysian_decree cooldown 16"
         end
-
     end
-
 end
-
-local function me()
-    if e.EyeBeam:IsReady() and not a:IsMoving() and (u == 0 or u > e.EyeBeam:ExecuteTime()) and v and not t:IsCasting(E(355806)) and t:IsInMeleeRange(10) and e.VengefulRetreat:TimeSinceLastCast() >= 1 and (O and d > 1 and t:DebuffUp(e.SinfulBrandDebuff) and t:DebuffRemains(e.SinfulBrandDebuff) <= a:GCD()) then
-        if i(e.EyeBeam, nil, nil, not t:IsInRange(20)) then
-            o = 198013
+local function aG()
+    if N.EyeBeam:IsReady() and not g:IsMoving() and (J == 0 or J > N.EyeBeam:ExecuteTime()) and G and
+        not h:IsCasting(j(355806)) and h:IsInMeleeRange(10) and N.VengefulRetreat:TimeSinceLastCast() >= 1 and
+        (a1 and X > 1 and h:DebuffUp(N.SinfulBrandDebuff) and h:DebuffRemains(N.SinfulBrandDebuff) <= g:GCD()) then
+        if K(N.EyeBeam, nil, nil, not h:IsInRange(20)) then
+            a5 = 198013;
             return "eye_beam demonic 1"
         end
-
     end
-
-    if e.FelRush:IsCastable() and t:IsInRange(15) and e.VengefulRetreat:TimeSinceLastCast() > .75 and not m and (e.UnboundChaos:IsAvailable() and a:BuffUp(e.UnboundChaosBuff) and e.FelRush:Charges() == 2) and q then
-        if i(e.FelRush, nil, nil) then
-            o = 195072
+    if N.FelRush:IsCastable() and h:IsInRange(15) and N.VengefulRetreat:TimeSinceLastCast() > 0.75 and not t and
+        (N.UnboundChaos:IsAvailable() and g:BuffUp(N.UnboundChaosBuff) and N.FelRush:Charges() == 2) and D then
+        if K(N.FelRush, nil, nil) then
+            a5 = 195072;
             return "fel_rush demonic 2"
         end
-
     end
-
-    if e.DeathSweep:IsReady() and e.VengefulRetreat:TimeSinceLastCast() >= 1 and t:IsInMeleeRange(8) and (y) then
-        if i(e.DeathSweep, nil, nil, not r(8)) then
-            o = 210152
+    if N.DeathSweep:IsReady() and N.VengefulRetreat:TimeSinceLastCast() >= 1 and h:IsInMeleeRange(8) and a9 then
+        if K(N.DeathSweep, nil, nil, not ar(8)) then
+            a5 = 210152;
             return "death_sweep demonic 4"
         end
-
     end
-
-    if e.GlaiveTempest:IsReady() and t:IsInMeleeRange(8) and (d > 0) then
-        if i(e.GlaiveTempest, nil, nil, not t:IsInMeleeRange(8)) then
-            o = 342817
+    if N.GlaiveTempest:IsReady() and h:IsInMeleeRange(8) and X > 0 then
+        if K(N.GlaiveTempest, nil, nil, not h:IsInMeleeRange(8)) then
+            a5 = 342817;
             return "glaive_tempest demonic 6"
         end
-
     end
-
-    if e.ThrowGlaive:IsCastable() and t:IsInMeleeRange(n.Commons.ThrowGlaiveRange) and e.VengefulRetreat:TimeSinceLastCast() > 1 and (e.SerratedGlaive:ConduitEnabled() and e.EyeBeam:CooldownRemains() < 6 and a:BuffDown(e.MetamorphosisBuff) and t:DebuffDown(e.ExposedWoundDebuff)) then
-        if i(e.ThrowGlaive, nil, nil, not t:IsSpellInRange(e.ThrowGlaive)) then
-            o = 185123
+    if N.ThrowGlaive:IsCastable() and h:IsInMeleeRange(a3.Commons.ThrowGlaiveRange) and
+        N.VengefulRetreat:TimeSinceLastCast() > 1 and
+        (N.SerratedGlaive:ConduitEnabled() and N.EyeBeam:CooldownRemains() < 6 and g:BuffDown(N.MetamorphosisBuff) and
+            h:DebuffDown(N.ExposedWoundDebuff)) then
+        if K(N.ThrowGlaive, nil, nil, not h:IsSpellInRange(N.ThrowGlaive)) then
+            a5 = 185123;
             return "throw_glaive demonic 8"
         end
-
     end
-
-    if e.EyeBeam:IsReady() and not a:IsMoving() and (u == 0 or u > e.EyeBeam:ExecuteTime()) and v and not t:IsCasting(E(355806)) and t:IsInMeleeRange(10) and e.VengefulRetreat:TimeSinceLastCast() >= 1 and (d > 0 and ((not G) or d > 1 or a:Fury() < 70) and not N) then
-        if i(e.EyeBeam, nil, nil, not t:IsInRange(20)) then
-            o = 198013
+    if N.EyeBeam:IsReady() and not g:IsMoving() and (J == 0 or J > N.EyeBeam:ExecuteTime()) and G and
+        not h:IsCasting(j(355806)) and h:IsInMeleeRange(10) and N.VengefulRetreat:TimeSinceLastCast() >= 1 and
+        (X > 0 and (not ag or X > 1 or g:Fury() < 70) and not ae) then
+        if K(N.EyeBeam, nil, nil, not h:IsInRange(20)) then
+            a5 = 198013;
             return "eye_beam demonic 10"
         end
-
     end
-
-    if e.BladeDance:IsReady() and e.VengefulRetreat:TimeSinceLastCast() >= 1 and t:IsInMeleeRange(8) and (y and (not e.Metamorphosis:CooldownUp() or not k) and (e.EyeBeam:CooldownRemains() > 5 or not v)) then
-        if i(e.BladeDance, nil, nil, not r(8)) then
-            o = 188499
+    if N.BladeDance:IsReady() and N.VengefulRetreat:TimeSinceLastCast() >= 1 and h:IsInMeleeRange(8) and
+        (a9 and (not N.Metamorphosis:CooldownUp() or not F) and (N.EyeBeam:CooldownRemains() > 5 or not G)) then
+        if K(N.BladeDance, nil, nil, not ar(8)) then
+            a5 = 188499;
             return "blade_dance demonic 12"
         end
-
     end
-
-    if e.ImmolationAura:IsCastable() and not P and e.VengefulRetreat:TimeSinceLastCast() >= 1 and r(10) and (a:BuffDown(e.ImmolationAuraBuff)) then
-        if i(e.ImmolationAura, nil, nil, not r(8)) then
-            o = 258920
+    if N.ImmolationAura:IsCastable() and not u and N.VengefulRetreat:TimeSinceLastCast() >= 1 and ar(10) and
+        g:BuffDown(N.ImmolationAuraBuff) then
+        if K(N.ImmolationAura, nil, nil, not ar(8)) then
+            a5 = 258920;
             return "immolation_aura demonic 14"
         end
-
     end
-
-    if e.SigilofFlame:IsCastable() and not P and e.VengefulRetreat:TimeSinceLastCast() >= 1 and r(10) and (a:BuffDown(e.ImmolationAuraBuff)) then
-        if i(e.SigilofFlame, nil, nil, not r(8)) then
-            o = 204596
+    if N.SigilofFlame:IsCastable() and not u and N.VengefulRetreat:TimeSinceLastCast() >= 1 and ar(10) and
+        g:BuffDown(N.ImmolationAuraBuff) then
+        if K(N.SigilofFlame, nil, nil, not ar(8)) then
+            a5 = 204596;
             return "SigilofFlame demonic 14"
         end
-
     end
-
-    if e.Annihilation:IsReady() and t:IsInRange(8) and r(10) and (not A) then
-        if i(e.Annihilation, nil, nil, not t:IsSpellInRange(e.Annihilation)) then
-            o = 201427
+    if N.Annihilation:IsReady() and h:IsInRange(8) and ar(10) and not aa then
+        if K(N.Annihilation, nil, nil, not h:IsSpellInRange(N.Annihilation)) then
+            a5 = 201427;
             return "annihilation demonic 16"
         end
-
     end
-
-    if e.Felblade:IsCastable() and not a:IsMoving() and not B and t:IsInRange(n.Commons.FelBladeRange) and (t:IsInRange(8) or not m) and (a:FuryDeficit() >= 40) and (not r() or e.VengefulRetreat:TimeSinceLastCast() >= 1.) then
-        if i(e.Felblade, nil, nil, not t:IsSpellInRange(e.Felblade)) then
-            o = 183226
+    if N.Felblade:IsCastable() and not g:IsMoving() and not v and h:IsInRange(a3.Commons.FelBladeRange) and
+        (h:IsInRange(8) or not t) and g:FuryDeficit() >= 40 and
+        (not ar() or N.VengefulRetreat:TimeSinceLastCast() >= 1.0) then
+        if K(N.Felblade, nil, nil, not h:IsSpellInRange(N.Felblade)) then
+            a5 = 183226;
             return "felblade demonic 18"
         end
-
     end
-
-    if e.EssenceBreak:IsCastable() and t:IsInMeleeRange(10) and e.VengefulRetreat:TimeSinceLastCast() > 1 then
-        if i(e.EssenceBreak, nil, nil, not r(10)) then
-            o = 258860
+    if N.EssenceBreak:IsCastable() and h:IsInMeleeRange(10) and N.VengefulRetreat:TimeSinceLastCast() > 1 then
+        if K(N.EssenceBreak, nil, nil, not ar(10)) then
+            a5 = 258860;
             return "essence_break demonic 20"
         end
-
     end
-
-    if e.ChaosStrike:IsReady() and t:IsInMeleeRange(8) and ((not A) and (not R)) then
-        if i(e.ChaosStrike, nil, nil, not t:IsSpellInRange(e.ChaosStrike)) then
-            o = 162794
+    if N.ChaosStrike:IsReady() and h:IsInMeleeRange(8) and (not aa and not ab) then
+        if K(N.ChaosStrike, nil, nil, not h:IsSpellInRange(N.ChaosStrike)) then
+            a5 = 162794;
             return "chaos_strike demonic 22"
         end
-
     end
-
-    if e.FelRush:IsCastable() and t:IsInRange(15) and e.VengefulRetreat:TimeSinceLastCast() > .75 and not m and (e.DemonBlades:IsAvailable() and not e.EyeBeam:CooldownUp() and H()) and q then
-        if i(e.FelRush, nil, nil) then
-            o = 195072
+    if N.FelRush:IsCastable() and h:IsInRange(15) and N.VengefulRetreat:TimeSinceLastCast() > 0.75 and not t and
+        (N.DemonBlades:IsAvailable() and not N.EyeBeam:CooldownUp() and at()) and D then
+        if K(N.FelRush, nil, nil) then
+            a5 = 195072;
             return "fel_rush demonic 24"
         end
-
     end
-
-    if e.DemonsBite:IsCastable() or e.DemonBlades:IsAvailable() then
-        if w and not e.DemonBlades:IsAvailable() and (t:DebuffRemains(e.BurningWoundDebuff) < 4 or (UnitsWithoutBWCount == 0 or not J())) then
-            if i(e.DemonsBite, nil, nil, not t:IsSpellInRange(e.DemonsBite)) then
-                o = 162243
+    if N.DemonsBite:IsCastable() or N.DemonBlades:IsAvailable() then
+        if a0 and not N.DemonBlades:IsAvailable() and
+            (h:DebuffRemains(N.BurningWoundDebuff) < 4 or (UnitsWithoutBWCount == 0 or not m())) then
+            if K(N.DemonsBite, nil, nil, not h:IsSpellInRange(N.DemonsBite)) then
+                a5 = 162243;
                 return "demons_bite 26T"
             end
-
         end
-
-        if T.CastTargetIf(e.DemonsBite, z, "min", de, ue) then
+        if a2.CastTargetIf(N.DemonsBite, V, "min", aB, aC) then
             return "demons_bite demonic 26"
         end
-
     end
-
-    if e.FelRush:IsCastable() and t:IsInRange(15) and e.VengefulRetreat:TimeSinceLastCast() > .75 and not m and (not e.DemonBlades:IsAvailable() and d > 1 and (e.FelRush:Charges() == 2)) and q then
-        if i(e.FelRush, nil, nil) then
-            o = 195072
+    if N.FelRush:IsCastable() and h:IsInRange(15) and N.VengefulRetreat:TimeSinceLastCast() > 0.75 and not t and
+        (not N.DemonBlades:IsAvailable() and X > 1 and N.FelRush:Charges() == 2) and D then
+        if K(N.FelRush, nil, nil) then
+            a5 = 195072;
             return "fel_rush demonic 28"
         end
-
     end
-
-    if e.DemonsBite:IsCastable() and not e.DemonBlades:IsAvailable() and t:IsInMeleeRange(8) and not w then
-        if i(e.DemonsBite, nil, nil, not t:IsSpellInRange(e.DemonsBite)) then
-            o = 162243
+    if N.DemonsBite:IsCastable() and not N.DemonBlades:IsAvailable() and h:IsInMeleeRange(8) and not a0 then
+        if K(N.DemonsBite, nil, nil, not h:IsSpellInRange(N.DemonsBite)) then
+            a5 = 162243;
             return "demons_bite demonic 30"
         end
-
     end
-
-    if e.ThrowGlaive:IsCastable() and t:IsInRange(n.Commons.ThrowGlaiveRange) and (not r()) then
-        if i(e.ThrowGlaive, nil, nil, not t:IsSpellInRange(e.ThrowGlaive)) then
-            o = 185123
+    if N.ThrowGlaive:IsCastable() and h:IsInRange(a3.Commons.ThrowGlaiveRange) and not ar() then
+        if K(N.ThrowGlaive, nil, nil, not h:IsSpellInRange(N.ThrowGlaive)) then
+            a5 = 185123;
             return "throw_glaive demonic 32"
         end
-
     end
-
-    if e.FelRush:IsCastable() and t:IsInRange(15) and e.VengefulRetreat:TimeSinceLastCast() > .75 and not m and (not r() and H()) and q then
-        if i(e.FelRush, nil, nil) then
-            o = 195072
+    if N.FelRush:IsCastable() and h:IsInRange(15) and N.VengefulRetreat:TimeSinceLastCast() > 0.75 and not t and
+        (not ar() and at()) and D then
+        if K(N.FelRush, nil, nil) then
+            a5 = 195072;
             return "fel_rush demonic 34"
         end
-
     end
-
-    if e.VengefulRetreat:IsCastable() and e.EyeBeam:TimeSinceLastCast() > 1 and t:IsInRange(5) and Y and not m and (not r()) then
-        if i(e.VengefulRetreat, nil) then
-            o = 198793
+    if N.VengefulRetreat:IsCastable() and N.EyeBeam:TimeSinceLastCast() > 1 and h:IsInRange(5) and E and not t and
+        not ar() then
+        if K(N.VengefulRetreat, nil) then
+            a5 = 198793;
             return "vengeful_retreat demonic 36"
         end
-
     end
-
-    if e.ThrowGlaive:IsCastable() and t:IsInRange(n.Commons.ThrowGlaiveRange) and (e.DemonBlades:IsAvailable()) then
-        if i(e.ThrowGlaive, nil, nil, not t:IsSpellInRange(e.ThrowGlaive)) then
-            o = 185123
+    if N.ThrowGlaive:IsCastable() and h:IsInRange(a3.Commons.ThrowGlaiveRange) and N.DemonBlades:IsAvailable() then
+        if K(N.ThrowGlaive, nil, nil, not h:IsSpellInRange(N.ThrowGlaive)) then
+            a5 = 185123;
             return "throw_glaive demonic 38"
         end
-
     end
-
 end
-
-local function de()
-    if e.EyeBeam:IsReady() and not a:IsMoving() and (u == 0 or u > e.EyeBeam:ExecuteTime()) and v and not t:IsCasting(E(355806)) and t:IsInMeleeRange(10) and e.VengefulRetreat:TimeSinceLastCast() >= 1 and (O and d > 1 and t:DebuffUp(e.SinfulBrandDebuff) and t:DebuffRemains(e.SinfulBrandDebuff) <= a:GCD()) then
-        if i(e.EyeBeam, nil, nil, not t:IsInRange(20)) then
-            o = 198013
+local function aH()
+    if N.EyeBeam:IsReady() and not g:IsMoving() and (J == 0 or J > N.EyeBeam:ExecuteTime()) and G and
+        not h:IsCasting(j(355806)) and h:IsInMeleeRange(10) and N.VengefulRetreat:TimeSinceLastCast() >= 1 and
+        (a1 and X > 1 and h:DebuffUp(N.SinfulBrandDebuff) and h:DebuffRemains(N.SinfulBrandDebuff) <= g:GCD()) then
+        if K(N.EyeBeam, nil, nil, not h:IsInRange(20)) then
+            a5 = 198013;
             return "eye_beam normal 1"
         end
-
     end
-
-    if e.VengefulRetreat:IsCastable() and e.EyeBeam:TimeSinceLastCast() > 1 and t:IsInRange(5) and Y and not m and (e.Momentum:IsAvailable() and a:BuffDown(e.PreparedBuff) and x.CombatTime() > 1) then
-        if i(e.VengefulRetreat, nil) then
-            o = 198793
+    if N.VengefulRetreat:IsCastable() and N.EyeBeam:TimeSinceLastCast() > 1 and h:IsInRange(5) and E and not t and
+        (N.Momentum:IsAvailable() and g:BuffDown(N.PreparedBuff) and d.CombatTime() > 1) then
+        if K(N.VengefulRetreat, nil) then
+            a5 = 198793;
             return "vengeful_retreat normal 2"
         end
-
     end
-
-    if e.FelRush:IsCastable() and t:IsInRange(15) and e.VengefulRetreat:TimeSinceLastCast() > .75 and not m and ((a:BuffUp(e.UnboundChaosBuff) or b and ((not e.UnboundChaos:IsAvailable()) or not e.ImmolationAura:CooldownUp())) and H()) and q then
-        if i(e.FelRush, nil, nil) then
-            o = 195072
+    if N.FelRush:IsCastable() and h:IsInRange(15) and N.VengefulRetreat:TimeSinceLastCast() > 0.75 and not t and
+        ((g:BuffUp(N.UnboundChaosBuff) or ad and (not N.UnboundChaos:IsAvailable() or not N.ImmolationAura:CooldownUp())) and
+            at()) and D then
+        if K(N.FelRush, nil, nil) then
+            a5 = 195072;
             return "fel_rush demonic 34"
         end
-
     end
-
-    if e.FelBarrage:IsCastable() and e.VengefulRetreat:TimeSinceLastCast() > 1 and t:IsInMeleeRange(8) and (d > 1) then
-        if i(e.FelBarrage, nil, nil, not r(8)) then
-            o = 211053
+    if N.FelBarrage:IsCastable() and N.VengefulRetreat:TimeSinceLastCast() > 1 and h:IsInMeleeRange(8) and X > 1 then
+        if K(N.FelBarrage, nil, nil, not ar(8)) then
+            a5 = 211053;
             return "fel_barrage normal 6"
         end
-
     end
-
-    if e.DeathSweep:IsReady() and e.VengefulRetreat:TimeSinceLastCast() >= 1 and t:IsInMeleeRange(8) and (y) then
-        if i(e.DeathSweep, nil, nil, not r(8)) then
-            o = 210152
+    if N.DeathSweep:IsReady() and N.VengefulRetreat:TimeSinceLastCast() >= 1 and h:IsInMeleeRange(8) and a9 then
+        if K(N.DeathSweep, nil, nil, not ar(8)) then
+            a5 = 210152;
             return "death_sweep normal 8"
         end
-
     end
-
-    if e.ImmolationAura:IsCastable() and not P and e.VengefulRetreat:TimeSinceLastCast() >= 1 and t:IsInMeleeRange(8) and (a:BuffDown(e.ImmolationAuraBuff)) then
-        if i(e.ImmolationAura, nil, nil, not r(8)) then
-            o = 258920
+    if N.ImmolationAura:IsCastable() and not u and N.VengefulRetreat:TimeSinceLastCast() >= 1 and h:IsInMeleeRange(8) and
+        g:BuffDown(N.ImmolationAuraBuff) then
+        if K(N.ImmolationAura, nil, nil, not ar(8)) then
+            a5 = 258920;
             return "immolation_aura normal 10"
         end
-
     end
-
-    if e.GlaiveTempest:IsReady() and e.VengefulRetreat:TimeSinceLastCast() > 1 and t:IsInMeleeRange(8) and (not b and d > 0) then
-        if i(e.GlaiveTempest, nil) then
-            o = 342817
+    if N.GlaiveTempest:IsReady() and N.VengefulRetreat:TimeSinceLastCast() > 1 and h:IsInMeleeRange(8) and
+        (not ad and X > 0) then
+        if K(N.GlaiveTempest, nil) then
+            a5 = 342817;
             return "glaive_tempest normal 12"
         end
-
     end
-
-    if e.ThrowGlaive:IsCastable() and e.VengefulRetreat:TimeSinceLastCast() > 1 and t:IsInRange(n.Commons.ThrowGlaiveRange) and (e.SerratedGlaive:ConduitEnabled() and e.EyeBeam:CooldownRemains() < 6 and a:BuffDown(e.MetamorphosisBuff) and t:DebuffDown(e.ExposedWoundDebuff)) then
-        if i(e.ThrowGlaive, nil, nil, not t:IsSpellInRange(e.ThrowGlaive)) then
-            o = 185123
+    if N.ThrowGlaive:IsCastable() and N.VengefulRetreat:TimeSinceLastCast() > 1 and
+        h:IsInRange(a3.Commons.ThrowGlaiveRange) and
+        (N.SerratedGlaive:ConduitEnabled() and N.EyeBeam:CooldownRemains() < 6 and g:BuffDown(N.MetamorphosisBuff) and
+            h:DebuffDown(N.ExposedWoundDebuff)) then
+        if K(N.ThrowGlaive, nil, nil, not h:IsSpellInRange(N.ThrowGlaive)) then
+            a5 = 185123;
             return "throw_glaive normal 14"
         end
-
     end
-
-    if e.EyeBeam:IsReady() and not a:IsMoving() and (u == 0 or u > e.EyeBeam:ExecuteTime()) and v and not t:IsCasting(E(355806)) and t:IsInMeleeRange(10) and e.VengefulRetreat:TimeSinceLastCast() >= 1 and ((not b) and (U > 0 and ((not G) or d > 1 or a:Fury() < 70) and not N)) then
-        if i(e.EyeBeam, nil, nil, not r(20)) then
-            o = 198013
+    if N.EyeBeam:IsReady() and not g:IsMoving() and (J == 0 or J > N.EyeBeam:ExecuteTime()) and G and
+        not h:IsCasting(j(355806)) and h:IsInMeleeRange(10) and N.VengefulRetreat:TimeSinceLastCast() >= 1 and
+        (not ad and (Y > 0 and (not ag or X > 1 or g:Fury() < 70) and not ae)) then
+        if K(N.EyeBeam, nil, nil, not ar(20)) then
+            a5 = 198013;
             return "eye_beam normal 16"
         end
-
     end
-
-    if e.BladeDance:IsReady() and e.VengefulRetreat:TimeSinceLastCast() >= 1 and t:IsInMeleeRange(8) and (y) then
-        if i(e.BladeDance, nil, nil, not r(8)) then
-            o = 188499
+    if N.BladeDance:IsReady() and N.VengefulRetreat:TimeSinceLastCast() >= 1 and h:IsInMeleeRange(8) and a9 then
+        if K(N.BladeDance, nil, nil, not ar(8)) then
+            a5 = 188499;
             return "blade_dance normal 18"
         end
-
     end
-
-    if e.Felblade:IsCastable() and not a:IsMoving() and not B and t:IsInRange(n.Commons.FelBladeRange) and (t:IsInRange(8) or not m) and (a:FuryDeficit() >= 40) and (not r() or e.VengefulRetreat:TimeSinceLastCast() >= 1.) then
-        if i(e.Felblade, nil, nil, not t:IsSpellInRange(e.Felblade)) then
-            o = 183226
+    if N.Felblade:IsCastable() and not g:IsMoving() and not v and h:IsInRange(a3.Commons.FelBladeRange) and
+        (h:IsInRange(8) or not t) and g:FuryDeficit() >= 40 and
+        (not ar() or N.VengefulRetreat:TimeSinceLastCast() >= 1.0) then
+        if K(N.Felblade, nil, nil, not h:IsSpellInRange(N.Felblade)) then
+            a5 = 183226;
             return "felblade normal 20"
         end
-
     end
-
-    if e.EssenceBreak:IsCastable() and t:IsInMeleeRange(10) and e.VengefulRetreat:TimeSinceLastCast() > 1 then
-        if i(e.EssenceBreak, nil, nil, not r(10)) then
-            o = 258860
+    if N.EssenceBreak:IsCastable() and h:IsInMeleeRange(10) and N.VengefulRetreat:TimeSinceLastCast() > 1 then
+        if K(N.EssenceBreak, nil, nil, not ar(10)) then
+            a5 = 258860;
             return "essence_break normal 22"
         end
-
     end
-
-    if e.Annihilation:IsReady() and e.VengefulRetreat:TimeSinceLastCast() > 1 and t:IsInMeleeRange(8) and ((e.DemonBlades:IsAvailable() or (not b) or a:FuryDeficit() < 30 or a:BuffRemains(e.MetamorphosisBuff) < 5) and not A) then
-        if i(e.Annihilation, nil, nil, not t:IsSpellInRange(e.Annihilation)) then
-            o = 201427
+    if N.Annihilation:IsReady() and N.VengefulRetreat:TimeSinceLastCast() > 1 and h:IsInMeleeRange(8) and
+        ((N.DemonBlades:IsAvailable() or not ad or g:FuryDeficit() < 30 or g:BuffRemains(N.MetamorphosisBuff) < 5) and
+            not aa) then
+        if K(N.Annihilation, nil, nil, not h:IsSpellInRange(N.Annihilation)) then
+            a5 = 201427;
             return "annihilation normal 24"
         end
-
     end
-
-    if e.ChaosStrike:IsReady() and e.VengefulRetreat:TimeSinceLastCast() > 1 and t:IsInMeleeRange(8) and ((e.DemonBlades:IsAvailable() or (not b) or a:FuryDeficit() < 30) and (not S) and not A) then
-        if i(e.ChaosStrike, nil, nil, not t:IsSpellInRange(e.ChaosStrike)) then
-            o = 162794
+    if N.ChaosStrike:IsReady() and N.VengefulRetreat:TimeSinceLastCast() > 1 and h:IsInMeleeRange(8) and
+        ((N.DemonBlades:IsAvailable() or not ad or g:FuryDeficit() < 30) and not a8 and not aa) then
+        if K(N.ChaosStrike, nil, nil, not h:IsSpellInRange(N.ChaosStrike)) then
+            a5 = 162794;
             return "chaos_strike normal 26"
         end
-
     end
-
-    if e.EyeBeam:IsReady() and not a:IsMoving() and (u == 0 or u > e.EyeBeam:ExecuteTime()) and v and not t:IsCasting(E(355806)) and t:IsInMeleeRange(10) and (e.BlindFury:IsAvailable() and not N) then
-        if i(e.EyeBeam, nil, nil, not t:IsInRange(20)) then
-            o = 198013
+    if N.EyeBeam:IsReady() and not g:IsMoving() and (J == 0 or J > N.EyeBeam:ExecuteTime()) and G and
+        not h:IsCasting(j(355806)) and h:IsInMeleeRange(10) and (N.BlindFury:IsAvailable() and not ae) then
+        if K(N.EyeBeam, nil, nil, not h:IsInRange(20)) then
+            a5 = 198013;
             return "eye_beam normal 28"
         end
-
     end
-
-    if (e.DemonsBite:IsCastable() or e.DemonBlades:IsAvailable()) and e.VengefulRetreat:TimeSinceLastCast() > 1 then
-        if w and not e.DemonBlades:IsAvailable() and (t:DebuffRemains(e.BurningWoundDebuff) < 4 or (UnitsWithoutBWCount == 0 or not J())) then
-            if i(e.DemonsBite, nil, nil, not t:IsSpellInRange(e.DemonsBite)) then
-                o = 162243
+    if (N.DemonsBite:IsCastable() or N.DemonBlades:IsAvailable()) and N.VengefulRetreat:TimeSinceLastCast() > 1 then
+        if a0 and not N.DemonBlades:IsAvailable() and
+            (h:DebuffRemains(N.BurningWoundDebuff) < 4 or (UnitsWithoutBWCount == 0 or not m())) then
+            if K(N.DemonsBite, nil, nil, not h:IsSpellInRange(N.DemonsBite)) then
+                a5 = 162243;
                 return "demons_bite 26T"
             end
-
         end
-
-        if T.CastTargetIf(e.DemonsBite, z, "min", fe, le) then
+        if a2.CastTargetIf(N.DemonsBite, V, "min", ay, aA) then
             return "demons_bite normal 28"
         end
-
     end
-
-    if e.DemonsBite:IsCastable() and not e.DemonBlades:IsAvailable() and e.VengefulRetreat:TimeSinceLastCast() > 1 and t:IsInMeleeRange(8) and not w then
-        if i(e.DemonsBite, nil, nil, not t:IsSpellInRange(e.DemonsBite)) then
-            o = 162243
+    if N.DemonsBite:IsCastable() and not N.DemonBlades:IsAvailable() and N.VengefulRetreat:TimeSinceLastCast() > 1 and
+        h:IsInMeleeRange(8) and not a0 then
+        if K(N.DemonsBite, nil, nil, not h:IsSpellInRange(N.DemonsBite)) then
+            a5 = 162243;
             return "demons_bite normal 30"
         end
-
     end
-
-    if e.FelRush:IsCastable() and t:IsInRange(15) and e.VengefulRetreat:TimeSinceLastCast() > .75 and not m and (not e.Momentum:IsAvailable() and e.DemonBlades:IsAvailable() and H()) and q then
-        if i(e.FelRush, nil, nil) then
-            o = 195072
+    if N.FelRush:IsCastable() and h:IsInRange(15) and N.VengefulRetreat:TimeSinceLastCast() > 0.75 and not t and
+        (not N.Momentum:IsAvailable() and N.DemonBlades:IsAvailable() and at()) and D then
+        if K(N.FelRush, nil, nil) then
+            a5 = 195072;
             return "fel_rush demonic 34"
         end
-
     end
-
-    if e.Felblade:IsCastable() and not a:IsMoving() and not B and t:IsInRange(n.Commons.FelBladeRange) and (not r() and not m) then
-        if i(e.Felblade, nil, nil, not t:IsSpellInRange(e.Felblade)) then
-            o = 183226
+    if N.Felblade:IsCastable() and not g:IsMoving() and not v and h:IsInRange(a3.Commons.FelBladeRange) and
+        (not ar() and not t) then
+        if K(N.Felblade, nil, nil, not h:IsSpellInRange(N.Felblade)) then
+            a5 = 183226;
             return "felblade normal 34"
         end
-
     end
-
-    if e.FelRush:IsCastable() and t:IsInRange(15) and e.VengefulRetreat:TimeSinceLastCast() > .75 and not m and (not r() and not e.Momentum:IsAvailable() and H()) and q then
-        if i(e.FelRush, nil, nil) then
-            o = 195072
+    if N.FelRush:IsCastable() and h:IsInRange(15) and N.VengefulRetreat:TimeSinceLastCast() > 0.75 and not t and
+        (not ar() and not N.Momentum:IsAvailable() and at()) and D then
+        if K(N.FelRush, nil, nil) then
+            a5 = 195072;
             return "fel_rush demonic 34"
         end
-
     end
-
-    if e.VengefulRetreat:IsCastable() and e.EyeBeam:TimeSinceLastCast() > 1 and t:IsInRange(5) and Y and not m and (not r()) then
-        if i(e.VengefulRetreat, nil) then
-            o = 198793
+    if N.VengefulRetreat:IsCastable() and N.EyeBeam:TimeSinceLastCast() > 1 and h:IsInRange(5) and E and not t and
+        not ar() then
+        if K(N.VengefulRetreat, nil) then
+            a5 = 198793;
             return "vengeful_retreat normal 38"
         end
-
     end
-
-    if e.ThrowGlaive:IsCastable() and e.VengefulRetreat:TimeSinceLastCast() > 1 and t:IsInRange(n.Commons.ThrowGlaiveRange) and (e.DemonBlades:IsAvailable()) then
-        if i(e.ThrowGlaive, nil, nil, not t:IsSpellInRange(e.ThrowGlaive)) then
-            o = 185123
+    if N.ThrowGlaive:IsCastable() and N.VengefulRetreat:TimeSinceLastCast() > 1 and
+        h:IsInRange(a3.Commons.ThrowGlaiveRange) and N.DemonBlades:IsAvailable() then
+        if K(N.ThrowGlaive, nil, nil, not h:IsSpellInRange(N.ThrowGlaive)) then
+            a5 = 185123;
             return "throw_glaive normal 40"
         end
-
     end
-
-    if e.SigilofFlame:IsReady() and r(10) and ((not A) and (not R)) then
-        if i(e.SigilofFlame, nil, nil, not t:IsSpellInRange(e.SigilofFlame)) then
-            o = 204596
+    if N.SigilofFlame:IsReady() and ar(10) and (not aa and not ab) then
+        if K(N.SigilofFlame, nil, nil, not h:IsSpellInRange(N.SigilofFlame)) then
+            a5 = 204596;
             return "sigilofFlame demonic 42"
         end
-
     end
-
 end
-
-local function r()
-    ie = HeroRotationCharDB.Toggles[6]
-    I = HeroRotationCharDB.Toggles[4]
-    Z = HeroRotationCharDB.Toggles[5]
-    W = HeroRotationCharDB.Toggles[12]
-    ne = not HeroRotationCharDB.Toggles[15]
-    m = HeroRotationCharDB.Toggles[40]
-    M = HeroRotationCharDB.Toggles[41]
-    P = HeroRotationCharDB.Toggles[42]
-    B = HeroRotationCharDB.Toggles[43]
-    re = HeroRotationCharDB.Toggles[44]
-    C = HeroRotationCharDB.Toggles[45]
-    D = HeroRotationCharDB.Toggles[46]
-    F = HeroRotationCharDB.Toggles[47]
-    te = HeroRotationCharDB.Toggles[48]
-    ee = HeroRotationCharDB.Toggles[49]
-    X = GetInventoryItemID("player", 13)
-    oe = GetInventoryItemID("player", 14)
-            if not n.Commons.Enabled.TopTrinket and not n.Commons.Enabled.BotTrinket then
-        V = { X, oe, h.CacheofAcquiredTreasures:ID() }
-    elseif not n.Commons.Enabled.TopTrinket and n.Commons.Enabled.BotTrinket then
-        V = { X, h.CacheofAcquiredTreasures:ID() }
-    elseif not n.Commons.Enabled.BotTrinket and n.Commons.Enabled.TopTrinket then
-        V = { oe, h.CacheofAcquiredTreasures:ID() }
+local function aI()
+    q = HeroRotationCharDB.Toggles[6]
+    o = HeroRotationCharDB.Toggles[4]
+    p = HeroRotationCharDB.Toggles[5]
+    r = HeroRotationCharDB.Toggles[12]
+    s = not HeroRotationCharDB.Toggles[15]
+    t = HeroRotationCharDB.Toggles[40]
+    w = HeroRotationCharDB.Toggles[41]
+    u = HeroRotationCharDB.Toggles[42]
+    v = HeroRotationCharDB.Toggles[43]
+    C = HeroRotationCharDB.Toggles[44]
+    x = HeroRotationCharDB.Toggles[45]
+    y = HeroRotationCharDB.Toggles[46]
+    z = HeroRotationCharDB.Toggles[47]
+    A = HeroRotationCharDB.Toggles[48]
+    B = HeroRotationCharDB.Toggles[49]
+    H = GetInventoryItemID("player", 13)
+    I = GetInventoryItemID("player", 14)
+    if not a3.Commons.Enabled.TopTrinket and not a3.Commons.Enabled.BotTrinket then
+        P = {H, I, O.CacheofAcquiredTreasures:ID()}
+    elseif not a3.Commons.Enabled.TopTrinket and a3.Commons.Enabled.BotTrinket then
+        P = {H, O.CacheofAcquiredTreasures:ID()}
+    elseif not a3.Commons.Enabled.BotTrinket and a3.Commons.Enabled.TopTrinket then
+        P = {I, O.CacheofAcquiredTreasures:ID()}
     end
-
-    q = ((n.Havoc.FelRushMode == "All In") or (n.Havoc.FelRushMode == "Safe" and e.Felblade:CooldownRemains(BypassRecovery) <= 0) or (n.Havoc.FelRushMode == "w/ Gap Closer" and (e.Felblade:CooldownRemains(BypassRecovery) <= 0 or (e.Metamorphosis:CooldownRemains(BypassRecovery) <= 0 and k) or e.FelRush:Charges() == 2 or (e.TheHunt:CooldownRemains(BypassRecovery) <= 0 and I))))
-    Y = ((n.Havoc.VengefulRetreatMode == "All In") or (n.Havoc.VengefulRetreatMode == "Safe" and e.Felblade:CooldownRemains(BypassRecovery) <= 0) or (n.Havoc.VengefulRetreatMode == "w/ Gap Closer" and (e.Felblade:CooldownRemains(BypassRecovery) <= 0 or (e.Metamorphosis:CooldownRemains(BypassRecovery) <= 0 and k) or e.FelRush:CooldownRemains(BypassRecovery) <= 0 or (e.TheHunt:CooldownRemains(BypassRecovery) <= 0 and I))))
-    k = false
-    v = false
-    if ((n.Havoc.IncludedCooldowns.Metamorphosis and s.CDsON()) or (n.Havoc.IncludedSmallCooldowns.Metamorphosis and (s.CDsON() or Z)) or (not n.Havoc.IncludedSmallCooldowns.Metamorphosis and not n.Havoc.IncludedCooldowns.Metamorphosis)) then
-        k = true
+    D = a3.Havoc.FelRushMode == "All In" or a3.Havoc.FelRushMode == "Safe" and
+            N.Felblade:CooldownRemains(BypassRecovery) <= 0 or a3.Havoc.FelRushMode == "w/ Gap Closer" and
+            (N.Felblade:CooldownRemains(BypassRecovery) <= 0 or N.Metamorphosis:CooldownRemains(BypassRecovery) <= 0 and
+                F or N.FelRush:Charges() == 2 or N.TheHunt:CooldownRemains(BypassRecovery) <= 0 and o)
+    E = a3.Havoc.VengefulRetreatMode == "All In" or a3.Havoc.VengefulRetreatMode == "Safe" and
+            N.Felblade:CooldownRemains(BypassRecovery) <= 0 or a3.Havoc.VengefulRetreatMode == "w/ Gap Closer" and
+            (N.Felblade:CooldownRemains(BypassRecovery) <= 0 or N.Metamorphosis:CooldownRemains(BypassRecovery) <= 0 and
+                F or N.FelRush:CooldownRemains(BypassRecovery) <= 0 or N.TheHunt:CooldownRemains(BypassRecovery) <= 0 and
+                o)
+    F = false;
+    G = false;
+    if a3.Havoc.IncludedCooldowns.Metamorphosis and l.CDsON() or a3.Havoc.IncludedSmallCooldowns.Metamorphosis and
+        (l.CDsON() or p) or not a3.Havoc.IncludedSmallCooldowns.Metamorphosis and
+        not a3.Havoc.IncludedCooldowns.Metamorphosis then
+        F = true
     end
-
-    if ((n.Havoc.IncludedCooldowns.EyeBeam and s.CDsON() and not F) or (n.Havoc.IncludedSmallCooldowns.EyeBeam and (s.CDsON() or Z) and not F) or (not n.Havoc.IncludedSmallCooldowns.EyeBeam and not n.Havoc.IncludedCooldowns.EyeBeam and not F)) then
-        v = true
+    if a3.Havoc.IncludedCooldowns.EyeBeam and l.CDsON() and not z or a3.Havoc.IncludedSmallCooldowns.EyeBeam and
+        (l.CDsON() or p) and not z or not a3.Havoc.IncludedSmallCooldowns.EyeBeam and
+        not a3.Havoc.IncludedCooldowns.EyeBeam and not z then
+        G = true
     end
-
-    u = 0
-    for e = 1, 20 do
-        if select(10, UnitDebuff("player", e)) == 240447 then
-            if select(6, UnitDebuff("player", e)) ~= nil then
-                u = (select(6, UnitDebuff("player", e)) - (GetTime()))
+    J = 0;
+    for aJ = 1, 20 do
+        if select(10, UnitDebuff("player", aJ)) == 240447 then
+            if select(6, UnitDebuff("player", aJ)) ~= nil then
+                J = select(6, UnitDebuff("player", aJ)) - GetTime()
             end
-
         end
-
     end
-
 end
-
-local function u()
-    if J() then
-        z = a:GetEnemiesInMeleeRange(8)
-        se = a:GetEnemiesInMeleeRange(20)
-        d = #z
-        U = #se
+local function aK()
+    if m() then
+        V = g:GetEnemiesInMeleeRange(8)
+        W = g:GetEnemiesInMeleeRange(20)
+        X = #V;
+        Y = #W
     else
-        d = 1
-        U = 1
+        X = 1;
+        Y = 1
     end
-
-    if e.Detainment:IsAvailable() then
-        Imprison = e.Imprison2
+    if N.Detainment:IsAvailable() then
+        Imprison = N.Imprison2
     else
-        Imprison = e.Imprison
+        Imprison = N.Imprison
     end
-
-    UnitsWithoutBWCount = ve(z)
-    UnitsWithoutSGCount = ye(z)
-    r()
-    if s.QueuedCast() then
-        o = s.QueuedCast()
-        return "Custom Queue " .. E(o):ID()
+    UnitsWithoutBWCount = au(V)
+    UnitsWithoutSGCount = aw(V)
+    aI()
+    if l.QueuedCast() then
+        a5 = l.QueuedCast()
+        return "Custom Queue " .. j(a5):ID()
     end
-
     if UnitExists("mouseover") and string.find(UnitGUID("mouseover"), 120651) then
-        if e.ThrowGlaive:IsCastable() and _("mouseover"):IsInMeleeRange(30) then
-            if i(e.ThrowGlaive, nil) then
-                l = 1185123
+        if N.ThrowGlaive:IsCastable() and f("mouseover"):IsInMeleeRange(30) then
+            if K(N.ThrowGlaive, nil) then
+                a6 = 1185123;
                 return "explosive MO SWD"
             end
-
         end
-
     end
-
     if UnitExists("target") and string.find(UnitGUID("target"), 120651) then
-        if e.ThrowGlaive:IsCastable() and t:IsInMeleeRange(30) then
-            if i(e.ThrowGlaive, nil) then
-                o = 1185123
+        if N.ThrowGlaive:IsCastable() and h:IsInMeleeRange(30) then
+            if K(N.ThrowGlaive, nil) then
+                a5 = 1185123;
                 return "explosive  SWD"
             end
-
         end
-
     end
-
-    p = x.FightRemains(z, false)
+    ai = d.FightRemains(V, false)
     if not BotOn then
-        l = 0
-        o = 0
+        a6 = 0;
+        a5 = 0
     end
-
-    if l > 0 then
-        l = 0
+    if a6 > 0 then
+        a6 = 0
     end
-
-    if o > 0 then
-        o = 0
+    if a5 > 0 then
+        a5 = 0
     end
-
-    K = false
-    NecroPetsUpCount = pe(z)
-    if a:IsChanneling(e.EyeBeam) then
-        if i(e.Pool) then
-            o = 9999
+    a7 = false;
+    NecroPetsUpCount = an(V)
+    if g:IsChanneling(N.EyeBeam) then
+        if K(N.Pool) then
+            a5 = 9999;
             return "casting EB"
         end
-
     end
-
-            if (M and Imprison:IsCastable(BypassRecovery) and Imprison:CooldownRemains() <= 0 and _("mouseover"):GUID() ~= nil) then
-        if i(Imprison, nil, nil, nil) then
-            l = 231
+    if w and Imprison:IsCastable(BypassRecovery) and Imprison:CooldownRemains() <= 0 and f("mouseover"):GUID() ~= nil then
+        if K(Imprison, nil, nil, nil) then
+            a6 = 231;
             return "queue Imprison MO"
         end
-
-    elseif (M and Imprison:IsCastable(BypassRecovery) and Imprison:CooldownRemains() <= 0 and T.TargetIsValid()) then
-        if i(Imprison, nil, nil, nil) then
-            o = 217832
+    elseif w and Imprison:IsCastable(BypassRecovery) and Imprison:CooldownRemains() <= 0 and a2.TargetIsValid() then
+        if K(Imprison, nil, nil, nil) then
+            a5 = 217832;
             return "queue Imprison"
         end
-
-    elseif ((not Imprison:IsUsableP() or Imprison:CooldownRemains() > 0) and M) then
+    elseif (not Imprison:IsUsableP() or Imprison:CooldownRemains() > 0) and w then
         HeroRotationCharDB.Toggles[41] = not HeroRotationCharDB.Toggles[41]
-        s.Print("Imprison Queue is now " .. (HeroRotationCharDB.Toggles[41] and "|cff00ff00on|r." or "|cffff0000off|r."))
+        l.Print("Imprison Queue is now " .. (HeroRotationCharDB.Toggles[41] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
-
-            if (C and e.FelEruption:IsCastable(BypassRecovery) and e.FelEruption:CooldownRemains(BypassRecovery) <= 0 and e.FelEruption:IsAvailable() and _("mouseover"):GUID() ~= nil) then
-        if i(e.FelEruption, nil, nil, nil) then
-            l = 1211881
+    if x and N.FelEruption:IsCastable(BypassRecovery) and N.FelEruption:CooldownRemains(BypassRecovery) <= 0 and
+        N.FelEruption:IsAvailable() and f("mouseover"):GUID() ~= nil then
+        if K(N.FelEruption, nil, nil, nil) then
+            a6 = 1211881;
             return "queue Fel Eruption"
         end
-
-    elseif (C and e.FelEruption:IsCastable(BypassRecovery) and e.FelEruption:CooldownRemains(BypassRecovery) <= 0 and e.FelEruption:IsAvailable() and T.TargetIsValid()) then
-        if i(e.FelEruption, nil, nil, nil) then
-            o = 211881
+    elseif x and N.FelEruption:IsCastable(BypassRecovery) and N.FelEruption:CooldownRemains(BypassRecovery) <= 0 and
+        N.FelEruption:IsAvailable() and a2.TargetIsValid() then
+        if K(N.FelEruption, nil, nil, nil) then
+            a5 = 211881;
             return "queue Fel Eruption"
         end
-
-    elseif (((not e.FelEruption:IsUsableP() and a:Fury() > 10) or e.FelEruption:CooldownRemains() > 0 or not e.FelEruption:IsAvailable()) and C) then
+    elseif (not N.FelEruption:IsUsableP() and g:Fury() > 10 or N.FelEruption:CooldownRemains() > 0 or
+        not N.FelEruption:IsAvailable()) and x then
         HeroRotationCharDB.Toggles[45] = not HeroRotationCharDB.Toggles[45]
-        s.Print("Fel Eruption Queue is now " .. (HeroRotationCharDB.Toggles[45] and "|cff00ff00on|r." or "|cffff0000off|r."))
+        l.Print("Fel Eruption Queue is now " ..
+                    (HeroRotationCharDB.Toggles[45] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
-
-        if (D and (e.ChaosNova:IsCastable(BypassRecovery)) and e.ChaosNova:CooldownRemains(BypassRecovery) <= 0 and a:Fury() >= 30) then
-        if i(e.ChaosNova, nil, nil, nil) then
-            o = 179057
+    if y and N.ChaosNova:IsCastable(BypassRecovery) and N.ChaosNova:CooldownRemains(BypassRecovery) <= 0 and g:Fury() >=
+        30 then
+        if K(N.ChaosNova, nil, nil, nil) then
+            a5 = 179057;
             return "queue Chaos Nova MO"
         end
-
-    elseif (((not e.ChaosNova:IsUsableP() and a:Fury() > 30) or e.ChaosNova:CooldownRemains() > 0 or not T.TargetIsValid()) and D) then
+    elseif (not N.ChaosNova:IsUsableP() and g:Fury() > 30 or N.ChaosNova:CooldownRemains() > 0 or not a2.TargetIsValid()) and
+        y then
         HeroRotationCharDB.Toggles[46] = not HeroRotationCharDB.Toggles[46]
-        s.Print("ChaosNova Queue is now " .. (HeroRotationCharDB.Toggles[46] and "|cff00ff00on|r." or "|cffff0000off|r."))
+        l.Print("ChaosNova Queue is now " ..
+                    (HeroRotationCharDB.Toggles[46] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
-
-        if (Q and (e.ChaosNova:IsCastable(BypassRecovery)) and e.ChaosNova:CooldownRemains(BypassRecovery) <= 0 and a:Fury() >= 30) then
-        if i(e.ChaosNova, nil, nil, nil) then
-            o = 179057
+    if Q and N.ChaosNova:IsCastable(BypassRecovery) and N.ChaosNova:CooldownRemains(BypassRecovery) <= 0 and g:Fury() >=
+        30 then
+        if K(N.ChaosNova, nil, nil, nil) then
+            a5 = 179057;
             return "queue Chaos Nova MO"
         end
-
-    elseif (((not e.ChaosNova:IsUsableP() and a:Fury() > 30) or e.ChaosNova:CooldownRemains() > 0 or not T.TargetIsValid()) and D) then
+    elseif (not N.ChaosNova:IsUsableP() and g:Fury() > 30 or N.ChaosNova:CooldownRemains() > 0 or not a2.TargetIsValid()) and
+        y then
         HeroRotationCharDB.Toggles[46] = not HeroRotationCharDB.Toggles[46]
-        s.Print("ChaosNova Queue is now " .. (HeroRotationCharDB.Toggles[46] and "|cff00ff00on|r." or "|cffff0000off|r."))
+        l.Print("ChaosNova Queue is now " ..
+                    (HeroRotationCharDB.Toggles[46] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
-
-        if (te and (e.FelRush:IsCastable(BypassRecovery)) and e.FelRush:CooldownRemains(BypassRecovery) <= 0) then
-        if i(e.FelRush, nil, nil, nil) then
-            o = 195072
+    if A and N.FelRush:IsCastable(BypassRecovery) and N.FelRush:CooldownRemains(BypassRecovery) <= 0 then
+        if K(N.FelRush, nil, nil, nil) then
+            a5 = 195072;
             return "queue FelRush"
         end
-
-    elseif (((not e.FelRush:IsUsableP()) or e.FelRush:CooldownRemains() > 0) and te) then
+    elseif (not N.FelRush:IsUsableP() or N.FelRush:CooldownRemains() > 0) and A then
         HeroRotationCharDB.Toggles[48] = not HeroRotationCharDB.Toggles[48]
-        s.Print("Fel Rush Queue is now " .. (HeroRotationCharDB.Toggles[48] and "|cff00ff00on|r." or "|cffff0000off|r."))
+        l.Print("Fel Rush Queue is now " .. (HeroRotationCharDB.Toggles[48] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
-
-        if (ee and (e.Darkness:IsCastable(BypassRecovery)) and e.Darkness:CooldownRemains(BypassRecovery) <= 0) then
-        if i(e.Darkness, nil, nil, nil) then
-            o = 196718
+    if B and N.Darkness:IsCastable(BypassRecovery) and N.Darkness:CooldownRemains(BypassRecovery) <= 0 then
+        if K(N.Darkness, nil, nil, nil) then
+            a5 = 196718;
             return "queue FelRush"
         end
-
-    elseif (((not e.Darkness:IsUsableP()) or e.Darkness:CooldownRemains() > 0) and ee) then
+    elseif (not N.Darkness:IsUsableP() or N.Darkness:CooldownRemains() > 0) and B then
         HeroRotationCharDB.Toggles[49] = not HeroRotationCharDB.Toggles[49]
-        s.Print("Darkness Queue is now " .. (HeroRotationCharDB.Toggles[49] and "|cff00ff00on|r." or "|cffff0000off|r."))
+        l.Print("Darkness Queue is now " .. (HeroRotationCharDB.Toggles[49] and "|cff00ff00on|r." or "|cffff0000off|r."))
     end
-
-    if a:FuryDeficit() >= 35 and not a:IsChanneling(e.EyeBeam) or not a:AffectingCombat() then
-        K = true
+    if g:FuryDeficit() >= 35 and not g:IsChanneling(N.EyeBeam) or not g:AffectingCombat() then
+        a7 = true
     end
-
-    if T.TargetIsValid() then
-        g = 0
-        if (f:TrinketHasStatAnyDps() and ((not c:TrinketHasStatAnyDps()) or f:Cooldown() >= c:Cooldown())) then
-            g = 1
+    if a2.TargetIsValid() then
+        af = 0;
+        if S:TrinketHasStatAnyDps() and (not T:TrinketHasStatAnyDps() or S:Cooldown() >= T:Cooldown()) then
+            af = 1
         end
-
-        if (c:TrinketHasStatAnyDps() and ((not f:TrinketHasStatAnyDps()) or c:Cooldown() >= f:Cooldown())) then
-            g = 2
+        if T:TrinketHasStatAnyDps() and (not S:TrinketHasStatAnyDps() or T:Cooldown() >= S:Cooldown()) then
+            af = 2
         end
-
-        G = (e.BlindFury:IsAvailable() and (L or (e.DemonBlades:IsAvailable() and not O)))
-        if not a:AffectingCombat() and ie then
-            local e = ce()
-            if e then
-                return e
+        ag = N.BlindFury:IsAvailable() and (Z or N.DemonBlades:IsAvailable() and not a1)
+        if not g:AffectingCombat() and q then
+            local U = aD()
+            if U then
+                return U
             end
-
         end
-
-        if ((not ae) and not L) then
-            y = (e.FirstBlood:IsAvailable() or (d >= (3 - j(e.TrailofRuin:IsAvailable()))))
+        if not _ and not Z then
+            a9 = N.FirstBlood:IsAvailable() or X >= 3 - ak(N.TrailofRuin:IsAvailable())
         end
-
-        if (ae) then
-            y = (a:BuffDown(e.ChaosTheoryBuff) or e.FirstBlood:IsAvailable() and d >= (2 - j(e.TrailofRuin:IsAvailable())) or (not e.CycleofHatred:IsAvailable()) and d >= (4 - j(e.TrailofRuin:IsAvailable())))
+        if _ then
+            a9 = g:BuffDown(N.ChaosTheoryBuff) or N.FirstBlood:IsAvailable() and X >= 2 -
+                     ak(N.TrailofRuin:IsAvailable()) or not N.CycleofHatred:IsAvailable() and X >= 4 -
+                     ak(N.TrailofRuin:IsAvailable())
         end
-
-        if (L) then
-            y = (e.FirstBlood:IsAvailable() or (a:BuffUp(e.MetamorphosisBuff) or e.TrailofRuin:IsAvailable() or t:DebuffUp(e.EssenceBreakDebuff)) and d >= (3 - j(e.TrailofRuin:IsAvailable())) or (not e.Demonic:IsAvailable()) and d >= 4)
+        if Z then
+            a9 = N.FirstBlood:IsAvailable() or
+                     (g:BuffUp(N.MetamorphosisBuff) or N.TrailofRuin:IsAvailable() or h:DebuffUp(N.EssenceBreakDebuff)) and
+                     X >= 3 - ak(N.TrailofRuin:IsAvailable()) or not N.Demonic:IsAvailable() and X >= 4
         end
-
-        if (e.EssenceBreak:IsAvailable() and e.EssenceBreak:CooldownUp()) then
-            y = false
+        if N.EssenceBreak:IsAvailable() and N.EssenceBreak:CooldownUp() then
+            a9 = false
         end
-
-        if (O and e.CycleofHatred:IsAvailable()) then
-            y = y and e.SinfulBrandDebuff:AuraActiveCount() < 2
+        if a1 and N.CycleofHatred:IsAvailable() then
+            a9 = a9 and N.SinfulBrandDebuff:AuraActiveCount() < 2
         end
-
-        S = (not e.Demonic:IsAvailable()) and (e.Metamorphosis:CooldownRemains() < 6 and k) and a:FuryDeficit() > 30
-        A = y and a:Fury() < 75 - j(e.FirstBlood:IsAvailable()) * 20
-        R = e.Demonic:IsAvailable() and (not e.BlindFury:IsAvailable()) and e.EyeBeam:CooldownRemains() < (a:GCD() * 2) and v and a:FuryDeficit() > 20
-        b = e.Momentum:IsAvailable() and a:BuffDown(e.MomentumBuff)
-        if (O) then
-            N = t:DebuffDown(e.SinfulBrandDebuff) and e.SinfulBrand:CooldownRemains() < a:GCD() * 4 and (e.Metamorphosis:CooldownDown() or d == 1) and U <= 3
+        a8 = not N.Demonic:IsAvailable() and (N.Metamorphosis:CooldownRemains() < 6 and F) and g:FuryDeficit() > 30;
+        aa = a9 and g:Fury() < 75 - ak(N.FirstBlood:IsAvailable()) * 20;
+        ab = N.Demonic:IsAvailable() and not N.BlindFury:IsAvailable() and N.EyeBeam:CooldownRemains() < g:GCD() * 2 and
+                 G and g:FuryDeficit() > 20;
+        ad = N.Momentum:IsAvailable() and g:BuffDown(N.MomentumBuff)
+        if a1 then
+            ae = h:DebuffDown(N.SinfulBrandDebuff) and N.SinfulBrand:CooldownRemains() < g:GCD() * 4 and
+                     (N.Metamorphosis:CooldownDown() or X == 1) and Y <= 3
         end
-
-        for a = 1, 25 do
-            local n, n, n, a = UnitBuff("target", a)
-            if a ~= nil and a == "Magic" then
-                if e.ConsumeMagic:IsCastable() and re and t:IsInRange(30) then
-                    if i(e.ConsumeMagic, nil) then
-                        o = 278326
+        for aJ = 1, 25 do
+            local aL, aM, aM, aN = UnitBuff("target", aJ)
+            if aN ~= nil and aN == "Magic" then
+                if N.ConsumeMagic:IsCastable() and C and h:IsInRange(30) then
+                    if K(N.ConsumeMagic, nil) then
+                        a5 = 278326;
                         return "Consume Magic"
                     end
-
                 end
-
             end
-
         end
-
-        if h.CruciformVeinripper:IsEquipped() and t:DebuffUp(e.SadisticGleeDebuff) and UnitsWithoutSGCount > 0 and n.Havoc.TargetSwap == "AutoSwap" and not W then
-            l = 999
+        if O.CruciformVeinripper:IsEquipped() and h:DebuffUp(N.SadisticGleeDebuff) and UnitsWithoutSGCount > 0 and
+            a3.Havoc.TargetSwap == "AutoSwap" and not r then
+            a6 = 999
         end
-
-        if NecroPetsUpCount > 0 and e.ThrowGlaive:IsCastable() and (t:IsInRange(8) or a:HealthPercentage() <= 25) then
-            l = 21185123
+        if NecroPetsUpCount > 0 and N.ThrowGlaive:IsCastable() and (h:IsInRange(8) or g:HealthPercentage() <= 25) then
+            a6 = 21185123
         end
-
-        if e.Blur:IsCastable() and a:HealthPercentage() <= n.Havoc.BlurHealthThreshold and a:AffectingCombat() then
-            if i(e.Blur, nil) then
-                o = 198589
+        if N.Blur:IsCastable() and g:HealthPercentage() <= a3.Havoc.BlurHealthThreshold and g:AffectingCombat() then
+            if K(N.Blur, nil) then
+                a5 = 198589;
                 return "Blur defensives (Danger)"
             end
-
         end
-
-        if a:HealthPercentage() < n.Havoc.PhialHP and h.PhialofSerenity:IsReady() and h.PhialofSerenity:CooldownRemains() <= 0 and he == 1 then
-            if s.Cast(h.PhialofSerenity, nil) then
-                o = 55
+        if g:HealthPercentage() < a3.Havoc.PhialHP and O.PhialofSerenity:IsReady() and
+            O.PhialofSerenity:CooldownRemains() <= 0 and aj == 1 then
+            if l.Cast(O.PhialofSerenity, nil) then
+                a5 = 55;
                 return "PhialofSerenity HP"
             end
-
         end
-
-        if a:HealthPercentage() < n.Havoc.HealthstoneHP and h.Healthstone:IsReady() and h.Healthstone:CooldownRemains() <= 0 then
-            if s.Cast(h.Healthstone, nil) then
-                o = 40
+        if g:HealthPercentage() < a3.Havoc.HealthstoneHP and O.Healthstone:IsReady() and O.Healthstone:CooldownRemains() <=
+            0 then
+            if l.Cast(O.Healthstone, nil) then
+                a5 = 40;
                 return "Healthstone HP"
             end
-
         end
-
-        if a:HealthPercentage() < n.Havoc.HealPotHP and h.CosmicHealPot:IsReady() and h.CosmicHealPot:CooldownRemains() <= 0 then
-            if s.Cast(h.CosmicHealPot, nil) then
-                o = 45
+        if g:HealthPercentage() < a3.Havoc.HealPotHP and O.CosmicHealPot:IsReady() and O.CosmicHealPot:CooldownRemains() <=
+            0 then
+            if l.Cast(O.CosmicHealPot, nil) then
+                a5 = 45;
                 return "CosmicHealPot HP"
             end
-
         end
-
-        if a:HealthPercentage() < n.Havoc.HealPotHP and h.HealPot:IsReady() and h.HealPot:CooldownRemains() <= 0 then
-            if s.Cast(h.HealPot, nil) then
-                o = 41
+        if g:HealthPercentage() < a3.Havoc.HealPotHP and O.HealPot:IsReady() and O.HealPot:CooldownRemains() <= 0 then
+            if l.Cast(O.HealPot, nil) then
+                a5 = 41;
                 return "HealPot HP"
             end
-
         end
-
-        if a:AffectingCombat() then
-            local e = we()
-            if e then
-                return e
+        if g:AffectingCombat() then
+            local U = aE()
+            if U then
+                return U
             end
-
         end
-
-        if e.ThrowGlaive:IsCastable() and t:IsInMeleeRange(n.Commons.ThrowGlaiveRange) and e.VengefulRetreat:TimeSinceLastCast() > 1 and a:AffectingCombat() and (a:BuffStack(e.FelBombardmentBuff) == 5 and (a:BuffUp(e.ImmolationAuraBuff) or a:BuffDown(e.MetamorphosisBuff))) then
-            if i(e.ThrowGlaive, nil, nil, not t:IsSpellInRange(e.ThrowGlaive)) then
-                o = 185123
+        if N.ThrowGlaive:IsCastable() and h:IsInMeleeRange(a3.Commons.ThrowGlaiveRange) and
+            N.VengefulRetreat:TimeSinceLastCast() > 1 and g:AffectingCombat() and
+            (g:BuffStack(N.FelBombardmentBuff) == 5 and
+                (g:BuffUp(N.ImmolationAuraBuff) or g:BuffDown(N.MetamorphosisBuff))) then
+            if K(N.ThrowGlaive, nil, nil, not h:IsSpellInRange(N.ThrowGlaive)) then
+                a5 = 185123;
                 return "throw_glaive fel_bombardment"
             end
-
         end
-
-        if (e.Demonic:IsAvailable() and a:AffectingCombat()) then
-            local e = me()
-            if e then
-                return e
+        if N.Demonic:IsAvailable() and g:AffectingCombat() then
+            local U = aG()
+            if U then
+                return U
             end
-
         end
-
-        if (true) then
-            local e = de()
-            if e then
-                return e
+        if true then
+            local U = aH()
+            if U then
+                return U
             end
-
         end
-
     end
-
 end
-
-local function t()
-    e.SinfulBrandDebuff:RegisterAuraTracking()
+local function aO()
+    N.SinfulBrandDebuff:RegisterAuraTracking()
     if HeroRotationCharDB.Toggles[6] then
         HeroRotationCharDB.Toggles[6] = not HeroRotationCharDB.Toggles[6]
-        s.ToggleIconFrame:UpdateButtonText(6)
+        l.ToggleIconFrame:UpdateButtonText(6)
     end
-
 end
-
 function ReturnSpell()
-    if o == 0 then
+    if a5 == 0 then
         return 0
     else
-        return o
+        return a5
     end
-
 end
-
 function ReturnSpellMO()
-    if l == 0 then
+    if a6 == 0 then
         return 0
     else
-        return l
+        return a6
     end
-
 end
-
 function ShouldOrb()
-    return K
+    return a7
 end
-
-s.SetAPL(577, u, t)
-
+l.SetAPL(577, aK, aO)
