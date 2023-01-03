@@ -16,6 +16,7 @@ end
 j.DemonHunter.Vengeance = {
     FelDevastation = j(212084),
     Frailty = j(247456),
+    FrailtyDebuff = j(247456),
     ImmolationAura = j(258920),
     ImmolationAuraBuff = j(258920),
     InfernalStrike = j(189110),
@@ -28,7 +29,7 @@ j.DemonHunter.Vengeance = {
     DemonSpikes = j(203720),
     DemonSpikesBuff = j(203819),
     FieryBrand = j(204021),
-    FieryBrandDebuff = j(207771),
+    FieryBrandDebuff = j(204021),
     Torment = j(185245),
     AgonizingFlames = j(207548),
     BulkExtraction = j(320341),
@@ -46,17 +47,18 @@ j.DemonHunter.Vengeance = {
     ChaosNova = j(179057),
     FieryDemise = j(389220),
     DowninFlames = j(389732),
+    DarkglareBoon = j(389708),
     Disrupt = j(183752),
     Metamorphosis = j(187827),
     MetamorphosisBuff = j(187827),
     DoorofShadows = j(300728),
-    ElysianDecree = j(306830),
+    ElysianDecree = j(390163),
     Fleshcraft = j(324631),
     SinfulBrand = j(317009),
     SinfulBrandDebuff = j(317009),
     Soulshape = j(310143),
     SummonSteward = j(324739),
-    TheHunt = j(323639),
+    TheHunt = j(370965),
     FelBombardmentBuff = j(337849),
     EnduringGloom = j(319978),
     Pool = j(999910)
@@ -123,7 +125,14 @@ end
 l.DemonHunter.Vengeance = {
     PotionofPhantomFire = l(171349),
     PulsatingStoneheart = l(178825, {13, 14}),
-    DarkmoonDeckIndomitable = l(173096, {13, 14})
+    DarkmoonDeckIndomitable = l(173096, {13, 14}),
+    AlgetharPuzzleBox = l(193701, {13, 14})
+}
+if not l.DemonHunter then
+    l.DemonHunter = {}
+end
+l.DemonHunter.Commons = {
+    AlgetharPuzzleBox = l(193701, {13, 14})
 }
 l.DemonHunter.Havoc = {
     PotionofPhantomFire = l(171349),
