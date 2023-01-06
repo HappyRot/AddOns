@@ -1,263 +1,248 @@
-local e, e = ...
-local t = HeroLib
-local e, e = HeroCache, t.Utils
-local e = t.Unit
-local i, a, a = e.Player, e.Pet, e.Target
-local a, a = e.Focus, e.MouseOver
-local a, a, a = e.Arena, e.Boss, e.Nameplate
-local e, e = e.Party, e.Raid
-local h = t.Spell
-local e = t.Item
-local e = HeroRotation
-local o = e.Commons.Rogue
-local l = C_Timer
-local n = math.max
-local r = math.min
-local e = math.abs
-local s = pairs
-local d = table.insert
-local u = UnitAttackSpeed
-local e = GetTime
+local a, b = ...
+local c = HeroLib;
+local d, e = HeroCache, c.Utils;
+local f = c.Unit;
+local g, h, i = f.Player, f.Pet, f.Target;
+local j, k = f.Focus, f.MouseOver;
+local l, m, n = f.Arena, f.Boss, f.Nameplate;
+local o, p = f.Party, f.Raid;
+local q = c.Spell;
+local r = c.Item;
+local s = HeroRotation;
+local t = s.Commons.Rogue;
+local C_Timer = C_Timer;
+local u = math.max;
+local v = math.min;
+local w = math.abs;
+local pairs = pairs;
+local x = table.insert;
+local UnitAttackSpeed = UnitAttackSpeed;
+local GetTime = GetTime;
 do
-    local a = e()
-    function o.RtBRemains(o)
-        local e = a - e() - t.RecoveryOffset(o)
-        return e >= 0 and e or 0
+    local y = GetTime()
+    function t.RtBRemains(z)
+        local A = y - GetTime() - c.RecoveryOffset(z)
+        return A >= 0 and A or 0
     end
-
-    t:RegisterForSelfCombatEvent(function(o, o, o, o, o, o, o, o, o, o, o, t)
-        if t == 315508 then
-            a = e() + 30
+    c:RegisterForSelfCombatEvent(function(B, B, B, B, B, B, B, B, B, B, B, C)
+        if C == 315508 then
+            y = GetTime() + 30
         end
-
     end, "SPELL_AURA_APPLIED")
-    t:RegisterForSelfCombatEvent(function(i, i, i, i, i, i, i, i, i, i, i, t)
-        if t == 315508 then
-            a = e() + r(40, 30 + o.RtBRemains(true))
+    c:RegisterForSelfCombatEvent(function(B, B, B, B, B, B, B, B, B, B, B, C)
+        if C == 315508 then
+            y = GetTime() + v(40, 30 + t.RtBRemains(true))
         end
-
     end, "SPELL_AURA_REFRESH")
-    t:RegisterForSelfCombatEvent(function(o, o, o, o, o, o, o, o, o, o, o, t)
-        if t == 315508 then
-            a = e()
+    c:RegisterForSelfCombatEvent(function(B, B, B, B, B, B, B, B, B, B, B, C)
+        if C == 315508 then
+            y = GetTime()
         end
-
     end, "SPELL_AURA_REMOVED")
 end
-
 do
-    local e = { CrimsonTempest = {  }, Garrote = {  }, Rupture = {  } }
-    function o.Exsanguinated(t, a)
-        local t = t:GUID()
-        if not t then
+    local D = {
+        CrimsonTempest = {},
+        Garrote = {},
+        Rupture = {}
+    }
+    function t.Exsanguinated(E, F)
+        local G = E:GUID()
+        if not G then
             return false
         end
-
-        local a = a:ID()
-                        if a == 121411 then
-            return e.CrimsonTempest[t] or false
-        elseif a == 703 then
-            return e.Garrote[t] or false
-        elseif a == 1943 then
-            return e.Rupture[t] or false
+        local C = F:ID()
+        if C == 121411 then
+            return D.CrimsonTempest[G] or false
+        elseif C == 703 then
+            return D.Garrote[G] or false
+        elseif C == 1943 then
+            return D.Rupture[G] or false
         end
-
         return false
     end
-
-    function o.WillLoseExsanguinate(e, t)
-        if o.Exsanguinated(e, t) then
+    function t.WillLoseExsanguinate(E, F)
+        if t.Exsanguinated(E, F) then
             return true
         end
-
         return false
     end
-
-    function o.ExsanguinatedRate(a, e)
-        if o.Exsanguinated(a, e) then
-            return 2.
+    function t.ExsanguinatedRate(E, F)
+        if t.Exsanguinated(E, F) then
+            return 2.0
         end
-
-        return 1.
+        return 1.0
     end
-
-    t:RegisterForSelfCombatEvent(function(o, o, o, o, o, o, o, a, o, o, o, t)
-        if t == 200806 then
-            for e, t in s(e) do
-                for e, o in s(t) do
-                    if e == a then
-                        t[e] = true
+    c:RegisterForSelfCombatEvent(function(B, B, B, B, B, B, B, H, B, B, B, C)
+        if C == 200806 then
+            for B, I in pairs(D) do
+                for G, B in pairs(I) do
+                    if G == H then
+                        I[G] = true
                     end
-
                 end
-
             end
-
         end
-
     end, "SPELL_CAST_SUCCESS")
-    t:RegisterForSelfCombatEvent(function(o, o, o, o, o, o, o, a, o, o, o, t)
-                        if t == 121411 then
-            e.CrimsonTempest[a] = false
-        elseif t == 703 then
-            e.Garrote[a] = false
-        elseif t == 1943 then
-            e.Rupture[a] = false
+    c:RegisterForSelfCombatEvent(function(B, B, B, B, B, B, B, H, B, B, B, C)
+        if C == 121411 then
+            D.CrimsonTempest[H] = false
+        elseif C == 703 then
+            D.Garrote[H] = false
+        elseif C == 1943 then
+            D.Rupture[H] = false
         end
-
     end, "SPELL_AURA_APPLIED", "SPELL_AURA_REFRESH")
-    t:RegisterForSelfCombatEvent(function(o, o, o, o, o, o, o, t, o, o, o, a)
-                        if a == 121411 then
-            if e.CrimsonTempest[t] ~= nil then
-                e.CrimsonTempest[t] = nil
+    c:RegisterForSelfCombatEvent(function(B, B, B, B, B, B, B, H, B, B, B, C)
+        if C == 121411 then
+            if D.CrimsonTempest[H] ~= nil then
+                D.CrimsonTempest[H] = nil
             end
-
-        elseif a == 703 then
-            if e.Garrote[t] ~= nil then
-                e.Garrote[t] = nil
+        elseif C == 703 then
+            if D.Garrote[H] ~= nil then
+                D.Garrote[H] = nil
             end
-
-        elseif a == 1943 then
-            if e.Rupture[t] ~= nil then
-                e.Rupture[t] = nil
+        elseif C == 1943 then
+            if D.Rupture[H] ~= nil then
+                D.Rupture[H] = nil
             end
-
         end
-
     end, "SPELL_AURA_REMOVED")
-    t:RegisterForCombatEvent(function(a, a, a, a, a, a, a, t)
-        if e.CrimsonTempest[t] ~= nil then
-            e.CrimsonTempest[t] = nil
+    c:RegisterForCombatEvent(function(B, B, B, B, B, B, B, H)
+        if D.CrimsonTempest[H] ~= nil then
+            D.CrimsonTempest[H] = nil
         end
-
-        if e.Garrote[t] ~= nil then
-            e.Garrote[t] = nil
+        if D.Garrote[H] ~= nil then
+            D.Garrote[H] = nil
         end
-
-        if e.Rupture[t] ~= nil then
-            e.Rupture[t] = nil
+        if D.Rupture[H] ~= nil then
+            D.Rupture[H] = nil
         end
-
     end, "UNIT_DIED", "UNIT_DESTROYED")
 end
-
 do
-    local a, n = 0, 0
-    local s = h(277925)
-    function o.TimeToNextTornado()
-        if not i:BuffUp(s, nil, true) then
-            return 0
+    local J = q(195627)
+    local K = 0;
+    local L = GetTime()
+    function t.FanTheHammerCP()
+        if GetTime() - L < 0.5 and K > 0 then
+            if K > g:ComboPoints() then
+                return K
+            else
+                K = 0
+            end
         end
-
-        local o = i:BuffRemains(s, nil, true) % 1
-                        if e() == a then
-            return 0
-        elseif (e() - a) < .1 and o < .25 then
-            return 1
-        elseif (o > .9 or o == 0) and (e() - a) > .75 then
-            return .1
-        end
-
-        return o
+        return 0
     end
-
-    t:RegisterForSelfCombatEvent(function(o, o, o, o, o, o, o, o, o, o, o, t)
-                if t == 212743 then
-            a = e()
-        elseif t == 197835 then
-            n = e()
+    c:RegisterForSelfCombatEvent(function(B, B, B, B, B, B, B, B, B, B, B, C, B, B, M, N)
+        if C == 185763 then
+            if GetTime() - L > 0.5 then
+                L = GetTime()
+                K = v(t.CPMaxSpend(), g:ComboPoints() + M * v(3, g:BuffStack(J)))
+            end
         end
-
-        if n == a then
-            a = 0
+    end, "SPELL_ENERGIZE")
+end
+do
+    local O, P = 0, 0;
+    local Q = q(277925)
+    function t.TimeToNextTornado()
+        if not g:BuffUp(Q, nil, true) then
+            return 0
         end
-
+        local R = g:BuffRemains(Q, nil, true) % 1;
+        if GetTime() == O then
+            return 0
+        elseif GetTime() - O < 0.1 and R < 0.25 then
+            return 1
+        elseif (R > 0.9 or R == 0) and GetTime() - O > 0.75 then
+            return 0.1
+        end
+        return R
+    end
+    c:RegisterForSelfCombatEvent(function(B, B, B, B, B, B, B, B, B, B, B, C)
+        if C == 212743 then
+            O = GetTime()
+        elseif C == 197835 then
+            P = GetTime()
+        end
+        if P == O then
+            O = 0
+        end
     end, "SPELL_CAST_SUCCESS")
 end
-
 do
-    local a = { Counter = 0, LastMH = 0, LastOH = 0 }
-    function o.TimeToSht(i)
-        if a.Counter >= i then
+    local S = {
+        Counter = 0,
+        LastMH = 0,
+        LastOH = 0
+    }
+    function t.TimeToSht(T)
+        if S.Counter >= T then
             return 0
         end
-
-        local h, s = u("player")
-        local l = n(a.LastMH + h, e())
-        local u = n(a.LastOH + s, e())
-        local o = {  }
-        for e = 0, 2 do
-            d(o, l + e * h)
-            d(o, u + e * s)
+        local U, V = UnitAttackSpeed("player")
+        local W = u(S.LastMH + U, GetTime())
+        local X = u(S.LastOH + V, GetTime())
+        local Y = {}
+        for Z = 0, 2 do
+            x(Y, W + Z * U)
+            x(Y, X + Z * V)
         end
-
-        table.sort(o)
-        local a = r(5, n(1, i - a.Counter))
-        return o[a] - e()
+        table.sort(Y)
+        local _ = v(5, u(1, T - S.Counter))
+        return Y[_] - GetTime()
     end
-
-    t:RegisterForSelfCombatEvent(function()
-        a.Counter = 0
-        a.LastMH = e()
-        a.LastOH = e()
+    c:RegisterForSelfCombatEvent(function()
+        S.Counter = 0;
+        S.LastMH = GetTime()
+        S.LastOH = GetTime()
     end, "PLAYER_ENTERING_WORLD")
-    t:RegisterForSelfCombatEvent(function(t, t, t, t, t, t, t, t, t, t, t, e)
-        if e == 196911 then
-            a.Counter = 0
+    c:RegisterForSelfCombatEvent(function(B, B, B, B, B, B, B, B, B, B, B, C)
+        if C == 196911 then
+            S.Counter = 0
         end
-
     end, "SPELL_ENERGIZE")
-    t:RegisterForSelfCombatEvent(function(o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, t)
-        a.Counter = a.Counter + 1
-        if t then
-            a.LastOH = e()
+    c:RegisterForSelfCombatEvent(function(B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, a0)
+        S.Counter = S.Counter + 1;
+        if a0 then
+            S.LastOH = GetTime()
         else
-            a.LastMH = e()
+            S.LastMH = GetTime()
         end
-
     end, "SWING_DAMAGE")
-    t:RegisterForSelfCombatEvent(function(o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, t)
-        if t then
-            a.LastOH = e()
+    c:RegisterForSelfCombatEvent(function(B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, a0)
+        if a0 then
+            S.LastOH = GetTime()
         else
-            a.LastMH = e()
+            S.LastMH = GetTime()
         end
-
     end, "SWING_MISSED")
 end
-
 do
-    local a = i:CritChancePct()
-    local e = 0
-    local function n()
-        if not i:AffectingCombat() then
-            a = i:CritChancePct()
-            t.Debug("Base Crit Set to: " .. a)
+    local a1 = g:CritChancePct()
+    local a2 = 0;
+    local function a3()
+        if not g:AffectingCombat() then
+            a1 = g:CritChancePct()
+            c.Debug("Base Crit Set to: " .. a1)
         end
-
-        if e == nil or e < 0 then
-            e = 0
+        if a2 == nil or a2 < 0 then
+            a2 = 0
         else
-            e = e - 1
+            a2 = a2 - 1
         end
-
-        if e > 0 then
-            l.After(3, n)
+        if a2 > 0 then
+            C_Timer.After(3, a3)
         end
-
     end
-
-    t:RegisterForEvent(function()
-        if e == 0 then
-            l.After(3, n)
-            e = 2
+    c:RegisterForEvent(function()
+        if a2 == 0 then
+            C_Timer.After(3, a3)
+            a2 = 2
         end
-
     end, "PLAYER_EQUIPMENT_CHANGED")
-    function o.BaseAttackCrit()
-        return a
+    function t.BaseAttackCrit()
+        return a1
     end
-
 end
-
-
