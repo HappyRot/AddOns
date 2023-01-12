@@ -438,7 +438,7 @@ elseif m.GUISettings.General.OpenerReset > 0 and endtime ~= nil and GetTime() > 
     HeroRotationCharDB.Toggles[124] m.Print("Tar Trap Queue is now " ..
     (HeroRotationCharDB.Toggles[124] and "|cff00ff00on|r." or "|cffff0000off|r.")) end if F and
     O.WailingArrow:IsAvailable() and O.WailingArrow:CooldownRemains(BypassRecovery) <= 0 then if m.Cast(O.WailingArrow,
-    nil, nil, nil) then a8 = 355589; return "queue WailingArrow" end elseif (
+    nil, nil, nil) then a8 = 392060; return "queue WailingArrow" end elseif (
     not O.WailingArrow:IsUsableP() or O.WailingArrow:CooldownRemains() > 0) and F then HeroRotationCharDB.Toggles[170] = not
     HeroRotationCharDB.Toggles[170] m.Print("WailingArrow Queue is now " ..
     (HeroRotationCharDB.Toggles[170] and "|cff00ff00on|r." or "|cffff0000off|r.")) end if g:BuffUp(j(5384)) then return false end if g
