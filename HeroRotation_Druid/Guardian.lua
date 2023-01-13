@@ -1,1637 +1,497 @@
-local e, e = ...
-local e = HeroDBC.DBC
-local b = HeroLib
-local e = HeroCache
-local r = b.Unit
-local t = r.Player
-local e = r.Pet
-local i = r.Target
-local h = b.Spell
-local e = b.MultiSpell
-local p = b.Item
-local s = HeroRotation
-local F = s.AoEON
-local m = s.CDsON
-local o = s.Cast
-local c = HeroRotationCharDB.Toggles[4] and (select(8, GetInstanceInfo())) ~= 1698
-local X = HeroRotationCharDB.Toggles[5]
-local Y = HeroRotationCharDB.Toggles[6]
-local S = HeroRotationCharDB.Toggles[15]
-local H = HeroRotationCharDB.Toggles[12]
-local N = HeroRotationCharDB.Toggles[70]
-local A = HeroRotationCharDB.Toggles[71]
+local a, b = ...
+local c = HeroDBC.DBC;
+local d = HeroLib;
+local e = HeroCache;
+local f = d.Unit;
+local g = f.Player;
+local h = f.Pet;
+local i = f.Target;
+local j = d.Spell;
+local k = d.MultiSpell;
+local l = d.Item;
+local m = HeroRotation;
+local n = m.AoEON;
+local o = m.CDsON;
+local p = m.Cast;
+local q = HeroRotationCharDB.Toggles[4] and select(8, GetInstanceInfo()) ~= 1698;
+local r = HeroRotationCharDB.Toggles[5]
+local s = HeroRotationCharDB.Toggles[6]
+local t = HeroRotationCharDB.Toggles[15]
+local u = HeroRotationCharDB.Toggles[12]
+local v = HeroRotationCharDB.Toggles[70]
+local w = HeroRotationCharDB.Toggles[71]
 local x = HeroRotationCharDB.Toggles[72]
-local D = HeroRotationCharDB.Toggles[73]
-local O = HeroRotationCharDB.Toggles[74]
-local I = HeroRotationCharDB.Toggles[75]
-local R = HeroRotationCharDB.Toggles[76]
-local U = HeroRotationCharDB.Toggles[77]
-local M = HeroRotationCharDB.Toggles[78]
-local L = HeroRotationCharDB.Toggles[79]
-local g = false
-local E = { 324736, 228318, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 331510, 344739, 368477, 368396, 355057, 356133, 342139, 353706, 355782, 327155, 359668 }
-local e = { 325552, 326836, 326092, 334926, 328395, 330725, 333299, 323831, 328494, 322968, 334496, 334493, 319603 }
-local v = s.Commons.Everyone
-local n = { General = s.GUISettings.General, Commons = s.GUISettings.APL.Druid.Commons, Guardian = s.GUISettings.APL.Druid.Guardian, Guardian2 = s.GUISettings.APL.Druid.Guardian2 }
-local e = h.Druid.Guardian
-local u = p.Druid.Guardian
-local k = {  }
-local y = t:GetEquipment()
-local C = p(0)
-local T = p(0)
-if y[13] then
-    C = p(y[13])
-end
-
-if y[14] then
-    T = p(y[14])
-end
-
-local J
-local j
-local q
-local l = 0
-local a = 0
-local d = 0
-local W
-local w, d
-local _ = t:HasLegendaryEquipped(58)
-local V = t:HasLegendaryEquipped(49)
-local P = t:HasLegendaryEquipped(48)
-local z = t:HasLegendaryEquipped(60)
-local f = t:CovenantID()
-b:RegisterForEvent(function()
-    f = t:CovenantID()
-end, "COVENANT_CHOSEN")
-b:RegisterForEvent(function()
-    y = t:GetEquipment()
-    C = p(0)
-    T = p(0)
-    if y[13] then
-        C = p(y[13])
-    end
-
-    if y[14] then
-        T = p(y[14])
-    end
-
-    _ = t:HasLegendaryEquipped(58)
-    V = t:HasLegendaryEquipped(49)
-    P = t:HasLegendaryEquipped(48)
-    z = t:HasLegendaryEquipped(60)
+local y = HeroRotationCharDB.Toggles[73]
+local z = HeroRotationCharDB.Toggles[74]
+local A = HeroRotationCharDB.Toggles[75]
+local B = HeroRotationCharDB.Toggles[76]
+local C = HeroRotationCharDB.Toggles[77]
+local D = HeroRotationCharDB.Toggles[78]
+local E = HeroRotationCharDB.Toggles[79]
+local F = false;
+local G = { 324736, 228318, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241,
+    331510, 344739, 368477, 368396, 355057, 356133, 342139, 353706, 355782, 327155, 359668 }
+local H = { 325552, 326836, 326092, 334926, 328395, 330725, 333299, 323831, 328494, 322968, 334496, 334493, 319603 }
+local I = m.Commons.Everyone;
+local J = { General = m.GUISettings.General, Commons = m.GUISettings.APL.Druid.Commons,
+    Guardian = m.GUISettings.APL.Druid.Guardian, Guardian2 = m.GUISettings.APL.Druid.Guardian2 }
+local K = j.Druid.Guardian;
+local L = l.Druid.Guardian;
+local M = {}
+local N = g:GetEquipment()
+local O = l(0)
+local P = l(0)
+if N[13] then O = l(N[13]) end
+if N[14] then P = l(N[14]) end
+local Q;
+local R;
+local S;
+local T = 0;
+local U = 0;
+local V = 0;
+local W;
+local X, Y;
+local Z = g:HasLegendaryEquipped(58)
+local _ = g:HasLegendaryEquipped(49)
+local a0 = g:HasLegendaryEquipped(48)
+local a1 = g:HasLegendaryEquipped(60)
+local a2 = g:CovenantID()
+d:RegisterForEvent(function() a2 = g:CovenantID() end, "COVENANT_CHOSEN")
+d:RegisterForEvent(function() N = g:GetEquipment()
+O = l(0)
+P = l(0)
+if N[13] then O = l(N[13]) end if N[14] then P = l(N[14]) end Z = g:HasLegendaryEquipped(58)
+_ = g:HasLegendaryEquipped(49)
+a0 = g:HasLegendaryEquipped(48)
+a1 = g:HasLegendaryEquipped(60)
 end, "PLAYER_EQUIPMENT_CHANGED")
-b:RegisterForEvent(function()
-    e.AdaptiveSwarmCov:RegisterInFlight()
-end, "LEARNED_SPELL_IN_TAB")
-e.AdaptiveSwarmCov:RegisterInFlight()
-local function y(e)
-    if e then
-        return 1
-    else
-        return 0
-    end
+d:RegisterForEvent(function() K.AdaptiveSwarmCov:RegisterInFlight() end, "LEARNED_SPELL_IN_TAB")
+K.AdaptiveSwarmCov:RegisterInFlight()
+local function a3(a4) if a4 then return 1 else return 0 end end
 
+local function a5(a4) return a4 ~= 0 end
+
+local function a6(a7) local a8 = 0; for a9 in pairs(a7) do local aa = a7[a9] if aa:IsChanneling(j(240784)) then a8 = a8 +
+    1 end end return a8 end
+
+local function ab(a7) local ac = 0; for a9 in pairs(a7) do local aa = a7[a9] if aa:CastRemains() <= g:GCD() + 0.25 and
+    aa:IsCasting(j(240784)) then ac = ac + 1 end end return ac end
+
+local function ad(a7) local ae = 0; for a9 in pairs(a7) do local aa = a7[a9] if aa:NPCID() == 118044 then ae = ae + 1 end end return ae end
+
+local function af(a7) local ag = 0; for a9 in pairs(a7) do local aa = a7[a9] if aa:NPCID() == 118065 or
+    aa:NPCID() == 118032 then ag = ag + 1 end end return ag end
+
+local function ah(ai) if ai:DebuffRefreshable(K.MoonfireDebuff) and ai:TimeToDie() > 12 and
+    (ai:AffectingCombat() or ai:IsDummy() or ai:NPCID() == 153285) and ai:GUID() == f("mouseover"):GUID() and
+    J.Guardian.TargetSwap == "Mouseover" and ai:NPCID() ~= 118044 then T = 18921; return true elseif ai:
+    DebuffRefreshable(K.MoonfireDebuff) and ai:TimeToDie() > 12 and
+    (ai:AffectingCombat() or ai:IsDummy() or ai:NPCID() == 153285) and J.Guardian.TargetSwap == "AutoSwap" and
+    ai:GUID() ~= i:GUID() and not u and ai:NPCID() ~= 118044 then T = 9999; if T == 999 then starttime = GetTime()
+endtime = starttime + 0.25
+elseif T > 0 and endtime ~= nil and GetTime() > endtime then T = 0 end return true elseif ai:DebuffRefreshable(K.MoonfireDebuff)
+    and ai:TimeToDie() > 12 and (ai:AffectingCombat() or ai:IsDummy() or ai:NPCID() == 153285) and ai:GUID() == i:GUID()
+    and ai:NPCID() ~= 118044 then U = 8921; return true elseif ai:DebuffRefreshable(K.MoonfireDebuff) and
+    ai:TimeToDie() > 12 and (ai:AffectingCombat() or ai:IsDummy() or ai:NPCID() == 153285) and ai:NPCID() ~= 118044 then return true end end
+
+local function aj(ai) if not g:IsTanking(ai) and x and ai:AffectingCombat() and ai:GUID() == f("mouseover"):GUID() and
+    ai:NPCID() ~= 118044 then T = 16795; return true elseif not g:IsTanking(ai) and x and ai:AffectingCombat() and
+    ai:GUID() == i:GUID() and ai:NPCID() ~= 118044 then U = 6795; return true elseif not g:IsTanking(ai) and x and
+    ai:AffectingCombat() and ai:NPCID() ~= 118044 then return true end end
+
+local function ak(ai) if ai:DebuffRefreshable(K.MoonfireDebuff) and (ai:NPCID() == 118032 or ai:NPCID() == 118065) and
+    ai:GUID() == f("mouseover"):GUID() and ai:NPCID() ~= 118044 then T = 18921; return true elseif ai:DebuffRefreshable(K
+    .MoonfireDebuff) and (ai:NPCID() == 118032 or ai:NPCID() == 118065) and ai:GUID() == f("target"):GUID() and
+    ai:NPCID() ~= 118044 then U = 8921; return true elseif ai:DebuffRefreshable(K.MoonfireDebuff) and
+    (ai:NPCID() == 118032 or ai:NPCID() == 118065) then return true end end
+
+local function al(ai) if ai:DebuffRefreshable(K.SunfireDebuff) and ai:NPCID() == 118065 and
+    ai:GUID() == f("mouseover"):GUID() and ai:NPCID() ~= 118044 then T = 2197630; return true elseif ai:
+    DebuffRefreshable(K.SunfireDebuff) and ai:NPCID() == 118065 and ai:GUID() == f("target"):GUID() and
+    ai:NPCID() ~= 118044 then U = 197630; return true elseif ai:DebuffRefreshable(K.SunfireDebuff) and ai:NPCID() ==
+    118065 then return true end end
+
+local function am(ai) return ai:DebuffRefreshable(K.ThrashDebuff) or ai:DebuffStack(K.ThrashDebuff) < 3 or
+    ai:DebuffStack(K.ThrashDebuff) < 4 and Z or Y >= 4 or
+    g:BuffUp(K.BerserkBuff) and g:BuffRemains(K.BerserkBuff) <= g:GCD() + 0.5 end
+
+local function an(ai) if ai:DebuffStack(K.ThrashDebuff) > 2 and
+    (ai:AffectingCombat() or ai:IsDummy() or ai:NPCID() == 153285) and ai:GUID() == f("mouseover"):GUID() and
+    J.Guardian.TargetSwap == "Mouseover" then T = 180313; return true elseif ai:DebuffStack(K.ThrashDebuff) > 2 and
+    (ai:AffectingCombat() or ai:IsDummy() or ai:NPCID() == 153285) and J.Guardian.TargetSwap == "AutoSwap" and
+    ai:GUID() ~= i:GUID() and not u then T = 9999; if T == 999 then starttime = GetTime()
+endtime = starttime + 0.25
+elseif T > 0 and endtime ~= nil and GetTime() > endtime then T = 0 end return true elseif ai:DebuffStack(K.ThrashDebuff)
+    > 2 and (ai:AffectingCombat() or ai:IsDummy() or ai:NPCID() == 153285) and ai:GUID() == i:GUID() then U = 80313; return true elseif ai
+    :DebuffStack(K.ThrashDebuff) > 2 and (ai:AffectingCombat() or ai:IsDummy() or ai:NPCID() == 153285) then return true end return ai
+    :DebuffStack(K.ThrashDebuff) > 2 end
+
+local function ao() if g:HealthPercentage() < J.Guardian2.FrenziedRegenHP and K.FrenziedRegeneration:IsReady() and
+    g:BuffDown(K.FrenziedRegenerationBuff) and g:BuffUp(K.BearForm) then if p(K.FrenziedRegeneration, nil, nil) then U = 22842; return "frenzied_regeneration defensive 2" end end if K
+    .Ironfur:IsCastable() and not F and g:BuffUp(K.BearForm) and K.ConvoketheSpirits:TimeSinceLastDisplay() > 1 and
+    (
+    g:Rage() >= K.Ironfur:Cost() + 1 and (R or i:IsDummy() or i:NPCID() == 153285) and
+        (g:BuffDown(K.IronfurBuff) or g:BuffStack(K.IronfurBuff) < 2 and g:BuffRefreshable(K.Ironfur) or g:Rage() >= 90)
+    ) then if p(K.Ironfur, nil, nil) then U = 192081; return "ironfur defensive 4" end end local ap = g:
+    GetUseableTrinkets(M) if ap then if p(ap, nil, nil) then if ap:ID() == TopTrinketID and J.Commons.Enabled.TopTrinket
+    and J.Commons.TopTrinketHP > g:HealthPercentage() then U = 24; return "top trinket 1 defensive" elseif ap:ID() ==
+    BotTrinketID and J.Commons.Enabled.BotTrinket and J.Commons.BotTrinketHP > g:HealthPercentage() then U = 30; return "bot trinket 1 defensive" end end end if K
+    .Renewal:IsCastable() and g:HealthPercentage() < J.Guardian2.RenewalHP then if p(K.Renewal, nil, nil) then U = 108238; return "Renewal defensive 4" end end if K
+    .Barkskin:IsCastable() and select(8, GetInstanceInfo()) ~= 1698 and g:HealthPercentage() < J.Guardian2.BarkskinHP then if p(K
+    .Barkskin, nil, nil) then U = 22812; return "barkskin defensive 6" end end if K.SurvivalInstincts:IsCastable() and
+    g:HealthPercentage() < J.Guardian2.SurvivalInstinctsHP then if p(K.SurvivalInstincts, nil, nil) then U = 61336; return "survival_instincts defensive 8" end end if K
+    .BristlingFur:IsCastable() and g:Rage() < J.Guardian2.BristlingFurRage then if p(K.BristlingFur, nil, nil) then U = 155835; return "bristling_fur defensive 10" end end if g
+    :HealthPercentage() < J.Guardian2.PhialHP and L.PhialofSerenity:IsReady() and L.PhialofSerenity:CooldownRemains() <=
+    0 then if m.Cast(L.PhialofSerenity, nil) then U = 55; return "PhialofSerenity HP" end end if g:HealthPercentage() <
+    J.Guardian2.HealthstoneHP and L.Healthstone:IsReady() and L.Healthstone:CooldownRemains() <= 0 then if m.Cast(L.Healthstone
+    , nil) then U = 40; return "Healthstone HP" end end if g:HealthPercentage() < J.Guardian2.HealPotHP and
+    L.CosmicHealPot:IsReady() and L.CosmicHealPot:CooldownRemains() <= 0 then if m.Cast(L.CosmicHealPot, nil) then U = 45; return "CosmicHealPot HP" end end if g
+    :HealthPercentage() < J.Guardian2.HealPotHP and L.HealPot:IsReady() and L.HealPot:CooldownRemains() <= 0 then if m.Cast(L
+    .HealPot, nil) then U = 41; return "HealPot HP" end end end
+
+local function aq() if K.BearForm:IsCastable() and g:BuffDown(K.BearForm) and not select(8, GetInstanceInfo()) == 1698 then if p(K
+    .BearForm) then U = 5487; return "bear_form precombat 2" end end if K.Wrath:IsCastable() and
+    (v or select(8, GetInstanceInfo()) == 1698) and g:BuffUp(K.MoonkinForm) and
+    (a2 ~= 3 or select(8, GetInstanceInfo()) == 1698) then if p(K.Wrath) then U = 5176; return "cat_form precombat 2" end end if K
+    .Starfire:IsCastable() and (v or select(8, GetInstanceInfo()) == 1698) and g:BuffUp(K.MoonkinForm) and a2 == 3 then if p(K
+    .Starfire) then U = 197628; return "cat_form precombat 2" end end if K.Fleshcraft:IsCastable() and q and
+    not g:IsMoving() and (K.PustuleEruption:SoulbindEnabled() or K.VolatileSolvent:SoulbindEnabled()) then if p(K.Fleshcraft
+    , nil, nil) then U = 324631; return "fleshcraft precombat 3" end end if K.WildCharge:IsCastable() and
+    (i:IsInRange(25) and not i:IsInRange(8)) and not select(8, GetInstanceInfo()) == 1698 then if p(K.WildCharge) then U = 102401; return "wild_charge precombat 4" end end if K
+    .Rake:IsCastable() and g:BuffUp(K.Prowl) and not select(8, GetInstanceInfo()) == 1698 then if p(K.Rake) then U = 1822; return "Rake cat 2" end end if K
+    .Mangle:IsCastable() and i:IsInMeleeRange(5) and g:BuffUp(K.BearForm) and not select(8, GetInstanceInfo()) == 1698 then if p(K
+    .Mangle) then U = 33917; return "mangle precombat 6" end end if K.Thrash:IsCastable() and i:IsInMeleeRange(8) and
+    g:BuffUp(K.BearForm) and not select(8, GetInstanceInfo()) == 1698 then if p(K.Thrash) then U = 77758; return "thrash precombat 8" end end if K
+    .Moonfire:IsCastable() and i:NPCID() ~= 118044 then if p(K.Moonfire, nil, nil, not i:IsSpellInRange(K.Moonfire)) then U = 8921; return "moonfire precombat 10" end end end
+
+local function ar() if K.MoonkinForm:IsCastable() and g:BuffDown(K.MoonkinForm) then if p(K.MoonkinForm) then U = 197625; return "MoonkinForm lycara 2" end end end
+
+local function as() if K.CatForm:IsCastable() and g:BuffDown(K.CatForm) then if p(K.CatForm) then U = 768; return "catform lycara 2" end end end
+
+local function at() if K.MoonkinForm:IsCastable() and g:BuffDown(K.MoonkinForm) then if p(K.MoonkinForm) then U = 197625; return "owl_form owl 2" end end if K
+    .HeartoftheWild:IsCastable() and o() and K.HeartoftheWild:IsAvailable() and g:BuffDown(K.HeartoftheWild) then if p(K
+    .HeartoftheWild) then U = 319454; return "HOTW owl 2" end end if K.ConvoketheSpirits:IsCastable() and
+    g:BuffUp(K.MoonkinForm) and q and (K.FirstStrike:SoulbindEnabled() and g:BuffUp(K.FirstStrike)) then if p(K.ConvoketheSpirits) then U = 323764; return "Convoke owl 2" end end if K
+    .ConvoketheSpirits:IsCastable() and q and g:BuffUp(K.MoonkinForm) and
+    (
+    K.HeartoftheWild:IsAvailable() and (g:BuffUp(K.HeartoftheWild) or K.HeartoftheWild:CooldownRemains() > 15) or
+        not K.HeartoftheWild:IsAvailable() or not o()) then if p(K.ConvoketheSpirits) then U = 323764; return "Convoke owlvoke 2" end end end
+
+local function au() if K.CatForm:IsCastable() and g:BuffDown(K.CatForm) then if p(K.CatForm) then U = 768; return "catform catvoke 2" end end if K
+    .HeartoftheWild:IsCastable() and o() and K.HeartoftheWild:IsAvailable() and g:BuffDown(K.HeartoftheWild) then if p(K
+    .HeartoftheWild) then U = 319454; return "HOTW catvoke 2" end end if K.ConvoketheSpirits:IsCastable() and q and
+    g:BuffUp(K.CatForm) and
+    (
+    K.FirstStrike:SoulbindEnabled() and g:BuffUp(K.FirstStrikeBuff) or
+        K.HeartoftheWild:IsAvailable() and (g:BuffUp(K.HeartoftheWild) or K.HeartoftheWild:CooldownRemains() > 15) or
+        not K.HeartoftheWild:IsAvailable() or not o()) then if p(K.ConvoketheSpirits) then U = 323764; return "Convoke catvoke 2" end end end
+
+local function av() if K.BearForm:IsCastable() and g:BuffDown(K.BearForm) then if p(K.BearForm) then U = 5487; return "bear_form bear 2" end end if K
+    .Growl:IsReady() and g:AffectingCombat() and (not g:IsTanking(i) and x) then if p(K.Growl, nil) then U = 6795; return "Growl bear 3" end end if K
+    .Growl:IsReady() then if I.CastCycle(K.Growl, Enemies40y, aj, not i:IsSpellInRange(K.Growl)) then return "Growl bear 4" end end if K
+    .HeartoftheWild:IsCastable() and o() and i:IsInMeleeRange(8) and v and K.BalanceAffinity:IsAvailable() then if p(K.HeartoftheWild
+    , nil) then U = 319454; return "heart_of_the_wild bear 3" end end if K.Moonfire:IsReady() and
+    not g:BuffUp(K.RavenousFrenzyBuff) then if ah(i) then if p(K.Moonfire) then U = 8921; return "Moonfire bear 4" end end if I
+    .CastCycle(K.Moonfire, X, ah, not i:IsSpellInRange(K.Moonfire)) then return "moonfire bear 4" end end if K.Berserking
+    :IsCastable() and i:IsInMeleeRange(8) and (g:BuffUp(K.BerserkBuff) or g:BuffUp(K.IncarnationBuff)) then if p(K.Berserking
+    , nil) then U = 26297; return "berserking bear 15" end end if K.ConvoketheSpirits:IsReady() and o() then if p(K.ConvoketheSpirits) then U = 391528; return "Convoke Spirits Bear" end end if K
+    .Ironfur:IsCastable() and K.ConvoketheSpirits:TimeSinceLastDisplay() > 1 and g:Rage() >= K.Ironfur:Cost() + 1 and
+    not S and (g:BuffUp(K.IncarnationBuff) or g:BuffUp(K.BerserkBuff)) then if p(K.Ironfur, nil, nil) then U = 192081; return "ironfur Zerk 1" end end if K
+    .Berserking:IsCastable() and i:IsInMeleeRange(8) and (g:BuffUp(K.BerserkBuff) or g:BuffUp(K.IncarnationBuff)) then if p(K
+    .Berserking, nil) then U = 26297; return "berserking bear 15" end end if a2 == 2 and i:IsInMeleeRange(8) then local ap = g
+    :GetUseableTrinkets(M) if ap then if p(ap, nil, nil) then if ap:ID() == TopTrinketID and J.Commons.Enabled.TopTrinket
+    and (J.Commons.TopTrinketHP <= 0 and o() or J.Commons.TopTrinketHP > g:HealthPercentage()) then U = 24; return "top trinket 1" elseif ap
+    :ID() == BotTrinketID and J.Commons.Enabled.BotTrinket and
+    (J.Commons.BotTrinketHP <= 0 and o() or J.Commons.BotTrinketHP > g:HealthPercentage()) then U = 30; return "top trinket 2" end end end end if K
+    .Thrash:IsCastable(BypassRecovery) and i:IsInMeleeRange(8) and (a1 or g:BuffUp(K.IncarnationBuff) and Y > 3) and
+    select(8, GetInstanceInfo()) ~= 1698 then if p(K.Thrash) then U = 77758; return "thrash bear 30" end end if K.Mangle
+    :IsCastable() and i:IsInMeleeRange(8) and not a1 and (g:BuffUp(K.IncarnationBuff) and Y <= 3) and
+    (i:DebuffStack(K.ThrashDebuff) == 3 and i:DebuffRemains(K.ThrashDebuff) >= 3) and
+    i:DebuffRemains(K.MoonfireDebuff) >= 3 then if p(K.Mangle, nil, nil, not i:IsInMeleeRange(5)) then U = 33917; return "mangle bear 134" end end if K
+    .RavenousFrenzy:IsCastable() and q and i:IsInMeleeRange(8) then if p(K.RavenousFrenzy, nil, nil) then U = 323546; return "ravenous_frenzy bear 7" end end if L
+    .Jotungeirr:IsEquippedAndReady() and a2 == 2 and i:IsInMeleeRange(8) then if p(L.Jotungeirr, nil, nil) then U = 16; return "jotungeirr_destinys_call bear 8" end end if J
+    .Commons.Enabled.Potions and t and i:IsInMeleeRange(8) and L.PotionofPhantomFire:IsReady() and
+    (
+    a2 == 2 and g:BuffRemains(K.IncarnationBuff) >= 23 and g:BuffRemains(K.IncarnationBuff) <= 26 and
+        not m.GUISettings.General.HoldPotforBL or m.GUISettings.General.HoldPotforBL and g:BloodlustUp()) then if p(L.PotionofPhantomFire
+    , nil, nil) then U = 50; return "potion bear 11" end end if K.ConvoketheSpirits:IsCastable() and q and
+    i:IsInMeleeRange(8) then if p(K.ConvoketheSpirits, nil, nil, not i:IsInMeleeRange(5)) then U = 323764; return "convoke_the_spirits bear 12" end end if K
+    .Berserk:IsCastable() and not w and i:IsInMeleeRange(8) and o() and (R or i:IsDummy() or i:NPCID() == 153285) and
+    (g:BuffUp(K.RavenousFrenzyBuff) or a2 ~= 2) then if p(K.Berserk, nil) then U = 50334; return "berserk bear 13" end end if K
+    .Incarnation:IsCastable() and not w and i:IsInMeleeRange(8) and o() and
+    g:HealthPercentage() < J.Guardian2.IGuardianOfUrsoc and (R or i:IsDummy() or i:NPCID() == 153285) then if p(K.Incarnation
+    , nil) then U = 102558; return "incarnation bear 14" end end if K.Berserking:IsCastable() and i:IsInMeleeRange(8) and
+    (g:BuffUp(K.BerserkBuff) or g:BuffUp(K.IncarnationBuff)) then if p(K.Berserking, nil) then U = 26297; return "berserking bear 15" end end if K
+    .Barkskin:IsCastable() and (R or i:IsDummy() or i:NPCID() == 153285) and not J.Guardian.UseBarkskinDefensively and
+    K.Brambles:IsAvailable() and select(8, GetInstanceInfo()) ~= 1698 then if p(K.Barkskin, nil, nil) then U = 22812; return "barkskin bear 17" end end if K
+    .AdaptiveSwarmCov:IsCastable() and i:IsInMeleeRange(8) and q and
+    (
+    i:DebuffDown(K.AdaptiveSwarmCovDebuff) and K.AdaptiveSwarmCov:TimeSinceLastCast() > 0.3 and
+        i:DebuffDown(K.AdaptiveSwarmCovDebuff) or g:BuffRemains(K.AdaptiveSwarmCovHeal) > 3 or
+        i:DebuffStack(K.AdaptiveSwarmCovDebuff) < 3 and i:DebuffRemains(K.AdaptiveSwarmCovDebuff) < 5 and
+        i:DebuffUp(K.AdaptiveSwarmCovDebuff)) then if p(K.AdaptiveSwarmCov, nil, nil,
+    not i:IsSpellInRange(K.AdaptiveSwarmCov)) then U = 325727; return "adaptive_swarm bear 18" end end if K.RageoftheSleeper
+    :IsCastable() and g:BuffDown(K.IncarnationGuardianOfUrsoc) and K.IncarnationGuardianOfUrsoc:CooldownRemains() > 60 or
+    g:BuffUp(K.IncarnationGuardianOfUrsoc) and o() then if p(K.RageoftheSleeper, nil) then U = 200851; return "RageoftheSleeper bear 16" end end if K
+    .Moonfire:IsCastable() and g:BuffUp(K.GalacticGuardianBuff) and select(8, GetInstanceInfo()) == 1698 and
+    f("boss1"):NPCID() == 117933 and f("boss1"):IsInRange(40) then if p(K.Moonfire) then U = 118921; return "Moonfire owl Boss 2" end end if K
+    .Moonfire:IsReady() and (g:BuffUp(K.GalacticGuardianBuff) and Y < 3) and not g:BuffUp(K.RavenousFrenzyBuff) then if p(K
+    .Moonfire, nil, nil, not i:IsSpellInRange(K.Moonfire)) then U = 8921; return "moonfire bear 19" end end if K.Thrash:
+    IsCastable() and i:IsInMeleeRange(8) and
+    (
+    i:DebuffRefreshable(K.ThrashDebuff) or i:DebuffStack(K.ThrashDebuff) < 3 or i:DebuffStack(K.ThrashDebuff) < 4 and Z
+        or Y <= 4) then if p(K.Thrash) then U = 77758; return "thrash bear 20" end end if K.Fleshcraft:IsCastable() and q
+    and
+    (
+    K.PustuleEruption:SoulbindEnabled() and
+        (
+        K.Thrash:CooldownRemains() > 0 and K.Mangle:CooldownRemains() > 0 and i:DebuffRemains(K.MoonfireDebuff) >= 3 and
+            (g:BuffDown(K.IncarnationBuff) and g:BuffDown(K.BerserkBuff) and g:BuffDown(K.GalacticGuardianBuff))) or
+        K.VolatileSolvent:SoulbindEnabled()) then if p(K.Fleshcraft, nil, nil) then U = 324631; return "fleshcraft bear 27" end end if K
+    .Swipe:IsCastable() and i:IsInMeleeRange(8) and (g:BuffDown(K.IncarnationBuff) and g:BuffDown(K.BerserkBuff) and Y >=
+        4) then if p(K.Swipe, nil, nil, not i:IsInMeleeRange(8)) then U = 213771; return "swipe bear 28" end end if K.Maul
+    :IsReady() and i:IsInMeleeRange(8) and S and not F and
+    (
+    g:BuffUp(K.IncarnationBuff) and Y < 3 and g:BuffStack(K.ToothandClawBuff) >= 2 or
+        g:BuffUp(K.ToothandClawBuff) and g:BuffRemains(K.ToothandClawBuff) < 1.5 or Y < 3) then if p(K.Maul, nil, nil,
+    not i:IsInMeleeRange(5)) then U = 6807; return "maul bear 30" end end if K.Maul:IsReady() and not F and Y >= 3 and
+    Y < 3 and not K.ViciousCycle:IsAvailable() and S then if p(K.Maul, nil, nil, not i:IsInMeleeRange(5)) then U = 6807; return "maul bear 32" end end if K
+    .Mangle:IsCastable() and i:IsInMeleeRange(8) and
+    (
+    g:BuffUp(K.IncarnationBuff) and Y <= 3 or g:Rage() < 90 and Y < 3 or
+        g:Rage() < 85 and Y < 3 and K.SouloftheForest:IsAvailable() or g:BuffUp(K.GoreBuff)) then if p(K.Mangle, nil, nil
+    , not i:IsInMeleeRange(5)) then U = 33917; return "mangle bear 34" end end if K.Thrash:IsCastable() and
+    i:IsInMeleeRange(8) and Y > 1 then if p(K.Thrash, nil, nil, not i:IsInMeleeRange(8)) then U = 77758; return "thrash bear 38" end end if K
+    .Pulverize:IsReady() and i:IsInMeleeRange(8) then if I.CastCycle(K.Pulverize, X, an, not i:IsInMeleeRange(5)) then return "pulverize bear 42" end end if K
+    .Thrash:IsCastable() and i:IsInMeleeRange(8) then if p(K.Thrash, nil, nil, not i:IsInMeleeRange(8)) then U = 77758; return "thrash bear 44" end end if K
+    .Maul:IsReady() and i:IsInMeleeRange(8) and S and not F and Y < 3 then if p(K.Maul, nil, nil, not i:IsInMeleeRange(5)) then U = 6807; return "maul bear 46" end end if K
+    .Swipe:IsCastable() and i:IsInMeleeRange(8) then if p(K.Swipe, nil, nil, not i:IsInMeleeRange(8)) then U = 213771; return "swipe bear 48" end end end
+
+local function aw() if K.CatForm:IsCastable() and g:BuffDown(K.CatForm) then if p(K.CatForm) then U = 768; return "cat_form cat 2" end end if K
+    .Rake:IsCastable() and g:BuffUp(K.Prowl) then if p(K.Rake) then U = 1822; return "Rake cat 2" end end if K.HeartoftheWild
+    :IsCastable() and K.HeartoftheWild:IsAvailable() and g:BuffDown(K.HeartoftheWild) and o() then if p(K.HeartoftheWild) then U = 319454; return "HOTW cat 2" end end if K
+    .Rake:IsCastable() and (i:DebuffRefreshable(K.RakeDebuff) or g:Energy() < 45) then if p(K.Rake) then U = 1822; return "Rake cat 3" end end if K
+    .Rip:IsCastable() and i:DebuffRefreshable(K.Rip) and g:ComboPoints() >= 1 then if p(K.Rip) then U = 1079; return "Rip cat 2" end end if K
+    .ConvoketheSpirits:IsCastable() and q then if p(K.ConvoketheSpirits) then U = 323764; return "Convoke cat 2" end end if K
+    .FerociousBite:IsCastable() and g:ComboPoints() >= 4 and g:Energy() > 50 then if p(K.FerociousBite) then U = 22568; return "FB cat 2" end end if K
+    .AdaptiveSwarmCov:IsCastable() and q and
+    (
+    i:DebuffDown(K.AdaptiveSwarmCovDebuff) and K.AdaptiveSwarmCov:TimeSinceLastCast() > 0.3 or
+        i:DebuffStack(K.AdaptiveSwarmCovDebuff) < 3 and i:DebuffRemains(K.AdaptiveSwarmCovDebuff) < 5 and
+        i:DebuffUp(K.AdaptiveSwarmCovDebuff)) then if p(K.AdaptiveSwarmCov) then U = 325727; return "Adaptive Swarm cat 2" end end if K
+    .Fleshcraft:IsCastable() and q and not g:IsMoving() and
+    (K.PustuleEruption:SoulbindEnabled() and g:Energy() < 35 or K.VolatileSolvent:SoulbindEnabled()) then if p(K.Fleshcraft
+    , nil, nil) then U = 324631; return "fleshcraft precombat 3" end end if true then if p(K.Swipe) then U = 213771; return "Swipe cat 2" end end end
+
+local function ax() if K.MoonkinForm:IsCastable() and g:BuffDown(K.MoonkinForm) then if p(K.MoonkinForm) then U = 197625; return "owl_form owl 2" end end if K
+    .HeartoftheWild:IsCastable() and o() and K.HeartoftheWild:IsAvailable() and g:BuffDown(K.HeartoftheWild) then if p(K
+    .HeartoftheWild) then U = 319454; return "HOTW owl 2" end end if K.Starsurge:IsCastable() and not g:IsMoving() then if p(K
+    .Starsurge) then U = 197626; return "Starsurge owl 2" end end if K.ConvoketheSpirits:IsCastable() and q and
+    K.FirstStrike:SoulbindEnabled() then if p(K.ConvoketheSpirits) then U = 323764; return "Convoke owl 2" end end if K.AdaptiveSwarmCov
+    :IsCastable() and q and
+    (
+    i:DebuffDown(K.AdaptiveSwarmCovDebuff) and K.AdaptiveSwarmCov:TimeSinceLastCast() > 0.3 or
+        i:DebuffStack(K.AdaptiveSwarmCovDebuff) < 3 and i:DebuffRemains(K.AdaptiveSwarmCovDebuff) < 5 and
+        i:DebuffUp(K.AdaptiveSwarmCovDebuff)) then if p(K.AdaptiveSwarmCov) then U = 325727; return "Adaptive Swarm cat 2" end end if K
+    .Sunfire:IsCastable() and i:DebuffRefreshable(K.SunfireDebuff) then if p(K.Sunfire) then U = 197630; return "Sunfire owl 2" end end if K
+    .Sunfire:IsCastable() then if I.CastCycle(K.Sunfire, Enemies40y, al, not i:IsSpellInRange(K.Sunfire)) then return "Sunfire Owl 3" end end if K
+    .Moonfire:IsCastable() and g:BuffUp(K.GalacticGuardianBuff) and select(8, GetInstanceInfo()) == 1698 and
+    f("boss1"):NPCID() == 117933 and f("boss1"):IsInRange(40) then if p(K.Moonfire) then U = 118921; return "Moonfire owl Boss 2" end end if K
+    .Moonfire:IsCastable() and (i:DebuffRefreshable(K.MoonfireDebuff) or g:BuffUp(K.GalacticGuardianBuff)) then if p(K.Moonfire) then U = 8921; return "Moonfire owl 2" end end if K
+    .Starfire:IsCastable() and EclipseAnyNext and a2 == 3 and not g:IsMoving() then if p(K.Starfire) then U = 197628; return "Starfire owl 2" end end if K
+    .Wrath:IsCastable() and EclipseAnyNext and a2 ~= 3 and not g:IsMoving() then if p(K.Wrath) then U = 5176; return "Wrath owl 2" end end if K
+    .ConvoketheSpirits:IsCastable() and q and (g:BuffUp(K.EclipseLunar) or g:BuffUp(K.EclipseSolar)) then if p(K.ConvoketheSpirits) then U = 323764; return "Convoke owl 2" end end if K
+    .Starfire:IsCastable() and not g:IsMoving() and
+    (
+    EclipseInLunar or EclipseSolarNext or
+        EclipseInLunar and g:BuffUp(K.EclipseLunar) and K.Starsurge:TimeSinceLastCast() < 14) then if p(K.Starfire) then U = 197628; return "Starfire owl 2" end end if K
+    .Wrath:IsCastable() and not g:IsMoving() then if p(K.Wrath) then U = 5176; return "Wrath owl 2" end end if K.Moonfire
+    :IsCastable() and g:IsMoving() then if p(K.Moonfire) then U = 8921; return "Moonfire owl 2" end end end
+
+local function ay() s = HeroRotationCharDB.Toggles[6]
+q = HeroRotationCharDB.Toggles[4] and select(8, GetInstanceInfo()) ~= 1698;
+r = HeroRotationCharDB.Toggles[5]
+u = HeroRotationCharDB.Toggles[12]
+t = HeroRotationCharDB.Toggles[15]
+v = HeroRotationCharDB.Toggles[70]
+w = HeroRotationCharDB.Toggles[71]
+x = HeroRotationCharDB.Toggles[72]
+y = HeroRotationCharDB.Toggles[73]
+z = HeroRotationCharDB.Toggles[74]
+A = HeroRotationCharDB.Toggles[75]
+B = HeroRotationCharDB.Toggles[76]
+C = HeroRotationCharDB.Toggles[77]
+D = HeroRotationCharDB.Toggles[78]
+E = HeroRotationCharDB.Toggles[79]
+F = false
 end
 
-local function y(e)
-    return e ~= 0
+local function az() EclipseInAny = g:BuffUp(K.EclipseSolar) or g:BuffUp(K.EclipseLunar)
+EclipseInBoth = g:BuffUp(K.EclipseSolar) and g:BuffUp(K.EclipseLunar)
+EclipseInLunar = g:BuffUp(K.EclipseLunar) and g:BuffDown(K.EclipseSolar)
+EclipseInSolar = g:BuffUp(K.EclipseSolar) and g:BuffDown(K.EclipseLunar)
+EclipseLunarNext = not EclipseInAny and (K.Starfire:Count() == 0 and K.Wrath:Count() > 0 or g:IsCasting(K.Wrath)) or
+    EclipseInSolar;
+EclipseSolarNext = not EclipseInAny and (K.Wrath:Count() == 0 and K.Starfire:Count() > 0 or g:IsCasting(K.Starfire)) or
+    EclipseInLunar;
+EclipseAnyNext = not EclipseInAny and K.Wrath:Count() > 0 and K.Starfire:Count() > 0
 end
 
-local function K(t)
-    local e = 0
-    for a in pairs(t) do
-        local t = t[a]
-        if t:IsChanneling(h(240784)) then
-            e = e + 1
-        end
-
-    end
-
-    return e
-end
-
-local function B(a)
-    local e = 0
-    for o in pairs(a) do
-        local a = a[o]
-        if (a:CastRemains() <= t:GCD() + .25 and a:IsCasting(h(240784))) then
-            e = e + 1
-        end
-
-    end
-
-    return e
-end
-
-local function G(t)
-    local e = 0
-    for a in pairs(t) do
-        local t = t[a]
-        if (t:NPCID() == 118044) then
-            e = e + 1
-        end
-
-    end
-
-    return e
-end
-
-local function Z(t)
-    local e = 0
-    for a in pairs(t) do
-        local t = t[a]
-        if (t:NPCID() == 118065 or t:NPCID() == 118032) then
-            e = e + 1
-        end
-
-    end
-
-    return e
-end
-
-local function b(t)
-                if ((t:DebuffRefreshable(e.MoonfireDebuff) and t:TimeToDie() > 12) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and t:GUID() == r("mouseover"):GUID() and (n.Guardian.TargetSwap == "Mouseover") and t:NPCID() ~= 118044) then
-        l = 18921
-        return true
-    elseif ((t:DebuffRefreshable(e.MoonfireDebuff) and t:TimeToDie() > 12) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and n.Guardian.TargetSwap == "AutoSwap" and t:GUID() ~= i:GUID() and not H and t:NPCID() ~= 118044) then
-        l = 9999
-                if l == 999 then
-            starttime = GetTime()
-            endtime = starttime + .25
-        elseif l > 0 and endtime ~= nil and GetTime() > endtime then
-            l = 0
-        end
-
-        return true
-    elseif ((t:DebuffRefreshable(e.MoonfireDebuff) and t:TimeToDie() > 12) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and t:GUID() == i:GUID() and t:NPCID() ~= 118044) then
-        a = 8921
-        return true
-    elseif ((t:DebuffRefreshable(e.MoonfireDebuff) and t:TimeToDie() > 12) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and t:NPCID() ~= 118044) then
-        return true
-    end
-
-end
-
-local function Q(e)
-            if ((not t:IsTanking(e) and x) and (e:AffectingCombat()) and e:GUID() == r("mouseover"):GUID() and e:NPCID() ~= 118044) then
-        l = 16795
-        return true
-    elseif ((not t:IsTanking(e) and x) and (e:AffectingCombat()) and e:GUID() == i:GUID() and e:NPCID() ~= 118044) then
-        a = 6795
-        return true
-    elseif ((not t:IsTanking(e) and x) and (e:AffectingCombat()) and e:NPCID() ~= 118044) then
-        return true
-    end
-
-end
-
-local function T(t)
-            if ((t:DebuffRefreshable(e.MoonfireDebuff) and (t:NPCID() == 118032 or t:NPCID() == 118065)) and t:GUID() == r("mouseover"):GUID() and t:NPCID() ~= 118044) then
-        l = 18921
-        return true
-    elseif ((t:DebuffRefreshable(e.MoonfireDebuff) and (t:NPCID() == 118032 or t:NPCID() == 118065)) and t:GUID() == r("target"):GUID() and t:NPCID() ~= 118044) then
-        a = 8921
-        return true
-    elseif ((t:DebuffRefreshable(e.MoonfireDebuff) and (t:NPCID() == 118032 or t:NPCID() == 118065))) then
-        return true
-    end
-
-end
-
-local function V(t)
-            if ((t:DebuffRefreshable(e.SunfireDebuff) and t:NPCID() == 118065) and t:GUID() == r("mouseover"):GUID() and t:NPCID() ~= 118044) then
-        l = 2197630
-        return true
-    elseif ((t:DebuffRefreshable(e.SunfireDebuff) and t:NPCID() == 118065) and t:GUID() == r("target"):GUID() and t:NPCID() ~= 118044) then
-        a = 197630
-        return true
-    elseif ((t:DebuffRefreshable(e.SunfireDebuff) and t:NPCID() == 118065)) then
-        return true
-    end
-
-end
-
-local function y(a)
-    return (a:DebuffRefreshable(e.ThrashDebuff) or a:DebuffStack(e.ThrashDebuff) < 3 or (a:DebuffStack(e.ThrashDebuff) < 4 and _) or d >= 4 or t:BuffUp(e.BerserkBuff) and t:BuffRemains(e.BerserkBuff) <= t:GCD() + .5)
-end
-
-local function P(t)
-                if ((t:DebuffStack(e.ThrashDebuff) > 2) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and t:GUID() == r("mouseover"):GUID() and n.Guardian.TargetSwap == "Mouseover") then
-        l = 180313
-        return true
-    elseif ((t:DebuffStack(e.ThrashDebuff) > 2) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and n.Guardian.TargetSwap == "AutoSwap" and t:GUID() ~= i:GUID() and not H) then
-        l = 9999
-                if l == 999 then
-            starttime = GetTime()
-            endtime = starttime + .25
-        elseif l > 0 and endtime ~= nil and GetTime() > endtime then
-            l = 0
-        end
-
-        return true
-    elseif ((t:DebuffStack(e.ThrashDebuff) > 2) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285) and t:GUID() == i:GUID()) then
-        a = 80313
-        return true
-    elseif ((t:DebuffStack(e.ThrashDebuff) > 2) and (t:AffectingCombat() or t:IsDummy() or t:NPCID() == 153285)) then
-        return true
-    end
-
-    return (t:DebuffStack(e.ThrashDebuff) > 2)
-end
-
-local function p()
-    if t:HealthPercentage() < n.Guardian2.FrenziedRegenHP and e.FrenziedRegeneration:IsReady() and t:BuffDown(e.FrenziedRegenerationBuff) and t:BuffUp(e.BearForm) then
-        if o(e.FrenziedRegeneration, nil, nil) then
-            a = 22842
-            return "frenzied_regeneration defensive 2"
-        end
-
-    end
-
-    if e.Ironfur:IsCastable() and not g and t:BuffUp(e.BearForm) and e.ConvoketheSpirits:TimeSinceLastDisplay() > 1 and (t:Rage() >= e.Ironfur:Cost() + 1 and (j or i:IsDummy() or i:NPCID() == 153285) and (t:BuffDown(e.IronfurBuff) or t:BuffStack(e.IronfurBuff) < 2 and t:BuffRefreshable(e.Ironfur) or t:Rage() >= 90)) then
-        if o(e.Ironfur, nil, nil) then
-            a = 192081
-            return "ironfur defensive 4"
-        end
-
-    end
-
-    local i = t:GetUseableTrinkets(k)
-    if i then
-        if o(i, nil, nil) then
-                        if i:ID() == TopTrinketID and n.Commons.Enabled.TopTrinket and (n.Commons.TopTrinketHP > t:HealthPercentage()) then
-                a = 24
-                return "top trinket 1 defensive"
-            elseif i:ID() == BotTrinketID and n.Commons.Enabled.BotTrinket and (n.Commons.BotTrinketHP > t:HealthPercentage()) then
-                a = 30
-                return "bot trinket 1 defensive"
-            end
-
-        end
-
-    end
-
-    if e.Renewal:IsCastable() and (t:HealthPercentage() < n.Guardian2.RenewalHP) then
-        if o(e.Renewal, nil, nil) then
-            a = 108238
-            return "Renewal defensive 4"
-        end
-
-    end
-
-    if e.Barkskin:IsCastable() and (select(8, GetInstanceInfo())) ~= 1698 and (t:HealthPercentage() < n.Guardian2.BarkskinHP) then
-        if o(e.Barkskin, nil, nil) then
-            a = 22812
-            return "barkskin defensive 6"
-        end
-
-    end
-
-    if e.SurvivalInstincts:IsCastable() and (t:HealthPercentage() < n.Guardian2.SurvivalInstinctsHP) then
-        if o(e.SurvivalInstincts, nil, nil) then
-            a = 61336
-            return "survival_instincts defensive 8"
-        end
-
-    end
-
-    if e.BristlingFur:IsCastable() and (t:Rage() < n.Guardian2.BristlingFurRage) then
-        if o(e.BristlingFur, nil, nil) then
-            a = 155835
-            return "bristling_fur defensive 10"
-        end
-
-    end
-
-    if t:HealthPercentage() < n.Guardian2.PhialHP and u.PhialofSerenity:IsReady() and u.PhialofSerenity:CooldownRemains() <= 0 then
-        if s.Cast(u.PhialofSerenity, nil) then
-            a = 55
-            return "PhialofSerenity HP"
-        end
-
-    end
-
-    if t:HealthPercentage() < n.Guardian2.HealthstoneHP and u.Healthstone:IsReady() and u.Healthstone:CooldownRemains() <= 0 then
-        if s.Cast(u.Healthstone, nil) then
-            a = 40
-            return "Healthstone HP"
-        end
-
-    end
-
-    if t:HealthPercentage() < n.Guardian2.HealPotHP and u.CosmicHealPot:IsReady() and u.CosmicHealPot:CooldownRemains() <= 0 then
-        if s.Cast(u.CosmicHealPot, nil) then
-            a = 45
-            return "CosmicHealPot HP"
-        end
-
-    end
-
-    if t:HealthPercentage() < n.Guardian2.HealPotHP and u.HealPot:IsReady() and u.HealPot:CooldownRemains() <= 0 then
-        if s.Cast(u.HealPot, nil) then
-            a = 41
-            return "HealPot HP"
-        end
-
-    end
-
-end
-
-local function C()
-    if e.BearForm:IsCastable() and (t:BuffDown(e.BearForm)) and not (select(8, GetInstanceInfo())) == 1698 then
-        if o(e.BearForm) then
-            a = 5487
-            return "bear_form precombat 2"
-        end
-
-    end
-
-    if e.Wrath:IsCastable() and (N or (select(8, GetInstanceInfo())) == 1698) and t:BuffUp(e.MoonkinForm) and (f ~= 3 or (select(8, GetInstanceInfo())) == 1698) then
-        if o(e.Wrath) then
-            a = 5176
-            return "cat_form precombat 2"
-        end
-
-    end
-
-    if e.Starfire:IsCastable() and (N or (select(8, GetInstanceInfo())) == 1698) and t:BuffUp(e.MoonkinForm) and f == 3 then
-        if o(e.Starfire) then
-            a = 197628
-            return "cat_form precombat 2"
-        end
-
-    end
-
-    if e.Fleshcraft:IsCastable() and c and not t:IsMoving() and (e.PustuleEruption:SoulbindEnabled() or e.VolatileSolvent:SoulbindEnabled()) then
-        if o(e.Fleshcraft, nil, nil) then
-            a = 324631
-            return "fleshcraft precombat 3"
-        end
-
-    end
-
-    if e.WildCharge:IsCastable() and (i:IsInRange(25) and not i:IsInRange(8)) and not (select(8, GetInstanceInfo())) == 1698 then
-        if o(e.WildCharge) then
-            a = 102401
-            return "wild_charge precombat 4"
-        end
-
-    end
-
-    if e.Rake:IsCastable() and t:BuffUp(e.Prowl) and not (select(8, GetInstanceInfo())) == 1698 then
-        if o(e.Rake) then
-            a = 1822
-            return "Rake cat 2"
-        end
-
-    end
-
-    if e.Mangle:IsCastable() and i:IsInMeleeRange(5) and t:BuffUp(e.BearForm) and not (select(8, GetInstanceInfo())) == 1698 then
-        if o(e.Mangle) then
-            a = 33917
-            return "mangle precombat 6"
-        end
-
-    end
-
-    if e.Thrash:IsCastable() and i:IsInMeleeRange(8) and t:BuffUp(e.BearForm) and not (select(8, GetInstanceInfo())) == 1698 then
-        if o(e.Thrash) then
-            a = 77758
-            return "thrash precombat 8"
-        end
-
-    end
-
-    if e.Moonfire:IsCastable() and i:NPCID() ~= 118044 then
-        if o(e.Moonfire, nil, nil, not i:IsSpellInRange(e.Moonfire)) then
-            a = 8921
-            return "moonfire precombat 10"
-        end
-
-    end
-
-end
-
-local function y()
-    if e.MoonkinForm:IsCastable() and t:BuffDown(e.MoonkinForm) then
-        if o(e.MoonkinForm) then
-            a = 197625
-            return "MoonkinForm lycara 2"
-        end
-
-    end
-
-end
-
-local function y()
-    if e.CatForm:IsCastable() and t:BuffDown(e.CatForm) then
-        if o(e.CatForm) then
-            a = 768
-            return "catform lycara 2"
-        end
-
-    end
-
-end
-
-local function y()
-    if e.MoonkinForm:IsCastable() and t:BuffDown(e.MoonkinForm) then
-        if o(e.MoonkinForm) then
-            a = 197625
-            return "owl_form owl 2"
-        end
-
-    end
-
-    if e.HeartoftheWild:IsCastable() and m() and e.HeartoftheWild:IsAvailable() and t:BuffDown(e.HeartoftheWild) then
-        if o(e.HeartoftheWild) then
-            a = 319454
-            return "HOTW owl 2"
-        end
-
-    end
-
-    if e.ConvoketheSpirits:IsCastable() and t:BuffUp(e.MoonkinForm) and c and (e.FirstStrike:SoulbindEnabled() and t:BuffUp(e.FirstStrike)) then
-        if o(e.ConvoketheSpirits) then
-            a = 323764
-            return "Convoke owl 2"
-        end
-
-    end
-
-    if e.ConvoketheSpirits:IsCastable() and c and t:BuffUp(e.MoonkinForm) and ((e.HeartoftheWild:IsAvailable() and (t:BuffUp(e.HeartoftheWild) or e.HeartoftheWild:CooldownRemains() > 15)) or (not e.HeartoftheWild:IsAvailable()) or (not m())) then
-        if o(e.ConvoketheSpirits) then
-            a = 323764
-            return "Convoke owlvoke 2"
-        end
-
-    end
-
-end
-
-local function y()
-    if e.CatForm:IsCastable() and t:BuffDown(e.CatForm) then
-        if o(e.CatForm) then
-            a = 768
-            return "catform catvoke 2"
-        end
-
-    end
-
-    if e.HeartoftheWild:IsCastable() and m() and e.HeartoftheWild:IsAvailable() and t:BuffDown(e.HeartoftheWild) then
-        if o(e.HeartoftheWild) then
-            a = 319454
-            return "HOTW catvoke 2"
-        end
-
-    end
-
-    if e.ConvoketheSpirits:IsCastable() and c and t:BuffUp(e.CatForm) and ((e.FirstStrike:SoulbindEnabled() and t:BuffUp(e.FirstStrikeBuff)) or (e.HeartoftheWild:IsAvailable() and (t:BuffUp(e.HeartoftheWild) or e.HeartoftheWild:CooldownRemains() > 15)) or (not e.HeartoftheWild:IsAvailable()) or (not m())) then
-        if o(e.ConvoketheSpirits) then
-            a = 323764
-            return "Convoke catvoke 2"
-        end
-
-    end
-
-end
-
-local function y()
-    if e.BearForm:IsCastable() and (t:BuffDown(e.BearForm)) then
-        if o(e.BearForm) then
-            a = 5487
-            return "bear_form bear 2"
-        end
-
-    end
-
-    if e.Growl:IsReady() and t:AffectingCombat() and (not t:IsTanking(i) and x) then
-        if o(e.Growl, nil) then
-            a = 6795
-            return "Growl bear 3"
-        end
-
-    end
-
-    if e.Growl:IsReady() then
-        if v.CastCycle(e.Growl, Enemies40y, Q, not i:IsSpellInRange(e.Growl)) then
-            return "Growl bear 4"
-        end
-
-    end
-
-    if e.Ironfur:IsCastable() and e.ConvoketheSpirits:TimeSinceLastDisplay() > 1 and t:Rage() >= e.Ironfur:Cost() + 1 and not q and (t:BuffUp(e.IncarnationBuff) or t:BuffUp(e.BerserkBuff)) then
-        if o(e.Ironfur, nil, nil) then
-            a = 192081
-            return "ironfur Zerk 1"
-        end
-
-    end
-
-    if e.Berserking:IsCastable() and i:IsInMeleeRange(8) and (t:BuffUp(e.BerserkBuff) or t:BuffUp(e.IncarnationBuff)) then
-        if o(e.Berserking, nil) then
-            a = 26297
-            return "berserking bear 15"
-        end
-
-    end
-
-    if (f == 2) and i:IsInMeleeRange(8) then
-        local e = t:GetUseableTrinkets(k)
-        if e then
-            if o(e, nil, nil) then
-                                if e:ID() == TopTrinketID and n.Commons.Enabled.TopTrinket and ((n.Commons.TopTrinketHP <= 0 and m()) or n.Commons.TopTrinketHP > t:HealthPercentage()) then
-                    a = 24
-                    return "top trinket 1"
-                elseif e:ID() == BotTrinketID and n.Commons.Enabled.BotTrinket and ((n.Commons.BotTrinketHP <= 0 and m()) or n.Commons.BotTrinketHP > t:HealthPercentage()) then
-                    a = 30
-                    return "top trinket 2"
-                end
-
-            end
-
-        end
-
-    end
-
-    if e.Thrash:IsCastable(BypassRecovery) and i:IsInMeleeRange(8) and (z or (t:BuffUp(e.IncarnationBuff) and d > 3)) and (select(8, GetInstanceInfo())) ~= 1698 then
-        if o(e.Thrash) then
-            a = 77758
-            return "thrash bear 30"
-        end
-
-    end
-
-    if e.Mangle:IsCastable() and i:IsInMeleeRange(8) and not z and (t:BuffUp(e.IncarnationBuff) and d <= 3) and (i:DebuffStack(e.ThrashDebuff) == 3 and i:DebuffRemains(e.ThrashDebuff) >= 3) and i:DebuffRemains(e.MoonfireDebuff) >= 3 then
-        if o(e.Mangle, nil, nil, not i:IsInMeleeRange(5)) then
-            a = 33917
-            return "mangle bear 134"
-        end
-
-    end
-
-    if e.Moonfire:IsReady() and not t:BuffUp(e.RavenousFrenzyBuff) then
-        if b(i) then
-            if o(e.Moonfire) then
-                a = 8921
-                return "Moonfire bear 4"
-            end
-
-        end
-
-        if v.CastCycle(e.Moonfire, w, b, not i:IsSpellInRange(e.Moonfire)) then
-            return "moonfire bear 4"
-        end
-
-    end
-
-    if e.RavenousFrenzy:IsCastable() and c and i:IsInMeleeRange(8) then
-        if o(e.RavenousFrenzy, nil, nil) then
-            a = 323546
-            return "ravenous_frenzy bear 7"
-        end
-
-    end
-
-    if u.Jotungeirr:IsEquippedAndReady() and (f == 2) and i:IsInMeleeRange(8) then
-        if o(u.Jotungeirr, nil, nil) then
-            a = 16
-            return "jotungeirr_destinys_call bear 8"
-        end
-
-    end
-
-    if n.Commons.Enabled.Potions and S and i:IsInMeleeRange(8) and u.PotionofPhantomFire:IsReady() and (((f == 2 and t:BuffRemains(e.IncarnationBuff) >= 23 and t:BuffRemains(e.IncarnationBuff) <= 26) and not s.GUISettings.General.HoldPotforBL) or (s.GUISettings.General.HoldPotforBL and t:BloodlustUp())) then
-        if o(u.PotionofPhantomFire, nil, nil) then
-            a = 50
-            return "potion bear 11"
-        end
-
-    end
-
-    if e.ConvoketheSpirits:IsCastable() and c and i:IsInMeleeRange(8) then
-        if o(e.ConvoketheSpirits, nil, nil, not i:IsInMeleeRange(5)) then
-            a = 323764
-            return "convoke_the_spirits bear 12"
-        end
-
-    end
-
-    if e.Berserk:IsCastable() and not A and i:IsInMeleeRange(8) and m() and (j or i:IsDummy() or i:NPCID() == 153285) and (t:BuffUp(e.RavenousFrenzyBuff) or f ~= 2) then
-        if o(e.Berserk, nil) then
-            a = 50334
-            return "berserk bear 13"
-        end
-
-    end
-
-    if e.Incarnation:IsCastable() and not A and i:IsInMeleeRange(8) and m() and (j or i:IsDummy() or i:NPCID() == 153285) then
-        if o(e.Incarnation, nil) then
-            a = 102558
-            return "incarnation bear 14"
-        end
-
-    end
-
-    if e.Berserking:IsCastable() and i:IsInMeleeRange(8) and (t:BuffUp(e.BerserkBuff) or t:BuffUp(e.IncarnationBuff)) then
-        if o(e.Berserking, nil) then
-            a = 26297
-            return "berserking bear 15"
-        end
-
-    end
-
-    if e.Barkskin:IsCastable() and (j or i:IsDummy() or i:NPCID() == 153285) and not n.Guardian.UseBarkskinDefensively and e.Brambles:IsAvailable() and (select(8, GetInstanceInfo())) ~= 1698 then
-        if o(e.Barkskin, nil, nil) then
-            a = 22812
-            return "barkskin bear 17"
-        end
-
-    end
-
-    if e.AdaptiveSwarmCov:IsCastable() and i:IsInMeleeRange(8) and c and ((i:DebuffDown(e.AdaptiveSwarmCovDebuff) and e.AdaptiveSwarmCov:TimeSinceLastCast() > .3 and (i:DebuffDown(e.AdaptiveSwarmCovDebuff)) or t:BuffRemains(e.AdaptiveSwarmCovHeal) > 3) or (i:DebuffStack(e.AdaptiveSwarmCovDebuff) < 3 and i:DebuffRemains(e.AdaptiveSwarmCovDebuff) < 5 and i:DebuffUp(e.AdaptiveSwarmCovDebuff))) then
-        if o(e.AdaptiveSwarmCov, nil, nil, not i:IsSpellInRange(e.AdaptiveSwarmCov)) then
-            a = 325727
-            return "adaptive_swarm bear 18"
-        end
-
-    end
-
-    if e.Moonfire:IsCastable() and t:BuffUp(e.GalacticGuardianBuff) and (select(8, GetInstanceInfo())) == 1698 and r("boss1"):NPCID() == 117933 and r("boss1"):IsInRange(40) then
-        if o(e.Moonfire) then
-            a = 118921
-            return "Moonfire owl Boss 2"
-        end
-
-    end
-
-    if e.Moonfire:IsReady() and (t:BuffUp(e.GalacticGuardianBuff) and d < 3) and not t:BuffUp(e.RavenousFrenzyBuff) then
-        if o(e.Moonfire, nil, nil, not i:IsSpellInRange(e.Moonfire)) then
-            a = 8921
-            return "moonfire bear 19"
-        end
-
-    end
-
-    if e.Thrash:IsCastable() and i:IsInMeleeRange(8) and ((i:DebuffRefreshable(e.ThrashDebuff)) or (i:DebuffStack(e.ThrashDebuff) < 3) or (i:DebuffStack(e.ThrashDebuff) < 4 and _) or (d <= 4)) then
-        if o(e.Thrash) then
-            a = 77758
-            return "thrash bear 20"
-        end
-
-    end
-
-    if e.Fleshcraft:IsCastable() and c and (e.PustuleEruption:SoulbindEnabled() and ((e.Thrash:CooldownRemains() > 0 and e.Mangle:CooldownRemains() > 0) and (i:DebuffRemains(e.MoonfireDebuff) >= 3) and (t:BuffDown(e.IncarnationBuff) and t:BuffDown(e.BerserkBuff) and t:BuffDown(e.GalacticGuardianBuff))) or e.VolatileSolvent:SoulbindEnabled()) then
-        if o(e.Fleshcraft, nil, nil) then
-            a = 324631
-            return "fleshcraft bear 27"
-        end
-
-    end
-
-    if e.Swipe:IsCastable() and i:IsInMeleeRange(8) and (t:BuffDown(e.IncarnationBuff) and t:BuffDown(e.BerserkBuff) and d >= 4) then
-        if o(e.Swipe, nil, nil, not i:IsInMeleeRange(8)) then
-            a = 213771
-            return "swipe bear 28"
-        end
-
-    end
-
-    if e.Maul:IsReady() and i:IsInMeleeRange(8) and q and not g and ((t:BuffUp(e.IncarnationBuff) and d < 3 and t:BuffStack(e.ToothandClawBuff) >= 2) or (t:BuffUp(e.ToothandClawBuff) and t:BuffRemains(e.ToothandClawBuff) < 1.5) or d < 3) then
-        if o(e.Maul, nil, nil, not i:IsInMeleeRange(5)) then
-            a = 6807
-            return "maul bear 30"
-        end
-
-    end
-
-    if e.Maul:IsReady() and i:IsInMeleeRange(8) and q and not g and ((d < 3 and t:BuffStack(e.ViciousCycleMaulBuff) >= 3) or (d < 3 and not e.ViciousCycle:IsAvailable())) then
-        if o(e.Maul, nil, nil, not i:IsInMeleeRange(5)) then
-            a = 6807
-            return "maul bear 32"
-        end
-
-    end
-
-    if e.Mangle:IsCastable() and i:IsInMeleeRange(8) and ((t:BuffUp(e.IncarnationBuff) and d <= 3) or ((t:Rage() < 90) and d < 3) or (t:Rage() < 85 and d < 3 and e.SouloftheForest:IsAvailable()) or (t:BuffUp(e.GoreBuff))) then
-        if o(e.Mangle, nil, nil, not i:IsInMeleeRange(5)) then
-            a = 33917
-            return "mangle bear 34"
-        end
-
-    end
-
-    if e.Thrash:IsCastable() and i:IsInMeleeRange(8) and (d > 1) then
-        if o(e.Thrash, nil, nil, not i:IsInMeleeRange(8)) then
-            a = 77758
-            return "thrash bear 38"
-        end
-
-    end
-
-    if e.Pulverize:IsReady() and i:IsInMeleeRange(8) then
-        if v.CastCycle(e.Pulverize, w, P, not i:IsInMeleeRange(5)) then
-            return "pulverize bear 42"
-        end
-
-    end
-
-    if e.Thrash:IsCastable() and i:IsInMeleeRange(8) then
-        if o(e.Thrash, nil, nil, not i:IsInMeleeRange(8)) then
-            a = 77758
-            return "thrash bear 44"
-        end
-
-    end
-
-    if e.Maul:IsReady() and i:IsInMeleeRange(8) and q and not g and (d < 3) then
-        if o(e.Maul, nil, nil, not i:IsInMeleeRange(5)) then
-            a = 6807
-            return "maul bear 46"
-        end
-
-    end
-
-    if e.Swipe:IsCastable() and i:IsInMeleeRange(8) then
-        if o(e.Swipe, nil, nil, not i:IsInMeleeRange(8)) then
-            a = 213771
-            return "swipe bear 48"
-        end
-
-    end
-
-end
-
-local function b()
-    if e.CatForm:IsCastable() and t:BuffDown(e.CatForm) then
-        if o(e.CatForm) then
-            a = 768
-            return "cat_form cat 2"
-        end
-
-    end
-
-    if e.Rake:IsCastable() and t:BuffUp(e.Prowl) then
-        if o(e.Rake) then
-            a = 1822
-            return "Rake cat 2"
-        end
-
-    end
-
-    if e.HeartoftheWild:IsCastable() and e.HeartoftheWild:IsAvailable() and t:BuffDown(e.HeartoftheWild) and m() then
-        if o(e.HeartoftheWild) then
-            a = 319454
-            return "HOTW cat 2"
-        end
-
-    end
-
-    if e.Rake:IsCastable() and (i:DebuffRefreshable(e.RakeDebuff) or t:Energy() < 45) then
-        if o(e.Rake) then
-            a = 1822
-            return "Rake cat 3"
-        end
-
-    end
-
-    if e.Rip:IsCastable() and i:DebuffRefreshable(e.Rip) and t:ComboPoints() >= 1 then
-        if o(e.Rip) then
-            a = 1079
-            return "Rip cat 2"
-        end
-
-    end
-
-    if e.ConvoketheSpirits:IsCastable() and c then
-        if o(e.ConvoketheSpirits) then
-            a = 323764
-            return "Convoke cat 2"
-        end
-
-    end
-
-    if e.FerociousBite:IsCastable() and t:ComboPoints() >= 4 and t:Energy() > 50 then
-        if o(e.FerociousBite) then
-            a = 22568
-            return "FB cat 2"
-        end
-
-    end
-
-    if e.AdaptiveSwarmCov:IsCastable() and c and ((i:DebuffDown(e.AdaptiveSwarmCovDebuff) and e.AdaptiveSwarmCov:TimeSinceLastCast() > .3) or (i:DebuffStack(e.AdaptiveSwarmCovDebuff) < 3 and i:DebuffRemains(e.AdaptiveSwarmCovDebuff) < 5 and i:DebuffUp(e.AdaptiveSwarmCovDebuff))) then
-        if o(e.AdaptiveSwarmCov) then
-            a = 325727
-            return "Adaptive Swarm cat 2"
-        end
-
-    end
-
-    if e.Fleshcraft:IsCastable() and c and not t:IsMoving() and ((e.PustuleEruption:SoulbindEnabled() and t:Energy() < 35) or e.VolatileSolvent:SoulbindEnabled()) then
-        if o(e.Fleshcraft, nil, nil) then
-            a = 324631
-            return "fleshcraft precombat 3"
-        end
-
-    end
-
-    if (true) then
-        if o(e.Swipe) then
-            a = 213771
-            return "Swipe cat 2"
-        end
-
-    end
-
-end
-
-local function z()
-    if e.MoonkinForm:IsCastable() and t:BuffDown(e.MoonkinForm) then
-        if o(e.MoonkinForm) then
-            a = 197625
-            return "owl_form owl 2"
-        end
-
-    end
-
-    if e.HeartoftheWild:IsCastable() and m() and e.HeartoftheWild:IsAvailable() and t:BuffDown(e.HeartoftheWild) then
-        if o(e.HeartoftheWild) then
-            a = 319454
-            return "HOTW owl 2"
-        end
-
-    end
-
-    if e.Starsurge:IsCastable() and not t:IsMoving() then
-        if o(e.Starsurge) then
-            a = 197626
-            return "Starsurge owl 2"
-        end
-
-    end
-
-    if e.ConvoketheSpirits:IsCastable() and c and e.FirstStrike:SoulbindEnabled() then
-        if o(e.ConvoketheSpirits) then
-            a = 323764
-            return "Convoke owl 2"
-        end
-
-    end
-
-    if e.AdaptiveSwarmCov:IsCastable() and c and ((i:DebuffDown(e.AdaptiveSwarmCovDebuff) and e.AdaptiveSwarmCov:TimeSinceLastCast() > .3) or (i:DebuffStack(e.AdaptiveSwarmCovDebuff) < 3 and i:DebuffRemains(e.AdaptiveSwarmCovDebuff) < 5 and i:DebuffUp(e.AdaptiveSwarmCovDebuff))) then
-        if o(e.AdaptiveSwarmCov) then
-            a = 325727
-            return "Adaptive Swarm cat 2"
-        end
-
-    end
-
-    if e.Sunfire:IsCastable() and i:DebuffRefreshable(e.SunfireDebuff) then
-        if o(e.Sunfire) then
-            a = 197630
-            return "Sunfire owl 2"
-        end
-
-    end
-
-    if e.Sunfire:IsCastable() then
-        if v.CastCycle(e.Sunfire, Enemies40y, V, not i:IsSpellInRange(e.Sunfire)) then
-            return "Sunfire Owl 3"
-        end
-
-    end
-
-    if e.Moonfire:IsCastable() and t:BuffUp(e.GalacticGuardianBuff) and (select(8, GetInstanceInfo())) == 1698 and r("boss1"):NPCID() == 117933 and r("boss1"):IsInRange(40) then
-        if o(e.Moonfire) then
-            a = 118921
-            return "Moonfire owl Boss 2"
-        end
-
-    end
-
-    if e.Moonfire:IsCastable() and (i:DebuffRefreshable(e.MoonfireDebuff) or t:BuffUp(e.GalacticGuardianBuff)) then
-        if o(e.Moonfire) then
-            a = 8921
-            return "Moonfire owl 2"
-        end
-
-    end
-
-    if e.Starfire:IsCastable() and EclipseAnyNext and f == 3 and not t:IsMoving() then
-        if o(e.Starfire) then
-            a = 197628
-            return "Starfire owl 2"
-        end
-
-    end
-
-    if e.Wrath:IsCastable() and EclipseAnyNext and f ~= 3 and not t:IsMoving() then
-        if o(e.Wrath) then
-            a = 5176
-            return "Wrath owl 2"
-        end
-
-    end
-
-    if e.ConvoketheSpirits:IsCastable() and c and (t:BuffUp(e.EclipseLunar) or t:BuffUp(e.EclipseSolar)) then
-        if o(e.ConvoketheSpirits) then
-            a = 323764
-            return "Convoke owl 2"
-        end
-
-    end
-
-    if e.Starfire:IsCastable() and not t:IsMoving() and ((EclipseInLunar or EclipseSolarNext) or (EclipseInLunar and t:BuffUp(e.EclipseLunar) and e.Starsurge:TimeSinceLastCast() < 14)) then
-        if o(e.Starfire) then
-            a = 197628
-            return "Starfire owl 2"
-        end
-
-    end
-
-    if e.Wrath:IsCastable() and not t:IsMoving() then
-        if o(e.Wrath) then
-            a = 5176
-            return "Wrath owl 2"
-        end
-
-    end
-
-    if e.Moonfire:IsCastable() and t:IsMoving() then
-        if o(e.Moonfire) then
-            a = 8921
-            return "Moonfire owl 2"
-        end
-
-    end
-
-end
-
-local function b()
-    Y = HeroRotationCharDB.Toggles[6]
-    c = HeroRotationCharDB.Toggles[4] and (select(8, GetInstanceInfo())) ~= 1698
-    X = HeroRotationCharDB.Toggles[5]
-    H = HeroRotationCharDB.Toggles[12]
-    S = HeroRotationCharDB.Toggles[15]
-    N = HeroRotationCharDB.Toggles[70]
-    A = HeroRotationCharDB.Toggles[71]
-    x = HeroRotationCharDB.Toggles[72]
-    D = HeroRotationCharDB.Toggles[73]
-    O = HeroRotationCharDB.Toggles[74]
-    I = HeroRotationCharDB.Toggles[75]
-    R = HeroRotationCharDB.Toggles[76]
-    U = HeroRotationCharDB.Toggles[77]
-    M = HeroRotationCharDB.Toggles[78]
-    L = HeroRotationCharDB.Toggles[79]
-    g = false
-end
-
-local function x()
-    EclipseInAny = (t:BuffUp(e.EclipseSolar) or t:BuffUp(e.EclipseLunar))
-    EclipseInBoth = (t:BuffUp(e.EclipseSolar) and t:BuffUp(e.EclipseLunar))
-    EclipseInLunar = (t:BuffUp(e.EclipseLunar) and t:BuffDown(e.EclipseSolar))
-    EclipseInSolar = (t:BuffUp(e.EclipseSolar) and t:BuffDown(e.EclipseLunar))
-    EclipseLunarNext = (not EclipseInAny and (e.Starfire:Count() == 0 and e.Wrath:Count() > 0 or t:IsCasting(e.Wrath))) or EclipseInSolar
-    EclipseSolarNext = (not EclipseInAny and (e.Wrath:Count() == 0 and e.Starfire:Count() > 0 or t:IsCasting(e.Starfire))) or EclipseInLunar
-    EclipseAnyNext = (not EclipseInAny and e.Wrath:Count() > 0 and e.Starfire:Count() > 0)
-end
-
-local function c()
-    if F() then
-        w = t:GetEnemiesInMeleeRange(8)
-        d = #w
-        W = t:GetEnemiesInMeleeRange(5)
-        Enemies40y = t:GetEnemiesInRange(40)
-    else
-        w = t:GetEnemiesInMeleeRange(8)
-        if #w >= 1 then
-            d = 1
-        else
-            d = 0
-        end
-
-        W = t:GetEnemiesInMeleeRange(5)
-    end
-
-    TopTrinketID = GetInventoryItemID("player", 13)
-    BotTrinketID = GetInventoryItemID("player", 14)
-            if not n.Commons.Enabled.TopTrinket and not n.Commons.Enabled.BotTrinket then
-        k = { TopTrinketID, BotTrinketID }
-    elseif not n.Commons.Enabled.TopTrinket then
-        k = { TopTrinketID }
-    elseif not n.Commons.Enabled.BotTrinket then
-        k = { BotTrinketID }
-    end
-
-    J = t:ActiveMitigationNeeded()
-    j = t:IsTankingAoE(8) or t:IsTanking(i)
-    UnitsCastinNetherStormCount = K(w)
-    UnitsCastinNetherStormCount2 = B(w)
-    UnitsCastinNetherStormCount3 = G(w)
-    MTNegligableMeleeCount = Z(w)
-    if F() then
-        if MTNegligableMeleeCount > 0 then
-            d = d - MTNegligableMeleeCount
-        end
-
-    end
-
-    q = true
-    if (not n.Guardian.UseRageDefensively) then
-        q = true
-    end
-
-    if not BotOn then
-        l = 0
-        a = 0
-    end
-
-    if l > 0 then
-        l = 0
-    end
-
-    if a > 0 then
-        a = 0
-    end
-
-    ShouldReturn = b()
-    if s.QueuedCast() then
-        a = s.QueuedCast()
-        return "Custom Queue " .. h(a):ID()
-    end
-
-    x()
-        if s.GUISettings.General.OpenerReset > 0 and not HeroRotationCharDB.Toggles[6] then
-        starttime = GetTime()
-        endtime = starttime + (s.GUISettings.General.OpenerReset)
-    elseif s.GUISettings.General.OpenerReset > 0 and endtime ~= nil and GetTime() > endtime and HeroRotationCharDB.Toggles[6] then
-        HeroRotationCharDB.Toggles[6] = not HeroRotationCharDB.Toggles[6]
-        s.ToggleIconFrame:UpdateButtonText(6)
-        s.Print("Opener is now " .. (HeroRotationCharDB.Toggles[6] and "|cff00ff00enabled|r." or "|cffff0000disabled|r."))
-    end
-
-        if (D and e.UrsolsVortex:IsUsableP() and e.RestorationAffinity:IsAvailable() and e.UrsolsVortex:CooldownRemains(BypassRecovery) <= 0 and t:AffectingCombat()) then
-        if s.Cast(e.UrsolsVortex, nil, nil, nil) then
-            a = 102793
-            return "UrsolsVortex Queue"
-        end
-
-    elseif ((not e.UrsolsVortex:IsUsableP() or e.UrsolsVortex:CooldownRemains() > 0 or not t:AffectingCombat() or not e.RestorationAffinity:IsAvailable()) and D) then
-        HeroRotationCharDB.Toggles[73] = not HeroRotationCharDB.Toggles[73]
-        s.Print("Ursols Vortex Queue is now " .. (HeroRotationCharDB.Toggles[73] and "|cff00ff00on|r." or "|cffff0000off|r."))
-    end
-
-        if (O and e.Typhoon:IsUsableP() and e.BalanceAffinity:IsAvailable() and e.Typhoon:CooldownRemains(BypassRecovery) <= 0 and t:AffectingCombat()) then
-        if s.Cast(e.Typhoon, nil, nil, nil) then
-            a = 132469
-            return "Typhoon Queue"
-        end
-
-    elseif ((not e.Typhoon:IsUsableP() or e.Typhoon:CooldownRemains() > 0 or not t:AffectingCombat() or not e.BalanceAffinity:IsAvailable()) and O) then
-        HeroRotationCharDB.Toggles[74] = not HeroRotationCharDB.Toggles[74]
-        s.Print("Typhoon Queue is now " .. (HeroRotationCharDB.Toggles[74] and "|cff00ff00on|r." or "|cffff0000off|r."))
-    end
-
-        if (I and e.StampedingRoar:IsUsableP() and e.StampedingRoar:CooldownRemains(BypassRecovery) <= 0 and t:AffectingCombat()) then
-        if s.Cast(e.StampedingRoar, nil, nil, nil) then
-            a = 106898
-            return "StampedingRoar Queue"
-        end
-
-    elseif ((not e.StampedingRoar:IsUsableP() or e.StampedingRoar:CooldownRemains() > 0 or not t:AffectingCombat()) and I) then
-        HeroRotationCharDB.Toggles[75] = not HeroRotationCharDB.Toggles[75]
-        s.Print("Stampeding Roar Queue is now " .. (HeroRotationCharDB.Toggles[75] and "|cff00ff00on|r." or "|cffff0000off|r."))
-    end
-
-        if (R and e.IncapacitatingRoar:IsUsableP() and e.IncapacitatingRoar:CooldownRemains(BypassRecovery) <= 0 and t:AffectingCombat()) then
-        if s.Cast(e.IncapacitatingRoar, nil, nil, nil) then
-            a = 99
-            return "IncapacitatingRoar Queue"
-        end
-
-    elseif ((not e.IncapacitatingRoar:IsUsableP() or e.IncapacitatingRoar:CooldownRemains() > 0 or not t:AffectingCombat()) and R) then
-        HeroRotationCharDB.Toggles[76] = not HeroRotationCharDB.Toggles[76]
-        s.Print("Incapacitating Roar Queue is now " .. (HeroRotationCharDB.Toggles[76] and "|cff00ff00on|r." or "|cffff0000off|r."))
-    end
-
-        if (U and e.MightyBash:IsAvailable() and e.MightyBash:IsUsableP() and e.MightyBash:CooldownRemains(BypassRecovery) <= 0 and t:AffectingCombat()) then
-        if s.Cast(e.MightyBash, nil, nil, nil) then
-            a = 5211
-            return "MightyBash Queue"
-        end
-
-    elseif ((not e.MightyBash:IsUsableP() or e.MightyBash:CooldownRemains() > 0 or not t:AffectingCombat() or not e.MightyBash:IsAvailable()) and U) then
-        HeroRotationCharDB.Toggles[77] = not HeroRotationCharDB.Toggles[77]
-        s.Print("Mighty Bash Queue is now " .. (HeroRotationCharDB.Toggles[77] and "|cff00ff00on|r." or "|cffff0000off|r."))
-    end
-
-        if (L and e.EntanglingRoots:IsUsableP() and e.EntanglingRoots:CooldownRemains(BypassRecovery) <= 0 and t:AffectingCombat() and not t:PrevGCD(1, e.EntanglingRoots) and not t:IsCasting()) then
-        if s.Cast(e.EntanglingRoots, nil, nil, nil) then
-            if r("mouseover"):GUID() ~= nil and r("mouseover"):IsSpellInRange(e.EntanglingRoots) then
-                l = 1339
-                return "Entangling Roots Queue"
-            end
-
-        end
-
-    elseif ((not e.EntanglingRoots:IsUsableP() or e.EntanglingRoots:CooldownRemains() > 0 or not t:AffectingCombat() or t:PrevGCD(1, e.EntanglingRoots) or (t:IsCasting(e.EntanglingRoots) and t:CastRemains() <= .5)) and L) then
-        HeroRotationCharDB.Toggles[79] = not HeroRotationCharDB.Toggles[79]
-        s.Print("Entangling Roots Queue Queue is now " .. (HeroRotationCharDB.Toggles[79] and "|cff00ff00on|r." or "|cffff0000off|r."))
-    end
-
-    if t:IsChanneling(h(323764)) then
-        if o(e.Pool) then
-            a = 999999
-            return "channeling"
-        end
-
-        return false
-    end
-
-    if t:BuffUp(e.TravelForm) and IsFlyableArea() then
-        return false
-    end
-
-    if M then
-        if t:BuffUp(e.TravelForm) and e.WildCharge:IsAvailable() and e.WildCharge:CooldownRemains() <= 0 and not t:BuffUp(e.Sprint) and not IsFlyableArea() then
-            if o(e.WildCharge, nil) then
-                a = 102417
-                return "Zoom Zoom Jump"
-            end
-
-        end
-
-        if not t:BuffUp(e.TravelForm) and ((e.WildCharge:IsAvailable() and e.TravelForm:CooldownRemains() <= 0 and not t:BuffUp(e.Sprint) and t:BuffDown(e.SoulShape) and not IsFlyableArea() and not IsIndoors()) or (IsFlyableArea() and not IsIndoors())) then
-            if o(e.TravelForm, nil) then
-                a = 783
-                return "Travel Form for Jump"
-            end
-
-        end
-
-        if e.StampedingRoar:CooldownRemains() <= 0 and t:BuffDown(e.SoulShape) and IsIndoors() and t:BuffDown(e.TravelForm) then
-            if o(e.StampedingRoar, nil) then
-                a = 106898
-                return "StampedingRoar"
-            end
-
-        end
-
-        if e.Flicker:IsCastable() and t:BuffUp(e.SoulShape) then
-            if o(e.Flicker, nil) then
-                a = 324701
-                return "Flicker"
-            end
-
-        end
-
-        if e.SoulShape:IsAvailable() and e.SoulShape:IsCastable() and not t:BuffUp(e.SoulShape) and not t:BuffUp(e.StampedingRoar) and not t:BuffUp(e.Sprint) then
-            if o(e.SoulShape, nil) then
-                a = 310143
-                return "zoom zoom soulshape"
-            end
-
-        end
-
-        if e.Sprint:IsAvailable() and e.Sprint:IsCastable() and not t:BuffUp(e.SoulShape) and IsIndoors() and not t:BuffUp(e.StampedingRoar) then
-            if o(e.Sprint, nil) then
-                a = 1850
-                return "Zoom zoom Sprint"
-            end
-
-        end
-
-        if e.CatForm:IsCastable() and not t:BuffUp(e.CatForm) and not t:BuffUp(e.SoulShape) and IsIndoors() then
-            if o(e.CatForm, nil) then
-                a = 768
-                return "Zoom zoom CatForm"
-            end
-
-        end
-
-    end
-
-    if v.TargetIsValid() then
-        if (select(8, GetInstanceInfo())) == 1698 then
-            if UnitsCastinNetherStormCount > 0 and h(99):IsReady() then
-                if o(h(99), nil) then
-                    a = 99
-                    return "Shout Interrupt MT 1"
-                end
-
-            end
-
-            if UnitsCastinNetherStormCount2 > 0 and h(99):IsReady() and t:BuffUp(e.BearForm) then
-                if o(e.Pool, nil) then
-                    a = 99999
-                    return "Pool for Shout Interrupt MT 1"
-                end
-
-            end
-
-            if UnitsCastinNetherStormCount3 > 0 and e.Barkskin:IsReady() and r("boss1"):NPCID() == 117933 and r("boss1"):TimeToDie() > 60 then
-                if o(e.Barkskin, nil, nil) then
-                    a = 22812
-                    return "barkskin defensive MT 6"
-                end
-
-            end
-
-            if (i:IsInRange(28) and not i:IsInRange(8) and e.WildCharge:IsReady() and t:BuffUp(e.BearForm)) and r("target"):NPCID() ~= 117933 and r("target"):NPCID() ~= 118032 then
-                if o(h(102401), nil) then
-                    a = 102401
-                    return "Wild Charge Back"
-                end
-
-            end
-
-            if (true) then
-                local e = p()
-                if e then
-                    return e
-                end
-
-            end
-
-            if ((select(8, UnitChannelInfo("target"))) == 234676 or (select(9, UnitCastingInfo("target"))) == 234676) and r("target"):IsInRange(20) then
-                if t:BuffUp(e.BearForm) or t:BuffUp(e.CatForm) then
-                    if o(h(106839), nil) then
-                        a = 11106839
-                        return "interrupt boss MT"
-                    end
-
-                else
-                    if o(e.BearForm, nil) then
-                        a = 5487
-                        return "Bear for interrupt"
-                    end
-
-                end
-
-            end
-
-            if r("boss1"):NPCID() == 117933 then
-                if ((select(8, UnitChannelInfo("boss1"))) == 234423 or (select(9, UnitCastingInfo("boss1"))) == 234423) and r("boss1"):IsInRange(20) then
-                                                            if t:BuffUp(e.MoonkinForm) and h(132469):CooldownRemains() <= 0 and UnitsCastinNetherStormCount2 == 0 and UnitsCastinNetherStormCount == 0 then
-                        if o(h(132469), nil) then
-                            a = 132469
-                            return "typhoon interrupt boss MT"
-                        end
-
-                    elseif t:BuffUp(e.BearForm) or t:BuffUp(e.CatForm) then
-                        if o(h(106839), nil) then
-                            a = 11106839
-                            return "interrupt boss MT"
-                        end
-
-                    elseif (not t:BuffUp(e.BearForm) or t:BuffUp(e.CatForm)) and h(132469):CooldownRemains() >= 0 then
-                        if o(e.BearForm, nil) then
-                            a = 5487
-                            return "Bear for interrupt"
-                        end
-
-                    end
-
-                end
-
-                if e.Moonfire:IsReady() then
-                    if v.CastCycle(e.Moonfire, t:GetEnemiesInMeleeRange(40), T, not i:IsSpellInRange(e.Moonfire)) then
-                        return "moonfire MT 4"
-                    end
-
-                end
-
-                if d == 0 then
-                    if (t:BuffUp(e.MoonkinForm)) then
-                                                if ((t:HealthPercentage() < n.Guardian2.MTRegrowth - 20 and not t:IsCasting(h(8936))) or t:HealthPercentage() < n.Guardian2.MTRegrowth - 20) and h(8936):IsReady() and not t:IsMoving() then
-                            if o(h(8936), nil) then
-                                a = 8936
-                                return "Regrowth phase 1"
-                            end
-
-                        elseif true then
-                            local e = z()
-                            if e then
-                                return e
-                            end
-
-                        end
-
-                    else
-                        if o(e.MoonkinForm, nil) then
-                            a = 197625
-                            return "Moonkin phase 1"
-                        end
-
-                    end
-
-                else
-                                                            if UnitsCastinNetherStormCount > 0 and h(99):IsCastable() and t:BuffUp(e.BearForm) then
-                        if o(h(99), nil) then
-                            a = 99
-                            return "Shout Interrupt MT 1"
-                        end
-
-                    elseif t:BuffUp(e.BearForm) then
-                        local e = y()
-                        if e then
-                            return e
-                        end
-
-                    elseif t:BuffDown(e.BearForm) then
-                        if o(e.BearForm, nil) then
-                            a = 5487
-                            return "Bear for melee"
-                        end
-
-                    end
-
-                end
-
-            end
-
-            if r("boss1"):NPCID() == 117198 then
-                if ((select(8, UnitChannelInfo("boss1"))) == 234676 or (select(9, UnitCastingInfo("boss1"))) == 234676) and r("boss1"):IsInRange(20) then
-                                                            if (t:BuffUp(e.BearForm) or t:BuffUp(e.CatForm)) and h(106839):CooldownRemains() <= 0 then
-                        if o(h(106839), nil) then
-                            a = 11106839
-                            return "interrupt boss MT"
-                        end
-
-                    elseif (t:BuffUp(e.BearForm)) and h(132469):CooldownRemains() <= 0 then
-                        if o(h(132469), nil) then
-                            a = 132469
-                            return "interrupt boss MT"
-                        end
-
-                    elseif not t:BuffUp(e.BearForm) then
-                        if o(e.BearForm, nil) then
-                            a = 5487
-                            return "Bear for interrupt"
-                        end
-
-                    end
-
-                end
-
-                if ((select(8, UnitChannelInfo("boss1"))) == 236572 or (select(9, UnitCastingInfo("boss1"))) == 236572) and r("boss1"):IsInRange(8) and h(5211):IsAvailable() and h(5211):IsReady() then
-                    if o(h(5211), nil) then
-                        a = t:DebuffStack(h(236572))
-                        return "interrupt boss bash MT"
-                    end
-
-                end
-
-                if (((select(8, UnitChannelInfo("boss1"))) == 236572 or (select(9, UnitCastingInfo("boss1"))) == 236572) and t:BuffUp(e.BearForm)) then
-                    for i = 1, 40 do
-                        local s, s, i, s, s, s, s, s, s, n, s, s, s, s, s, s = UnitDebuff("player", i)
-                        if n ~= nil and n == 236572 and i ~= nil and i >= 2 and e.SurvivalInstincts:IsCastable() then
-                            if o(e.SurvivalInstincts, nil, nil) then
-                                a = 61336
-                                return "survival_instincts defensive 8"
-                            end
-
-                        end
-
-                        if n ~= nil and n == 236572 and i ~= nil and i >= 1 and e.Barkskin:IsCastable() then
-                            if o(e.Barkskin, nil, nil) then
-                                a = 22812
-                                return "barkskin defensive 6"
-                            end
-
-                        end
-
-                        if n ~= nil and n == 236572 and i ~= nil and i >= 0 and e.Ironfur:IsCastable() and (t:Rage() >= e.Ironfur:Cost() + 1 and (t:BuffDown(e.IronfurBuff) or t:BuffStack(e.IronfurBuff) < 2 and t:BuffRefreshable(e.Ironfur) or t:Rage() >= 90)) then
-                            if o(e.Ironfur, nil, nil) then
-                                a = 192081
-                                return "ironfur defensive 4"
-                            end
-
-                        end
-
-                    end
-
-                end
-
-                if e.Moonfire:IsReady() then
-                    if v.CastCycle(e.Moonfire, t:GetEnemiesInMeleeRange(40), T, not i:IsSpellInRange(e.Moonfire)) then
-                        return "moonfire MT 4"
-                    end
-
-                end
-
-                if d >= 0 then
-                                                            if UnitsCastinNetherStormCount > 0 and h(99):IsCastable() and t:BuffUp(e.BearForm) then
-                        if o(h(99), nil) then
-                            a = 99
-                            return "Shout Interrupt MT 1"
-                        end
-
-                    elseif t:BuffUp(e.BearForm) then
-                        local e = y()
-                        if e then
-                            return e
-                        end
-
-                    elseif t:BuffDown(e.BearForm) then
-                        if o(e.BearForm, nil) then
-                            a = 5487
-                            return "Bear for melee"
-                        end
-
-                    end
-
-                end
-
-            end
-
-        end
-
-        if not t:AffectingCombat() and Y then
-            local e = C()
-            if e then
-                return e
-            end
-
-        end
-
-        if (not UnitIsEnemy("player", "mouseover") and UnitIsDead("mouseover")) then
-                        if e.Rebirth:IsCastable() and ((t:Rage() >= 30 and t:BuffUp(e.BearForm)) or (t:BuffDown(e.BearForm) and not t:IsMoving())) then
-                if o(e.Rebirth, nil) then
-                    a = 20484
-                    return "Rebirth MO"
-                end
-
-            elseif e.Rebirth:CooldownRemains(BypassRecovery) <= 0 and (t:Rage() < 30 and t:BuffUp(e.BearForm)) then
-                g = true
-            end
-
-        end
-
-        if UnitExists("mouseover") and string.find(UnitGUID("mouseover"), 120651) then
-            if e.Moonfire:IsCastable() then
-                if o(e.Moonfire, nil) then
-                    l = 18921
-                    return "explosive MO SWD"
-                end
-
-            end
-
-        end
-
-        if UnitExists("target") and string.find(UnitGUID("target"), 120651) then
-            if e.Moonfire:IsCastable() then
-                if o(e.Moonfire, nil) then
-                    a = 8921
-                    return "explosive  SWD"
-                end
-
-            end
-
-        end
-
-        local i = UnitThreatSituation("player", "target")
-        E = { 324736, 228318, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 331510, 344739, 368477, 368396, 355057, 356133, 342139, 353706, 355782, 327155, 359668, 158337 }
-        if UnitExists("target") and e.Soothe:IsCastable() then
-            if UnitCanAttack("player", "target") and UnitAffectingCombat("target") and UnitIsDead("target") ~= true then
-                for t = 0, 40 do
-                    local t, t, t, t, t, t, t, t, t, i = UnitBuff("target", t)
-                    for n, t in pairs(E) do
-                        if t == i then
-                            if o(e.Soothe, nil) then
-                                a = 2908
-                                return "Southe Enrage"
-                            end
-
-                        end
-
-                    end
-
-                end
-
-            end
-
-        end
-
-        if UnitExists("mouseover") and e.Soothe:IsCastable() then
-            if UnitCanAttack("player", "mouseover") and UnitAffectingCombat("mouseover") and UnitIsDead("mouseover") ~= true then
-                for t = 0, 40 do
-                    local a, a, a, a, a, a, a, a, a, t = UnitBuff("mouseover", t)
-                    for i, a in pairs(E) do
-                        if a == t then
-                            if o(e.Soothe, nil) then
-                                l = 12908
-                                return "Southe Enrage mouseover"
-                            end
-
-                        end
-
-                    end
-
-                end
-
-            end
-
-        end
-
-        for t = 0, 40 do
-            local i, i, i, t, i, i, i, i, i, i = UnitDebuff("mouseover", t)
-            if e.RemoveCorruption:IsCastable() and UnitIsDead("mouseover") ~= true and UnitCanAttack("player", "mouseover") ~= true and IsItemInRange(34471, "mouseover") and ((t == "Poison") or (t == "Curse")) then
-                if o(e.RemoveCorruption, nil) then
-                    a = 2782
-                    return "Remove Corruption MO"
-                end
-
-            end
-
-        end
-
-        if (true) then
-            local e = p()
-            if e then
-                return e
-            end
-
-        end
-
-        if u.Jotungeirr:IsEquippedAndReady() and (f ~= 2) and m() then
-            if o(u.Jotungeirr, nil, nil) then
-                a = 16
-                return "jotungeirr_destinys_call main"
-            end
-
-        end
-
-        if (f ~= 2) and m() then
-            local e = t:GetUseableTrinkets(k)
-            if e then
-                if o(e, nil, nil) then
-                                        if e:ID() == TopTrinketID and n.Commons.Enabled.TopTrinket and ((n.Commons.TopTrinketHP <= 0 and m()) or n.Commons.TopTrinketHP > t:HealthPercentage()) then
-                        a = 24
-                        return "top trinket 1"
-                    elseif e:ID() == BotTrinketID and n.Commons.Enabled.BotTrinket and ((n.Commons.BotTrinketHP <= 0 and m()) or n.Commons.BotTrinketHP > t:HealthPercentage()) then
-                        a = 30
-                        return "bot trinket 1"
-                    end
-
-                end
-
-            end
-
-        end
-
-        if n.Commons.Enabled.Potions and S and u.PotionofPhantomFire:IsReady() and (((f ~= 2 and (t:BuffUp(e.BerserkBuff) or t:BuffUp(e.Incarnation)) and t:BuffRemains(e.IncarnationBuff) <= 26) and not s.GUISettings.General.HoldPotforBL) or (s.GUISettings.General.HoldPotforBL and t:BloodlustUp())) then
-            if o(u.PotionofPhantomFire, nil, nil) then
-                a = 50
-                return "potion main"
-            end
-
-        end
-
-        if (true) then
-            local e = y()
-            if e then
-                return e
-            end
-
-        end
-
-        if (true) then
-            if s.CastAnnotated(e.Pool, false, "WAIT") then
-                return "Wait/Pool Resources"
-            end
-
-        end
-
-    end
-
-end
-
-local function e()
-    if HeroRotationCharDB.Toggles[6] then
-        HeroRotationCharDB.Toggles[6] = not HeroRotationCharDB.Toggles[6]
-        s.ToggleIconFrame:UpdateButtonText(6)
-    end
-
-end
-
-function ReturnSpell()
-    if a == 0 then
-        return 0
-    else
-        return a
-    end
-
-end
-
-function ReturnSpellMO()
-    if l == 0 then
-        return 0
-    else
-        return l
-    end
-
-end
-
-s.SetAPL(104, c, e)
-
+local function aA() if n() then X = g:GetEnemiesInMeleeRange(8)
+Y = #X;
+W = g:GetEnemiesInMeleeRange(5)
+Enemies40y = g:GetEnemiesInRange(40)
+else X = g:GetEnemiesInMeleeRange(8) if #X >= 1 then Y = 1 else Y = 0 end W = g:GetEnemiesInMeleeRange(5) end TopTrinketID = GetInventoryItemID("player"
+    , 13)
+BotTrinketID = GetInventoryItemID("player", 14)
+if not J.Commons.Enabled.TopTrinket and not J.Commons.Enabled.BotTrinket then M = { TopTrinketID, BotTrinketID } elseif not
+    J.Commons.Enabled.TopTrinket then M = { TopTrinketID } elseif not J.Commons.Enabled.BotTrinket then M = { BotTrinketID } end Q = g
+    :ActiveMitigationNeeded()
+R = g:IsTankingAoE(8) or g:IsTanking(i)
+UnitsCastinNetherStormCount = a6(X)
+UnitsCastinNetherStormCount2 = ab(X)
+UnitsCastinNetherStormCount3 = ad(X)
+MTNegligableMeleeCount = af(X)
+if n() then if MTNegligableMeleeCount > 0 then Y = Y - MTNegligableMeleeCount end end S = true; if not
+    J.Guardian.UseRageDefensively then S = true end if not BotOn then T = 0;
+U = 0
+end if T > 0 then T = 0 end if U > 0 then U = 0 end ShouldReturn = ay() if m.QueuedCast() then U = m.QueuedCast() return "Custom Queue "
+    .. j(U):ID() end az() if m.GUISettings.General.OpenerReset > 0 and not HeroRotationCharDB.Toggles[6] then starttime = GetTime()
+endtime = starttime + m.GUISettings.General.OpenerReset
+elseif m.GUISettings.General.OpenerReset > 0 and endtime ~= nil and GetTime() > endtime and HeroRotationCharDB.Toggles[6
+    ] then HeroRotationCharDB.Toggles[6] = not HeroRotationCharDB.Toggles[6] m.ToggleIconFrame:UpdateButtonText(6) m.Print("Opener is now "
+    .. (HeroRotationCharDB.Toggles[6] and "|cff00ff00enabled|r." or "|cffff0000disabled|r.")) end if y and
+    K.UrsolsVortex:IsUsableP() and K.RestorationAffinity:IsAvailable() and
+    K.UrsolsVortex:CooldownRemains(BypassRecovery) <= 0 and g:AffectingCombat() then if m.Cast(K.UrsolsVortex, nil, nil,
+    nil) then U = 102793; return "UrsolsVortex Queue" end elseif (
+    not K.UrsolsVortex:IsUsableP() or K.UrsolsVortex:CooldownRemains() > 0 or not g:AffectingCombat() or
+        not K.RestorationAffinity:IsAvailable()) and y then HeroRotationCharDB.Toggles[73] = not
+    HeroRotationCharDB.Toggles[73] m.Print("Ursols Vortex Queue is now " ..
+    (HeroRotationCharDB.Toggles[73] and "|cff00ff00on|r." or "|cffff0000off|r.")) end if z and K.Typhoon:IsUsableP() and
+    K.BalanceAffinity:IsAvailable() and K.Typhoon:CooldownRemains(BypassRecovery) <= 0 and g:AffectingCombat() then if m
+    .Cast(K.Typhoon, nil, nil, nil) then U = 132469; return "Typhoon Queue" end elseif (
+    not K.Typhoon:IsUsableP() or K.Typhoon:CooldownRemains() > 0 or not g:AffectingCombat() or
+        not K.BalanceAffinity:IsAvailable()) and z then HeroRotationCharDB.Toggles[74] = not
+    HeroRotationCharDB.Toggles[74] m.Print("Typhoon Queue is now " ..
+    (HeroRotationCharDB.Toggles[74] and "|cff00ff00on|r." or "|cffff0000off|r.")) end if A and
+    K.StampedingRoar:IsUsableP() and K.StampedingRoar:CooldownRemains(BypassRecovery) <= 0 and g:AffectingCombat() then if m
+    .Cast(K.StampedingRoar, nil, nil, nil) then U = 106898; return "StampedingRoar Queue" end elseif (
+    not K.StampedingRoar:IsUsableP() or K.StampedingRoar:CooldownRemains() > 0 or not g:AffectingCombat()) and A then HeroRotationCharDB
+    .Toggles[75] = not HeroRotationCharDB.Toggles[75] m.Print("Stampeding Roar Queue is now " ..
+    (HeroRotationCharDB.Toggles[75] and "|cff00ff00on|r." or "|cffff0000off|r.")) end if B and
+    K.IncapacitatingRoar:IsUsableP() and K.IncapacitatingRoar:CooldownRemains(BypassRecovery) <= 0 and
+    g:AffectingCombat() then if m.Cast(K.IncapacitatingRoar, nil, nil, nil) then U = 99; return "IncapacitatingRoar Queue" end elseif (
+    not K.IncapacitatingRoar:IsUsableP() or K.IncapacitatingRoar:CooldownRemains() > 0 or not g:AffectingCombat()) and B then HeroRotationCharDB
+    .Toggles[76] = not HeroRotationCharDB.Toggles[76] m.Print("Incapacitating Roar Queue is now " ..
+    (HeroRotationCharDB.Toggles[76] and "|cff00ff00on|r." or "|cffff0000off|r.")) end if C and K.MightyBash:IsAvailable()
+    and K.MightyBash:IsUsableP() and K.MightyBash:CooldownRemains(BypassRecovery) <= 0 and g:AffectingCombat() then if m
+    .Cast(K.MightyBash, nil, nil, nil) then U = 5211; return "MightyBash Queue" end elseif (
+    not K.MightyBash:IsUsableP() or K.MightyBash:CooldownRemains() > 0 or not g:AffectingCombat() or
+        not K.MightyBash:IsAvailable()) and C then HeroRotationCharDB.Toggles[77] = not HeroRotationCharDB.Toggles[77] m
+    .Print("Mighty Bash Queue is now " .. (HeroRotationCharDB.Toggles[77] and "|cff00ff00on|r." or "|cffff0000off|r.")) end if E
+    and K.EntanglingRoots:IsUsableP() and K.EntanglingRoots:CooldownRemains(BypassRecovery) <= 0 and g:AffectingCombat()
+    and not g:PrevGCD(1, K.EntanglingRoots) and not g:IsCasting() then if m.Cast(K.EntanglingRoots, nil, nil, nil) then if f("mouseover")
+    :GUID() ~= nil and f("mouseover"):IsSpellInRange(K.EntanglingRoots) then T = 1339; return "Entangling Roots Queue" end end elseif (
+    not K.EntanglingRoots:IsUsableP() or K.EntanglingRoots:CooldownRemains() > 0 or not g:AffectingCombat() or
+        g:PrevGCD(1, K.EntanglingRoots) or g:IsCasting(K.EntanglingRoots) and g:CastRemains() <= 0.5) and E then HeroRotationCharDB
+    .Toggles[79] = not HeroRotationCharDB.Toggles[79] m.Print("Entangling Roots Queue Queue is now " ..
+    (HeroRotationCharDB.Toggles[79] and "|cff00ff00on|r." or "|cffff0000off|r.")) end if g:IsChanneling(j(323764)) then if p(K
+    .Pool) then U = 999999; return "channeling" end return false end if g:BuffUp(K.TravelForm) and IsFlyableArea() then return false end if D then if g
+    :BuffUp(K.TravelForm) and K.WildCharge:IsAvailable() and K.WildCharge:CooldownRemains() <= 0 and
+    not g:BuffUp(K.Sprint) and not IsFlyableArea() then if p(K.WildCharge, nil) then U = 102417; return "Zoom Zoom Jump" end end if not
+    g:BuffUp(K.TravelForm) and
+    (
+    K.WildCharge:IsAvailable() and K.TravelForm:CooldownRemains() <= 0 and not g:BuffUp(K.Sprint) and
+        g:BuffDown(K.SoulShape) and not IsFlyableArea() and not IsIndoors() or IsFlyableArea() and not IsIndoors()) then if p(K
+    .TravelForm, nil) then U = 783; return "Travel Form for Jump" end end if K.StampedingRoar:CooldownRemains() <= 0 and
+    g:BuffDown(K.SoulShape) and IsIndoors() and g:BuffDown(K.TravelForm) then if p(K.StampedingRoar, nil) then U = 106898; return "StampedingRoar" end end if K
+    .Flicker:IsCastable() and g:BuffUp(K.SoulShape) then if p(K.Flicker, nil) then U = 324701; return "Flicker" end end if K
+    .SoulShape:IsAvailable() and K.SoulShape:IsCastable() and not g:BuffUp(K.SoulShape) and
+    not g:BuffUp(K.StampedingRoar) and not g:BuffUp(K.Sprint) then if p(K.SoulShape, nil) then U = 310143; return "zoom zoom soulshape" end end if K
+    .Sprint:IsAvailable() and K.Sprint:IsCastable() and not g:BuffUp(K.SoulShape) and IsIndoors() and
+    not g:BuffUp(K.StampedingRoar) then if p(K.Sprint, nil) then U = 1850; return "Zoom zoom Sprint" end end if K.CatForm
+    :IsCastable() and not g:BuffUp(K.CatForm) and not g:BuffUp(K.SoulShape) and IsIndoors() then if p(K.CatForm, nil) then U = 768; return "Zoom zoom CatForm" end end end if I
+    .TargetIsValid() then if select(8, GetInstanceInfo()) == 1698 then if UnitsCastinNetherStormCount > 0 and
+    j(99):IsReady() then if p(j(99), nil) then U = 99; return "Shout Interrupt MT 1" end end if UnitsCastinNetherStormCount2
+    > 0 and j(99):IsReady() and g:BuffUp(K.BearForm) then if p(K.Pool, nil) then U = 99999; return "Pool for Shout Interrupt MT 1" end end if UnitsCastinNetherStormCount3
+    > 0 and K.Barkskin:IsReady() and f("boss1"):NPCID() == 117933 and f("boss1"):TimeToDie() > 60 then if p(K.Barkskin,
+    nil, nil) then U = 22812; return "barkskin defensive MT 6" end end if i:IsInRange(28) and not i:IsInRange(8) and
+    K.WildCharge:IsReady() and g:BuffUp(K.BearForm) and f("target"):NPCID() ~= 117933 and f("target"):NPCID() ~= 118032 then if p(j(102401)
+    , nil) then U = 102401; return "Wild Charge Back" end end if true then local ShouldReturn = ao() if ShouldReturn then return ShouldReturn end end if (
+    select(8, UnitChannelInfo("target")) == 234676 or select(9, UnitCastingInfo("target")) == 234676) and
+    f("target"):IsInRange(20) then if g:BuffUp(K.BearForm) or g:BuffUp(K.CatForm) then if p(j(106839), nil) then U = 11106839; return "interrupt boss MT" end else if p(K
+    .BearForm, nil) then U = 5487; return "Bear for interrupt" end end end if f("boss1"):NPCID() == 117933 then if (
+    select(8, UnitChannelInfo("boss1")) == 234423 or select(9, UnitCastingInfo("boss1")) == 234423) and
+    f("boss1"):IsInRange(20) then if g:BuffUp(K.MoonkinForm) and j(132469):CooldownRemains() <= 0 and
+    UnitsCastinNetherStormCount2 == 0 and UnitsCastinNetherStormCount == 0 then if p(j(132469), nil) then U = 132469; return "typhoon interrupt boss MT" end elseif g
+    :BuffUp(K.BearForm) or g:BuffUp(K.CatForm) then if p(j(106839), nil) then U = 11106839; return "interrupt boss MT" end elseif (
+    not g:BuffUp(K.BearForm) or g:BuffUp(K.CatForm)) and j(132469):CooldownRemains() >= 0 then if p(K.BearForm, nil) then U = 5487; return "Bear for interrupt" end end end if K
+    .Moonfire:IsReady() then if I.CastCycle(K.Moonfire, g:GetEnemiesInMeleeRange(40), ak,
+    not i:IsSpellInRange(K.Moonfire)) then return "moonfire MT 4" end end if Y == 0 then if g:BuffUp(K.MoonkinForm) then if (
+    g:HealthPercentage() < J.Guardian2.MTRegrowth - 20 and not g:IsCasting(j(8936)) or
+        g:HealthPercentage() < J.Guardian2.MTRegrowth - 20) and j(8936):IsReady() and not g:IsMoving() then if p(j(8936)
+    , nil) then U = 8936; return "Regrowth phase 1" end elseif true then local ShouldReturn = ax() if ShouldReturn then return ShouldReturn end end else if p(K
+    .MoonkinForm, nil) then U = 197625; return "Moonkin phase 1" end end else if UnitsCastinNetherStormCount > 0 and
+    j(99):IsCastable() and g:BuffUp(K.BearForm) then if p(j(99), nil) then U = 99; return "Shout Interrupt MT 1" end elseif g
+    :BuffUp(K.BearForm) then local ShouldReturn = av() if ShouldReturn then return ShouldReturn end elseif g:BuffDown(K.BearForm) then if p(K
+    .BearForm, nil) then U = 5487; return "Bear for melee" end end end end if f("boss1"):NPCID() == 117198 then if (
+    select(8, UnitChannelInfo("boss1")) == 234676 or select(9, UnitCastingInfo("boss1")) == 234676) and
+    f("boss1"):IsInRange(20) then if (g:BuffUp(K.BearForm) or g:BuffUp(K.CatForm)) and j(106839):CooldownRemains() <= 0 then if p(j(106839)
+    , nil) then U = 11106839; return "interrupt boss MT" end elseif g:BuffUp(K.BearForm) and
+    j(132469):CooldownRemains() <= 0 then if p(j(132469), nil) then U = 132469; return "interrupt boss MT" end elseif not
+    g:BuffUp(K.BearForm) then if p(K.BearForm, nil) then U = 5487; return "Bear for interrupt" end end end if (
+    select(8, UnitChannelInfo("boss1")) == 236572 or select(9, UnitCastingInfo("boss1")) == 236572) and
+    f("boss1"):IsInRange(8) and j(5211):IsAvailable() and j(5211):IsReady() then if p(j(5211), nil) then U = g:
+    DebuffStack(j(236572)) return "interrupt boss bash MT" end end if (
+    select(8, UnitChannelInfo("boss1")) == 236572 or select(9, UnitCastingInfo("boss1")) == 236572) and
+    g:BuffUp(K.BearForm) then for aB = 1, 40 do local aC, aC, aD, aC, aC, aC, aC, aC, aC, aE, aC, aC, aC, aC, aC, aC = UnitDebuff("player"
+    , aB) if aE ~= nil and aE == 236572 and aD ~= nil and aD >= 2 and K.SurvivalInstincts:IsCastable() then if p(K.SurvivalInstincts
+    , nil, nil) then U = 61336; return "survival_instincts defensive 8" end end if aE ~= nil and aE == 236572 and aD ~=
+    nil and aD >= 1 and K.Barkskin:IsCastable() then if p(K.Barkskin, nil, nil) then U = 22812; return "barkskin defensive 6" end end if aE
+    ~= nil and aE == 236572 and aD ~= nil and aD >= 0 and K.Ironfur:IsCastable() and
+    (
+    g:Rage() >= K.Ironfur:Cost() + 1 and
+        (g:BuffDown(K.IronfurBuff) or g:BuffStack(K.IronfurBuff) < 2 and g:BuffRefreshable(K.Ironfur) or g:Rage() >= 90)
+    ) then if p(K.Ironfur, nil, nil) then U = 192081; return "ironfur defensive 4" end end end end if K.Moonfire:IsReady() then if I
+    .CastCycle(K.Moonfire, g:GetEnemiesInMeleeRange(40), ak, not i:IsSpellInRange(K.Moonfire)) then return "moonfire MT 4" end end if Y
+    >= 0 then if UnitsCastinNetherStormCount > 0 and j(99):IsCastable() and g:BuffUp(K.BearForm) then if p(j(99), nil) then U = 99; return "Shout Interrupt MT 1" end elseif g
+    :BuffUp(K.BearForm) then local ShouldReturn = av() if ShouldReturn then return ShouldReturn end elseif g:BuffDown(K.BearForm) then if p(K
+    .BearForm, nil) then U = 5487; return "Bear for melee" end end end end end if not g:AffectingCombat() and s then local ShouldReturn = aq() if ShouldReturn then return ShouldReturn end end if not
+    UnitIsEnemy("player", "mouseover") and UnitIsDead("mouseover") then if K.Rebirth:IsCastable() and
+    (g:Rage() >= 30 and g:BuffUp(K.BearForm) or g:BuffDown(K.BearForm) and not g:IsMoving()) then if p(K.Rebirth, nil) then U = 20484; return "Rebirth MO" end elseif K
+    .Rebirth:CooldownRemains(BypassRecovery) <= 0 and (g:Rage() < 30 and g:BuffUp(K.BearForm)) then F = true end end if UnitExists("mouseover")
+    and string.find(UnitGUID("mouseover"), 120651) then if K.Moonfire:IsCastable() then if p(K.Moonfire, nil) then T = 18921; return "explosive MO SWD" end end end if UnitExists("target")
+    and string.find(UnitGUID("target"), 120651) then if K.Moonfire:IsCastable() then if p(K.Moonfire, nil) then U = 8921; return "explosive  SWD" end end end local aF = UnitThreatSituation("player"
+    , "target")
+G = { 324736, 228318, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 331510,
+    344739, 368477, 368396, 355057, 356133, 342139, 353706, 355782, 327155, 359668, 158337 }
+if UnitExists("target") and K.Soothe:IsCastable() then if UnitCanAttack("player", "target") and
+    UnitAffectingCombat("target") and UnitIsDead("target") ~= true then for aB = 0, 40 do local aC, aC, aG, aH, aC, aC, aC, aC, aC, aI = UnitBuff("target"
+    , aB) for aC, aJ in pairs(G) do if aJ == aI then if p(K.Soothe, nil) then U = 2908; return "Southe Enrage" end end end end end end if UnitExists("mouseover")
+    and K.Soothe:IsCastable() then if UnitCanAttack("player", "mouseover") and UnitAffectingCombat("mouseover") and
+    UnitIsDead("mouseover") ~= true then for aB = 0, 40 do local aC, aC, aG, aH, aC, aC, aC, aC, aC, aI = UnitBuff("mouseover"
+    , aB) for aC, aJ in pairs(G) do if aJ == aI then if p(K.Soothe, nil) then T = 12908; return "Southe Enrage mouseover" end end end end end end for aB = 0, 40 do local aC, aC, aG, aH, aC, aC, aC, aC, aC, aI = UnitDebuff("mouseover"
+    , aB) if K.RemoveCorruption:IsCastable() and UnitIsDead("mouseover") ~= true and
+    UnitCanAttack("player", "mouseover") ~= true and IsItemInRange(34471, "mouseover") and (aH == "Poison" or aH ==
+        "Curse") then if p(K.RemoveCorruption, nil) then U = 2782; return "Remove Corruption MO" end end end if true then local ShouldReturn = ao() if ShouldReturn then return ShouldReturn end end if L
+    .Jotungeirr:IsEquippedAndReady() and a2 ~= 2 and o() then if p(L.Jotungeirr, nil, nil) then U = 16; return "jotungeirr_destinys_call main" end end if a2
+    ~= 2 and o() then local ap = g:GetUseableTrinkets(M) if ap then if p(ap, nil, nil) then if ap:ID() == TopTrinketID
+    and J.Commons.Enabled.TopTrinket and
+    (J.Commons.TopTrinketHP <= 0 and o() or J.Commons.TopTrinketHP > g:HealthPercentage()) then U = 24; return "top trinket 1" elseif ap
+    :ID() == BotTrinketID and J.Commons.Enabled.BotTrinket and
+    (J.Commons.BotTrinketHP <= 0 and o() or J.Commons.BotTrinketHP > g:HealthPercentage()) then U = 30; return "bot trinket 1" end end end end if J
+    .Commons.Enabled.Potions and t and L.PotionofPhantomFire:IsReady() and
+    (
+    a2 ~= 2 and (g:BuffUp(K.BerserkBuff) or g:BuffUp(K.Incarnation)) and g:BuffRemains(K.IncarnationBuff) <= 26 and
+        not m.GUISettings.General.HoldPotforBL or m.GUISettings.General.HoldPotforBL and g:BloodlustUp()) then if p(L.PotionofPhantomFire
+    , nil, nil) then U = 50; return "potion main" end end if true then local ShouldReturn = av() if ShouldReturn then return ShouldReturn end end if true then if m
+    .CastAnnotated(K.Pool, false, "WAIT") then return "Wait/Pool Resources" end end end end
+
+local function aK() if HeroRotationCharDB.Toggles[6] then HeroRotationCharDB.Toggles[6] = not
+    HeroRotationCharDB.Toggles[6] m.ToggleIconFrame:UpdateButtonText(6) end end
+
+function ReturnSpell() if U == 0 then return 0 else return U end end
+
+function ReturnSpellMO() if T == 0 then return 0 else return T end end
+
+m.SetAPL(104, aA, aK)
