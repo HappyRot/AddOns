@@ -231,8 +231,10 @@ local function av() if K.BearForm:IsCastable() and g:BuffDown(K.BearForm) then i
         i:DebuffStack(K.AdaptiveSwarmCovDebuff) < 3 and i:DebuffRemains(K.AdaptiveSwarmCovDebuff) < 5 and
         i:DebuffUp(K.AdaptiveSwarmCovDebuff)) then if p(K.AdaptiveSwarmCov, nil, nil,
     not i:IsSpellInRange(K.AdaptiveSwarmCov)) then U = 325727; return "adaptive_swarm bear 18" end end if K.RageoftheSleeper
-    :IsCastable() and g:BuffDown(K.IncarnationGuardianOfUrsoc) and K.IncarnationGuardianOfUrsoc:CooldownRemains() > 60 or
-    g:BuffUp(K.IncarnationGuardianOfUrsoc) and o() then if p(K.RageoftheSleeper, nil) then U = 200851; return "RageoftheSleeper bear 16" end end if K
+    :IsCastable() and R and
+    (
+    g:BuffDown(K.IncarnationBuff) and K.Incarnation:CooldownRemains() > 60 or g:BuffUp(K.IncarnationBuff) or
+        K.ConvoketheSpirits:IsAvailable()) and o() then if p(K.RageoftheSleeper, nil) then U = 200851; return "RageoftheSleeper bear 16" end end if K
     .Moonfire:IsCastable() and g:BuffUp(K.GalacticGuardianBuff) and select(8, GetInstanceInfo()) == 1698 and
     f("boss1"):NPCID() == 117933 and f("boss1"):IsInRange(40) then if p(K.Moonfire) then U = 118921; return "Moonfire owl Boss 2" end end if K
     .Moonfire:IsReady() and (g:BuffUp(K.GalacticGuardianBuff) and Y < 3) and not g:BuffUp(K.RavenousFrenzyBuff) then if p(K
