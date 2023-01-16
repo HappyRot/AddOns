@@ -200,8 +200,8 @@ local function aF() if n() and R.AdrenalineRush:IsCastable() and not g:BuffUp(R.
   GetInventoryItemID("player", 13)) then if g.Cast(R.Pool) then a8 = 9999; return "POOL" end end return "Generic use_items for "
     .. TrinketToUse:Name() elseif TrinketToUse:ID() == GetInventoryItemID("player", 14) and
     Q.Commons.Enabled.BottomTrinket then a8 = 25; if g:IsChanneling(TrinketToUse:ID() == GetInventoryItemID("player", 13)) then if g
-    .Cast(R.Pool) then a8 = 9999; return "POOL" end end return "Generic use_items for " .. TrinketToUse:Name() end end end end end if g
-    :IsChanneling(TrinketToUse) then if l.Cast(R.Pool) then a8 = 9999; return "casting MANICGRIEFTORCH" end end end
+    .Cast(R.Pool) then a8 = 99999; return "POOL" end end return "Generic use_items for " .. TrinketToUse:Name() end end end end end if g
+    :IsChanneling(TrinketToUse) then if l.Cast(R.Pool) then a8 = 99999; return "casting MANICGRIEFTORCH" end end end
 
 local function aH() if R.BladeFlurry:IsReady() and m() and W >= 2 and R.Subterfuge:IsAvailable() and
     R.HiddenOpportunity:IsAvailable() and not g:BuffUp(R.BladeFlurry) then if l.Cast(R.BladeFlurry) then a8 = 13877; return "Cast Blade Flurry" end end if R
