@@ -172,10 +172,11 @@ local function aF() if n() and R.AdrenalineRush:IsCastable() and not g:BuffUp(R.
     and R.KeepItRolling:IsReady() and not at() and
     aa(g:BuffUp(R.Broadside)) + aa(g:BuffUp(R.TrueBearing)) + aa(g:BuffUp(R.SkullandCrossbones)) +
     aa(g:BuffUp(R.RuthlessPrecision)) > 2 and (g:BuffDown(R.ShadowDanceBuff) or aq() >= 6) then if l.Cast(R.KeepItRolling) then a8 = 381989; return "Cast KeepItRolling" end end if R
-    .BladeRush:IsCastable() and h:IsSpellInRange(R.BladeRush) and ay() and not g:DebuffUp(R.Dreadblades) then if l.Cast(R
-  .BladeRush, nil) then a8 = 271877; return "Cast Blade Rush" end end if h:IsSpellInRange(R.SinisterStrike) then if not
-    g:StealthUp(true, true, true) or R.CountTheOdds:IsAvailable() and not av() then X = aD() if X then return X end end if R
-    .Dreadblades:IsReady() and n() and h:IsSpellInRange(R.Dreadblades) and not g:StealthUp(true, true) and a0 <= 2 and
+    .BladeRush:IsCastable() and h:IsSpellInRange(R.BladeRush) and ay() and not g:DebuffUp(R.Dreadblades) and
+    Q.Outlaw.BRAutomatically then if l.Cast(R.BladeRush, nil) then a8 = 271877; return "Cast Blade Rush" end end if h:
+    IsSpellInRange(R.SinisterStrike) then if not g:StealthUp(true, true, true) or
+    R.CountTheOdds:IsAvailable() and not av() then X = aD() if X then return X end end if R.Dreadblades:IsReady() and n()
+    and h:IsSpellInRange(R.Dreadblades) and not g:StealthUp(true, true) and a0 <= 2 and
     (not R.MarkedforDeath:IsAvailable() or not R.MarkedforDeath:CooldownUp()) and h:FilteredTimeToDie(">=", 10) then if l
     .Cast(R.Dreadblades, nil) then a8 = 343142; return "Cast Dreadblades" end end end if R.ThistleTea:IsCastable() and
     n() and not g:BuffUp(R.ThistleTea) and (a4 >= 100 or d.BossFilteredFightRemains("<", R.ThistleTea:Charges() * 6)) then if l
@@ -200,8 +201,8 @@ local function aF() if n() and R.AdrenalineRush:IsCastable() and not g:BuffUp(R.
   GetInventoryItemID("player", 13)) then if g.Cast(R.Pool) then a8 = 9999; return "POOL" end end return "Generic use_items for "
     .. TrinketToUse:Name() elseif TrinketToUse:ID() == GetInventoryItemID("player", 14) and
     Q.Commons.Enabled.BottomTrinket then a8 = 25; if g:IsChanneling(TrinketToUse:ID() == GetInventoryItemID("player", 13)) then if g
-    .Cast(R.Pool) then a8 = 99999; return "POOL" end end return "Generic use_items for " .. TrinketToUse:Name() end end end end end if g
-    :IsChanneling(TrinketToUse) then if l.Cast(R.Pool) then a8 = 99999; return "casting MANICGRIEFTORCH" end end end
+    .Cast(R.Pool) then a8 = 9999; return "POOL" end end return "Generic use_items for " .. TrinketToUse:Name() end end end end end if g
+    :IsChanneling(TrinketToUse) then if l.Cast(R.Pool) then a8 = 9999; return "casting MANICGRIEFTORCH" end end end
 
 local function aH() if R.BladeFlurry:IsReady() and m() and W >= 2 and R.Subterfuge:IsAvailable() and
     R.HiddenOpportunity:IsAvailable() and not g:BuffUp(R.BladeFlurry) then if l.Cast(R.BladeFlurry) then a8 = 13877; return "Cast Blade Flurry" end end if R
@@ -327,10 +328,14 @@ elseif l.GUISettings.General.OpenerReset > 0 and L ~= nil and GetTime() > L and 
     not R.Sap:IsUsableP() or R.Sap:CooldownRemains() > 0 or not g:StealthUp(true, true)) and y then HeroRotationCharDB.Toggles
     [25] = not HeroRotationCharDB.Toggles[25] l.Print("Sap Queue is now " ..
   (HeroRotationCharDB.Toggles[25] and "|cff00ff00on|r." or "|cffff0000off|r.")) end if z and R.Feint:IsUsableP() and
-    R.Feint:CooldownRemains(BypassRecovery) <= 0 and g:AffectingCombat() then if l.Cast(R.Feint, nil, nil, nil) then a8 = 202; return "queue Shuriken Tornado" end elseif (
+    R.Feint:CooldownRemains(BypassRecovery) <= 0 and g:AffectingCombat() then if l.Cast(R.Feint, nil, nil, nil) then a8 = 202; return "queue Feint" end elseif (
     not R.Feint:IsUsableP() or R.Feint:CooldownRemains() > 0 or not g:AffectingCombat()) and z then HeroRotationCharDB.Toggles
     [27] = not HeroRotationCharDB.Toggles[27] l.Print("Feint Queue is now " ..
-  (HeroRotationCharDB.Toggles[27] and "|cff00ff00on|r." or "|cffff0000off|r.")) end if A and R.Gouge:IsUsableP() and
+  (HeroRotationCharDB.Toggles[27] and "|cff00ff00on|r." or "|cffff0000off|r.")) end if B and R.BladeRush:IsUsableP() and
+    R.BladeRush:CooldownRemains(BypassRecovery) <= 0 and g:AffectingCombat() then if l.Cast(R.BladeRush, nil, nil, nil) then a8 = 271877; return "queue BladeRush" end elseif (
+    not R.BladeRush:IsUsableP() or R.BladeRush:CooldownRemains() > 0 or not g:AffectingCombat()) and B then HeroRotationCharDB
+    .Toggles[51] = not HeroRotationCharDB.Toggles[51] l.Print("BladeRush que is now " ..
+  (HeroRotationCharDB.Toggles[51] and "|cff00ff00on|r." or "|cffff0000off|r.")) end if A and R.Gouge:IsUsableP() and
     R.Gouge:CooldownRemains(BypassRecovery) <= 0 then if l.Cast(R.Gouge, nil, nil, nil) then if f("mouseover"):GUID() ~=
     nil and f("mouseover"):IsSpellInRange(R.Gouge) then a9 = 17765; return "queue Gouge MO" elseif f("target"):
     IsSpellInRange(R.Gouge) then a8 = 1776; return "queue Gouge" end end elseif (
@@ -341,17 +346,17 @@ elseif l.GUISettings.General.OpenerReset > 0 and L ~= nil and GetTime() > L and 
     g:AffectingCombat() then if l.Cast(R.ArcaneTorrent, nil, nil, nil) then a8 = 155145; return "queue ArcaneTorrent Queue" end elseif R
     .LightsJudgment:IsAvailable() and R.LightsJudgment:IsUsableP() and
     R.LightsJudgment:CooldownRemains(BypassRecovery) <= 0 and g:AffectingCombat() then if l.Cast(R.LightsJudgment, nil,
-  nil, nil) then a8 = 255647; return "queue ArcaneTorrent Queue" end elseif R.BagofTricks:IsAvailable() and
+  nil, nil) then a8 = 255647; return "queue LightsJudgment Queue" end elseif R.BagofTricks:IsAvailable() and
     R.BagofTricks:IsUsableP() and R.BagofTricks:CooldownRemains(BypassRecovery) <= 0 and g:AffectingCombat() then if l.Cast(R
-  .BagofTricks, nil, nil, nil) then a8 = 312411; return "queue ArcaneTorrent Queue" end elseif R.BloodFury:IsAvailable()
+  .BagofTricks, nil, nil, nil) then a8 = 312411; return "queue BagofTricks Queue" end elseif R.BloodFury:IsAvailable()
     and R.BloodFury:IsUsableP() and R.BloodFury:CooldownRemains(BypassRecovery) <= 0 and g:AffectingCombat() then if l.Cast(R
-  .BloodFury, nil, nil, nil) then a8 = 20572; return "queue ArcaneTorrent Queue" end elseif R.Berserking:IsAvailable()
-    and R.Berserking:IsUsableP() and R.Berserking:CooldownRemains(BypassRecovery) <= 0 and g:AffectingCombat() then if l
-    .Cast(R.Berserking, nil, nil, nil) then a8 = 26297; return "queue ArcaneTorrent Queue" end elseif R.Fireblood:
-    IsAvailable() and R.Fireblood:IsUsableP() and R.Fireblood:CooldownRemains(BypassRecovery) <= 0 and
-    g:AffectingCombat() then if l.Cast(R.Fireblood, nil, nil, nil) then a8 = 265221; return "queue ArcaneTorrent Queue" end elseif R
-    .AncestralCall:IsAvailable() and R.AncestralCall:IsUsableP() and R.AncestralCall:CooldownRemains(BypassRecovery) <= 0
-    and g:AffectingCombat() then if l.Cast(R.AncestralCall, nil, nil, nil) then a8 = 274738; return "queue ArcaneTorrent Queue" end elseif (
+  .BloodFury, nil, nil, nil) then a8 = 20572; return "queue BloodFury Queue" end elseif R.Berserking:IsAvailable() and
+    R.Berserking:IsUsableP() and R.Berserking:CooldownRemains(BypassRecovery) <= 0 and g:AffectingCombat() then if l.Cast(R
+  .Berserking, nil, nil, nil) then a8 = 26297; return "queue Berserking Queue" end elseif R.Fireblood:IsAvailable() and
+    R.Fireblood:IsUsableP() and R.Fireblood:CooldownRemains(BypassRecovery) <= 0 and g:AffectingCombat() then if l.Cast(R
+  .Fireblood, nil, nil, nil) then a8 = 265221; return "queue Fireblood Queue" end elseif R.AncestralCall:IsAvailable()
+    and R.AncestralCall:IsUsableP() and R.AncestralCall:CooldownRemains(BypassRecovery) <= 0 and g:AffectingCombat() then if l
+    .Cast(R.AncestralCall, nil, nil, nil) then a8 = 274738; return "queue AncestralCall Queue" end elseif (
     R.ArcaneTorrent:IsAvailable() and
         (not R.ArcaneTorrent:IsUsableP() or R.ArcaneTorrent:CooldownRemains() > 0 or not g:AffectingCombat()) or
         R.LightsJudgment:IsAvailable() and
