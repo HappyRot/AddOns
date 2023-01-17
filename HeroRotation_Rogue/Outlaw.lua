@@ -197,12 +197,9 @@ local function aF() if n() and R.AdrenalineRush:IsCastable() and not g:BuffUp(R.
     :GetUseableTrinkets(T) if TrinketToUse and n() and
     (h:DebuffUp(R.BetweentheEyes) or d.BossFilteredFightRemains("<", 20) or TrinketToUse:TrinketHasStatAnyDps()) then if TrinketToUse then if l
     .Cast(TrinketToUse, nil, nil) then if TrinketToUse:ID() == GetInventoryItemID("player", 13) and
-    Q.Commons.Enabled.TopTrinket then a8 = 24; if g.Cast:IsChanneling(TrinketToUse:ID() ==
-  GetInventoryItemID("player", 13)) then if g.Cast(R.Pool) then a8 = 9999; return "POOL" end end return "Generic use_items for "
-    .. TrinketToUse:Name() elseif TrinketToUse:ID() == GetInventoryItemID("player", 14) and
-    Q.Commons.Enabled.BottomTrinket then a8 = 25; if g:IsChanneling(TrinketToUse:ID() == GetInventoryItemID("player", 13)) then if g
-    .Cast(R.Pool) then a8 = 9999; return "POOL" end end return "Generic use_items for " .. TrinketToUse:Name() end end end end end if g
-    :IsChanneling(TrinketToUse) then if l.Cast(R.Pool) then a8 = 9999; return "casting MANICGRIEFTORCH" end end end
+    Q.Commons.Enabled.TopTrinket then a8 = 24; return "Generic use_items for " .. TrinketToUse:Name() elseif TrinketToUse
+    :ID() == GetInventoryItemID("player", 14) and Q.Commons.Enabled.BottomTrinket then a8 = 25; return "Generic use_items for "
+    .. TrinketToUse:Name() end end end end end if g:IsChanneling(TrinketToUse) then if l.Cast(R.Pool) then a8 = 9999; return "casting MANICGRIEFTORCH" end end end
 
 local function aH() if R.BladeFlurry:IsReady() and m() and W >= 2 and R.Subterfuge:IsAvailable() and
     R.HiddenOpportunity:IsAvailable() and not g:BuffUp(R.BladeFlurry) then if l.Cast(R.BladeFlurry) then a8 = 13877; return "Cast Blade Flurry" end end if R
