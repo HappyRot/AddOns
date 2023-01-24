@@ -39,7 +39,8 @@ local r = LibStub("LibDataBroker-1.1"):NewDataObject("HeroRotation",
             == 64 or t == 251 then InterfaceOptionsFrame_Show() InterfaceOptionsFrame_OpenToCategory("HeroRotation") InterfaceOptionsFrame_OpenToCategory("      Frost") elseif t
             == 255 then InterfaceOptionsFrame_Show() InterfaceOptionsFrame_OpenToCategory("HeroRotation") InterfaceOptionsFrame_OpenToCategory("      Survival") elseif t
             == 253 then InterfaceOptionsFrame_Show() InterfaceOptionsFrame_OpenToCategory("HeroRotation") InterfaceOptionsFrame_OpenToCategory("      BeastMastery") elseif t
-            == 104 then InterfaceOptionsFrame_Show() InterfaceOptionsFrame_OpenToCategory("HeroRotation") InterfaceOptionsFrame_OpenToCategory("      Guardian") end end,
+            == 104 then InterfaceOptionsFrame_Show() InterfaceOptionsFrame_OpenToCategory("HeroRotation") InterfaceOptionsFrame_OpenToCategory("      Guardian") elseif t
+            == 257 then InterfaceOptionsFrame_Show() InterfaceOptionsFrame_OpenToCategory("HeroRotation") InterfaceOptionsFrame_OpenToCategory("      HolyPriest") end end,
         OnTooltipShow = function(u) u:AddLine("HeroRotation", 1, 1, 1) end })
 function b.CoreInit() HeroRotationDB.db = LibStub("AceDB-3.0"):New("HeroRotationDB", { profile = { minimap = { hide = false } } })
 HRDBIcon = LibStub("LibDBIcon-1.0")
@@ -343,7 +344,9 @@ function b.CmdHandler(ac) local ad, ae, af = strsplit(" ", o(ac)) if ad == "cds"
     HeroRotationCharDB.Toggles[125] and "|cffff0000disabled|r." or
         "|cff00ff00enabled|r. (Requires AutoMisdirect checked in settings)")) elseif ad == "wailingarrow" then HeroRotationCharDB
     .Toggles[170] = not HeroRotationCharDB.Toggles[170] b.Print("Wailing Arrow Queue now " ..
-    (HeroRotationCharDB.Toggles[170] and "|cffff0000disabled|r." or "|cff00ff00enabled|r.")) elseif ad == "huntersmark" then HeroRotationCharDB
+    (HeroRotationCharDB.Toggles[170] and "|cffff0000disabled|r." or "|cff00ff00enabled|r.")) elseif ad == "deathchakram" then HeroRotationCharDB
+    .Toggles[171] = not HeroRotationCharDB.Toggles[171] b.Print("Death Chakram Queue now " ..
+    (HeroRotationCharDB.Toggles[171] and "|cff00ff00on|r." or "|cffff0000off|r.")) elseif ad == "huntersmark" then HeroRotationCharDB
     .Toggles[140] = not HeroRotationCharDB.Toggles[140] b.Print("Hunter's Mark Queue is now " ..
     (HeroRotationCharDB.Toggles[140] and "|cff00ff00on|r." or "|cffff0000off|r.")) elseif ad == "holdbombs" then HeroRotationCharDB
     .Toggles[141] = not HeroRotationCharDB.Toggles[141] b.Print("Wildfire Bombs are now " ..
