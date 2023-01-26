@@ -172,8 +172,8 @@ local function aF() if n() and R.AdrenalineRush:IsCastable() and not g:BuffUp(R.
     and R.KeepItRolling:IsReady() and not at() and
     aa(g:BuffUp(R.Broadside)) + aa(g:BuffUp(R.TrueBearing)) + aa(g:BuffUp(R.SkullandCrossbones)) +
     aa(g:BuffUp(R.RuthlessPrecision)) > 2 and (g:BuffDown(R.ShadowDanceBuff) or aq() >= 6) then if l.Cast(R.KeepItRolling) then a8 = 381989; return "Cast KeepItRolling" end end if R
-    .BladeRush:IsCastable() and h:IsSpellInRange(R.BladeRush) and ay() and not g:DebuffUp(R.Dreadblades) and
-    Q.Outlaw.BRAutomatically then if l.Cast(R.BladeRush, nil) then a8 = 271877; return "Cast Blade Rush" end end if h:
+    .BladeRush:IsCastable() and ay() and not g:DebuffUp(R.Dreadblades) and Q.Outlaw.BRAutomatically and
+    g:GetEnemiesInRange(5) then if l.Cast(R.BladeRush, nil) then a8 = 271877; return "Cast Blade Rush" end end if h:
     IsSpellInRange(R.SinisterStrike) then if not g:StealthUp(true, true, true) or
     R.CountTheOdds:IsAvailable() and not av() then X = aD() if X then return X end end if R.Dreadblades:IsReady() and n()
     and h:IsSpellInRange(R.Dreadblades) and not g:StealthUp(true, true) and a0 <= 2 and
@@ -197,9 +197,12 @@ local function aF() if n() and R.AdrenalineRush:IsCastable() and not g:BuffUp(R.
     :GetUseableTrinkets(T) if TrinketToUse and n() and
     (h:DebuffUp(R.BetweentheEyes) or d.BossFilteredFightRemains("<", 20) or TrinketToUse:TrinketHasStatAnyDps()) then if TrinketToUse then if l
     .Cast(TrinketToUse, nil, nil) then if TrinketToUse:ID() == GetInventoryItemID("player", 13) and
-    Q.Commons.Enabled.TopTrinket then a8 = 24; return "Generic use_items for " .. TrinketToUse:Name() elseif TrinketToUse
-    :ID() == GetInventoryItemID("player", 14) and Q.Commons.Enabled.BottomTrinket then a8 = 25; return "Generic use_items for "
-    .. TrinketToUse:Name() end end end end end if g:IsChanneling(TrinketToUse) then if l.Cast(R.Pool) then a8 = 9999; return "casting MANICGRIEFTORCH" end end end
+    Q.Commons.Enabled.TopTrinket then a8 = 24; if g.Cast:IsChanneling(TrinketToUse:ID() ==
+  GetInventoryItemID("player", 13)) then if g.Cast(R.Pool) then a8 = 9999; return "POOL" end end return "Generic use_items for "
+    .. TrinketToUse:Name() elseif TrinketToUse:ID() == GetInventoryItemID("player", 14) and
+    Q.Commons.Enabled.BottomTrinket then a8 = 25; if g:IsChanneling(TrinketToUse:ID() == GetInventoryItemID("player", 13)) then if g
+    .Cast(R.Pool) then a8 = 9999; return "POOL" end end return "Generic use_items for " .. TrinketToUse:Name() end end end end end if g
+    :IsChanneling(TrinketToUse) then if l.Cast(R.Pool) then a8 = 9999; return "casting MANICGRIEFTORCH" end end end
 
 local function aH() if R.BladeFlurry:IsReady() and m() and W >= 2 and R.Subterfuge:IsAvailable() and
     R.HiddenOpportunity:IsAvailable() and not g:BuffUp(R.BladeFlurry) then if l.Cast(R.BladeFlurry) then a8 = 13877; return "Cast Blade Flurry" end end if R
@@ -376,8 +379,11 @@ elseif l.GUISettings.General.OpenerReset > 0 and L ~= nil and GetTime() > L and 
     :HealthPercentage() < Q.Commons.HealthstoneHP and S.Healthstone:IsReady() and S.Healthstone:CooldownRemains() <= 0 then if l
     .Cast(S.Healthstone, nil) then a8 = 40; return "Healthstone HP" end end if g:HealthPercentage() < Q.Commons.HealPotHP
     and S.CosmicHealPot:IsReady() and S.CosmicHealPot:CooldownRemains() <= 0 then if l.Cast(S.CosmicHealPot, nil) then a8 = 45; return "CosmicHealPot HP" end end if g
-    :HealthPercentage() < Q.Commons.HealPotHP and S.HealPot:IsReady() and S.HealPot:CooldownRemains() <= 0 then if l.Cast(S
-  .HealPot, nil) then a8 = 41; return "HealPot HP" end end if UnitExists("mouseover") and
+    :HealthPercentage() < Q.Commons.HealPotHP and S.HealPotL:IsReady() and S.HealPotL:CooldownRemains() <= 0 then if l.Cast(S
+  .HealPotL, nil) then a8 = 41; return "HealPot LOW HP" end end if g:HealthPercentage() < Q.Commons.HealPotHP and
+    S.HealPotM:IsReady() and S.HealPotM:CooldownRemains() <= 0 then if l.Cast(S.HealPotM, nil) then a8 = 41; return "HealPot MEDIUM HP" end end if g
+    :HealthPercentage() < Q.Commons.HealPotHP and S.HealPotH:IsReady() and S.HealPotH:CooldownRemains() <= 0 then if l.Cast(S
+  .HealPotH, nil) then a8 = 41; return "HealPot HIGH HP" end end if UnitExists("mouseover") and
     string.find(UnitGUID("mouseover"), 120651) then if R.PistolShot:IsCastable() and f("mouseover"):IsInMeleeRange(20) then if l
     .Cast(R.PistolShot, nil) then a9 = 1185763; return "explosive MO Pistol" end end end if R.PistolShot:IsCastable() and
     f("target"):IsInMeleeRange(40) and string.find(UnitGUID("target"), 120651) then if l.Cast(R.PistolShot, nil) then a8 = 185763; return "explosive Tar Pistol" end end G = { 324736,

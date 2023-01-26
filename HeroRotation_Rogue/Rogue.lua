@@ -90,12 +90,12 @@ l.Rogue.Assassination = { GalecallersBoon = l(159614, { 13, 14 }), LustrousGolde
     ShadowgraspTotem = l(179356, { 13, 14 }), OverchargedAnimaBattery = l(180116, { 13, 14 }),
     CacheOfAcquiredTreasures = l(188265, { 13, 14 }), TheFirstSigil = l(188271, { 13, 14 }),
     ScarsofFraternalStrife = l(188253, { 13, 14 }) }
-l.Rogue.Outlaw = { PotionofSpectralAgility = l(171270), Healthstone = l(5512), HealPot = l(171267),
-    CosmicHealPot = l(187802), PhialofSerenity = l(177278), ManicGrieftorch = l(194308, { 13, 14 }) }
+l.Rogue.Outlaw = { PotionofSpectralAgility = l(171270), Healthstone = l(5512), HealPotL = l(191378), HealPotM = l(191379),
+    HealPotH = l(191380), CosmicHealPot = l(187802), PhialofSerenity = l(177278), ManicGrieftorch = l(194308, { 13, 14 }) }
 l.Rogue.Subtlety = { ComputationDevice = l(167555, { 13, 14 }), VigorTrinket = l(165572, { 13, 14 }),
     FontOfPower = l(169314, { 13, 14 }), RazorCoral = l(169311, { 13, 14 }), MistcallerOcarina = l(178715, { 13, 14 }),
     CacheOfAcquiredTreasures = l(188265, { 13, 14 }), PotionofSpectralAgility = l(171270), Healthstone = l(5512),
-    HealPot = l(171267), CosmicHealPot = l(187802), PhialofSerenity = l(177278) }
+    HealPot = l(191380), CosmicHealPot = l(187802), PhialofSerenity = l(177278) }
 function q.StealthSpell() return j.Rogue.Commons.Subterfuge:IsAvailable() and j.Rogue.Commons.Stealth2 or
     j.Rogue.Commons.Stealth end
 
