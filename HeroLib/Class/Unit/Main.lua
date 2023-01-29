@@ -246,9 +246,12 @@ local DummyUnits = {
   [194649] = true, -- Normal Tank Dummy
   -- DargonFlight Iskaara
   [193563] = true, -- Training Dummy
-  [196394] = true, -- Tuskarr Training Dummy (toy)
   -- Other
-  [65310] = true, -- Turnip Punching Bag
+  [65310] = true, -- Turnip Punching Bag (toy)
+  [66374] = true, -- Anatomical Dummy (toy)
+  [196394] = true, -- Tuskarr Training Dummy (toy)
+  [196406] = true, -- Rubbery Fish Head (toy)
+  [199057] = true, -- Black Dragon's Challenge Dummy (toy)
 }
 function Unit:IsDummy()
   local NPCID = self:NPCID()
@@ -301,7 +304,6 @@ end
 
 -- Get if we are Tanking or not the Unit.
 function Unit:IsTanking(Other, ThreatThreshold)
-  if (UnitGroupRolesAssigned("player") == "TANK" and Unit:IsInBossList(164407)) then return true end
   local ThreatSituation = UnitThreatSituation(self:ID(), Other:ID())
 
   return (ThreatSituation and ThreatSituation >= (ThreatThreshold or 2)) or false

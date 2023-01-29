@@ -12,8 +12,6 @@ local Party, Raid = Unit.Party, Unit.Raid
 local Spell = HL.Spell
 local Item = HL.Item
 -- Lua
-local GetRuneforgeLegendaryComponentInfo = C_LegendaryCrafting.GetRuneforgeLegendaryComponentInfo
-local IsRuneforgeLegendary = C_LegendaryCrafting.IsRuneforgeLegendary
 local GetInventoryItemID = GetInventoryItemID
 local ItemLocation = ItemLocation
 local select = select
@@ -21,12 +19,16 @@ local wipe = wipe
 -- File Locals
 local Equipment = {}
 local UseableTrinkets = {}
-local ActiveLegendaryEffects = {}
 
 --- ============================ CONTENT =============================
 -- Retrieve the current player's equipment.
 function Player:GetEquipment()
   return Equipment
+end
+
+-- Retrieve the current player's usable trinket items
+function Player:GetOnUseTrinkets()
+  return UseableTrinkets
 end
 
 -- Save the current player's equipment.
@@ -49,12 +51,15 @@ function Player:UpdateEquipment()
       end
     end
   end
+
+  self:RegisterListenedItemSpells()
 end
 
 do
   -- Global Custom Trinkets
   -- Note: Can still be overriden on a per-module basis by passing in to ExcludedTrinkets
   local CustomTrinketItems = {
+    -- Shadowlands
     FlayedwingToxin                 = Item(178742, {13, 14}),
     MistcallerOcarina               = Item(178715, {13, 14}),
     SoulIgniter                     = Item(184019, {13, 14}),
@@ -64,10 +69,13 @@ do
     SoleahsSecretTechnique          = Item(185818, {13, 14}),
     SoleahsSecretTechnique2         = Item(190958, {13, 14}),
     -- Dragonflight
+    GlobeofJaggedIce                = Item(193732, {13, 14}),
     PrimalRitualShell               = Item(200563, {13, 14}),
     RubyWhelpShell                  = Item(193757, {13, 14}),
+    TreemouthsFesteringSplinter     = Item(193652, {13, 14}),
   }
   local CustomTrinketsSpells = {
+    -- Shadowlands
     FlayedwingToxinBuff               = Spell(345545),
     MistcallerVers                    = Spell(330067),
     MistcallerCrit                    = Spell(332299),
@@ -81,6 +89,8 @@ do
     TomeofMonstruousConstructionsBuff = Spell(357163),
     SoleahsSecretTechniqueBuff        = Spell(351952),
     SoleahsSecretTechnique2Buff       = Spell(368512),
+    -- Dragonflight
+    SkeweringColdDebuff               = Spell(388929),
   }
 
   -- Check if the trinket is coded as blacklisted by the user or not.
@@ -99,6 +109,64 @@ do
     return false
   end
 
+  -- Check if the trinket is coded as blacklisted either globally or by the user
+  function Player:IsTrinketBlacklisted(TrinketItem)
+    if IsUserTrinketBlacklisted(TrinketItem) then
+      return true
+    end
+
+    -- Shadowlands
+
+    local TrinketItemID = TrinketItem:ID()
+    if TrinketItemID == CustomTrinketItems.FlayedwingToxin:ID() then
+      return Player:AuraInfo(CustomTrinketsSpells.FlayedwingToxinBuff)
+    end
+
+    if TrinketItemID == CustomTrinketItems.MistcallerOcarina:ID() then
+      return Player:BuffUp(CustomTrinketsSpells.MistcallerCrit) or Player:BuffUp(CustomTrinketsSpells.MistcallerHaste)
+        or Player:BuffUp(CustomTrinketsSpells.MistcallerMastery) or Player:BuffUp(CustomTrinketsSpells.MistcallerVers)
+    end
+
+    if TrinketItemID == CustomTrinketItems.SoulIgniter:ID() then
+      return not (Player:BuffDown(CustomTrinketsSpells.SoulIgniterBuff) and Target:IsInRange(40))
+    end
+
+    if TrinketItemID == CustomTrinketItems.DarkmoonDeckIndomitable:ID() then
+      return not ((Player:BuffUp(CustomTrinketsSpells.IndomitableFive) or Player:BuffUp(CustomTrinketsSpells.IndomitableSix) or Player:BuffUp(CustomTrinketsSpells.IndomitableSeven)
+        or Player:BuffUp(CustomTrinketsSpells.IndomitableEight)) and (Player:IsTankingAoE(8) or Player:IsTanking(Target)))
+    end
+
+    if TrinketItemID == CustomTrinketItems.ShardofAnnhyldesAegis:ID() then
+      return not (Player:IsTankingAoE(8) or Player:IsTanking(Target))
+    end
+
+    if TrinketItemID == CustomTrinketItems.TomeofMonstruousConstructions:ID() then
+      return Player:AuraInfo(CustomTrinketsSpells.TomeofMonstruousConstructionsBuff)
+    end
+
+    if TrinketItemID == CustomTrinketItems.SoleahsSecretTechnique:ID() or TrinketItemID == CustomTrinketItems.SoleahsSecretTechnique2:ID() then
+      return Player:BuffUp(CustomTrinketsSpells.SoleahsSecretTechniqueBuff) or Player:BuffUp(CustomTrinketsSpells.SoleahsSecretTechnique2Buff)
+    end
+
+    -- Dragonflight
+
+    if TrinketItemID == CustomTrinketItems.GlobeofJaggedIce:ID() then
+      return Target:DebuffStack(CustomTrinketsSpells.SkeweringColdDebuff) < 4
+    end
+
+    if TrinketItemID == CustomTrinketItems.TreemouthsFesteringSplinter:ID() then
+      return not (Player:IsTankingAoE(8) or Player:IsTanking(Target))
+    end
+
+    if TrinketItemID == CustomTrinketItems.RubyWhelpShell:ID()
+    or TrinketItemID == CustomTrinketItems.PrimalRitualShell:ID() then
+      return true
+    end
+
+    return false
+  end
+
+  -- Return the trinket item of the first usable trinket that is not blacklisted or excluded
   function Player:GetUseableTrinkets(ExcludedTrinkets, slotID)
     for _, TrinketItem in ipairs(UseableTrinkets) do
       local TrinketItemID = TrinketItem:ID()
@@ -108,7 +176,7 @@ do
       if slotID and Equipment[slotID] ~= TrinketItemID then
         IsExcluded = true
       -- Check if the trinket is ready, unless it's blacklisted
-      elseif TrinketItem:IsReady() and not IsUserTrinketBlacklisted(TrinketItem) then
+      elseif TrinketItem:IsReady() and not Player:IsTrinketBlacklisted(TrinketItem) then
         for i=1, #ExcludedTrinkets do
           if ExcludedTrinkets[i] == TrinketItemID then
             IsExcluded = true
@@ -117,27 +185,7 @@ do
         end
 
         if not IsExcluded then
-          -- Global custom trinket handlers
-          if TrinketItemID == CustomTrinketItems.FlayedwingToxin:ID() then
-            if not Player:AuraInfo(CustomTrinketsSpells.FlayedwingToxinBuff) then return TrinketItem end
-          elseif TrinketItemID == CustomTrinketItems.MistcallerOcarina:ID() then
-            if not (Player:BuffUp(CustomTrinketsSpells.MistcallerCrit) or Player:BuffUp(CustomTrinketsSpells.MistcallerHaste) or Player:BuffUp(CustomTrinketsSpells.MistcallerMastery) or Player:BuffUp(CustomTrinketsSpells.MistcallerVers)) then return TrinketItem end
-          elseif TrinketItemID == CustomTrinketItems.SoulIgniter:ID() then
-            if Player:BuffDown(CustomTrinketsSpells.SoulIgniterBuff) and Target:IsInRange(40) then return TrinketItem end
-          elseif TrinketItemID == CustomTrinketItems.DarkmoonDeckIndomitable:ID() then
-            if (Player:BuffUp(CustomTrinketsSpells.IndomitableFive) or Player:BuffUp(CustomTrinketsSpells.IndomitableSix) or Player:BuffUp(CustomTrinketsSpells.IndomitableSeven) or Player:BuffUp(CustomTrinketsSpells.IndomitableEight)) and (Player:IsTankingAoE(8) or Player:IsTanking(Target)) then return TrinketItem end
-          elseif TrinketItemID == CustomTrinketItems.ShardofAnnhyldesAegis:ID() then
-            if (Player:IsTankingAoE(8) or Player:IsTanking(Target)) then return TrinketItem end
-          elseif TrinketItemID == CustomTrinketItems.TomeofMonstruousConstructions:ID() then
-            if not Player:AuraInfo(CustomTrinketsSpells.TomeofMonstruousConstructionsBuff) then return TrinketItem end
-          elseif TrinketItemID == CustomTrinketItems.SoleahsSecretTechnique:ID() or TrinketItemID == CustomTrinketItems.SoleahsSecretTechnique2:ID() then
-            if not (Player:BuffUp(CustomTrinketsSpells.SoleahsSecretTechniqueBuff) or Player:BuffUp(CustomTrinketsSpells.SoleahsSecretTechnique2Buff)) then return TrinketItem end
-          elseif TrinketItemID == CustomTrinketItems.RubyWhelpShell:ID() or TrinketItemID == CustomTrinketItems.PrimalRitualShell:ID() then
-            -- Just return nil because these will never be used rotationally
-            return nil
-          else
-            return TrinketItem
-          end
+          return TrinketItem
         end
       end
     end
@@ -146,80 +194,8 @@ do
   end
 end
 
--- Create a table of active Shadowlands legendaries
-function Player:UpdateActiveLegendaryEffects()
-  wipe(ActiveLegendaryEffects)
-
-  for i = 1, 15, 1 do
-    if i ~= 13 and i ~= 14 then -- Skip trinket slots since there is no trinket legendary
-      local SlotItem = ItemLocation:CreateFromEquipmentSlot(i)
-      if SlotItem:IsValid() and IsRuneforgeLegendary(SlotItem) then
-        local LegendaryInfo = GetRuneforgeLegendaryComponentInfo(SlotItem)
-        ActiveLegendaryEffects[LegendaryInfo.powerID] = true
-      end
-    end
-  end
-end
-
--- Check if a specific legendary is active, using the effect's ID
--- See HeroDBC/scripts/DBC/parsed/Legendaries.lua for a reference of Legendary Effect IDs
-function Player:HasLegendaryEquipped(LegendaryID)
-  return ActiveLegendaryEffects[LegendaryID] ~= nil
-end
-
-local UnityLegendaryIDs = {
-  264,
-  267,
-  268,
-  269,
-  270,
-  271,
-  272,
-  273,
-  274,
-  275,
-  276,
-  277
-}
-
-local UnityBeltIDs = {
-  -- mage
-  190464,
-  -- druid
-  190465,
-  -- hunter
-  190466,
-  -- death knight
-  190467,
-  -- priest
-  190468,
-  -- warlock
-  190469,
-  -- demon hunter
-  190470,
-  -- rogue
-  190471,
-  -- monk
-  190472,
-  -- shaman
-  190473,
-  -- paladin
-  190474,
-  -- warrior
-  190475
-}
-
-function Player:HasUnity()
-  for _,LegendaryID in pairs(UnityLegendaryIDs) do
-    if Player:HasLegendaryEquipped(LegendaryID) then return true end
-  end
-  local Belt = Equipment[6]
-  for _,BeltID in pairs(UnityBeltIDs) do
-    if Belt and Belt == BeltID then return true end
-  end
-  return false
-end
-
+-- Define our tier set tables
+-- TierSets[TierNumber][ClassID][ItemSlot] = Item ID
 local TierSets = {
   -- Item Slot IDs: 1 - Head, 3 - Shoulders, 5 - Chest, 7 - Legs, 10 - Hands
   [28] = {

@@ -148,10 +148,6 @@ HL:RegisterForEvent(
 
     -- Update Equipment
     Player:UpdateEquipment()
-    -- Update Soulbinds
-    Player:UpdateSoulbinds()
-    -- Update Legendaries
-    Player:UpdateActiveLegendaryEffects()
 
     -- Load / Refresh Core Overrides
     if Event == "PLAYER_SPECIALIZATION_CHANGED" then
@@ -201,11 +197,6 @@ HL:RegisterForEvent(
     end
   end,
   "PLAYER_LOGIN", "ZONE_CHANGED_NEW_AREA", "PLAYER_SPECIALIZATION_CHANGED", "PLAYER_TALENT_UPDATE", "PLAYER_EQUIPMENT_CHANGED", "TRAIT_CONFIG_UPDATED"
-)
-
-HL:RegisterForEvent(
-  function(Event, Arg1) Player:UpdateSoulbinds() end,
-  "SOULBIND_ACTIVATED", "SOULBIND_NODE_LEARNED", "SOULBIND_CONDUIT_INSTALLED", "SOULBIND_NODE_UPDATED", "SOULBIND_PENDING_CONDUIT_CHANGED", "SOULBIND_PATH_CHANGED", "SOULBIND_NODE_UNLEARNED", "SOULBIND_CONDUIT_UNINSTALLED"
 )
 
 -- Player Unit Cache
