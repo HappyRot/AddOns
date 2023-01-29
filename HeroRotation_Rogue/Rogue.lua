@@ -91,7 +91,8 @@ l.Rogue.Assassination = { GalecallersBoon = l(159614, { 13, 14 }), LustrousGolde
     CacheOfAcquiredTreasures = l(188265, { 13, 14 }), TheFirstSigil = l(188271, { 13, 14 }),
     ScarsofFraternalStrife = l(188253, { 13, 14 }) }
 l.Rogue.Outlaw = { PotionofSpectralAgility = l(171270), Healthstone = l(5512), HealPotL = l(191378), HealPotM = l(191379),
-    HealPotH = l(191380), CosmicHealPot = l(187802), PhialofSerenity = l(177278), ManicGrieftorch = l(194308, { 13, 14 }) }
+    HealPotH = l(191380), CosmicHealPot = l(187802), PhialofSerenity = l(177278), ManicGrieftorch = l(194308, { 13, 14 }),
+    AlgetharPuzzleBox = l(193701, { 13, 14 }) }
 l.Rogue.Subtlety = { ComputationDevice = l(167555, { 13, 14 }), VigorTrinket = l(165572, { 13, 14 }),
     FontOfPower = l(169314, { 13, 14 }), RazorCoral = l(169311, { 13, 14 }), MistcallerOcarina = l(178715, { 13, 14 }),
     CacheOfAcquiredTreasures = l(188265, { 13, 14 }), PotionofSpectralAgility = l(171270), Healthstone = l(5512),
