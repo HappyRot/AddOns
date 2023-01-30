@@ -196,3 +196,4 @@ do local af, ag = j(340094), 4; function q.MasterAssassinsMarkRemains() if g:Buf
 function q.ReturnSpell() if t == 0 then return 0 else return t end end
 
 function q.ReturnSpellMO() if u == 0 then return 0 else return u end end
+
