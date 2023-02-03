@@ -56,45 +56,46 @@ local a2, a3, a4, a5, a6;
 local a7 = { { R.Blind, "Cast Blind (Interrupt)", function() return true end } }
 local a8 = P.ReturnSpell()
 local a9 = P.ReturnSpellMO()
-local function aa(ab) if ab then return 1 else return 0 end end
+local aa = 0;
+local function ab(ac) if ac then return 1 else return 0 end end
 
-local ac, ad = 0, 0;
-local function ae(af) local ag = g:EnergyTimeToMaxPredicted(nil, af) if ag < ac or ag - ac > 0.5 then ac = ag end return ac end
+local ad, ae = 0, 0;
+local function af(ag) local ah = g:EnergyTimeToMaxPredicted(nil, ag) if ah < ad or ah - ad > 0.5 then ad = ah end return ad end
 
-local function ah() local ai = g:EnergyPredicted() if ai > ad or ai - ad > 9 then ad = ai end return ad end
+local function ai() local aj = g:EnergyPredicted() if aj > ae or aj - ae > 9 then ae = aj end return ae end
 
-local aj = { R.Broadside, R.BuriedTreasure, R.GrandMelee, R.RuthlessPrecision, R.SkullandCrossbones, R.TrueBearing }
-local function ak(al, am) if not e.APLVar.RtB_List then e.APLVar.RtB_List = {} end if not e.APLVar.RtB_List[al] then e.APLVar
-    .RtB_List[al] = {} end local an = table.concat(am) if al == "All" then if not e.APLVar.RtB_List[al][an] then local ao = 0; for ap = 1, #
-    am do if g:BuffUp(aj[am[ap]]) then ao = ao + 1 end end e.APLVar.RtB_List[al][an] = ao == #am and true or false end else if not
-    e.APLVar.RtB_List[al][an] then e.APLVar.RtB_List[al][an] = false; for ap = 1, #am do if g:BuffUp(aj[am[ap]]) then e.APLVar
-    .RtB_List[al][an] = true; break end end end end return e.APLVar.RtB_List[al][an] end
+local ak = { R.Broadside, R.BuriedTreasure, R.GrandMelee, R.RuthlessPrecision, R.SkullandCrossbones, R.TrueBearing }
+local function al(am, an) if not e.APLVar.RtB_List then e.APLVar.RtB_List = {} end if not e.APLVar.RtB_List[am] then e.APLVar
+    .RtB_List[am] = {} end local ao = table.concat(an) if am == "All" then if not e.APLVar.RtB_List[am][ao] then local ap = 0; for aq = 1, #
+    an do if g:BuffUp(ak[an[aq]]) then ap = ap + 1 end end e.APLVar.RtB_List[am][ao] = ap == #an and true or false end else if not
+    e.APLVar.RtB_List[am][ao] then e.APLVar.RtB_List[am][ao] = false; for aq = 1, #an do if g:BuffUp(ak[an[aq]]) then e.APLVar
+    .RtB_List[am][ao] = true; break end end end end return e.APLVar.RtB_List[am][ao] end
 
-local function aq() if not e.APLVar.RtB_Buffs then e.APLVar.RtB_Buffs = {}
+local function ar() if not e.APLVar.RtB_Buffs then e.APLVar.RtB_Buffs = {}
 e.APLVar.RtB_Buffs.Total = 0;
 e.APLVar.RtB_Buffs.Normal = 0;
 e.APLVar.RtB_Buffs.Shorter = 0;
 e.APLVar.RtB_Buffs.Longer = 0;
-local ar = P.RtBRemains()
-for ap = 1, #aj do local as = g:BuffRemains(aj[ap]) if as > 0 then e.APLVar.RtB_Buffs.Total = e.APLVar.RtB_Buffs.Total +
-    1; if as == ar then e.APLVar.RtB_Buffs.Normal = e.APLVar.RtB_Buffs.Normal + 1 elseif as > ar then e.APLVar.RtB_Buffs
+local as = P.RtBRemains()
+for aq = 1, #ak do local at = g:BuffRemains(ak[aq]) if at > 0 then e.APLVar.RtB_Buffs.Total = e.APLVar.RtB_Buffs.Total +
+    1; if at == as then e.APLVar.RtB_Buffs.Normal = e.APLVar.RtB_Buffs.Normal + 1 elseif at > as then e.APLVar.RtB_Buffs
     .Longer = e.APLVar.RtB_Buffs.Longer + 1 else e.APLVar.RtB_Buffs.Shorter = e.APLVar.RtB_Buffs.Shorter + 1 end end end end return e
     .APLVar.RtB_Buffs.Total end
 
-local function at() if not e.APLVar.RtB_Reroll then if Q.Outlaw.RolltheBonesLogic == "1+ Buff" then e.APLVar.RtB_Reroll = aq()
+local function au() if not e.APLVar.RtB_Reroll then if Q.Outlaw.RolltheBonesLogic == "1+ Buff" then e.APLVar.RtB_Reroll = ar()
     <= 0 and true or false elseif Q.Outlaw.RolltheBonesLogic == "Broadside" then e.APLVar.RtB_Reroll = not
     g:BuffUp(R.Broadside) and true or false elseif Q.Outlaw.RolltheBonesLogic == "Buried Treasure" then e.APLVar.RtB_Reroll = not
     g:BuffUp(R.BuriedTreasure) and true or false elseif Q.Outlaw.RolltheBonesLogic == "Grand Melee" then e.APLVar.RtB_Reroll = not
     g:BuffUp(R.GrandMelee) and true or false elseif Q.Outlaw.RolltheBonesLogic == "Skull and Crossbones" then e.APLVar.RtB_Reroll = not
     g:BuffUp(R.SkullandCrossbones) and true or false elseif Q.Outlaw.RolltheBonesLogic == "Ruthless Precision" then e.APLVar
     .RtB_Reroll = not g:BuffUp(R.RuthlessPrecision) and true or false elseif Q.Outlaw.RolltheBonesLogic == "True Bearing" then e
-    .APLVar.RtB_Reroll = not g:BuffUp(R.TrueBearing) and true or false else if R.HiddenOpportunity:IsAvailable() then aq() if (
+    .APLVar.RtB_Reroll = not g:BuffUp(R.TrueBearing) and true or false else if R.HiddenOpportunity:IsAvailable() then ar() if (
     g:BuffDown(R.SkullandCrossbones) or g:BuffRemains(R.SkullandCrossbones) > P.RtBRemains()) and
     e.APLVar.RtB_Buffs.Normal + e.APLVar.RtB_Buffs.Shorter -
-    aa(g:BuffUp(R.GrandMelee) and g:BuffRemains(R.GrandMelee) <= P.RtBRemains()) < 2 + aa(g:BuffUp(R.LoadedDiceBuff)) then e
-    .APLVar.RtB_Reroll = true else e.APLVar.RtB_Reroll = false end else if aq() == 2 then if g:BuffUp(R.BuriedTreasure)
+    ab(g:BuffUp(R.GrandMelee) and g:BuffRemains(R.GrandMelee) <= P.RtBRemains()) < 2 + ab(g:BuffUp(R.LoadedDiceBuff)) then e
+    .APLVar.RtB_Reroll = true else e.APLVar.RtB_Reroll = false end else if ar() == 2 then if g:BuffUp(R.BuriedTreasure)
     and g:BuffUp(R.GrandMelee) then e.APLVar.RtB_Reroll = true elseif g:BuffUp(R.LoadedDiceBuff) and
-    not g:BuffUp(R.Broadside) and not g:BuffUp(R.TrueBearing) then e.APLVar.RtB_Reroll = true end elseif aq() < 2 and
+    not g:BuffUp(R.Broadside) and not g:BuffUp(R.TrueBearing) then e.APLVar.RtB_Reroll = true end elseif ar() < 2 and
     (
     not g:BuffUp(R.Broadside) and (not R.FanTheHammer:IsAvailable() or not g:BuffUp(R.SkullandCrossbones)) and
         not g:BuffUp(R.TrueBearing) or g:BuffUp(R.LoadedDiceBuff)) then e.APLVar.RtB_Reroll = true else e.APLVar.RtB_Reroll = false end if e
@@ -110,44 +111,44 @@ local function at() if not e.APLVar.RtB_Reroll then if Q.Outlaw.RolltheBonesLogi
     :HealthPercentage() < Q.Outlaw.RolltheBonesLeechRerollHP then e.APLVar.RtB_Reroll = true end end end return e.APLVar
     .RtB_Reroll end
 
-local function au(BypassRecovery) return R.CountTheOdds:IsAvailable() and
+local function av(BypassRecovery) return R.CountTheOdds:IsAvailable() and
     (
     g:BuffUp(P.StealthSpell(), nil, BypassRecovery) or g:BuffUp(P.VanishBuffSpell(), nil, BypassRecovery) or
         g:BuffUp(R.Shadowmeld, nil, BypassRecovery) or g:BuffUp(R.ShadowDanceBuff, nil, BypassRecovery)) end
 
-local function av() if R.BetweentheEyes:CooldownUp() and _ < 5 then return false end return a0 >=
-    P.CPMaxSpend() - aa(g:BuffUp(R.Broadside)) -
-    aa(g:BuffUp(R.Opportunity) and (R.QuickDraw:IsAvailable() or R.FanTheHammer:IsAvailable())) or _ >= P.CPMaxSpend() end
+local function aw() if R.BetweentheEyes:CooldownUp() and _ < 5 then return false end return a0 >=
+    P.CPMaxSpend() - ab(g:BuffUp(R.Broadside)) -
+    ab(g:BuffUp(R.Opportunity) and (R.QuickDraw:IsAvailable() or R.FanTheHammer:IsAvailable())) or _ >= P.CPMaxSpend() end
 
-local function aw() return a1 >= 2 + aa(R.ImprovedAmbush:IsAvailable()) + aa(g:BuffUp(R.Broadside)) and _ <
+local function ax() return a1 >= 2 + ab(R.ImprovedAmbush:IsAvailable()) + ab(g:BuffUp(R.Broadside)) and _ <
     P.CPMaxSpend() and a2 >= 50 and (not R.CountTheOdds:IsAvailable() or P.RtBRemains() > 10) end
 
-local function ax() return not m() or W < 2 or g:BuffRemains(R.BladeFlurry) > 1 + aa(R.KillingSpree:IsAvailable()) end
+local function ay() return not m() or W < 2 or g:BuffRemains(R.BladeFlurry) > 1 + ab(R.KillingSpree:IsAvailable()) end
 
-local function ay() return Q.Commons.VanishOffensive and n() and not (O.IsSoloMode() and g:IsTanking(h)) end
+local function az() return Q.Commons.VanishOffensive and n() and not (O.IsSoloMode() and g:IsTanking(h)) end
 
-local function az(aA) return aA:TimeToDie() end
+local function aA(aB) return aB:TimeToDie() end
 
-local function aB(aA) if (aA:FilteredTimeToDie("<", a1 * 1.5) or not g:StealthUp(true, false) and a1 >= P.CPMaxSpend() -
-    1) and not g:DebuffUp(R.Dreadblades) and aA:GUID() == f("mouseover"):GUID() and aA:NPCID() ~= 170234 and
+local function aC(aB) if (aB:FilteredTimeToDie("<", a1 * 1.5) or not g:StealthUp(true, false) and a1 >= P.CPMaxSpend() -
+    1) and not g:DebuffUp(R.Dreadblades) and aB:GUID() == f("mouseover"):GUID() and aB:NPCID() ~= 170234 and
     Q.Outlaw.TargetSwap == "Mouseover" then a9 = 1376195; return true elseif (
-    aA:FilteredTimeToDie("<", a1 * 1.5) or not g:StealthUp(true, false) and a1 >= P.CPMaxSpend() - 1) and
-    not g:DebuffUp(R.Dreadblades) and Q.Outlaw.TargetSwap == "AutoSwap" and aA:GUID() ~= h:GUID() and aA:NPCID() ~=
+    aB:FilteredTimeToDie("<", a1 * 1.5) or not g:StealthUp(true, false) and a1 >= P.CPMaxSpend() - 1) and
+    not g:DebuffUp(R.Dreadblades) and Q.Outlaw.TargetSwap == "AutoSwap" and aB:GUID() ~= h:GUID() and aB:NPCID() ~=
     170234 and not r then a9 = 999; return true elseif (
-    aA:FilteredTimeToDie("<", a1 * 1.5) or not g:StealthUp(true, false) and a1 >= P.CPMaxSpend() - 1) and
-    not g:DebuffUp(R.Dreadblades) and aA:GUID() == h:GUID() and aA:NPCID() ~= 170234 then a8 = 137619; return true elseif (
-    aA:FilteredTimeToDie("<", a1 * 1.5) or not g:StealthUp(true, false) and a1 >= P.CPMaxSpend() - 1) and
-    not g:DebuffUp(R.Dreadblades) and aA:NPCID() ~= 170234 then return true end end
+    aB:FilteredTimeToDie("<", a1 * 1.5) or not g:StealthUp(true, false) and a1 >= P.CPMaxSpend() - 1) and
+    not g:DebuffUp(R.Dreadblades) and aB:GUID() == h:GUID() and aB:NPCID() ~= 170234 then a8 = 137619; return true elseif (
+    aB:FilteredTimeToDie("<", a1 * 1.5) or not g:StealthUp(true, false) and a1 >= P.CPMaxSpend() - 1) and
+    not g:DebuffUp(R.Dreadblades) and aB:NPCID() ~= 170234 then return true end end
 
-local function aC() if not t and Q.Commons.VanishOffensive and R.Vanish:IsCastable() and ay() then if R.HiddenOpportunity
+local function aD() if not t and Q.Commons.VanishOffensive and R.Vanish:IsCastable() and az() then if R.HiddenOpportunity
     :IsAvailable() or not R.ShadowDance:IsAvailable() or not R.ShadowDance:IsCastable() then if R.FindWeakness:
-    IsAvailable() and not R.Audacity:IsAvailable() and h:DebuffDown(R.FindWeaknessDebuff) and aw() then if l.Cast(R.Vanish
-  , nil) then a8 = 1856; return "Cast Vanish (FW)" end return end if R.HiddenOpportunity:IsAvailable() then local aD = not
+    IsAvailable() and not R.Audacity:IsAvailable() and h:DebuffDown(R.FindWeaknessDebuff) and ax() then if l.Cast(R.Vanish
+  , nil) then a8 = 1856; return "Cast Vanish (FW)" end return end if R.HiddenOpportunity:IsAvailable() then local aE = not
     R.ShadowDance:IsAvailable() and
-    R.FanTheHammer:TalentRank() + aa(R.QuickDraw:IsAvailable()) + aa(R.Audacity:IsAvailable()) <
-    aa(R.CountTheOdds:IsAvailable()) + aa(R.KeepItRolling:IsAvailable()) if g:BuffDown(R.AudacityBuff) and
-    (aD or g:BuffStack(R.Opportunity) < (R.FanTheHammer:IsAvailable() and 6 or 1)) and aw() then if l.Cast(R.Vanish, nil) then a8 = 1856; return "Cast Vanish (HO)" end return end end if (
-    not R.FindWeakness:IsAvailable() or not R.Audacity:IsAvailable()) and not R.HiddenOpportunity:IsAvailable() and av() then if l
+    R.FanTheHammer:TalentRank() + ab(R.QuickDraw:IsAvailable()) + ab(R.Audacity:IsAvailable()) <
+    ab(R.CountTheOdds:IsAvailable()) + ab(R.KeepItRolling:IsAvailable()) if g:BuffDown(R.AudacityBuff) and
+    (aE or g:BuffStack(R.Opportunity) < (R.FanTheHammer:IsAvailable() and 6 or 1)) and ax() then if l.Cast(R.Vanish, nil) then a8 = 1856; return "Cast Vanish (HO)" end return end end if (
+    not R.FindWeakness:IsAvailable() or not R.Audacity:IsAvailable()) and not R.HiddenOpportunity:IsAvailable() and aw() then if l
     .Cast(R.Vanish, nil) then a8 = 1856; return "Cast Vanish (Finish)" end return end end end if R.ShadowDance:
     IsCastable() and p then if h:DebuffUp(R.BetweentheEyes) and
     (not R.GhostlyStrike:IsAvailable() or h:DebuffUp(R.GhostlyStrike)) and
@@ -156,61 +157,61 @@ local function aC() if not t and Q.Commons.VanishOffensive and R.Vanish:IsCastab
     not R.HiddenOpportunity:IsAvailable() or
         g:BuffDown(R.AudacityBuff) and (R.FanTheHammer:TalentRank() < 2 or g:BuffDown(R.Opportunity))) then if R.KeepItRolling
     :IsAvailable() then if R.KeepItRolling:CooldownRemains() <= 30 or
-    R.KeepItRolling:CooldownRemains() > 120 and (av() or R.HiddenOpportunity:IsAvailable()) then if l.Cast(R.ShadowDance
+    R.KeepItRolling:CooldownRemains() > 120 and (aw() or R.HiddenOpportunity:IsAvailable()) then if l.Cast(R.ShadowDance
   , nil) then a8 = 185313; return "Cast Shadow Dance (KiR)" end return end else if g:BuffUp(R.SliceandDice) and
-    (av() or R.HiddenOpportunity:IsAvailable()) and
-    (not R.HiddenOpportunity:IsAvailable() or not R.Vanish:CooldownUp() or not ay()) then if l.Cast(R.ShadowDance, nil) then a8 = 185313; return "Cast Shadow Dance" end return end end end end end
+    (aw() or R.HiddenOpportunity:IsAvailable()) and
+    (not R.HiddenOpportunity:IsAvailable() or not R.Vanish:CooldownUp() or not az()) then if l.Cast(R.ShadowDance, nil) then a8 = 185313; return "Cast Shadow Dance" end return end end end end end
 
-local function aE() if n() and R.AdrenalineRush:IsCastable() and not g:BuffUp(R.AdrenalineRush) and
+local function aF() if n() and R.AdrenalineRush:IsCastable() and not g:BuffUp(R.AdrenalineRush) and
     (not R.ImprovedAdrenalineRush:IsAvailable() or a0 <= 2) then if l.Cast(R.AdrenalineRush, nil) then a8 = 13750; return "Cast Adrenaline Rush" end end if R
     .BladeFlurry:IsReady() and m() and W >= 2 and g:BuffRemains(R.BladeFlurry) < (g:BuffUp(R.AdrenalineRush) and 0.8 or 1
     ) then if Q.Outlaw.GCDasOffGCD.BladeFlurry then l.CastSuggested(R.BladeFlurry) else if l.Cast(R.BladeFlurry) then a8 = 13877; return "Cast Blade Flurry" end end end if R
-    .RolltheBones:IsReady() and not g:DebuffUp(R.Dreadblades) and (aq() == 0 or at() or at()) then if l.Cast(R.RolltheBones) then a8 = 315508; return "Cast Roll the Bones" end end if n()
-    and R.KeepItRolling:IsReady() and not at() and
-    aa(g:BuffUp(R.Broadside)) + aa(g:BuffUp(R.TrueBearing)) + aa(g:BuffUp(R.SkullandCrossbones)) +
-    aa(g:BuffUp(R.RuthlessPrecision)) > 2 and (g:BuffDown(R.ShadowDanceBuff) or aq() >= 6) then if l.Cast(R.KeepItRolling) then a8 = 381989; return "Cast KeepItRolling" end end if R
-    .BladeRush:IsCastable() and ax() and not g:DebuffUp(R.Dreadblades) and Q.Outlaw.BRAutomatically and
+    .RolltheBones:IsReady() and not g:DebuffUp(R.Dreadblades) and (ar() == 0 or au() or au()) then if l.Cast(R.RolltheBones) then a8 = 315508; return "Cast Roll the Bones" end end if n()
+    and R.KeepItRolling:IsReady() and not au() and
+    ab(g:BuffUp(R.Broadside)) + ab(g:BuffUp(R.TrueBearing)) + ab(g:BuffUp(R.SkullandCrossbones)) +
+    ab(g:BuffUp(R.RuthlessPrecision)) > 2 and (g:BuffDown(R.ShadowDanceBuff) or ar() >= 6) then if l.Cast(R.KeepItRolling) then a8 = 381989; return "Cast KeepItRolling" end end if R
+    .BladeRush:IsCastable() and ay() and not g:DebuffUp(R.Dreadblades) and Q.Outlaw.BRAutomatically and
     g:GetEnemiesInRange(5) then if l.Cast(R.BladeRush, nil) then a8 = 271877; return "Cast Blade Rush" end end if h:
     IsSpellInRange(R.SinisterStrike) then if not g:StealthUp(true, true, true) or
-    R.CountTheOdds:IsAvailable() and not au() then X = aC() if X then return X end end if R.Dreadblades:IsReady() and n()
+    R.CountTheOdds:IsAvailable() and not av() then X = aD() if X then return X end end if R.Dreadblades:IsReady() and n()
     and h:IsSpellInRange(R.Dreadblades) and not g:StealthUp(true, true) and a0 <= 2 and
     (not R.MarkedforDeath:IsAvailable() or not R.MarkedforDeath:CooldownUp()) and h:FilteredTimeToDie(">=", 10) then if l
     .Cast(R.Dreadblades, nil) then a8 = 343142; return "Cast Dreadblades" end end end if R.ThistleTea:IsCastable() and
     n() and not g:BuffUp(R.ThistleTea) and (a4 >= 100 or d.BossFilteredFightRemains("<", R.ThistleTea:Charges() * 6)) then if l
     .Cast(R.ThistleTea, nil) then a8 = 381623; return "Cast Thistle Tea" end end if n() and R.KillingSpree:IsCastable()
-    and h:IsSpellInRange(R.KillingSpree) and ax() and not g:StealthUp(true, false) and h:DebuffUp(R.BetweentheEyes) and
+    and h:IsSpellInRange(R.KillingSpree) and ay() and not g:StealthUp(true, false) and h:DebuffUp(R.BetweentheEyes) and
     a5 > 4 then if l.Cast(R.KillingSpree, nil) then a8 = 51690; return "Cast Killing Spree" end end if h:IsSpellInRange(R
   .SinisterStrike) then if R.Shadowmeld:IsCastable() and Q.Commons.Enabled.Racials and n() and
-    (R.CountTheOdds:IsAvailable() and av() or not R.Weaponmaster:IsAvailable() and aw()) then if l.Cast(R.Shadowmeld, nil) then a8 = 58984; return "Cast Shadowmeld" end end if Q
-    .Commons.Enabled.Potions then local aF = O.PotionSelected() if aF then if aF:IsReady() and n() and s and
+    (R.CountTheOdds:IsAvailable() and aw() or not R.Weaponmaster:IsAvailable() and ax()) then if l.Cast(R.Shadowmeld, nil) then a8 = 58984; return "Cast Shadowmeld" end end if Q
+    .Commons.Enabled.Potions then local aG = O.PotionSelected() if aG then if aG:IsReady() and n() and s and
     (
     g:BloodlustUp() and l.GUISettings.General.HoldPotforBL or
         (g:BloodlustUp() or d.BossFightRemains() <= 60 or g:BuffUp(R.AdrenalineRush)) and
-        not l.GUISettings.General.HoldPotforBL) then if l.Cast(aF, nil) then a8 = 50; return "potion cooldowns 2" end end end end if R
+        not l.GUISettings.General.HoldPotforBL) then if l.Cast(aG, nil) then a8 = 50; return "potion cooldowns 2" end end end end if R
     .BloodFury:IsCastable() and Q.Commons.Enabled.Racials and n() then if l.Cast(R.BloodFury, nil) then a8 = 20572; return "Cast Blood Fury" end end if R
     .Berserking:IsCastable() and Q.Commons.Enabled.Racials and n() then if l.Cast(R.Berserking, nil) then a8 = 26297; return "Cast Berserking" end end if R
     .Fireblood:IsCastable() and Q.Commons.Enabled.Racials and n() then if l.Cast(R.Fireblood, nil) then a8 = 265221; return "Cast Fireblood" end end if R
-    .AncestralCall:IsCastable() and Q.Commons.Enabled.Racials and n() then if l.Cast(R.AncestralCall, nil) then a8 = 274738; return "Cast Ancestral Call" end end local aG = g
-    :GetUseableTrinkets(T) if aG and n() and
-    (h:DebuffUp(R.BetweentheEyes) or d.BossFilteredFightRemains("<", 20) or aG:TrinketHasStatAnyDps()) then if aG then if l
-    .Cast(aG, nil, nil) then if aG:ID() == GetInventoryItemID("player", 13) and Q.Commons.Enabled.TopTrinket then if aG:
+    .AncestralCall:IsCastable() and Q.Commons.Enabled.Racials and n() then if l.Cast(R.AncestralCall, nil) then a8 = 274738; return "Cast Ancestral Call" end end local aH = g
+    :GetUseableTrinkets(T) if aH and n() and
+    (h:DebuffUp(R.BetweentheEyes) or d.BossFilteredFightRemains("<", 20) or aH:TrinketHasStatAnyDps()) then if aH then if l
+    .Cast(aH, nil, nil) then if aH:ID() == GetInventoryItemID("player", 13) and Q.Commons.Enabled.TopTrinket then if aH:
     ID() == R.AlgetharPuzzleBox or R.ManicGrieftorch then a8 = 24; return "Channeling Trinket" end a8 = 24; return "Generic use_items for "
-    .. aG:Name() elseif aG:ID() == GetInventoryItemID("player", 14) and Q.Commons.Enabled.BottomTrinket then if aG:ID()
+    .. aH:Name() elseif aH:ID() == GetInventoryItemID("player", 14) and Q.Commons.Enabled.BottomTrinket then if aH:ID()
     == R.AlgetharPuzzleBox or R.ManicGrieftorch then a8 = 25; return "Channeling Trinket" end a8 = 25; return "Generic use_items for "
-    .. aG:Name() end end end end end end
+    .. aH:Name() end end end end end end
 
-local function aH() if R.BladeFlurry:IsReady() and m() and W >= 2 and R.Subterfuge:IsAvailable() and
-    R.HiddenOpportunity:IsAvailable() and not g:BuffUp(R.BladeFlurry) then if Q.Outlaw.GCDasOffGCD.BladeFlurry then l.CastSuggested(R
-  .BladeFlurry) else if l.Cast(R.BladeFlurry) then a8 = 13877; return "Cast Blade Flurry" end end end if R.ColdBlood:
-    IsCastable() and h:IsSpellInRange(R.Dispatch) and av() then if l.Cast(R.ColdBlood, Q.Commons.OffGCDasOffGCD.ColdBlood) then a8 = 382245; return "Cast Cold Blood" end end if R
-    .Dispatch:IsCastable() and h:IsSpellInRange(R.Dispatch) and av() then if l.CastPooling(R.Dispatch) then a8 = 2098; return "Cast Dispatch" end end if R
-    .Ambush:IsReady() and h:IsSpellInRange(R.Ambush) and
+local function aI() if R.Ambush:IsCastable() and h:IsSpellInRange(R.Ambush) and
     (
-    au() or R.HiddenOpportunity:IsAvailable() or
-        (g:BuffUp(R.Stealth) or g:BuffUp(R.VanishBuff)) and R.FindWeakness:IsAvailable() and
-        not h:DebuffUp(R.FindWeaknessDebuff)) then if l.CastPooling(R.Ambush) then a8 = 8676; return "Cast Ambush" end end end
+    av() or R.HiddenOpportunity:IsAvailable() or
+        g:StealthUp(false, false) and R.FindWeakness:IsAvailable() and not h:DebuffUp(R.FindWeaknessDebuff)) and q then if l
+    .Cast(R.Ambush) then a8 = 8676; return "Cast Ambush 595" end end if R.BladeFlurry:IsReady() and m() and W >= 2 and
+    R.Subterfuge:IsAvailable() and R.HiddenOpportunity:IsAvailable() and not g:BuffUp(R.BladeFlurry) then if Q.Outlaw.GCDasOffGCD
+    .BladeFlurry then l.CastSuggested(R.BladeFlurry) else if l.Cast(R.BladeFlurry) then a8 = 13877; return "Cast Blade Flurry" end end end if R
+    .ColdBlood:IsCastable() and h:IsSpellInRange(R.Dispatch) and aw() then if l.Cast(R.ColdBlood,
+  Q.Commons.OffGCDasOffGCD.ColdBlood) then a8 = 382245; return "Cast Cold Blood" end end if R.Dispatch:IsCastable() and
+    h:IsSpellInRange(R.Dispatch) and aw() then if l.CastPooling(R.Dispatch) then a8 = 2098; return "Cast Dispatch" end end end
 
-local function aI() if R.BetweentheEyes:IsCastable() and h:IsSpellInRange(R.BetweentheEyes) and
+local function aJ() if R.BetweentheEyes:IsCastable() and h:IsSpellInRange(R.BetweentheEyes) and
     (h:FilteredTimeToDie(">", 4) or h:TimeToDieIsNotValid()) and P.CanDoTUnit(h, Z) and
     (
     h:DebuffRemains(R.BetweentheEyes) < 4 or R.GreenskinsWickers:IsAvailable() and not g:BuffUp(R.GreenskinsWickersBuff)
@@ -223,7 +224,7 @@ local function aI() if R.BetweentheEyes:IsCastable() and h:IsSpellInRange(R.Betw
     R.ColdBlood:IsCastable() and not R.ImprovedBetweentheEyes:IsAvailable() then if l.Cast(R.ColdBlood) then a8 = 382245; return "Cast ColdBlood" end end if R
     .Dispatch:IsCastable() and h:IsSpellInRange(R.Dispatch) then if l.CastPooling(R.Dispatch) then a8 = 2098; return "Cast Dispatch" end end end
 
-local function aJ() if n() and R.Sepsis:IsReady() and h:IsSpellInRange(R.Sepsis) and
+local function aK() if n() and R.Sepsis:IsReady() and h:IsSpellInRange(R.Sepsis) and
     (h:FilteredTimeToDie(">", 11) and h:DebuffUp(R.BetweentheEyes) or d.BossFilteredFightRemains("<", 11)) then if l.Cast(R
   .Sepsis, nil, nil) then a8 = 328305; return "Cast Sepsis" end end if R.GhostlyStrike:IsReady() and
     h:IsSpellInRange(R.GhostlyStrike) and h:DebuffRemains(R.GhostlyStrike) <= 3 and (W <= 2 or g:BuffUp(R.Dreadblades))
@@ -241,18 +242,18 @@ local function aJ() if n() and R.Sepsis:IsReady() and h:IsSpellInRange(R.Sepsis)
     R.HiddenOpportunity:IsAvailable() and g:BuffDown(R.AudacityBuff) and g:BuffDown(R.SubterfugeBuff) and
     g:BuffDown(R.ShadowDanceBuff) then if l.CastPooling(R.PistolShot) then a8 = 185763; return "Cast Pistol Shot (Audacity)" end elseif g
     :BuffStack(R.Opportunity) >= 6 or g:BuffRemains(R.Opportunity) < 2 then if l.CastPooling(R.PistolShot) then a8 = 185763; return "Cast Pistol Shot (FtH Dump)" end elseif a1
-    > 1 + aa(R.QuickDraw:IsAvailable()) * R.FanTheHammer:TalentRank() and not g:DebuffUp(R.Dreadblades) and
+    > 1 + ab(R.QuickDraw:IsAvailable()) * R.FanTheHammer:TalentRank() and not g:DebuffUp(R.Dreadblades) and
     (not R.HiddenOpportunity:IsAvailable() or not g:BuffUp(R.SubterfugeBuff) and not g:BuffUp(R.ShadowDanceBuff)) then if l
     .CastPooling(R.PistolShot) then a8 = 185763; return "Cast Pistol Shot (FtH)" end end end end if R.Ambush:IsReady()
     and (g:BuffUp(R.AudacityBuff) or g:StealthUp(true, true)) and
     (R.HiddenOpportunity:IsAvailable() or R.FindWeakness:IsAvailable() and not h:DebuffUp(R.FindWeaknessDebuff)) then if l
-    .CastPooling(R.Ambush) then a8 = 8676; return "Cast Ambush (Pooling)" end end if not R.FanTheHammer:IsAvailable() and
-    R.PistolShot:IsCastable() and h:IsSpellInRange(R.PistolShot) and g:BuffUp(R.Opportunity) then if a5 > 1.5 or
+    .CastPooling(R.Ambush) then a8 = 8676; return "Cast Ambush 701 (Pooling)" end end if not R.FanTheHammer:IsAvailable()
+    and R.PistolShot:IsCastable() and h:IsSpellInRange(R.PistolShot) and g:BuffUp(R.Opportunity) then if a5 > 1.5 or
     R.QuickDraw:IsAvailable() or R.Audacity:IsAvailable() and not g:BuffUp(R.AudacityBuff) or
-    not R.Weaponmaster:IsAvailable() and a1 <= 1 + aa(g:BuffUp(R.Broadside)) then if l.CastPooling(R.PistolShot) then a8 = 185763; return "Cast Pistol Shot" end end end if R
+    not R.Weaponmaster:IsAvailable() and a1 <= 1 + ab(g:BuffUp(R.Broadside)) then if l.CastPooling(R.PistolShot) then a8 = 185763; return "Cast Pistol Shot" end end end if R
     .SinisterStrike:IsCastable() and h:IsSpellInRange(R.SinisterStrike) then if l.CastPooling(R.SinisterStrike) then a8 = 193315; return "Cast Sinister Strike" end end end
 
-local function aK() q = HeroRotationCharDB.Toggles[6]
+local function aL() q = HeroRotationCharDB.Toggles[6]
 o = HeroRotationCharDB.Toggles[4]
 p = HeroRotationCharDB.Toggles[5]
 r = HeroRotationCharDB.Toggles[12]
@@ -273,24 +274,24 @@ M = GetInventoryItemID("player", 13)
 N = GetInventoryItemID("player", 14)
 if not Q.Commons.Enabled.TopTrinket and not Q.Commons.Enabled.BottomTrinket then T = { M, N } elseif not
     Q.Commons.Enabled.TopTrinket and Q.Commons.Enabled.BottomTrinket then T = { M } elseif not
-    Q.Commons.Enabled.BottomTrinket and Q.Commons.Enabled.TopTrinket then T = { N } end F = 0; for ap = 1, 20 do if select(10
-  , UnitDebuff("player", ap)) == 240447 then if select(6, UnitDebuff("player", ap)) ~= nil then F = select(6,
-  UnitDebuff("player", ap)) - GetTime() end end end end
+    Q.Commons.Enabled.BottomTrinket and Q.Commons.Enabled.TopTrinket then T = { N } end F = 0; for aq = 1, 20 do if select(10
+  , UnitDebuff("player", aq)) == 240447 then if select(6, UnitDebuff("player", aq)) ~= nil then F = select(6,
+  UnitDebuff("player", aq)) - GetTime() end end end end
 
-local function aL() Y = R.AcrobaticStrikes:IsAvailable() and 9 or 6;
+local function aM() Y = R.AcrobaticStrikes:IsAvailable() and 9 or 6;
 Z = R.Dispatch:Damage() * 1.25;
 a0 = g:ComboPoints()
 _ = P.EffectiveComboPoints(a0)
 a1 = g:ComboPointsDeficit()
 a6 = g:BuffUp(R.AdrenalineRush, nil, true) and -50 or 0;
-a2 = ah()
+a2 = ai()
 a3 = g:EnergyRegen()
-a5 = ae(a6)
+a5 = af(a6)
 a4 = g:EnergyDeficitPredicted(nil, a6)
 if m() then U = g:GetEnemiesInRange(30)
 V = g:GetEnemiesInRange(Y)
 W = #V
-else W = 1 end X = aK() if l.QueuedCast() then a8 = l.QueuedCast() return "Custom Queue " .. i(a8):ID() end if X then return X end if a9
+else W = 1 end X = aL() if l.QueuedCast() then a8 = l.QueuedCast() return "Custom Queue " .. i(a8):ID() end if X then return X end if a9
     > 0 then a9 = 0 end if a8 > 0 then a8 = 0 end a8 = P.ReturnSpell()
 a9 = P.ReturnSpellMO()
 if l.GUISettings.General.OpenerReset > 0 and not HeroRotationCharDB.Toggles[6] then K = GetTime()
@@ -387,21 +388,21 @@ elseif l.GUISettings.General.OpenerReset > 0 and L ~= nil and GetTime() > L and 
   228318, 178658, 333227, 334800, 334967, 324737, 326450, 334470, 320703, 320012, 324085, 333241, 331510, 344739, 368477,
   368396, 355057, 356133, 342139, 353706, 355782, 327155, 359668, 158337 } if UnitExists("target") and R.Shiv:IsReady()
     and not E then if UnitCanAttack("player", "target") and UnitAffectingCombat("target") and UnitIsDead("target") ~=
-    true then for ap = 0, 10 do local aM, aM, aN, aO, aP, aQ, aM, aM, aM, aR = UnitBuff("target", ap) for aM, aS in pairs(G) do if aS
-    == aR and aQ - aP + 500 / 1000 <= GetTime() then if l.Cast(R.Shiv, nil) then a8 = 5938; return "Shiv Enrage" end end end end end end local aT = g
+    true then for aq = 0, 10 do local aN, aN, aO, aP, aQ, aR, aN, aN, aN, aS = UnitBuff("target", aq) for aN, aT in pairs(G) do if aT
+    == aS and aR - aQ + 500 / 1000 <= GetTime() then if l.Cast(R.Shiv, nil) then a8 = 5938; return "Shiv Enrage" end end end end end end local aU = g
     :AffectingCombat() and 180 or 900;
-local aU;
-if i(8679):IsAvailable() and Q.Commons.LethalPoison == "Wound Poison" then aU = g:BuffRemains(i(8679)) if aU < aT and
+local aV;
+if i(8679):IsAvailable() and Q.Commons.LethalPoison == "Wound Poison" then aV = g:BuffRemains(i(8679)) if aV < aU and
     not g:IsCasting(i(8679)) then if l.Cast(i(8679)) then a8 = 203; return "Wound Poison Refresh" end end elseif i(2823)
-    :IsAvailable() and Q.Commons.LethalPoison == "Deadly Poison" then aU = g:BuffRemains(i(2823)) if aU < aT and
+    :IsAvailable() and Q.Commons.LethalPoison == "Deadly Poison" then aV = g:BuffRemains(i(2823)) if aV < aU and
     not g:IsCasting(i(2823)) then if l.Cast(i(2823)) then a8 = 208; return "Deadly Poison Refresh" end end elseif i(315584)
-    :IsAvailable() and Q.Commons.LethalPoison == "Instant Poison" then aU = g:BuffRemains(i(315584)) if aU < aT and
-    not g:IsCasting(i(315584)) then if l.Cast(i(315584)) then a8 = 205; return "Instant Poison Refresh" end end end aU = g
-    :BuffRemains(i(381637)) if i(381637):IsAvailable() and Q.Commons.NonLethalPoison == "Atrophic Poison" then if aU < aT
+    :IsAvailable() and Q.Commons.LethalPoison == "Instant Poison" then aV = g:BuffRemains(i(315584)) if aV < aU and
+    not g:IsCasting(i(315584)) then if l.Cast(i(315584)) then a8 = 205; return "Instant Poison Refresh" end end end aV = g
+    :BuffRemains(i(381637)) if i(381637):IsAvailable() and Q.Commons.NonLethalPoison == "Atrophic Poison" then if aV < aU
     and not g:IsCasting(i(381637)) then if l.Cast(i(381637)) then a8 = 381637; return "Antropic Poison Refresh" end end elseif i(5761)
-    :IsAvailable() and Q.Commons.NonLethalPoison == "Numbing Poison" then aU = g:BuffRemains(i(5761)) if aU < aT and
+    :IsAvailable() and Q.Commons.NonLethalPoison == "Numbing Poison" then aV = g:BuffRemains(i(5761)) if aV < aU and
     not g:IsCasting(NumbingPoison) then if l.Cast(i(5761)) then a8 = 204; return "Numbing Poison Refresh" end end elseif i(3408)
-    :IsAvailable() and Q.Commons.NonLethalPoison == "Crippling Poison" then aU = g:BuffRemains(i(3408)) if aU < aT and
+    :IsAvailable() and Q.Commons.NonLethalPoison == "Crippling Poison" then aV = g:BuffRemains(i(3408)) if aV < aU and
     not g:IsCasting(NumbingPoison) then if l.Cast(i(3408)) then a8 = 206; return "Crippling Poison Refresh" end end end if not
     g:BuffUp(R.VanishBuff) and not g:AffectingCombat() and not g:StealthUp(true, true) then X = P.Stealth(R.Stealth) if X then return X end end if not
     g:AffectingCombat() and q then if O.TargetIsValid() and (not g:AffectingCombat() and q) then if n() and
@@ -409,25 +410,25 @@ if i(8679):IsAvailable() and Q.Commons.LethalPoison == "Wound Poison" then aU = 
     .Cast(R.MarkedforDeath, nil) then a8 = 137619; return "Cast Marked for Death (OOC)" end else if l.Cast(R.MarkedforDeath
   , nil) then a8 = 137619; return "Cast Marked for Death (OOC)" end end end if R.AdrenalineRush:IsReady() and
     R.ImprovedAdrenalineRush:IsAvailable() and a0 <= 2 then if l.Cast(R.AdrenalineRush) then a8 = 13750; return "Cast Adrenaline Rush (Opener)" end end if R
-    .RolltheBones:IsReady() and not g:DebuffUp(R.Dreadblades) and (aq() == 0 or at()) and g:BuffUp(R.AdrenalineRush) and
+    .RolltheBones:IsReady() and not g:DebuffUp(R.Dreadblades) and (ar() == 0 or au()) and g:BuffUp(R.AdrenalineRush) and
     g:IsAvailable(R.LoadedDiceBuff) then if l.Cast(R.RolltheBones) then a8 = 315508; return "Cast Roll the Bones (Opener)" end end if R
     .SliceandDice:IsReady() and g:BuffRemains(R.SliceandDice) < (1 + a0) * 1.8 then if l.CastPooling(R.SliceandDice) then a8 = 315496; return "Cast Slice and Dice (Opener)" end end if g
-    :StealthUp(true, false) or g:BuffUp(R.VanishBuff) then X = aH() if X then a8 = 115191; return "Stealth (Opener): " ..
-    X end if R.Ambush:IsReady() then if l.Cast(R.Ambush) then a8 = 8676; return "Cast Ambush (Opener)" end end elseif av() then X = aI() if X then return "Finish (Opener): "
+    :StealthUp(true, false) or g:BuffUp(R.VanishBuff) then X = aI() if X then return "Stealth (Opener): " .. X end if R.Ambush
+    :IsReady() and h:IsSpellInRange(R.Ambush) then if l.Cast(R.Ambush) then a8 = 8676; return "Cast Ambush (Opener)" end end elseif aw() then X = aJ() if X then return "Finish (Opener): "
     .. X end end if R.SinisterStrike:IsCastable() then if l.Cast(R.SinisterStrike) then a8 = 193315; return "Cast Sinister Strike (Opener)" end end end return end if R
     .FanTheHammer:IsAvailable() and R.PistolShot:TimeSinceLastCast() < g:GCDRemains() then a0 = J(a0, P.FanTheHammerCP()) end if R
     .MarkedforDeath:IsCastable() and (g:AffectingCombat() or q or g:BuffUp(R.VanishBuff)) then if W > 1 and
-    O.CastTargetIf(R.MarkedforDeath, U, "min", az, aB, nil, nil) then return "Cast Marked for Death (Cycle)" elseif W ==
+    O.CastTargetIf(R.MarkedforDeath, U, "min", aA, aC, nil, nil) then return "Cast Marked for Death (Cycle)" elseif W ==
     1 and a1 >= P.CPMaxSpend() - 1 and not g:DebuffUp(R.Dreadblades) then if Q.Commons.STMfDAsDPSCD then if l.Cast(R.MarkedforDeath
   , Q.Commons.OffGCDasOffGCD.MarkedforDeath) then a8 = 137619; return "Cast Marked for Death (ST)" end else l.CastSuggested(R
   .MarkedforDeath) end end end if O.TargetIsValid() and (g:AffectingCombat() or q or g:BuffUp(R.VanishBuff)) and
     not h:DebuffUp(i(1776)) and not h:DebuffUp(i(6770)) then if g:BuffUp(R.Stealth) or g:BuffUp(R.VanishBuff) or
-    g:BuffUp(R.Shadowmeld) then X = aH() if X then return "Stealth: " .. X end end local aV, aW, aM = GetSpellCooldown(57934) if Q
-    .Commons.AutoToT then if aV + aW - GetTime() <= 0 and R.TricksoftheTrade:IsAvailable() and
+    g:BuffUp(R.Shadowmeld) then X = aI() if X then return "Stealth: " .. X end end local aW, aX, aN = GetSpellCooldown(57934) if Q
+    .Commons.AutoToT then if aW + aX - GetTime() <= 0 and R.TricksoftheTrade:IsAvailable() and
     R.TricksoftheTrade:CooldownRemains(BypassRecovery) <= 0 and UnitExists("focus") and
-    (UnitInParty("focus") or UnitInRaid("focus")) and IsItemInRange(32698, "focus") then if l.Cast(R.TricksoftheTrade) then a8 = 207; return "ToT Focus" end end end X = aE() if X then return "CDs: "
-    .. X end if au() then X = aH() if X then return "Stealth CtO: " .. X end end if av() then X = aI() if X then return "Finish: "
-    .. X end l.Cast(R.PoolEnergy) return "Finish Pooling" end X = aJ() if X then return "Build: " .. X end if R.ArcaneTorrent
+    (UnitInParty("focus") or UnitInRaid("focus")) and IsItemInRange(32698, "focus") then if l.Cast(R.TricksoftheTrade) then a8 = 207; return "ToT Focus" end end end X = aF() if X then return "CDs: "
+    .. X end if av() then X = aI() if X then return "Stealth CtO: " .. X end end if aw() then X = aJ() if X then return "Finish: "
+    .. X end l.Cast(R.PoolEnergy) return "Finish Pooling" end X = aK() if X then return "Build: " .. X end if R.ArcaneTorrent
     :IsCastable() and Q.Commons.Enabled.Racials and n() and h:IsSpellInRange(R.SinisterStrike) and a4 > 15 + a3 then if l
     .Cast(R.ArcaneTorrent, nil) then a8 = 155145; return "Cast Arcane Torrent" end end if R.ArcanePulse:IsCastable() and
     Q.Commons.Enabled.Racials and n() and h:IsSpellInRange(R.SinisterStrike) then if l.Cast(R.ArcanePulse) then a8 = 260364; return "Cast Arcane Pulse" end end if R
@@ -437,10 +438,10 @@ if i(8679):IsAvailable() and Q.Commons.LethalPoison == "Wound Poison" then aU = 
     .PistolShot:IsCastable() and h:IsSpellInRange(R.PistolShot) and not h:IsInRange(Y) and not g:StealthUp(true, true)
     and a4 < 25 and (a1 >= 1 or a5 <= 1.2) then if l.Cast(R.PistolShot) then a8 = 185763; return "Cast Pistol Shot (OOR)" end end end end
 
-local function aX() end
+local function aY() end
 
 function ReturnSpellOut() if a8 == 0 then return 0 else return a8 end end
 
 function ReturnSpellMOOut() if a9 == 0 then return 0 else return a9 end end
 
-l.SetAPL(260, aL, aX)
+l.SetAPL(260, aM, aY)
