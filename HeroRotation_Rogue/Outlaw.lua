@@ -198,9 +198,8 @@ local function aI() if R.Ambush:IsCastable() and h:IsSpellInRange(R.Ambush) and
     .Cast(R.Ambush) then a8 = 8676; return "Cast Ambush 595" end end if R.BladeFlurry:IsReady() and m() and W >= 2 and
     R.Subterfuge:IsAvailable() and R.HiddenOpportunity:IsAvailable() and not g:BuffUp(R.BladeFlurry) then if Q.Outlaw.GCDasOffGCD
     .BladeFlurry then l.CastSuggested(R.BladeFlurry) else if l.Cast(R.BladeFlurry) then a8 = 13877; return "Cast Blade Flurry" end end end if R
-    .ColdBlood:IsCastable() and h:IsSpellInRange(R.Dispatch) and aw() then if l.Cast(R.ColdBlood,
-  Q.Commons.OffGCDasOffGCD.ColdBlood) then a8 = 382245; return "Cast Cold Blood" end end if R.Dispatch:IsCastable() and
-    h:IsSpellInRange(R.Dispatch) and aw() then if l.CastPooling(R.Dispatch) then a8 = 2098; return "Cast Dispatch" end end if R
+    .ColdBlood:IsReady() and h:IsSpellInRange(R.Dispatch) and aw() then if l.Cast(R.ColdBlood) then a8 = 382245; return "Cast Cold Blood" end end if R
+    .Dispatch:IsCastable() and h:IsSpellInRange(R.Dispatch) and aw() then if l.CastPooling(R.Dispatch) then a8 = 2098; return "Cast Dispatch" end end if R
     .Ambush:IsCastable() and h:IsSpellInRange(R.Ambush) and
     (
     av() or R.HiddenOpportunity:IsAvailable() or
@@ -215,9 +214,9 @@ local function aJ() if R.BetweentheEyes:IsCastable() and h:IsSpellInRange(R.Betw
     .SliceandDice:IsCastable() and
     (d.FilteredFightRemains(V, ">", g:BuffRemains(R.SliceandDice), true) or g:BuffRemains(R.SliceandDice) == 0) and
     g:BuffRemains(R.SliceandDice) < (1 + a0) * 1.8 and (not R.SwiftSlasher:IsAvailable() or a1 == 0) then if l.CastPooling(R
-  .SliceandDice) then a8 = 315496; return "Cast Slice and Dice" end end if R.ColdBlood:IsCastable() and
-    h:IsSpellInRange(R.Dispatch) then if l.Cast(R.ColdBlood) then a8 = 382245; return "Cast ColdBlood" end end if R.Dispatch
-    :IsCastable() and h:IsSpellInRange(R.Dispatch) then if l.CastPooling(R.Dispatch) then a8 = 2098; return "Cast Dispatch" end end end
+  .SliceandDice) then a8 = 315496; return "Cast Slice and Dice" end end if R.ColdBlood:IsReady() and
+    h:IsSpellInRange(R.Dispatch) then if l.Cast(R.ColdBlood, Q.Commons.OffGCDasOffGCD.ColdBlood) then a8 = 382245; return "Cast Cold Blood" end end if R
+    .Dispatch:IsCastable() and h:IsSpellInRange(R.Dispatch) then if l.CastPooling(R.Dispatch) then a8 = 2098; return "Cast Dispatch" end end end
 
 local function aK() if n() and R.Sepsis:IsReady() and h:IsSpellInRange(R.Sepsis) and
     (h:FilteredTimeToDie(">", 11) and h:DebuffUp(R.BetweentheEyes) or d.BossFilteredFightRemains("<", 11)) then if l.Cast(R
