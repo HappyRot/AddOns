@@ -127,6 +127,7 @@ local function ay() return not m() or W < 2 or g:BuffRemains(R.BladeFlurry) > 1 
 
 local function az() return Q.Commons.VanishOffensive and n() and not (O.IsSoloMode() and g:IsTanking(h)) end
 
+l.Print("VANISH DPS CONDITION", az())
 local function aA(aB) return aB:TimeToDie() end
 
 local function aC(aB) return (aB:FilteredTimeToDie("<", a1 * 1.5) or not g:StealthUp(true, false) and
@@ -195,7 +196,7 @@ local function aI() if R.Ambush:IsCastable() and h:IsSpellInRange(R.Ambush) and
     (
     av() or R.HiddenOpportunity:IsAvailable() or
         g:StealthUp(false, false) and R.FindWeakness:IsAvailable() and not h:DebuffUp(R.FindWeaknessDebuff)) and q then if l
-    .Cast(R.Ambush) then a8 = 8676; return "Cast Ambush 595" end end if R.BladeFlurry:IsReady() and m() and W >= 2 and
+    .Cast(R.Ambush) then a8 = 8676; return "Cast Ambush" end end if R.BladeFlurry:IsReady() and m() and W >= 2 and
     R.Subterfuge:IsAvailable() and R.HiddenOpportunity:IsAvailable() and not g:BuffUp(R.BladeFlurry) then if Q.Outlaw.GCDasOffGCD
     .BladeFlurry then l.CastSuggested(R.BladeFlurry) else if l.Cast(R.BladeFlurry) then a8 = 13877; return "Cast Blade Flurry" end end end if R
     .ColdBlood:IsReady() and h:IsSpellInRange(R.Dispatch) and aw() then if l.Cast(R.ColdBlood) then a8 = 382245; return "Cast Cold Blood" end end if R
@@ -240,8 +241,8 @@ local function aK() if n() and R.Sepsis:IsReady() and h:IsSpellInRange(R.Sepsis)
     .CastPooling(R.PistolShot) then a8 = 185763; return "Cast Pistol Shot (FtH)" end end end end if R.Ambush:IsCastable()
     and (g:BuffUp(R.AudacityBuff) or g:StealthUp(true, true)) and
     (R.HiddenOpportunity:IsAvailable() or R.FindWeakness:IsAvailable() and not h:DebuffUp(R.FindWeaknessDebuff)) then if l
-    .CastPooling(R.Ambush) then a8 = 8676; return "Cast Ambush 701 (Pooling)" end end if not R.FanTheHammer:IsAvailable()
-    and R.PistolShot:IsCastable() and h:IsSpellInRange(R.PistolShot) and g:BuffUp(R.Opportunity) then if a5 > 1.5 or
+    .CastPooling(R.Ambush) then a8 = 8676; return "Cast Ambush (Pooling)" end end if not R.FanTheHammer:IsAvailable() and
+    R.PistolShot:IsCastable() and h:IsSpellInRange(R.PistolShot) and g:BuffUp(R.Opportunity) then if a5 > 1.5 or
     R.QuickDraw:IsAvailable() or R.Audacity:IsAvailable() and not g:BuffUp(R.AudacityBuff) or
     not R.Weaponmaster:IsAvailable() and a1 <= 1 + ab(g:BuffUp(R.Broadside)) then if l.CastPooling(R.PistolShot) then a8 = 185763; return "Cast Pistol Shot" end end end if R
     .SinisterStrike:IsCastable() and h:IsSpellInRange(R.SinisterStrike) then if l.CastPooling(R.SinisterStrike) then a8 = 193315; return "Cast Sinister Strike" end end end
