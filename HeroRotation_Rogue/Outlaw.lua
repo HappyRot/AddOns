@@ -405,7 +405,7 @@ if i(8679):IsAvailable() and Q.Commons.LethalPoison == "Wound Poison" then aV = 
     .Cast(R.MarkedforDeath, nil) then a8 = 137619; return "Cast Marked for Death (OOC)" end end end if R.AdrenalineRush:
     IsReady() and R.ImprovedAdrenalineRush:IsAvailable() and a0 <= 2 then if l.Cast(R.AdrenalineRush) then a8 = 13750; return "Cast Adrenaline Rush (Opener)" end end if R
     .RolltheBones:IsReady() and not g:DebuffUp(R.Dreadblades) and (ar() == 0 or au()) and g:BuffUp(R.AdrenalineRush) and
-    g:IsAvailable(R.LoadedDiceBuff) then if l.Cast(R.RolltheBones) then a8 = 315508; return "Cast Roll the Bones (Opener)" end end if R
+    R.LoadedDice:IsAvailable() then if l.Cast(R.RolltheBones) then a8 = 315508; return "Cast Roll the Bones (Opener)" end end if R
     .SliceandDice:IsReady() and g:BuffRemains(R.SliceandDice) < (1 + a0) * 1.8 then if l.CastPooling(R.SliceandDice) then a8 = 315496; return "Cast Slice and Dice (Opener)" end end if g
     :StealthUp(true, false) or g:BuffUp(R.VanishBuff) then X = aI() if X then return "Stealth (Opener): " .. X end if R.Ambush
     :IsCastable() then if l.Cast(R.Ambush) then a8 = 8676; return "Cast Ambush (Opener)" end end elseif aw() then X = aJ() if X then return "Finish (Opener): "
