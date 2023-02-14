@@ -350,8 +350,10 @@ local function ax()
         if ShouldReturn then return ShouldReturn end
     end
     ;
-    if L.StormEarthAndFire:IsCastable() and (L.BonedustBrew:IsAvailable() and (S < 30 and L.BonedustBrew:CooldownRemains() < 4 and g:Chi() >= 4 or g:BuffUp(L.BonedustBrewBuff) or not ak() and Q >= 3 and L.BonedustBrew:CooldownRemains() <= 2 and g:Chi() >= 2) and (T or L.InvokeXuenTheWhiteTiger:CooldownRemains() > L.StormEarthAndFire:FullRechargeTime())) then if n(L.StormEarthAndFire, a6.Windwalker.OffGCDasOffGCD.StormEarthAndFire) then return
-            "storm_earth_and_fire cd_sef 8" end end
+    if L.StormEarthAndFire:IsCastable() and (L.BonedustBrew:IsAvailable() and (S < 30 and L.BonedustBrew:CooldownRemains() < 4 and g:Chi() >= 4 or g:BuffUp(L.BonedustBrewBuff) or not ak() and Q >= 3 and L.BonedustBrew:CooldownRemains() <= 2 and g:Chi() >= 2) and (T or L.InvokeXuenTheWhiteTiger:CooldownRemains() > L.StormEarthAndFire:FullRechargeTime())) then if n(L.StormEarthAndFire, a6.Windwalker.OffGCDasOffGCD.StormEarthAndFire) then
+            _ = 137639;
+            return "storm_earth_and_fire cd_sef 8"
+        end end
     ;
     if L.BonedustBrew:IsCastable() and o() and h:IsInRange(8) and (g:BuffDown(L.BonedustBrewBuff) and g:BuffUp(L.StormEarthAndFireBuff) and g:BuffRemains(L.StormEarthAndFireBuff) < 11 and ak() or g:BuffDown(L.BonedustBrewBuff) and S < 30 and S > 10 and ak() and g:Chi() >= 4 or S < 10) then if n(L.BonedustBrew, nil, nil, not h:IsInRange(40)) then
             _ = 325216;
