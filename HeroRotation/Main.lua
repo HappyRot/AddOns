@@ -1,470 +1,352 @@
-local p, e = ...
-local i = HeroLib
-local c = HeroCache
-local t = i.Unit
-local h = t.Player
-local t = t.Target
-local y = i.Spell
-local t = i.Item
-local m = i.GUI
-local o = m.CreatePanelOption
-local t = math.max
-local f = math.min
-local a = pairs
-local t = select
-local u
-local n = {  }
-local r
-local d
-local w, l
-local s = { General = e.GUISettings.General }
-local function t(e, t)
-    if t then
-        e.__MSQ_Normal:Hide()
-        e.Texture:SetAllPoints(e)
-        if e.CooldownFrame then
-            e.CooldownFrame:SetAllPoints(e)
+local a, b = ...
+local c = HeroLib;
+local d = HeroCache;
+local e = c.Unit;
+local f = e.Player;
+local g = e.Target;
+local h = c.Spell;
+local i = c.Item;
+local j = c.GUI;
+local k = j.CreatePanelOption;
+local l = math.max;
+local m = math.min;
+local pairs = pairs;
+local select = select;
+local n;
+local o = {}
+local p;
+local q;
+local r, s;
+local t = { General = b.GUISettings.General }
+local function u(v, w) if w then
+        v.__MSQ_Normal:Hide()
+        v.Texture:SetAllPoints(v)
+        if v.CooldownFrame then v.CooldownFrame:SetAllPoints(v) end
+        ;
+        if v.Backdrop then
+            v.Backdrop:Show()
+            v.Backdrop:SetFrameLevel(m(v.Backdrop:GetFrameLevel(), 7))
         end
-
-        if e.Backdrop then
-            e.Backdrop:Show()
-            e.Backdrop:SetFrameLevel(f(e.Backdrop:GetFrameLevel(), 7))
-        end
-
-    else
-        if e.Backdrop then
-            e.Backdrop:Hide()
-        end
-
-    end
-
-end
-
-local function v(s, i, h, h, h, h, h, o)
-    if s == e and n and d then
-        local e = d[i]
-        if e then
-            if type(e.Icon) == "table" then
-                for a, e in a(e.Icon) do
-                    t(e, o)
-                end
-
-            else
-                t(e, o)
-            end
-
-        end
-
-    end
-
-end
-
+    else if v.Backdrop then v.Backdrop:Hide() end end end
+;
+local function x(y, z, A, B, C, D, E, w) if y == b and o and q then
+        local F = q[z]
+        if F then if type(F.Icon) == "table" then for G, H in pairs(F.Icon) do u(H, w) end else u(F, w) end end
+    end end
+;
 BINDING_HEADER_HEROROTATION = "HeroRotation"
 BINDING_NAME_HEROROTATION_CDS = "Toggle CDs"
 BINDING_NAME_HEROROTATION_AOE = "Toggle AoE"
 BINDING_NAME_HEROROTATION_TOGGLE = "Toggle On/Off"
 BINDING_NAME_HEROROTATION_UNLOCK = "Unlock the addon to move icons"
 BINDING_NAME_HEROROTATION_LOCK = "Lock the addon in place"
-e.MainFrame = CreateFrame("Frame", "HeroRotation_MainFrame", UIParent)
-e.MainFrame:SetFrameStrata(e.GUISettings.General.MainFrameStrata)
-e.MainFrame:SetFrameLevel(10)
-e.MainFrame:SetWidth(112)
-e.MainFrame:SetHeight(96)
-e.MainFrame:SetClampedToScreen(true)
-function e.MainFrame:ResizeUI(t)
-    local o = { { e.MainFrame, 112, 96 }, { e.MainIconFrame, 64, 64 }, { e.SmallIconFrame, 64, 32 }, { e.SmallIconFrame.Icon[1], e.GUISettings.General.BlackBorderIcon and 30 or 32, e.GUISettings.General.BlackBorderIcon and 30 or 32 }, { e.SmallIconFrame.Icon[2], e.GUISettings.General.BlackBorderIcon and 30 or 32, e.GUISettings.General.BlackBorderIcon and 30 or 32 }, { e.LeftIconFrame, 48, 48 }, { e.SuggestedIconFrame, 32, 32 }, { e.RightSuggestedIconFrame, 32, 32 }, { e.MainIconPartOverlayFrame, 64, 64 } }
-    for a, e in a(o) do
-        e[1]:SetWidth(e[2] * t)
-        e[1]:SetHeight(e[3] * t)
+b.MainFrame = CreateFrame("Frame", "HeroRotation_MainFrame", UIParent)
+b.MainFrame:SetFrameStrata(b.GUISettings.General.MainFrameStrata)
+b.MainFrame:SetFrameLevel(10)
+b.MainFrame:SetWidth(112)
+b.MainFrame:SetHeight(96)
+b.MainFrame:SetClampedToScreen(true)
+function b.MainFrame:ResizeUI(I)
+    local J = { { b.MainFrame, 112, 96 }, { b.MainIconFrame, 64, 64 }, { b.SmallIconFrame, 64, 32 },
+        { b.SmallIconFrame.Icon[1], b.GUISettings.General.BlackBorderIcon and 30 or 32, b.GUISettings.General.BlackBorderIcon and 30 or 32 },
+        { b.SmallIconFrame.Icon[2], b.GUISettings.General.BlackBorderIcon and 30 or 32, b.GUISettings.General.BlackBorderIcon and 30 or 32 },
+        { b.LeftIconFrame, 48, 48 }, { b.SuggestedIconFrame, 32, 32 }, { b.RightSuggestedIconFrame, 32, 32 },
+        { b.MainIconPartOverlayFrame, 64, 64 } }
+    for G, K in pairs(J) do
+        K[1]:SetWidth(K[2] * I)
+        K[1]:SetHeight(K[3] * I)
     end
-
-    for a = 1, e.MaxQueuedCasts do
-        e.MainIconFrame.Part[a]:SetWidth(64 * t)
-        e.MainIconFrame.Part[a]:SetHeight(64 * t)
+    ;
+    for L = 1, b.MaxQueuedCasts do
+        b.MainIconFrame.Part[L]:SetWidth(64 * I)
+        b.MainIconFrame.Part[L]:SetHeight(64 * I)
     end
-
-    e.SuggestedIconFrame:SetPoint("BOTTOM", e.MainIconFrame, "LEFT", -e.LeftIconFrame:GetWidth() / 2, e.LeftIconFrame:GetHeight() / 2 + (e.GUISettings.General.BlackBorderIcon and 3 * t or 4 * t))
-    e.RightSuggestedIconFrame:SetPoint("BOTTOM", e.MainIconFrame, "RIGHT", e.LeftIconFrame:GetWidth() / 2, e.LeftIconFrame:GetHeight() / 2 + (e.GUISettings.General.BlackBorderIcon and 3 * t or 4 * t))
-    HeroRotationDB.GUISettings["Scaling.ScaleUI"] = t
+    ;
+    b.SuggestedIconFrame:SetPoint("BOTTOM", b.MainIconFrame, "LEFT", -b.LeftIconFrame:GetWidth() / 2,
+        b.LeftIconFrame:GetHeight() / 2 + (b.GUISettings.General.BlackBorderIcon and 3 * I or 4 * I))
+    b.RightSuggestedIconFrame:SetPoint("BOTTOM", b.MainIconFrame, "RIGHT", b.LeftIconFrame:GetWidth() / 2,
+        b.LeftIconFrame:GetHeight() / 2 + (b.GUISettings.General.BlackBorderIcon and 3 * I or 4 * I))
+    HeroRotationDB.GUISettings["Scaling.ScaleUI"] = I
 end
 
-function e.MainFrame:ResizeButtons(o)
-    local t = { { e.ToggleIconFrame, 64, 20 }, { e.ToggleIconFrame.Button[1], 30, 20 }, { e.ToggleIconFrame.Button[2], 30, 20 }, { e.ToggleIconFrame.Button[3], 30, 20 }, { e.ToggleIconFrame.Button[4], 30, 20 }, { e.ToggleIconFrame.Button[5], 30, 20 }, { e.ToggleIconFrame.Button[6], 30, 20 } }
-    for t, e in a(t) do
-        e[1]:SetWidth(e[2] * o)
-        e[1]:SetHeight(e[3] * o)
+;
+function b.MainFrame:ResizeButtons(I)
+    local J = { { b.ToggleIconFrame, 64, 20 }, { b.ToggleIconFrame.Button[1], 30, 20 },
+        { b.ToggleIconFrame.Button[2], 30, 20 }, { b.ToggleIconFrame.Button[3], 30, 20 },
+        { b.ToggleIconFrame.Button[4], 30, 20 }, { b.ToggleIconFrame.Button[5], 30, 20 } }
+    for M, K in pairs(J) do
+        K[1]:SetWidth(K[2] * I)
+        K[1]:SetHeight(K[3] * I)
     end
-
-    for t = 1, 6 do
-        e.ToggleIconFrame.Button[t]:SetPoint("LEFT", e.ToggleIconFrame, "LEFT", e.ToggleIconFrame.Button[t]:GetWidth() * (t - 3.1) + t, 0)
-    end
-
-    HeroRotationDB.GUISettings["Scaling.ScaleButtons"] = o
+    ;
+    for L = 1, 5 do b.ToggleIconFrame.Button[L]:SetPoint("LEFT", b.ToggleIconFrame, "LEFT",
+            b.ToggleIconFrame.Button[L]:GetWidth() * (L - 3.1) + L, 0) end
+    ;
+    HeroRotationDB.GUISettings["Scaling.ScaleButtons"] = I
 end
 
-local t = y(18282)
-function e.MainFrame:Unlock()
-    e.ResetIcons()
-    e.Cast(t)
-    e.Cast(t, { true })
-    e.Cast(t, { true })
-    e.CastLeft(t)
-    e.CastSuggested(t)
-    e.CastRightSuggested(t)
-    for a, t in a(r) do
-        t:EnableMouse(true)
-    end
-
-    e.MainFrame:SetMovable(true)
-    e.ToggleIconFrame:SetMovable(true)
+;
+local N = h(18282)
+function b.MainFrame:Unlock()
+    b.ResetIcons()
+    b.Cast(N)
+    b.Cast(N, { true })
+    b.Cast(N, { true })
+    b.CastLeft(N)
+    b.CastSuggested(N)
+    b.CastRightSuggested(N)
+    for M, K in pairs(p) do K:EnableMouse(true) end
+    ;
+    b.MainFrame:SetMovable(true)
+    b.ToggleIconFrame:SetMovable(true)
     HeroRotationDB.Locked = false
 end
 
-function e.MainFrame:Lock()
-    for a, t in a(r) do
-        t:EnableMouse(false)
-    end
-
-    e.MainFrame:SetMovable(false)
-    e.ToggleIconFrame:SetMovable(false)
+;
+function b.MainFrame:Lock()
+    for M, K in pairs(p) do K:EnableMouse(false) end
+    ;
+    b.MainFrame:SetMovable(false)
+    b.ToggleIconFrame:SetMovable(false)
     HeroRotationDB.Locked = true
 end
 
-function e.MainFrame:ToggleLock()
-    if HeroRotationDB.Locked then
-        e.MainFrame:Unlock()
-        e.Print("HeroRotation UI is now |cff00ff00unlocked|r.")
+;
+function b.MainFrame:ToggleLock() if HeroRotationDB.Locked then
+        b.MainFrame:Unlock()
+        b.Print("HeroRotation UI is now |cff00ff00unlocked|r.")
     else
-        e.MainFrame:Lock()
-        e.Print("HeroRotation UI is now |cffff0000locked|r.")
-    end
+        b.MainFrame:Lock()
+        b.Print("HeroRotation UI is now |cffff0000locked|r.")
+    end end
 
+;
+local function O(self) self:StartMoving() end
+;
+b.MainFrame:SetScript("OnMouseDown", O)
+local function P(self)
+    self:StopMovingOrSizing()
+    if not HeroRotationDB then HeroRotationDB = {} end
+    ;
+    local Q, R, S, T, U, V;
+    Q, R, S, T, U = self:GetPoint()
+    if not R then V = "UIParent" else V = R:GetName() end
+    ;
+    HeroRotationDB.IconFramePos = { Q, V, S, T, U }
 end
+;
+b.MainFrame:SetScript("OnMouseUp", P)
+b.MainFrame:SetScript("OnHide", P)
+b.MainFrame:RegisterEvent("ADDON_LOADED")
+b.MainFrame:SetScript("OnEvent",
+    function(self, W, X) if W == "ADDON_LOADED" then if X == "HeroRotation" then
+                q = { ["Main Icon"] = b.MainIconFrame,["Top Icons"] = b.SmallIconFrame,["Left Icon"] = b.LeftIconFrame,
+                    ["Suggested Icon"] = b.SuggestedIconFrame,["Right Suggested Icon"] = b.RightSuggestedIconFrame,
+                    ["Part Overlay"] = b.MainIconPartOverlayFrame }
+                if not n then
+                    n = LibStub("Masque", true)
+                    if n then
+                        n:Register("HeroRotation", x, b)
+                        for Y, v in pairs(q) do o[v] = n:Group(a, Y) end
+                    end
+                end
+                ;
+                if type(HeroRotationDB) ~= "table" then HeroRotationDB = {} end
+                ;
+                if type(HeroRotationCharDB) ~= "table" then HeroRotationCharDB = {} end
+                ;
+                if type(HeroRotationDB.GUISettings) ~= "table" then HeroRotationDB.GUISettings = {} end
+                ;
+                if type(HeroRotationCharDB.GUISettings) ~= "table" then HeroRotationCharDB.GUISettings = {} end
+                ;
+                b.GUI.LoadSettingsRecursively(b.GUISettings)
+                b.GUI.CorePanelSettingsInit()
+                if HeroRotationDB and type(HeroRotationDB.IconFramePos) == "table" and #HeroRotationDB.IconFramePos == 5 then
+                    b.MainFrame:SetPoint(HeroRotationDB.IconFramePos[1], _G[HeroRotationDB.IconFramePos[2]],
+                        HeroRotationDB.IconFramePos[3], HeroRotationDB.IconFramePos[4], HeroRotationDB.IconFramePos[5]) else
+                    b.MainFrame:SetPoint("CENTER", UIParent, "CENTER", -200, 0) end
+                ;
+                b.MainFrame:SetFrameStrata(b.GUISettings.General.MainFrameStrata)
+                b.MainFrame:Show()
+                b.MainIconFrame:Init()
+                b.SmallIconFrame:Init()
+                b.LeftIconFrame:Init()
+                b.SuggestedIconFrame:Init()
+                b.RightSuggestedIconFrame:Init()
+                b.ToggleIconFrame:Init()
+                if HeroRotationDB.GUISettings["Scaling.ScaleUI"] then b.MainFrame:ResizeUI(HeroRotationDB.GUISettings
+                    ["Scaling.ScaleUI"]) end
+                ;
+                if HeroRotationDB.GUISettings["Scaling.ScaleButtons"] then b.MainFrame:ResizeButtons(HeroRotationDB
+                    .GUISettings["Scaling.ScaleButtons"]) end
+                ;
+                for F, Z in pairs(q) do if type(Z.Icon) == "table" then for G, H in pairs(Z.Icon) do
+                            H.GetNormalTexture = function(self) return nil end;
+                            H.SetNormalTexture = function(self, _) self.Texture = _ end
+                        end else
+                        Z.GetNormalTexture = function(self) return nil end;
+                        Z.SetNormalTexture = function(self, _) self.Texture = _ end
+                    end end
+                ;
+                if o then
+                    for F, Z in pairs(o) do if type(F.Icon) == "table" then for G, H in pairs(F.Icon) do if Z then Z
+                                        :AddButton(H, { Icon = H.Texture, Cooldown = H.CooldownFrame or nil }) end end else if Z then
+                                Z:AddButton(F, { Icon = F.Texture, Cooldown = F.CooldownFrame }) end end end
+                    ;
+                    for F, Z in pairs(o) do if Z then Z:ReSkin() end end
+                end
+                ;
+                p = { b.MainFrame, b.MainIconFrame, b.MainIconPartOverlayFrame, b.MainIconFrame.Part[1],
+                    b.MainIconFrame.Part[2], b.MainIconFrame.Part[3], b.SmallIconFrame, b.SmallIconFrame.Icon[1],
+                    b.SmallIconFrame.Icon[2], b.LeftIconFrame, b.SuggestedIconFrame, b.RightSuggestedIconFrame,
+                    b.ToggleIconFrame }
+                local a0 = j.GetPanelByName("General")
+                if a0 then
+                    k("Slider", a0, "General.SetAlpha", { 0, 1, 0.05 }, "Addon Alpha",
+                        "Change the addon's alpha setting.")
+                    k("Button", a0, "ButtonMove", "Lock/Unlock", "Enable the moving of the frames.",
+                        function() b.MainFrame:ToggleLock() end)
+                    k("Button", a0, "ButtonReset", "Reset Buttons", "Resets the anchor of buttons.",
+                        function() b.ToggleIconFrame:ResetAnchor() end)
+                end
+                ;
+                local a1 = j.GetPanelByName("Scaling")
+                if a1 then
+                    k("Slider", a1, "Scaling.ScaleUI", { 0.5, 5, 0.1 }, "UI Scale", "Scale of the Icons.",
+                        function(a2) b.MainFrame:ResizeUI(a2) end)
+                    k("Slider", a1, "Scaling.ScaleButtons", { 0.5, 5, 0.1 }, "Buttons Scale", "Scale of the Buttons.",
+                        function(a2) b.MainFrame:ResizeButtons(a2) end)
+                    k("Slider", a1, "Scaling.ScaleHotkey", { 0.5, 5, 0.1 }, "Hotkey Scale", "Scale of the Hotkeys.")
+                end
+                ;
+                C_Timer.After(2, function()
+                    b.MainFrame:UnregisterEvent("ADDON_LOADED")
+                    b.PulsePreInit()
+                    b.PulseInit()
+                end)
+            end end end)
+function b.PulsePreInit() b.MainFrame:Lock() end
 
-local function t(t)
-    t:StartMoving()
-end
-
-e.MainFrame:SetScript("OnMouseDown", t)
-local function f(i)
-    i:StopMovingOrSizing()
-    if not HeroRotationDB then
-        HeroRotationDB = {  }
-    end
-
-    local n, t, o, h, s, a
-    n, t, o, h, s = i:GetPoint()
-    if not t then
-        a = "UIParent"
+;
+local a3 = { [250] = "HeroRotation_DeathKnight",[251] = "HeroRotation_DeathKnight",[252] = "HeroRotation_DeathKnight",
+    [577] = "HeroRotation_DemonHunter",[581] = "HeroRotation_DemonHunter",[102] = "HeroRotation_Druid",
+    [103] = "HeroRotation_Druid",[104] = "HeroRotation_Druid",[105] = "HeroRotation_Druid",[1465] = "HeroRotation_Evoker",
+    [1467] = "HeroRotation_Evoker",[253] = "HeroRotation_Hunter",[254] = "HeroRotation_Hunter",
+    [255] = "HeroRotation_Hunter",[62] = "HeroRotation_Mage",[63] = "HeroRotation_Mage",[64] = "HeroRotation_Mage",
+    [268] = "HeroRotation_Monk",[269] = "HeroRotation_Monk",[270] = "HeroRotation_Monk",[65] = "HeroRotation_Paladin",
+    [66] = "HeroRotation_Paladin",[70] = "HeroRotation_Paladin",[256] = "HeroRotation_Priest",
+    [257] = "HeroRotation_Priest",[258] = "HeroRotation_Priest",[259] = "HeroRotation_Rogue",[260] = "HeroRotation_Rogue",
+    [261] = "HeroRotation_Rogue",[262] = "HeroRotation_Shaman",[263] = "HeroRotation_Shaman",
+    [264] = "HeroRotation_Shaman",[265] = "HeroRotation_Warlock",[266] = "HeroRotation_Warlock",
+    [267] = "HeroRotation_Warlock",[71] = "HeroRotation_Warrior",[72] = "HeroRotation_Warrior",
+    [73] = "HeroRotation_Warrior" }
+local a4 = 0;
+local a5 = GetTime()
+local a6 = 0;
+function b.PulseInit()
+    local a7 = GetSpecialization()
+    if a7 == nil then
+        c.PulseInitialized = false;
+        C_Timer.After(1, function() b.PulseInit() end)
     else
-        a = t:GetName()
-    end
-
-    HeroRotationDB.IconFramePos = { n, a, o, h, s }
-end
-
-e.MainFrame:SetScript("OnMouseUp", f)
-e.MainFrame:SetScript("OnHide", f)
-e.MainFrame:RegisterEvent("ADDON_LOADED")
-e.MainFrame:SetScript("OnEvent", function(s, t, i)
-    if t == "ADDON_LOADED" then
-        if i == "HeroRotation" then
-            d = { ["Main Icon"] = e.MainIconFrame, ["Top Icons"] = e.SmallIconFrame, ["Left Icon"] = e.LeftIconFrame, ["Suggested Icon"] = e.SuggestedIconFrame, ["Right Suggested Icon"] = e.RightSuggestedIconFrame, ["Part Overlay"] = e.MainIconPartOverlayFrame }
-            if not u then
-                u = LibStub("Masque", true)
-                if u then
-                    u:Register("HeroRotation", v, e)
-                    for t, e in a(d) do
-                        n[e] = u:Group(p, t)
-                    end
-
-                end
-
-            end
-
-            if type(HeroRotationDB) ~= "table" then
-                HeroRotationDB = {  }
-            end
-
-            if type(HeroRotationCharDB) ~= "table" then
-                HeroRotationCharDB = {  }
-            end
-
-            if type(HeroRotationDB.GUISettings) ~= "table" then
-                HeroRotationDB.GUISettings = {  }
-            end
-
-            if type(HeroRotationCharDB.GUISettings) ~= "table" then
-                HeroRotationCharDB.GUISettings = {  }
-            end
-
-            e.GUI.LoadSettingsRecursively(e.GUISettings)
-            e.GUI.CorePanelSettingsInit()
-            if HeroRotationDB and type(HeroRotationDB.IconFramePos) == "table" and #HeroRotationDB.IconFramePos == 5 then
-                e.MainFrame:SetPoint(HeroRotationDB.IconFramePos[1], _G[HeroRotationDB.IconFramePos[2]], HeroRotationDB.IconFramePos[3], HeroRotationDB.IconFramePos[4], HeroRotationDB.IconFramePos[5])
-            else
-                e.MainFrame:SetPoint("CENTER", UIParent, "CENTER", -200, 0)
-            end
-
-            e.MainFrame:SetFrameStrata(e.GUISettings.General.MainFrameStrata)
-            e.MainFrame:Show()
-            e.MainIconFrame:Init()
-            e.SmallIconFrame:Init()
-            e.LeftIconFrame:Init()
-            e.SuggestedIconFrame:Init()
-            e.RightSuggestedIconFrame:Init()
-            e.ToggleIconFrame:Init()
-            if HeroRotationDB.GUISettings["Scaling.ScaleUI"] then
-                e.MainFrame:ResizeUI(HeroRotationDB.GUISettings["Scaling.ScaleUI"])
-            end
-
-            if HeroRotationDB.GUISettings["Scaling.ScaleButtons"] then
-                e.MainFrame:ResizeButtons(HeroRotationDB.GUISettings["Scaling.ScaleButtons"])
-            end
-
-            for t, e in a(d) do
-                if type(e.Icon) == "table" then
-                    for t, e in a(e.Icon) do
-                        e.GetNormalTexture = function(e)
-                            return nil
-                        end
-                        e.SetNormalTexture = function(t, e)
-                            t.Texture = e
-                        end
-                    end
-
-                else
-                    e.GetNormalTexture = function(e)
-                        return nil
-                    end
-                    e.SetNormalTexture = function(t, e)
-                        t.Texture = e
-                    end
-                end
-
-            end
-
-            if n then
-                for e, t in a(n) do
-                    if type(e.Icon) == "table" then
-                        for a, e in a(e.Icon) do
-                            if t then
-                                t:AddButton(e, { Icon = e.Texture, Cooldown = (e.CooldownFrame or nil) })
-                            end
-
-                        end
-
-                    else
-                        if t then
-                            t:AddButton(e, { Icon = e.Texture, Cooldown = e.CooldownFrame })
-                        end
-
-                    end
-
-                end
-
-                for t, e in a(n) do
-                    if e then
-                        e:ReSkin()
-                    end
-
-                end
-
-            end
-
-            r = { e.MainFrame, e.MainIconFrame, e.MainIconPartOverlayFrame, e.MainIconFrame.Part[1], e.MainIconFrame.Part[2], e.MainIconFrame.Part[3], e.SmallIconFrame, e.SmallIconFrame.Icon[1], e.SmallIconFrame.Icon[2], e.LeftIconFrame, e.SuggestedIconFrame, e.RightSuggestedIconFrame, e.ToggleIconFrame }
-            local t = m.GetPanelByName("General")
-            if t then
-                o("Slider", t, "General.SetAlpha", { 0, 1, .05 }, "Addon Alpha", "Change the addon's alpha setting.")
-                o("Button", t, "ButtonMove", "Lock/Unlock", "Enable the moving of the frames.", function()
-                    e.MainFrame:ToggleLock()
-                end)
-                o("Button", t, "ButtonReset", "Reset Buttons", "Resets the anchor of buttons.", function()
-                    e.ToggleIconFrame:ResetAnchor()
-                end)
-            end
-
-            local t = m.GetPanelByName("Scaling")
-            if t then
-                o("Slider", t, "Scaling.ScaleUI", { .5, 5, .1 }, "UI Scale", "Scale of the Icons.", function(t)
-                    e.MainFrame:ResizeUI(t)
-                end)
-                o("Slider", t, "Scaling.ScaleButtons", { .5, 5, .1 }, "Buttons Scale", "Scale of the Buttons.", function(t)
-                    e.MainFrame:ResizeButtons(t)
-                end)
-                o("Slider", t, "Scaling.ScaleHotkey", { .5, 5, .1 }, "Hotkey Scale", "Scale of the Hotkeys.")
-            end
-
-            C_Timer.After(2, function()
-                e.MainFrame:UnregisterEvent("ADDON_LOADED")
-                e.PulsePreInit()
-                e.PulseInit()
-            end)
-        end
-
-    end
-
-end)
-function e.PulsePreInit()
-    e.MainFrame:Lock()
-end
-
-local u = { [250] = "HeroRotation_DeathKnight", [251] = "HeroRotation_DeathKnight", [252] = "HeroRotation_DeathKnight", [577] = "HeroRotation_DemonHunter", [581] = "HeroRotation_DemonHunter", [102] = "HeroRotation_Druid", [103] = "HeroRotation_Druid", [104] = "HeroRotation_Druid", [105] = "HeroRotation_Druid", [1465] = "HeroRotation_Evoker", [1467] = "HeroRotation_Evoker", [253] = "HeroRotation_Hunter", [254] = "HeroRotation_Hunter", [255] = "HeroRotation_Hunter", [62] = "HeroRotation_Mage", [63] = "HeroRotation_Mage", [64] = "HeroRotation_Mage", [268] = "HeroRotation_Monk", [269] = "HeroRotation_Monk", [270] = "HeroRotation_Monk", [65] = "HeroRotation_Paladin", [66] = "HeroRotation_Paladin", [70] = "HeroRotation_Paladin", [256] = "HeroRotation_Priest", [257] = "HeroRotation_Priest", [258] = "HeroRotation_Priest", [259] = "HeroRotation_Rogue", [260] = "HeroRotation_Rogue", [261] = "HeroRotation_Rogue", [262] = "HeroRotation_Shaman", [263] = "HeroRotation_Shaman", [264] = "HeroRotation_Shaman", [265] = "HeroRotation_Warlock", [266] = "HeroRotation_Warlock", [267] = "HeroRotation_Warlock", [71] = "HeroRotation_Warrior", [72] = "HeroRotation_Warrior", [73] = "HeroRotation_Warrior" }
-local m = 0
-local d = GetTime()
-local o = 0
-function e.PulseInit()
-    local t = GetSpecialization()
-    if t == nil then
-        i.PulseInitialized = false
-        C_Timer.After(1, function()
-            e.PulseInit()
-        end)
-    else
-        c.Persistent.Player.Spec = { GetSpecializationInfo(t) }
-        local t = c.Persistent.Player.Spec[1]
-        if t == nil then
-            i.PulseInitialized = false
-            C_Timer.After(1, function()
-                e.PulseInit()
-            end)
+        d.Persistent.Player.Spec = { GetSpecializationInfo(a7) }
+        local a8 = d.Persistent.Player.Spec[1]
+        if a8 == nil then
+            c.PulseInitialized = false;
+            C_Timer.After(1, function() b.PulseInit() end)
         else
-            if u[t] and not IsAddOnLoaded(u[t]) then
-                LoadAddOn(u[t])
-                i.LoadOverrides(t)
+            if a3[a8] and not IsAddOnLoaded(a3[a8]) then
+                LoadAddOn(a3[a8])
+                c.LoadOverrides(a8)
             end
-
-            if m ~= t then
-                if u[t] and e.APLs[t] then
-                    for a, t in a(r) do
-                        t:Show()
-                    end
-
-                    e.MainFrame:SetScript("OnUpdate", e.Pulse)
-                    h:RegisterListenedSpells(t)
-                    i.UnregisterAuraTracking()
-                    h:FilterTriggerGCD(t)
-                    y:FilterProjectileSpeed(t)
-                    if e.APLInits[t] then
-                        e.APLInits[t]()
-                    end
-
-                    if GetCVar("nameplateShowEnemies") ~= "1" then
-                        e.Print("It looks like enemy nameplates are disabled, you should enable them in order to get proper AoE rotation.")
-                    end
-
+            ;
+            if a4 ~= a8 then
+                if a3[a8] and b.APLs[a8] then
+                    for M, K in pairs(p) do K:Show() end
+                    ;
+                    b.MainFrame:SetScript("OnUpdate", b.Pulse)
+                    f:RegisterListenedSpells(a8)
+                    c.UnregisterAuraTracking()
+                    f:FilterTriggerGCD(a8)
+                    h:FilterProjectileSpeed(a8)
+                    if b.APLInits[a8] then b.APLInits[a8]() end
+                    ;
+                    if GetCVar("nameplateShowEnemies") ~= "1" then b.Print(
+                            "It looks like enemy nameplates are disabled, you should enable them in order to get proper AoE rotation.") end
                 else
-                    e.Print("No Rotation found for this class/spec (SpecID: " .. t .. "), addon disabled. This is likely due to the rotation being unsupported at this time. Please check supported rotations here: https://github.com/herotc/hero-rotation#supported-rotations")
-                    for a, t in a(r) do
-                        t:Hide()
-                    end
-
-                    e.MainFrame:SetScript("OnUpdate", nil)
+                    b.Print("No Rotation found for this class/spec (SpecID: " ..
+                    a8 ..
+                    "), addon disabled. This is likely due to the rotation being unsupported at this time. Please check supported rotations here: https://github.com/herotc/hero-rotation#supported-rotations")
+                    for M, K in pairs(p) do K:Hide() end
+                    ;
+                    b.MainFrame:SetScript("OnUpdate", nil)
                 end
-
-                m = t
+                ;
+                a4 = a8
             end
-
-            if not i.PulseInitialized then
-                i.PulseInitialized = true
-            end
-
+            ;
+            if not c.PulseInitialized then c.PulseInitialized = true end
         end
-
     end
-
 end
 
-e.Timer = { Pulse = 0 }
-function e.Pulse()
-    if not s.General.AdaptivePerformance then
-        o = s.General.TickRate
-    else
-        local e = GetFramerate()
-        if GetTime() > d + 2 then
-            if s.General.TargetFrames - e >= 0 then
-                if o + s.General.TargetFrames - e >= 250 then
-                    o = 250
-                    d = GetTime()
+;
+b.Timer = { Pulse = 0 }
+function b.Pulse()
+    if not t.General.AdaptivePerformance then a6 = t.General.TickRate else
+        local a9 = GetFramerate()
+        if GetTime() > a5 + 2 then if t.General.TargetFrames - a9 >= 0 then if a6 + t.General.TargetFrames - a9 >= 250 then
+                    a6 = 250;
+                    a5 = GetTime()
                 else
-                    o = o + s.General.TargetFrames - e
-                    d = GetTime()
-                end
-
-            else
-                if o + s.General.TargetFrames - e <= 0 then
-                    o = 0
-                    d = GetTime()
+                    a6 = a6 + t.General.TargetFrames - a9;
+                    a5 = GetTime()
+                end else if a6 + t.General.TargetFrames - a9 <= 0 then
+                    a6 = 0;
+                    a5 = GetTime()
                 else
-                    o = o + s.General.TargetFrames - e
-                    d = GetTime()
-                end
-
-            end
-
-        end
-
+                    a6 = a6 + t.General.TargetFrames - a9;
+                    a5 = GetTime()
+                end end end
     end
-
-    if GetTime() > e.Timer.Pulse and e.Locked() then
-        e.Timer.Pulse = GetTime() + .066 + o / 1000
-        e.ResetIcons()
-        local t = c.Persistent.Player.Spec[1]
-        if t then
-            if e.ON() and e.Ready() then
-                i.CacheHasBeenReset = false
-                c.Reset()
-                if e.GUISettings.General.RotationDebugOutput then
-                    l = e.APLs[t]()
-                    if l and l ~= w then
-                        e.Print(l)
-                        w = l
+    ;
+    if GetTime() > b.Timer.Pulse and b.Locked() then
+        b.Timer.Pulse = GetTime() + 0.066 + a6 / 1000;
+        b.ResetIcons()
+        local a8 = d.Persistent.Player.Spec[1]
+        if a8 then
+            if b.ON() and b.Ready() then
+                c.CacheHasBeenReset = false;
+                d.Reset()
+                if b.GUISettings.General.RotationDebugOutput then
+                    s = b.APLs[a8]()
+                    if s and s ~= r then
+                        b.Print(s)
+                        r = s
                     end
-
-                else
-                    e.APLs[t]()
-                end
-
+                else b.APLs[a8]() end
             end
-
-            if n then
-                for t, e in a(n) do
-                    if e then
-                        e:ReSkin()
-                    end
-
-                end
-
-            end
-
+            ;
+            if o then for F, Z in pairs(o) do if Z then Z:ReSkin() end end end
         end
-
     end
-
 end
 
-function e.Ready()
-    local t
-    if e.GUISettings.General.ShowWhileMounted then
-        t = not h:IsDeadOrGhost() and not h:IsInVehicle() and not C_PetBattles.IsInBattle()
-    else
-        t = not h:IsDeadOrGhost() and not h:IsMounted() and not h:IsInVehicle() and not C_PetBattles.IsInBattle()
-    end
-
-    return t
+;
+function b.Ready()
+    local aa;
+    if b.GUISettings.General.ShowWhileMounted then aa = not f:IsDeadOrGhost() and not f:IsInVehicle() and
+            not C_PetBattles.IsInBattle() else aa = not f:IsDeadOrGhost() and not f:IsMounted() and not f:IsInVehicle() and
+            not C_PetBattles.IsInBattle() end
+    ;
+    return aa
 end
 
-function e.ChangePulseTimer(t)
-    e.ResetIcons()
-    e.Timer.Pulse = GetTime() + t
+;
+function b.ChangePulseTimer(ab)
+    b.ResetIcons()
+    b.Timer.Pulse = GetTime() + ab
 end
 
-TickTimeCustom = function()
-    if o then
-        return o
-    else
-        return 0
-    end
-
-end
-
+;
+TickTimeCustom = function() if a6 then return a6 else return 0 end end
