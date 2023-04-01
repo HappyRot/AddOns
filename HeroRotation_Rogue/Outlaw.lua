@@ -232,7 +232,7 @@ local function aE()
       return "Cast KeepItRolling"
     end end
   ;
-  if Q.BladeRush:IsCastable() and h:IsSpellInRange(Q.SinisterStrike) and ax() and not g:DebuffUp(Q.Dreadblades) and d.FilteredFightRemains(U, ">", 4) then if l.Cast(Q.BladeRush, nil) then
+  if Q.BladeRush:IsCastable() and h:IsSpellInRange(Q.SinisterStrike) and ax() and not g:DebuffUp(Q.Dreadblades) and a3 >= 70 and d.FilteredFightRemains(U, ">", 4) then if l.Cast(Q.BladeRush, nil) then
       a7 = 271877;
       return "Cast Blade Rush"
     end end
