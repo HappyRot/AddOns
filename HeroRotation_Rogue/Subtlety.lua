@@ -1492,7 +1492,7 @@ local function bd()
                 return a7
             end
         end
-        if O.TargetIsValid() and (h:IsSpellInRange(Q.Shadowstrike) or a5) or q or not g:AffectingCombat() then
+        if O.TargetIsValid() and (h:IsSpellInRange(Q.Shadowstrike) or a5) and (not g:AffectingCombat() and q) then
             if m.CDsON() then
                 if Q.MarkedforDeath:IsCastable() and g:ComboPointsDeficit() >= P.CPMaxSpend() then
                     if O.CastTargetIf(Q.MarkedforDeath, a0, "min", aQ, aU, not h:IsInMeleeRange(8)) then
