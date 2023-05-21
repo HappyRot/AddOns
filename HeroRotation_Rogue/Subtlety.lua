@@ -980,7 +980,6 @@ local function b7()
             end
         end
     end
-    return false
 end
 local function bc()
     aa = nil
@@ -1493,16 +1492,19 @@ local function bd()
                 return a7
             end
         end
-        if O.TargetIsValid() and (h:IsSpellInRange(Q.Shadowstrike) or a5) or q then
+        if O.TargetIsValid() and (h:IsSpellInRange(Q.Shadowstrike) or a5) or q or not g:AffectingCombat() then
             if m.CDsON() then
                 if Q.MarkedforDeath:IsCastable() and g:ComboPointsDeficit() >= P.CPMaxSpend() then
                     if O.CastTargetIf(Q.MarkedforDeath, a0, "min", aQ, aU, not h:IsInMeleeRange(8)) then
-                        return "Cast Marked for Death"
+                        return "Cast Marked for Death OOC"
                     end
                 end
             end
-            if g:StealthUp(true, true) then
+            if g:StealthUp(true, true) and q then
                 a7 = b7()
+                if a7 then
+                    return a7 .. " (OOC)"
+                end
             elseif ak >= 5 then
                 a7 = b2()
                 if a7 then
@@ -1510,6 +1512,7 @@ local function bd()
                 end
             elseif Q.Backstab:IsCastable() then
                 if m.Cast(Q.Backstab) then
+                    a8 = 53
                     return "Cast Backstab (OOC)"
                 end
             end
@@ -1519,7 +1522,7 @@ local function bd()
     P.MfDSniping(Q.MarkedforDeath)
     if
         O.TargetIsValid() and
-            (g:AffectingCombat() and not h:DebuffUp(Q.Sap) or q or
+            (not g:AffectingCombat() and not h:DebuffUp(Q.Sap) or q or
                 (g:BuffUp(ae) or StealthSpell and StealthSpell:ID() == Q.Vanish:ID()))
      then
         if a7 then
@@ -1543,10 +1546,6 @@ local function bd()
                     return "ToT Focus"
                 end
             end
-        end
-        a7 = aY()
-        if a7 and h:IsInMeleeRange(8) then
-            return "CDs: " .. a7
         end
         if
             Q.SliceandDice:IsCastable() and a1 < P.CPMaxSpend() and d.FilteredFightRemains(a0, ">", 6) and
@@ -1587,7 +1586,7 @@ local function bd()
             end
             a7 = aW()
             if a7 then
-                return "Build: " .. a7
+                return "AMK BURDAN Build: " .. a7
             end
         end
         if m.CDsON() then
