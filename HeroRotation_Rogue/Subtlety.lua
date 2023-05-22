@@ -360,12 +360,6 @@ local function aW()
             end
             return "ER Generator Pooling"
         end
-        if Q.Shadowstrike:IsReady() then
-            if m.Cast(Q.Shadowstrike) then
-                a8 = 185438
-                return "Cast Shadowstrike"
-            end
-        end
         if Q.Gloomblade:IsCastable() then
             if aX and m.Cast(Q.Gloomblade) then
                 a8 = 200758
@@ -421,7 +415,7 @@ local function aY()
             return "Vanish Stealth CD"
         end
     end
-    if Q.ColdBlood:IsReady() and not Q.SecretTechnique:IsAvailable() and ak >= 5 then
+    if Q.ColdBlood:IsReady() and p and not Q.SecretTechnique:IsAvailable() and ak >= 5 then
         if m.Cast(Q.ColdBlood) then
             a8 = 382245
             return "Cast Cold Blood"
@@ -445,7 +439,7 @@ local function aY()
             not g:BuffUp(Q.PremeditationBuff)
      then
         if g:Energy() >= 60 then
-            if m.Cast(Q.ShurikenTornado, S.Subtlety.GCDasOffGCD.ShurikenTornado) then
+            if m.Cast(Q.ShurikenTornado, nil) then
                 a8 = 277925
                 return "Cast Shuriken Tornado"
             end
@@ -626,12 +620,7 @@ local function b2()
              then
                 if Q.SliceandDice:IsReady() and m.Cast(Q.SliceandDice) then
                     a8 = 5171
-                    return "Cast Slice and Dice"
-                else
-                    if Q.SliceandDice:IsReady() and m.Cast(Q.SliceandDice) then
-                        a8 = 5171
-                        return "Cast Slice and Dice (Premed)"
-                    end
+                    return "Cast Slice and Dice (Premed)"
                 end
             end
         else
@@ -639,11 +628,6 @@ local function b2()
                 if Q.SliceandDice:IsReady() and m.Cast(Q.SliceandDice) then
                     a8 = 5171
                     return "Cast Slice and Dice"
-                else
-                    if Q.SliceandDice:IsReady() and m.Cast(Q.SliceandDice) then
-                        a8 = 5171
-                        return "Cast Slice and Dice"
-                    end
                 end
             end
         end
@@ -656,11 +640,7 @@ local function b2()
                 h:DebuffRefreshable(Q.Rupture, af)
          then
             if O.CastTargetIf(Q.Rupture, a0, "min", aR, aV, not h:IsInMeleeRange(8)) then
-                return "Cast Rupture 2"
-            else
-                if O.CastTargetIf(Q.Rupture, a0, "min", aR, aV, not h:IsInMeleeRange(8)) then
-                    return "Cast Rupture 2"
-                end
+                return "Cast Rupture 1"
             end
         end
     end
@@ -671,7 +651,7 @@ local function b2()
                 Q.ShadowDance:ChargesFractional() <= 1
          then
             if O.CastTargetIf(Q.Rupture, a0, "min", aR, aV, not h:IsInMeleeRange(8)) then
-                return "Cast Rupture 2"
+                return "Cast Rupture (Finality)"
             end
         end
     end
@@ -680,18 +660,9 @@ local function b2()
             (g:BuffStack(Q.DanseMacabreBuff) >= 3 or not Q.DanseMacabre:IsAvailable())
      then
         if Q.ColdBlood:IsReady() and g:BuffDown(Q.ColdBlood) then
-            if S.Commons.OffGCDasOffGCD.ColdBlood then
-                m.Cast(Q.ColdBlood, S.Commons.OffGCDasOffGCD.ColdBlood)
-            else
-                if m.Cast(Q.ColdBlood) then
-                    a8 = 382245
-                    return "Cast Cold Blood"
-                else
-                    if m.Cast(Q.ColdBlood) then
-                        a8 = 382245
-                        return "Cast Cold Blood (SecTec)"
-                    end
-                end
+            if m.Cast(Q.ColdBlood) then
+                a8 = 382245
+                return "Cast Cold Blood (SecTec)"
             end
         end
         if
@@ -701,18 +672,7 @@ local function b2()
             if m.Cast(Q.SecretTechnique) then
                 a8 = 280719
                 return "Cast Secret Technique"
-            else
-                if m.Cast(Q.SecretTechnique) then
-                    a8 = 280719
-                    return "Cast Secret Technique"
-                end
             end
-        end
-    end
-    if Q.SecretTechnique:IsCastable() and aN then
-        if m.Cast(Q.SecretTechnique) then
-            a8 = 280719
-            return "Cast Secret Technique"
         end
     end
     if not b4 and Q.Rupture:IsCastable() then
@@ -730,10 +690,6 @@ local function b2()
          then
             if O.CastTargetIf(Q.Rupture, a0, "min", aR, aV, not h:IsInMeleeRange(8)) then
                 return "Cast Rupture 2"
-            else
-                if O.CastTargetIf(Q.Rupture, a0, "min", aR, aV, not h:IsInMeleeRange(8)) then
-                    return "Cast Rupture 2"
-                end
             end
         end
     end
@@ -741,22 +697,12 @@ local function b2()
         if Q.BlackPowder:IsReady() and m.Cast(Q.BlackPowder) then
             a8 = 319175
             return "Cast Black Powder"
-        else
-            if Q.BlackPowder:IsReady() and m.Cast(Q.BlackPowder) then
-                a8 = 319175
-                return "Cast Black Powder"
-            end
         end
     end
     if Q.Eviscerate:IsCastable() and a5 then
         if Q.Eviscerate:IsReady() and m.Cast(Q.Eviscerate) then
             a8 = 196819
             return "Cast Eviscerate"
-        else
-            if Q.Eviscerate:IsReady() and m.Cast(Q.Eviscerate) then
-                a8 = 196819
-                return "Cast Eviscerate"
-            end
         end
     end
 end
@@ -841,19 +787,15 @@ local function b7()
     else
         bb = bb and a5
     end
-    if bb and (b8 or b9) and (a1 < 4 or am) then
+    if bb and g:AffectingCombat() and (b8 or b9) and (a1 < 4 or am) then
         if m.Cast(Q.Shadowstrike) then
             a8 = 185438
             return "Cast Shadowstrike (Stealth)"
-        else
-            if m.Cast(Q.Shadowstrike) then
-                a8 = 185438
-                return "Cast Shadowstrike (Stealth)"
-            end
         end
     end
     if
-        g:BuffStack(Q.DanseMacabreBuff) < 5 and (al == 2 or al == 3) and (ba or EffectiveComboPoints < 7) and
+        g:BuffStack(Q.DanseMacabreBuff) < 5 and g:AffectingCombat() and (al == 2 or al == 3) and
+            (ba or EffectiveComboPoints < 7) and
             (a1 <= 8 or Q.LingeringShadow:IsAvailable())
      then
         if
@@ -864,35 +806,21 @@ local function b7()
             if m.Cast(Q.ShurikenStorm) then
                 a8 = 197835
                 return "Cast Shuriken Storm (FW)"
-            else
-                if m.Cast(Q.ShurikenStorm) then
-                    a8 = 197835
-                    return "Cast Shuriken Storm (FW)"
-                end
             end
         end
-        if Q.Gloomblade:IsCastable() then
+        if Q.Gloomblade:IsCastable() and g:AffectingCombat() then
             if m.Cast(Q.Gloomblade) then
                 a8 = 700
                 return "Cast Gloomblade (Stealth)"
-            else
-                if m.Cast(Q.Gloomblade) then
-                    a8 = 700
-                    return "Cast Gloomblade (Stealth)"
-                end
             end
         elseif
-            Q.Backstab:IsCastable() and Q.DanseMacabre:IsAvailable() and g:BuffStack(Q.DanseMacabreBuff) <= 2 and
+            Q.Backstab:IsCastable() and g:AffectingCombat() and Q.DanseMacabre:IsAvailable() and
+                g:BuffStack(Q.DanseMacabreBuff) <= 2 and
                 a1 <= 2
          then
             if m.Cast(Q.Backstab) then
                 a8 = 600
                 return "Cast Backstab (Stealth)"
-            else
-                if m.Cast(Q.Backstab) then
-                    a8 = 600
-                    return "Cast Backstab (Stealth)"
-                end
             end
         end
     end
@@ -911,73 +839,46 @@ local function b7()
     if g:BuffStack(Q.PerforatedVeinsBuff) >= 5 and a1 < 3 then
         if Q.Gloomblade:IsCastable() then
             if m.Cast(Q.Gloomblade) then
-                a8 = 700
-                return "Cast Gloomblade"
-            else
-                if m.Cast(Q.Gloomblade) then
-                    a8 = 7007
-                    return "Cast Gloomblade (Stealth PV)"
-                end
+                a8 = 7007
+                return "Cast Gloomblade (Stealth PV)"
             end
         elseif Q.Backstab:IsCastable() then
             if m.Cast(Q.Backstab) then
-                a8 = 600
-                return "Cast Backstab"
-            else
-                if m.Cast(Q.Backstab) then
-                    a8 = 6006
-                    return "Cast Backstab (Stealth PV)"
-                end
+                a8 = 6006
+                return "Cast Backstab (Stealth PV)"
             end
         end
     end
-    if bb and not g:StealthUp(true, false) and not StealthSpell and g:BuffUp(Q.SepsisBuff) and a1 < 4 then
+    if
+        bb and g:AffectingCombat() and not g:StealthUp(true, false) and not StealthSpell and g:BuffUp(Q.SepsisBuff) and
+            a1 < 4
+     then
         if m.Cast(Q.Shadowstrike) then
             a8 = 185438
-            return "Cast Shadowstrike"
-        else
-            if m.Cast(Q.Shadowstrike) then
-                a8 = 185438
-                return "Cast Shadowstrike (Sepsis)"
-            end
+            return "Cast Shadowstrike (Sepsis)"
         end
     end
     if m.AoEON() and Q.ShurikenStorm:IsCastable() and a1 >= 3 + l(g:BuffUp(Q.TheRottenBuff)) and (not ba or a1 >= 7) then
         if m.Cast(Q.ShurikenStorm) then
             a8 = 197835
             return "Cast Shuriken Storm"
-        else
-            if m.Cast(Q.ShurikenStorm) then
-                a8 = 197835
-                return "Cast Shuriken Storm"
-            end
         end
     end
     if
-        bb and
+        bb and g:AffectingCombat() and
             (h:DebuffRemains(Q.FindWeaknessDebuff) < 1 or
                 Q.SymbolsofDeath:CooldownRemains() < 18 and
                     h:DebuffRemains(Q.FindWeaknessDebuff) < Q.SymbolsofDeath:CooldownRemains())
      then
         if m.Cast(Q.Shadowstrike) then
             a8 = 185438
-            return "Cast Shadowstrike "
-        else
-            if m.Cast(Q.Shadowstrike) then
-                a8 = 185438
-                return "Cast Shadowstrike (FW Refresh)"
-            end
+            return "Cast Shadowstrike (FW Refresh)"
         end
     end
-    if bb then
+    if bb and g:AffectingCombat() then
         if m.Cast(Q.Shadowstrike) then
             a8 = 185438
-            return "Cast Shadowstrike"
-        else
-            if m.Cast(Q.Shadowstrike) then
-                a8 = 185438
-                return "Cast Shadowstrike 2"
-            end
+            return "Cast Shadowstrike 2"
         end
     end
 end
@@ -1522,8 +1423,7 @@ local function bd()
     P.MfDSniping(Q.MarkedforDeath)
     if
         O.TargetIsValid() and
-            (not g:AffectingCombat() and not h:DebuffUp(Q.Sap) or q or
-                (g:BuffUp(ae) or StealthSpell and StealthSpell:ID() == Q.Vanish:ID()))
+            (not h:DebuffUp(Q.Sap) or (g:BuffUp(ae) or StealthSpell and StealthSpell:ID() == Q.Vanish:ID()))
      then
         if a7 then
             return a7
@@ -1586,7 +1486,7 @@ local function bd()
             end
             a7 = aW()
             if a7 then
-                return "AMK BURDAN Build: " .. a7
+                return "Build: " .. a7
             end
         end
         if m.CDsON() then
