@@ -145,7 +145,16 @@ local function av(aw, ax, ay, az)
     end
     if aA then
         m.CastLeftNameplate(aA, aw)
-    elseif S.Commons.RangedMultiDoT then
+        if aA:GUID() == f("mouseover"):GUID() and S.Subtlety.TargetSwap == "Mouseover" then
+            if aw == Q.Rupture then
+                a9 = 11943
+            elseif aw == Q.SerratedBoneSpike then
+                a9 = 1328547
+            end
+        elseif S.Subtlety.TargetSwap == "AutoSwap" and aA:GUID() ~= h:GUID() and not r then
+            a9 = 9999
+        end
+    elseif false then
         aA, aB = nil, ay
         for aD, aE in pairs(a0) do
             if aE:GUID() ~= aC and O.UnitIsCycleValid(aE, aB, -aE:DebuffRemains(aw)) and ax(aE) then
@@ -154,6 +163,15 @@ local function av(aw, ax, ay, az)
         end
         if aA then
             m.CastLeftNameplate(aA, aw)
+            if aA:GUID() == f("mouseover"):GUID() and S.Subtlety.TargetSwap == "Mouseover" then
+                if aw == Q.Rupture then
+                    a9 = 11943
+                elseif aw == Q.SerratedBoneSpike then
+                    a9 = 1328547
+                end
+            elseif S.Subtlety.TargetSwap == "AutoSwap" and aA:GUID() ~= h:GUID() and not r then
+                a9 = 9999
+            end
         end
     end
 end
@@ -787,15 +805,14 @@ local function b7()
     else
         bb = bb and a5
     end
-    if bb and g:AffectingCombat() and (b8 or b9) and (a1 < 4 or am) then
+    if bb and (b8 or b9) and (a1 < 4 or am) then
         if m.Cast(Q.Shadowstrike) then
             a8 = 185438
             return "Cast Shadowstrike (Stealth)"
         end
     end
     if
-        g:BuffStack(Q.DanseMacabreBuff) < 5 and g:AffectingCombat() and (al == 2 or al == 3) and
-            (ba or EffectiveComboPoints < 7) and
+        g:BuffStack(Q.DanseMacabreBuff) < 5 and (al == 2 or al == 3) and (ba or EffectiveComboPoints < 7) and
             (a1 <= 8 or Q.LingeringShadow:IsAvailable())
      then
         if
@@ -808,14 +825,13 @@ local function b7()
                 return "Cast Shuriken Storm (FW)"
             end
         end
-        if Q.Gloomblade:IsCastable() and g:AffectingCombat() then
+        if Q.Gloomblade:IsCastable() then
             if m.Cast(Q.Gloomblade) then
                 a8 = 700
                 return "Cast Gloomblade (Stealth)"
             end
         elseif
-            Q.Backstab:IsCastable() and g:AffectingCombat() and Q.DanseMacabre:IsAvailable() and
-                g:BuffStack(Q.DanseMacabreBuff) <= 2 and
+            Q.Backstab:IsCastable() and Q.DanseMacabre:IsAvailable() and g:BuffStack(Q.DanseMacabreBuff) <= 2 and
                 a1 <= 2
          then
             if m.Cast(Q.Backstab) then
@@ -849,10 +865,7 @@ local function b7()
             end
         end
     end
-    if
-        bb and g:AffectingCombat() and not g:StealthUp(true, false) and not StealthSpell and g:BuffUp(Q.SepsisBuff) and
-            a1 < 4
-     then
+    if bb and not g:StealthUp(true, false) and not StealthSpell and g:BuffUp(Q.SepsisBuff) and a1 < 4 then
         if m.Cast(Q.Shadowstrike) then
             a8 = 185438
             return "Cast Shadowstrike (Sepsis)"
@@ -865,7 +878,7 @@ local function b7()
         end
     end
     if
-        bb and g:AffectingCombat() and
+        bb and
             (h:DebuffRemains(Q.FindWeaknessDebuff) < 1 or
                 Q.SymbolsofDeath:CooldownRemains() < 18 and
                     h:DebuffRemains(Q.FindWeaknessDebuff) < Q.SymbolsofDeath:CooldownRemains())
@@ -875,7 +888,7 @@ local function b7()
             return "Cast Shadowstrike (FW Refresh)"
         end
     end
-    if bb and g:AffectingCombat() then
+    if bb then
         if m.Cast(Q.Shadowstrike) then
             a8 = 185438
             return "Cast Shadowstrike 2"
@@ -949,6 +962,7 @@ local function bc()
     Y = GetInventoryItemID("player", 14)
 end
 local function bd()
+    a9 = 9999
     if Q.Subterfuge:IsAvailable() then
         ad = Q.Stealth2
         ae = Q.VanishBuff2
@@ -1457,7 +1471,7 @@ local function bd()
                 return "Cast Slice and Dice (Low Duration)"
             end
         end
-        if g:StealthUp(true, true) then
+        if g:StealthUp(true, true) and q then
             a7 = b7()
             if a7 then
                 return "Stealthed : " .. a7
