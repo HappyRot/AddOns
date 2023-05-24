@@ -725,56 +725,44 @@ local function b2()
     end
 end
 local function b6()
+    m.Print("!po")
     if
         m.CDsON() and Q.ShadowDance:TimeSinceLastDisplay() > 0.3 and Q.Shadowmeld:TimeSinceLastDisplay() > 0.3 and
             not g:IsTanking(h)
      then
-        if
-            Q.Vanish:IsCastable() and (not Q.DanseMacabre:IsAvailable() or a1 >= 3) and not aK() and al > 1 and not u and
-                S.Commons.VanishOffensive
-         then
+        if Q.Vanish:IsCastable() and (not Q.DanseMacabre:IsAvailable() or a1 >= 3) and not aK() and al > 1 then
             if m.Cast(Q.Vanish, nil, nil) then
                 a8 = 1856
                 return "Vanish Stealth CD"
             end
         end
-    end
-    if g:Energy() < 40 and Q.Shadowmeld:IsReady() then
-        if m.CastPooling(Q.Shadowmeld, g:EnergyTimeToX(40)) then
-            a8 = 1000
-            return "Pool for Shadowmeld"
-        end
-    end
-    if Q.Shadowmeld:IsCastable() and a5 and not g:IsMoving() and g:EnergyDeficitPredicted() > 10 and not aK() and al > 4 then
         if
-            Q.Shadowmeld:IsReady() and not g:IsMoving() and S.Commons.Enabled.Racials and g:Energy() >= 40 and
-                g:EnergyDeficitPredicted() >= 10 and
-                not as and
+            Q.Shadowmeld:IsCastable() and a5 and not g:IsMoving() and g:EnergyDeficitPredicted() > 10 and not aK() and
                 al > 4
          then
-            if m.Cast(Q.Shadowmeld, nil, nil) then
-                a8 = 58984
-                return "Shadowmeld Stealth CD"
+            if m.CastPooling(Q.Shadowmeld, g:EnergyTimeToX(40)) then
+                a8 = 1000
+                return "Pool for Shadowmeld"
             end
         end
+    end
+    if
+        a5 and Q.ShadowDance:IsCastable() and Q.ShadowDance:Charges() >= 1 and Q.Vanish:TimeSinceLastDisplay() > 0.3 and
+            Q.Shadowmeld:TimeSinceLastDisplay() > 0.3 and
+            (m.CDsON() or
+                Q.ShadowDance:ChargesFractional() >=
+                    S.Subtlety.ShDEcoCharge - (not Q.ShadowDanceTalent:IsAvailable() and 0.75 or 0))
+     then
         if
-            a5 and Q.ShadowDance:IsCastable() and Q.ShadowDance:Charges() >= 1 and Q.Vanish:TimeSinceLastDisplay() > 0.3 and
-                Q.Shadowmeld:TimeSinceLastDisplay() > 0.3 and
-                (m.CDsON() or
-                    Q.ShadowDance:ChargesFractional() >=
-                        S.Subtlety.ShDEcoCharge - (not Q.ShadowDanceTalent:IsAvailable() and 0.75 or 0))
+            (aL() and (g:BuffRemains(Q.SymbolsofDeath) >= 2.2 - l(Q.Flagellation:IsAvailable()) or aK()) or
+                g:BuffUp(Q.Flagellation) or
+                g:BuffRemains(Q.FlagellationPersistBuff) >= 6 or
+                a1 >= 4 and Q.SymbolsofDeath:CooldownRemains() > 10) and
+                g:BuffDown(Q.TheRottenBuff)
          then
-            if
-                (aL() and (g:BuffRemains(Q.SymbolsofDeath) >= 2.2 - l(Q.Flagellation:IsAvailable()) or aK()) or
-                    g:BuffUp(Q.Flagellation) or
-                    g:BuffRemains(Q.FlagellationPersistBuff) >= 6 or
-                    a1 >= 4 and Q.SymbolsofDeath:CooldownRemains() > 10) and
-                    g:BuffDown(Q.TheRottenBuff)
-             then
-                if m.Cast(Q.ShadowDance) then
-                    a8 = 185313
-                    return " Shadow Dance Stealth CD"
-                end
+            if m.Cast(Q.ShadowDance) then
+                a8 = 185313
+                return "Shadow Dance Stealth CD 1"
             end
         end
         if
