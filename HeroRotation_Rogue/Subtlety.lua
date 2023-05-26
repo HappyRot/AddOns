@@ -1392,7 +1392,7 @@ local function bd()
                 return a7
             end
         end
-        if O.TargetIsValid() and (h:IsSpellInRange(Q.Shadowstrike) or a5) and (not g:AffectingCombat() and q) then
+        if O.TargetIsValid() and (h:IsSpellInRange(Q.Shadowstrike) or a5) and (not g:AffectingCombat() or q) then
             if m.CDsON() then
                 if Q.MarkedforDeath:IsCastable() and g:ComboPointsDeficit() >= P.CPMaxSpend() then
                     if m.Cast(Q.MarkedforDeath, nil) then
@@ -1401,15 +1401,17 @@ local function bd()
                     end
                 end
             end
-            if g:StealthUp(true, true) and q then
+            if g:StealthUp(true, true) and (g:AffectingCombat() or q) then
                 a7 = b7()
                 if a7 then
-                    return a7 .. " (OOC)"
+                    return a7 .. " (1OOC)"
                 end
             elseif ak >= 5 then
-                a7 = b2()
-                if a7 then
-                    return a7 .. " (OOC)"
+                if g:AffectingCombat() or q then
+                    a7 = b2()
+                    if a7 then
+                        return a7 .. " (2OOC)"
+                    end
                 end
             elseif Q.Backstab:IsCastable() then
                 if m.Cast(Q.Backstab) then
@@ -1457,7 +1459,7 @@ local function bd()
                 return "Cast Slice and Dice (Low Duration)"
             end
         end
-        if g:StealthUp(true, true) and q then
+        if g:StealthUp(true, true) and (g:AffectingCombat() or q) then
             a7 = b7()
             if a7 then
                 return "Stealthed : " .. a7
