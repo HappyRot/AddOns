@@ -668,6 +668,32 @@ local function b2()
         end
     end
     if
+        t and Q.SecretTechnique:IsCastable() and aO and
+            (g:BuffStack(Q.DanseMacabreBuff) >= 3 or not Q.DanseMacabre:IsAvailable())
+     then
+        if Q.ColdBlood:IsReady() and g:BuffDown(Q.ColdBlood) then
+            if m.Cast(Q.ColdBlood) then
+                a8 = 382245
+                return "Cast Cold Blood (FunnelAOE)"
+            end
+        end
+        if
+            not Q.ColdBlood:IsAvailable() or Q.ColdBlood:IsReady() or g:BuffUp(Q.ColdBlood) or
+                Q.ColdBlood:CooldownRemains() > b3 - 2
+         then
+            if m.Cast(Q.SecretTechnique) then
+                a8 = 280719
+                return "Cast Secret Technique (FunnelAOE)"
+            end
+        end
+    end
+    if t and Q.Eviscerate:IsCastable() and a5 then
+        if Q.Eviscerate:IsReady() and m.Cast(Q.Eviscerate) then
+            a8 = 196819
+            return "Cast Eviscerate (FunnelAOE)"
+        end
+    end
+    if
         Q.SecretTechnique:IsCastable() and aO and
             (g:BuffStack(Q.DanseMacabreBuff) >= 3 or not Q.DanseMacabre:IsAvailable())
      then
