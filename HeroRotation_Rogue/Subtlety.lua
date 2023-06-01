@@ -239,120 +239,132 @@ end
 local function aN(aO)
     return g:BuffUp(Q.ThistleTea) and a1 == 1 or aO and (a1 == 1 or h:DebuffUp(Q.Rupture) and a1 >= 2)
 end
-local function aP(aQ)
-    return aQ:DebuffRemains(Q.FindWeaknessDebuff)
+local function aP()
+    return g:BuffDown(Q.PremeditationBuff) and a1 == 1 or not Q.TheRotten:IsAvailable() or a1 > 1
 end
-local function aR(aQ)
-    return aQ:TimeToDie()
+local function aQ()
+    return not g:BuffUp(Q.TheRottenBuff) or a1 > 1 or ak <= 2 and g:BuffUp(Q.TheRottenBuff) and not g:HasTier(30, 2)
 end
-local function aS(aQ)
-    return aQ:DebuffRemains(Q.Rupture)
+local function aR(aO, aS)
+    return aO and (g:BuffStack(Q.DanseMacabreBuff) >= 3 or not Q.DanseMacabre:IsAvailable()) and (not aS or a1 ~= 2)
 end
-local function aT(aQ)
+local function aT(i)
+    return g:BuffUp(Q.ShadowDanceBuff) and i:TimeSinceLastCast() < Q.ShadowDance:TimeSinceLastCast()
+end
+local function aU(aV)
+    return aV:DebuffRemains(Q.FindWeaknessDebuff)
+end
+local function aW(aV)
+    return aV:TimeToDie()
+end
+local function aX(aV)
+    return aV:DebuffRemains(Q.Rupture)
+end
+local function aY(aV)
     if
-        (aQ:DebuffRemains(Q.FindWeaknessDebuff) < 1 or
+        (aV:DebuffRemains(Q.FindWeaknessDebuff) < 1 or
             Q.SymbolsofDeath:CooldownRemains() < 18 and
-                aQ:DebuffRemains(Q.FindWeaknessDebuff) < Q.SymbolsofDeath:CooldownRemains()) and
-            aQ:GUID() == f("mouseover"):GUID() and
+                aV:DebuffRemains(Q.FindWeaknessDebuff) < Q.SymbolsofDeath:CooldownRemains()) and
+            aV:GUID() == f("mouseover"):GUID() and
             S.Subtlety.TargetSwap == "Mouseover"
      then
         a9 = 1185438
         return true
     elseif
-        (aQ:DebuffRemains(Q.FindWeaknessDebuff) < 1 or
+        (aV:DebuffRemains(Q.FindWeaknessDebuff) < 1 or
             Q.SymbolsofDeath:CooldownRemains() < 18 and
-                aQ:DebuffRemains(Q.FindWeaknessDebuff) < Q.SymbolsofDeath:CooldownRemains()) and
+                aV:DebuffRemains(Q.FindWeaknessDebuff) < Q.SymbolsofDeath:CooldownRemains()) and
             S.Subtlety.TargetSwap == "AutoSwap" and
-            aQ:GUID() ~= h:GUID() and
+            aV:GUID() ~= h:GUID() and
             not r
      then
         a9 = 9999
         return true
     elseif
-        (aQ:DebuffRemains(Q.FindWeaknessDebuff) < 1 or
+        (aV:DebuffRemains(Q.FindWeaknessDebuff) < 1 or
             Q.SymbolsofDeath:CooldownRemains() < 18 and
-                aQ:DebuffRemains(Q.FindWeaknessDebuff) < Q.SymbolsofDeath:CooldownRemains()) and
-            aQ:GUID() == h:GUID()
+                aV:DebuffRemains(Q.FindWeaknessDebuff) < Q.SymbolsofDeath:CooldownRemains()) and
+            aV:GUID() == h:GUID()
      then
         a8 = 185438
         return true
     elseif
-        aQ:DebuffRemains(Q.FindWeaknessDebuff) < 1 or
+        aV:DebuffRemains(Q.FindWeaknessDebuff) < 1 or
             Q.SymbolsofDeath:CooldownRemains() < 18 and
-                aQ:DebuffRemains(Q.FindWeaknessDebuff) < Q.SymbolsofDeath:CooldownRemains()
+                aV:DebuffRemains(Q.FindWeaknessDebuff) < Q.SymbolsofDeath:CooldownRemains()
      then
         return true
     end
 end
-local function aU(aQ)
+local function aZ(aV)
     if
-        aQ:IsInRange(8) and aQ:TimeToDie() > 10 and aQ:GUID() == f("mouseover"):GUID() and
+        aV:IsInRange(8) and aV:TimeToDie() > 10 and aV:GUID() == f("mouseover"):GUID() and
             S.Subtlety.TargetSwap == "Mouseover"
      then
         a9 = 1323654
         return true
     elseif
-        aQ:IsInRange(8) and aQ:TimeToDie() > 10 and S.Subtlety.TargetSwap == "AutoSwap" and aQ:GUID() ~= h:GUID() and
+        aV:IsInRange(8) and aV:TimeToDie() > 10 and S.Subtlety.TargetSwap == "AutoSwap" and aV:GUID() ~= h:GUID() and
             not r
      then
         a9 = 9999
         return true
-    elseif aQ:IsInRange(8) and aQ:TimeToDie() > 10 and aQ:GUID() == h:GUID() then
+    elseif aV:IsInRange(8) and aV:TimeToDie() > 10 and aV:GUID() == h:GUID() then
         a8 = 323654
         return true
-    elseif aQ:IsInRange(8) and aQ:TimeToDie() > 10 then
+    elseif aV:IsInRange(8) and aV:TimeToDie() > 10 then
         return true
     end
 end
-local function aV(aQ)
+local function a_(aV)
     if
-        (aQ:FilteredTimeToDie("<", al) or not g:StealthUp(true, true) and g:ComboPointsDeficit() >= P.CPMaxSpend()) and
-            aQ:GUID() == f("mouseover"):GUID() and
+        (aV:FilteredTimeToDie("<", al) or not g:StealthUp(true, true) and g:ComboPointsDeficit() >= P.CPMaxSpend()) and
+            aV:GUID() == f("mouseover"):GUID() and
             S.Subtlety.TargetSwap == "Mouseover"
      then
         a9 = 1137619
         return true
     elseif
-        (aQ:FilteredTimeToDie("<", al) or not g:StealthUp(true, true) and g:ComboPointsDeficit() >= P.CPMaxSpend()) and
+        (aV:FilteredTimeToDie("<", al) or not g:StealthUp(true, true) and g:ComboPointsDeficit() >= P.CPMaxSpend()) and
             S.Subtlety.TargetSwap == "AutoSwap" and
-            aQ:GUID() ~= h:GUID() and
+            aV:GUID() ~= h:GUID() and
             not r
      then
         a9 = 9999
         return true
     elseif
-        (aQ:FilteredTimeToDie("<", al) or not g:StealthUp(true, true) and g:ComboPointsDeficit() >= P.CPMaxSpend()) and
-            aQ:GUID() == h:GUID()
+        (aV:FilteredTimeToDie("<", al) or not g:StealthUp(true, true) and g:ComboPointsDeficit() >= P.CPMaxSpend()) and
+            aV:GUID() == h:GUID()
      then
         a8 = 137619
         return true
-    elseif aQ:FilteredTimeToDie("<", al) or not g:StealthUp(true, true) and g:ComboPointsDeficit() >= P.CPMaxSpend() then
+    elseif aV:FilteredTimeToDie("<", al) or not g:StealthUp(true, true) and g:ComboPointsDeficit() >= P.CPMaxSpend() then
         return true
     end
 end
-local function aW(aQ)
+local function b0(aV)
     if
-        aQ:FilteredTimeToDie(">=", 2 * ak) and aQ:DebuffRefreshable(Q.Rupture) and aQ:GUID() == f("mouseover"):GUID() and
+        aV:FilteredTimeToDie(">=", 2 * ak) and aV:DebuffRefreshable(Q.Rupture) and aV:GUID() == f("mouseover"):GUID() and
             S.Subtlety.TargetSwap == "Mouseover"
      then
         a9 = 11943
         return true
     elseif
-        aQ:FilteredTimeToDie(">=", 2 * ak) and aQ:DebuffRefreshable(Q.Rupture) and S.Subtlety.TargetSwap == "AutoSwap" and
-            aQ:GUID() ~= h:GUID() and
+        aV:FilteredTimeToDie(">=", 2 * ak) and aV:DebuffRefreshable(Q.Rupture) and S.Subtlety.TargetSwap == "AutoSwap" and
+            aV:GUID() ~= h:GUID() and
             not r
      then
         a9 = 9999
         return true
-    elseif aQ:FilteredTimeToDie(">=", 2 * ak) and aQ:DebuffRefreshable(Q.Rupture) and aQ:GUID() == h:GUID() then
+    elseif aV:FilteredTimeToDie(">=", 2 * ak) and aV:DebuffRefreshable(Q.Rupture) and aV:GUID() == h:GUID() then
         a8 = 1943
         return true
-    elseif aQ:FilteredTimeToDie(">=", 2 * ak) and aQ:DebuffRefreshable(Q.Rupture) then
+    elseif aV:FilteredTimeToDie(">=", 2 * ak) and aV:DebuffRefreshable(Q.Rupture) then
         return true
     end
 end
-local function aX()
-    local aY = not EnergyThreshold or g:EnergyPredicted() >= EnergyThreshold
+local function b1()
+    local b2 = not EnergyThreshold or g:EnergyPredicted() >= EnergyThreshold
     if
         m.AoEON() and Q.ShurikenStorm:IsCastable() and
             a1 >=
@@ -380,23 +392,23 @@ local function aX()
             return "ER Generator Pooling"
         end
         if Q.Gloomblade:IsCastable() then
-            if aY and m.Cast(Q.Gloomblade) then
+            if b2 and m.Cast(Q.Gloomblade) then
                 a8 = 200758
                 return "Cast Gloomblade"
             end
         elseif Q.Backstab:IsCastable() then
-            if aY and m.Cast(Q.Backstab) then
+            if b2 and m.Cast(Q.Backstab) then
                 a8 = 53
                 return "Cast Backstab"
             end
         end
     end
 end
-local function aZ()
+local function b3()
     if g:BuffUp(Q.ShurikenTornado) then
         if
             Q.SymbolsofDeath:IsCastable() and Q.ShadowDance:IsCastable() and not g:BuffUp(Q.SymbolsofDeath) and
-                not g:BuffUp(Q.ShadowDance)
+                not g:BuffUp(Q.ShadowDanceBuff)
          then
             if m.Cast(Q.SymbolsofDeath) then
                 a8 = 800
@@ -414,10 +426,11 @@ local function aZ()
             end
         end
     end
-    local a_ = au()
+    local b4 = au()
     if
         Q.Vanish:IsCastable() and VanishReady and not u and S.Commons.VanishOffensive and ak <= 2 and
-            g:BuffStack(Q.DanseMacabreBuff) > 3
+            g:BuffStack(Q.DanseMacabreBuff) > 3 and
+            (Q.SecretTechnique:CooldownRemains() >= 30 or not Q.SecretTechnique:IsAvailable())
      then
         if m.Cast(Q.Vanish, nil, nil) then
             a8 = 1856
@@ -432,7 +445,7 @@ local function aZ()
     end
     if a5 then
         if
-            o() and Q.Flagellation:IsReady() and a_ and not g:StealthUp(false, false) and ak >= 5 and
+            o() and Q.Flagellation:IsReady() and b4 and not g:StealthUp(false, false) and ak >= 5 and
                 h:FilteredTimeToDie(">", 10)
          then
             if m.Cast(Q.Flagellation, nil) then
@@ -461,20 +474,25 @@ local function aZ()
         end
     end
     if a5 then
-        if o() and Q.Sepsis:IsReady() and a_ and al >= 1 and not h:FilteredTimeToDie("<", 16) then
+        if o() and Q.Sepsis:IsReady() and b4 and al >= 1 and not h:FilteredTimeToDie("<", 16) then
             if m.Cast(Q.Sepsis, nil, nil) then
                 a8 = 328305
                 return "Cast Sepsis"
             end
         end
-        if
-            Q.SymbolsofDeath:IsCastable() and a_ and
-                (not Q.Flagellation:IsAvailable() or Q.Flagellation:CooldownRemains() > 10 or
-                    Q.Flagellation:CooldownUp() and ak >= 5)
-         then
-            if m.Cast(Q.SymbolsofDeath, nil) then
-                a8 = 212283
-                return "Cast Symbols of Death"
+        if Q.SymbolsofDeath:IsCastable() then
+            if
+                (g:BuffRemains(Q.SymbolsofDeath) <= 3 and not Q.ShadowDance:CooldownUp() or not g:HasTier(30, 2)) and
+                    aP() and
+                    b4 and
+                    (not Q.Flagellation:IsAvailable() and (ak <= 1 or not Q.TheRotten:IsAvailable()) or
+                        Q.Flagellation:CooldownRemains() > 10 or
+                        Q.Flagellation:CooldownUp() and ak >= 5)
+             then
+                if m.Cast(Q.SymbolsofDeath, nil) then
+                    a8 = 212283
+                    return "Cast Symbols of Death"
+                end
             end
         end
     end
@@ -500,7 +518,7 @@ local function aZ()
     if m.CDsON() then
         if
             Q.ShadowBlades:IsCastable() and
-                (a_ and al >= 2 and h:FilteredTimeToDie(">=", 10) and
+                (b4 and al >= 2 and h:FilteredTimeToDie(">=", 10) and
                     (not Q.Sepsis:IsAvailable() or Q.Sepsis:CooldownRemains() <= 8 or h:DebuffUp(Q.Sepsis)) or
                     d.BossFilteredFightRemains("<=", 20))
          then
@@ -544,17 +562,18 @@ local function aZ()
                 return "Cast Shadow Dance (Low TTD)"
             end
         end
-        if
-            Q.ThistleTea:IsCastable() and not g:BuffUp(Q.ThistleTea) and
-                (Q.SymbolsofDeath:CooldownRemains() >= 3 and
-                    (g:EnergyDeficit() >= 100 or
+        if Q.ThistleTea:IsReady() then
+            if
+                (Q.SymbolsofDeath:CooldownRemains() >= 3 or g:BuffUp(Q.SymbolsofDeath)) and not g:BuffUp(Q.ThistleTea) and
+                    (g:EnergyDeficitPredicted() >= 100 and (g:ComboPointsDeficit() >= 2 or a1 >= 3) or
                         Q.ThistleTea:ChargesFractional() >= 2.75 and g:BuffUp(Q.ShadowDanceBuff)) or
-                    g:BuffRemains(Q.ShadowDanceBuff) > 4 and a1 >= 3 or
-                    d.BossFilteredFightRemains("<=", Q.ThistleTea:Charges() * 6))
-         then
-            if m.Cast(Q.ThistleTea) then
-                a8 = 381623
-                return "Cast ThistleTea"
+                    g:BuffRemains(Q.ShadowDanceBuff) >= 4 and not g:BuffUp(Q.ThistleTea) and a1 >= 3 or
+                    not g:BuffUp(Q.ThistleTea) and d.BossFilteredFightRemains("<=", 6 * Q.ThistleTea:Charges())
+             then
+                if m.Cast(Q.ThistleTea) then
+                    a8 = 381623
+                    return "Cast ThistleTea"
+                end
             end
         end
         if
@@ -564,9 +583,9 @@ local function aZ()
                     not m.GUISettings.General.HoldPotforBL or
                     m.GUISettings.General.HoldPotforBL and g:BloodlustUp())
          then
-            local b0 = O.PotionSelected()
-            if b0 and b0:IsReady() then
-                if m.Cast(b0, nil, nil) then
+            local b5 = O.PotionSelected()
+            if b5 and b5:IsReady() then
+                if m.Cast(b5, nil, nil) then
                     a8 = 37
                     return "potion cooldowns 2"
                 end
@@ -598,35 +617,47 @@ local function aZ()
                 end
             end
         end
-        local b1 = g:GetUseableTrinkets(Z)
-        if b1 and o() and (g:BuffUp(Q.SymbolsofDeath) or d.BossFilteredFightRemains("<", 20)) then
-            if b1 then
-                if m.Cast(b1, nil, nil) then
-                    if b1:ID() == GetInventoryItemID("player", 13) and S.Commons.Enabled.TopTrinket then
+        local b6 = g:GetUseableTrinkets(Z)
+        if b6 and o() and (g:BuffUp(Q.SymbolsofDeath) or d.BossFilteredFightRemains("<", 20)) then
+            if b6 then
+                if m.Cast(b6, nil, nil) then
+                    if b6:ID() == GetInventoryItemID("player", 13) and S.Commons.Enabled.TopTrinket then
                         a8 = 24
-                        return "Generic use_items for " .. b1:Name()
-                    elseif b1:ID() == GetInventoryItemID("player", 14) and S.Commons.Enabled.BottomTrinket then
+                        return "Generic use_items for " .. b6:Name()
+                    elseif b6:ID() == GetInventoryItemID("player", 14) and S.Commons.Enabled.BottomTrinket then
                         a8 = 25
-                        return "Generic use_items for " .. b1:Name()
+                        return "Generic use_items for " .. b6:Name()
                     end
                 end
             end
         end
     end
 end
-local function b2()
-    local aO = g:BuffUp(Q.ShadowDanceBuff) or StealthSpell and StealthSpell:ID() == Q.ShadowDance:ID()
-    local b3 = g:BuffRemains(Q.ShadowDanceBuff)
+local function b7()
+    local aO = g:BuffUp(Q.ShadowDanceBuff)
+    local b8 = g:BuffRemains(Q.ShadowDanceBuff)
+    local b9 = g:BuffRemains(Q.SymbolsofDeath)
+    local ba = ak
+    local aS = StealthSpell or g:BuffUp(Q.PremeditationBuff)
     if StealthSpell and StealthSpell:ID() == Q.ShadowDance:ID() then
-        b3 = 8
+        b8 = 8
+    end
+    if StealthSpell and StealthSpell:ID() == Q.ShadowDance:ID() then
+        aO = true
+        b8 = 8 + Q.ImprovedShadowDance:TalentRank()
+        if Q.TheFirstDance:IsAvailable() then
+            ba = L(g:ComboPointsMax(), ak + 4)
+        end
+        if g:HasTier(30, 2) then
+            b9 = M(b9, 6)
+        end
     end
     if Q.SliceandDice:IsCastable() and d.FilteredFightRemains(a0, ">", g:BuffRemains(Q.SliceandDice)) then
         if Q.Premeditation:IsAvailable() and a1 < 5 then
             if
                 Q.ShadowDance:ChargesFractional() < 1.75 and
                     g:BuffRemains(Q.SliceandDice) < Q.SymbolsofDeath:CooldownRemains() and
-                    (Q.ShadowDance:Charges() >= 1 and
-                        g:BuffRemains(Q.SymbolsofDeath) - g:BuffRemains(Q.ShadowDanceBuff) < 1.2)
+                    (Q.ShadowDance:Charges() >= 1 and b9 - b8 < 1.2)
              then
                 if Q.SliceandDice:IsReady() and m.Cast(Q.SliceandDice) then
                     a8 = 5171
@@ -634,7 +665,7 @@ local function b2()
                 end
             end
         else
-            if a1 < 6 and not aO and g:BuffRemains(Q.SliceandDice) < 1 + ak * 1.8 then
+            if a1 < 6 and not aO and g:BuffRemains(Q.SliceandDice) < 1 + ba * 1.8 then
                 if Q.SliceandDice:IsReady() and m.Cast(Q.SliceandDice) then
                     a8 = 5171
                     return "Cast Slice and Dice"
@@ -642,8 +673,8 @@ local function b2()
             end
         end
     end
-    local b4 = aN(aO)
-    if (not b4 or am) and Q.Rupture:IsCastable() then
+    local bb = aN(aO)
+    if (not bb or am) and Q.Rupture:IsCastable() then
         if
             a5 and (h:FilteredTimeToDie(">", 6, -h:DebuffRemains(Q.Rupture)) or h:TimeToDieIsNotValid()) and
                 P.CanDoTUnit(h, ag) and
@@ -655,7 +686,7 @@ local function b2()
             end
         end
     end
-    if not b4 and Q.Rupture:IsCastable() then
+    if not bb and Q.Rupture:IsCastable() then
         if
             a1 == 1 and g:BuffUp(Q.FinalityRuptureBuff) and (Q.DarkBrew:IsAvailable() or Q.DanseMacabre:IsAvailable()) and
                 Q.ShadowDance:CooldownRemains() < 12 and
@@ -679,7 +710,7 @@ local function b2()
         end
         if
             not Q.ColdBlood:IsAvailable() or Q.ColdBlood:IsReady() or g:BuffUp(Q.ColdBlood) or
-                Q.ColdBlood:CooldownRemains() > b3 - 2
+                Q.ColdBlood:CooldownRemains() > b8 - 2
          then
             if m.Cast(Q.SecretTechnique) then
                 a8 = 280719
@@ -693,33 +724,30 @@ local function b2()
             return "Cast Eviscerate (FunnelAOE)"
         end
     end
-    if
-        Q.SecretTechnique:IsCastable() and aO and
-            (g:BuffStack(Q.DanseMacabreBuff) >= 3 or not Q.DanseMacabre:IsAvailable())
-     then
-        if Q.ColdBlood:IsReady() and g:BuffDown(Q.ColdBlood) then
-            if m.Cast(Q.ColdBlood) then
-                a8 = 382245
-                return "Cast Cold Blood (SecTec)"
-            end
-        end
-        if
-            not Q.ColdBlood:IsAvailable() or Q.ColdBlood:IsReady() or g:BuffUp(Q.ColdBlood) or
-                Q.ColdBlood:CooldownRemains() > b3 - 2
-         then
-            if m.Cast(Q.SecretTechnique) then
-                a8 = 280719
-                return "Cast Secret Technique"
-            end
+    if Q.ColdBlood:IsReady() and aR(aO, aS) and Q.SecretTechnique:CooldownUp() then
+        if m.Cast(Q.ColdBlood) then
+            a8 = 382245
+            return "Cast Cold Blood (SecTec)"
         end
     end
-    if not b4 and Q.Rupture:IsCastable() then
+    if
+        Q.SecretTechnique:IsReady() and aR(aO, aS) and
+            (not Q.ColdBlood:IsAvailable() or S.Commons.OffGCDasOffGCD.ColdBlood and Q.ColdBlood:IsReady() or
+                g:BuffUp(Q.ColdBlood) or
+                Q.ColdBlood:CooldownRemains() > b8 - 2)
+     then
+        if m.Cast(Q.SecretTechnique) then
+            a8 = 280719
+            return "Cast Secret Technique"
+        end
+    end
+    if not bb and Q.Rupture:IsCastable() then
         if m.AoEON() and not am and a1 >= 2 then
-            local function b5(aQ)
-                return O.CanDoTUnit(aQ, ag) and aQ:DebuffRefreshable(Q.Rupture, af)
+            local function bc(aV)
+                return O.CanDoTUnit(aV, ag) and aV:DebuffRefreshable(Q.Rupture, af)
             end
             if not av then
-                aw(Q.Rupture, b5, 2 * ak, a2)
+                aw(Q.Rupture, bc, 2 * ba, a2)
                 av = true
             end
         end
@@ -735,7 +763,10 @@ local function b2()
             end
         end
     end
-    if Q.BlackPowder:IsCastable() and not am and a1 >= 3 then
+    if
+        Q.BlackPowder:IsCastable() and
+            (not am and a1 >= 3 or a1 == 2 and aO and Q.DanseMacabre:IsAvailable() and not aT(Q.BlackPowder))
+     then
         if Q.BlackPowder:IsReady() and m.Cast(Q.BlackPowder) then
             a8 = 319175
             return "Cast Black Powder"
@@ -748,12 +779,16 @@ local function b2()
         end
     end
 end
-local function b6()
+local function bd()
     if
         m.CDsON() and Q.ShadowDance:TimeSinceLastDisplay() > 0.3 and Q.Shadowmeld:TimeSinceLastDisplay() > 0.3 and
             not g:IsTanking(h)
      then
-        if Q.Vanish:IsCastable() and (not Q.DanseMacabre:IsAvailable() or a1 >= 3) and not aL() and al > 1 then
+        if
+            Q.Vanish:IsCastable() and (not Q.DanseMacabre:IsAvailable() or a1 >= 3) and not aL() and al > 1 and
+                (Q.Flagellation:CooldownRemains() >= 60 or not Q.Flagellation:IsAvailable() or
+                    d.BossFilteredFightRemains("<=", 30 * Q.Vanish:Charges()))
+         then
             if m.Cast(Q.Vanish, nil, nil) then
                 a8 = 1856
                 return "Vanish Stealth CD"
@@ -777,11 +812,15 @@ local function b6()
                     S.Subtlety.ShDEcoCharge - (not Q.ShadowDanceTalent:IsAvailable() and 0.75 or 0))
      then
         if
-            (aM() and (g:BuffRemains(Q.SymbolsofDeath) >= 2.2 - l(Q.Flagellation:IsAvailable()) or aL()) or
-                g:BuffUp(Q.Flagellation) or
+            (aM() and
+                (not Q.ShadowDanceTalent:IsAvailable() and
+                    g:BuffRemains(Q.SymbolsofDeath) >= 2.2 - l(Q.Flagellation:IsAvailable()) or
+                    aL()) or
+                Q.ShadowDanceTalent:IsAvailable() and Q.SecretTechnique:CooldownRemains() <= 9 and
+                    (a1 <= 3 or Q.DanseMacabre:IsAvailable()) or
                 g:BuffRemains(Q.FlagellationPersistBuff) >= 6 or
                 a1 >= 4 and Q.SymbolsofDeath:CooldownRemains() > 10) and
-                g:BuffDown(Q.TheRottenBuff)
+                aQ()
          then
             if m.Cast(Q.ShadowDance) then
                 a8 = 185313
@@ -801,67 +840,78 @@ local function b6()
         end
     end
 end
-local function b7()
-    local b8 = g:BuffUp(P.StealthSpell()) or StealthSpell and StealthSpell:ID() == P.StealthSpell():ID()
-    local b9 = g:BuffUp(P.VanishBuffSpell()) or StealthSpell and StealthSpell:ID() == P.VanishBuffSpell():ID()
-    local aO = g:BuffUp(Q.ShadowDanceBuff) or StealthSpell and StealthSpell:ID() == Q.ShadowDance:ID()
-    local b3 = g:BuffRemains(Q.ShadowDanceBuff)
-    local ba = StealthSpell or g:BuffUp(Q.PremeditationBuff)
+local function be()
+    local aO = g:BuffUp(Q.ShadowDanceBuff)
+    local b8 = g:BuffRemains(Q.ShadowDanceBuff)
+    local aS = StealthSpell or g:BuffUp(Q.PremeditationBuff)
+    local bf = g:BuffUp(Q.TheRottenBuff)
+    local bg, bh = ak, al
+    local bi = g:BuffUp(P.StealthSpell()) or StealthSpell and StealthSpell:ID() == P.StealthSpell():ID()
+    local bj = g:BuffUp(P.VanishBuffSpell()) or StealthSpell and StealthSpell:ID() == Q.Vanish:ID()
     if StealthSpell and StealthSpell:ID() == Q.ShadowDance:ID() then
-        b3 = 8
+        aO = true
+        b8 = 8 + Q.ImprovedShadowDance:TalentRank()
+        if g:HasTier(30, 2) then
+            bf = true
+        end
+        if Q.TheFirstDance:IsAvailable() then
+            bg = L(g:ComboPointsMax(), ak + 4)
+            bh = g:ComboPointsMax() - bg
+        end
     end
-    local bb = Q.Shadowstrike:IsCastable() or b8 or b9 or aO
-    if b8 or b9 then
-        bb = bb and h:IsInRange(25)
+    local bk = P.EffectiveComboPoints(bg)
+    local bl = Q.Shadowstrike:IsCastable() or bi or bj or aO or g:BuffUp(Q.SepsisBuff)
+    if bi or bj then
+        bl = bl and h:IsInRange(25)
     else
-        bb = bb and a5
+        bl = bl and a5
     end
-    if bb and (b8 or b9) and (a1 < 4 or am) then
+    if bl and (bi or bj) and (a1 < 4 or am) then
         if m.Cast(Q.Shadowstrike) then
             a8 = 185438
             return "Cast Shadowstrike (Stealth)"
         end
     end
+    local bm =
+        g:BuffStack(Q.DanseMacabreBuff) < 5 and (bh == 2 or bh == 3) and (aS or bk < 7) and
+        (a1 <= 8 or Q.LingeringShadow:IsAvailable())
     if
-        g:BuffStack(Q.DanseMacabreBuff) < 5 and (al == 2 or al == 3) and (ba or EffectiveComboPoints < 7) and
-            (a1 <= 8 or Q.LingeringShadow:IsAvailable())
+        bm and g:BuffUp(Q.SilentStormBuff) and h:DebuffDown(Q.FindWeaknessDebuff) and
+            Q.ImprovedShurikenStorm:IsAvailable() or
+            Q.DanseMacabre:IsAvailable() and bg <= 1 and a1 == 2 and not aT(Q.ShurikenStorm)
      then
-        if
-            Q.ImprovedShurikenStorm:IsAvailable() and
-                (g:BuffUp(Q.SilentStormBuff) or StealthSpell and Q.SilentStorm:IsAvailable()) and
-                h:DebuffDown(Q.FindWeaknessDebuff)
-         then
-            if m.Cast(Q.ShurikenStorm) then
-                a8 = 197835
-                return "Cast Shuriken Storm (FW)"
-            end
-        end
-        if Q.Gloomblade:IsCastable() then
-            if m.Cast(Q.Gloomblade) then
-                a8 = 700
-                return "Cast Gloomblade (Stealth)"
-            end
-        elseif
-            Q.Backstab:IsCastable() and Q.DanseMacabre:IsAvailable() and g:BuffStack(Q.DanseMacabreBuff) <= 2 and
-                a1 <= 2
-         then
-            if m.Cast(Q.Backstab) then
-                a8 = 600
-                return "Cast Backstab (Stealth)"
-            end
+        if m.Cast(Q.ShurikenStorm) then
+            a8 = 197835
+            return "Cast Shuriken Storm (FW)"
         end
     end
-    if EffectiveComboPoints >= P.CPMaxSpend() then
-        return b2()
+    if Q.Gloomblade:IsCastable() and (bm and (not aT(Q.Gloomblade) or a1 ~= 2) or bg <= 2 and bf and a1 <= 3) then
+        if m.Cast(Q.Gloomblade) then
+            a8 = 700
+            return "Cast Gloomblade (Stealth)"
+        end
     end
-    if g:BuffUp(Q.ShurikenTornado) and al <= 2 then
-        return b2()
+    if
+        Q.Backstab:IsCastable() and bm and Q.DanseMacabre:IsAvailable() and not aT(Q.Backstab) and
+            g:BuffStack(Q.DanseMacabreBuff) <= 2 and
+            a1 <= 2
+     then
+        if m.Cast(Q.Backstab) then
+            a8 = 600
+            return "Cast Backstab (Stealth)"
+        end
     end
-    if a1 >= 4 - l(Q.SealFate:IsAvailable()) and EffectiveComboPoints >= 4 then
-        return b2()
+    if bk >= P.CPMaxSpend() then
+        return b7()
     end
-    if al <= 1 + aI(Q.SealFate:IsAvailable() or Q.DeeperStratagem:IsAvailable() or Q.SecretStratagem:IsAvailable()) then
-        return b2()
+    if g:BuffUp(Q.ShurikenTornado) and bh <= 2 then
+        return b7()
+    end
+    if a1 >= 4 - l(Q.SealFate:IsAvailable()) and bk >= 4 then
+        return b7()
+    end
+    if bh <= 1 + aI(Q.SealFate:IsAvailable() or Q.DeeperStratagem:IsAvailable() or Q.SecretStratagem:IsAvailable()) then
+        return b7()
     end
     if g:BuffStack(Q.PerforatedVeinsBuff) >= 5 and a1 < 3 then
         if Q.Gloomblade:IsCastable() then
@@ -876,20 +926,20 @@ local function b7()
             end
         end
     end
-    if bb and not g:StealthUp(true, false) and not StealthSpell and g:BuffUp(Q.SepsisBuff) and a1 < 4 then
+    if bl and not g:StealthUp(true, false) and not StealthSpell and g:BuffUp(Q.SepsisBuff) and a1 < 4 then
         if m.Cast(Q.Shadowstrike) then
             a8 = 185438
             return "Cast Shadowstrike (Sepsis)"
         end
     end
-    if m.AoEON() and Q.ShurikenStorm:IsCastable() and a1 >= 3 + l(g:BuffUp(Q.TheRottenBuff)) and (not ba or a1 >= 7) then
+    if m.AoEON() and Q.ShurikenStorm:IsCastable() and a1 >= 3 + l(bf) and (not aS or a1 >= 7 and not am) then
         if m.Cast(Q.ShurikenStorm) then
             a8 = 197835
             return "Cast Shuriken Storm"
         end
     end
     if
-        bb and
+        bl and
             (h:DebuffRemains(Q.FindWeaknessDebuff) < 1 or
                 Q.SymbolsofDeath:CooldownRemains() < 18 and
                     h:DebuffRemains(Q.FindWeaknessDebuff) < Q.SymbolsofDeath:CooldownRemains())
@@ -899,19 +949,19 @@ local function b7()
             return "Cast Shadowstrike (FW Refresh)"
         end
     end
-    if bb then
+    if bl then
         if m.Cast(Q.Shadowstrike) then
             a8 = 185438
             return "Cast Shadowstrike 2"
         end
     end
 end
-local function bc()
+local function bn()
     aa = nil
     ac = nil
     ab = 0
     a3 = Q.AcrobaticStrikes:IsAvailable() and 8 or 5
-    a4 = Q.AcrobaticStrikes:IsAvailable() and 10 or 13
+    a4 = Q.AcrobaticStrikes:IsAvailable() and 13 or 10
     a5 = h:IsInMeleeRange(a3)
     a6 = h:IsInMeleeRange(a4)
     q = HeroRotationCharDB.Toggles[5]
@@ -973,7 +1023,7 @@ local function bc()
     Y = GetInventoryItemID("player", 14)
     av = false
 end
-local function bd()
+local function bo()
     if Q.Subterfuge:IsAvailable() then
         ad = Q.Stealth2
         ae = Q.VanishBuff2
@@ -981,7 +1031,7 @@ local function bd()
         ad = Q.Stealth
         ae = Q.VanishBuff
     end
-    a7 = bc()
+    a7 = bn()
     a3 = Q.AcrobaticStrikes:IsAvailable() and 8 or 5
     a4 = Q.AcrobaticStrikes:IsAvailable() and 13 or 10
     a5 = h:IsInMeleeRange(a3)
@@ -1016,21 +1066,21 @@ local function bd()
             ak == 2 and not g:BuffUp(Q.EchoingReprimand3) or ak == 3 and not g:BuffUp(Q.EchoingReprimand4) or
                 ak == 4 and not g:BuffUp(Q.EchoingReprimand5)
          then
-            local be = P.TimeToSht(4)
-            if be == 0 then
-                be = P.TimeToSht(5)
+            local bp = P.TimeToSht(4)
+            if bp == 0 then
+                bp = P.TimeToSht(5)
             end
-            if be < M(g:EnergyTimeToX(35), g:GCDRemains()) + 0.5 then
+            if bp < M(g:EnergyTimeToX(35), g:GCDRemains()) + 0.5 then
                 EffectiveComboPoints = ak
             end
         end
     end
     if g:BuffUp(Q.ShurikenTornado, nil, true) and ak < P.CPMaxSpend() then
-        local bf = P.TimeToNextTornado()
-        if bf <= g:GCDRemains() or N(g:GCDRemains() - bf) < 0.25 then
-            local bg = a1 + aI(g:BuffUp(Q.ShadowBlades))
-            ak = L(ak + bg, P.CPMaxSpend())
-            al = M(al - bg, 0)
+        local bq = P.TimeToNextTornado()
+        if bq <= g:GCDRemains() or N(g:GCDRemains() - bq) < 0.25 then
+            local br = a1 + aI(g:BuffUp(Q.ShadowBlades))
+            ak = L(ak + br, P.CPMaxSpend())
+            al = M(al - br, 0)
             if EffectiveComboPoints < P.CPMaxSpend() then
                 EffectiveComboPoints = ak
             end
@@ -1346,10 +1396,10 @@ local function bd()
     }
     if UnitExists("target") and Q.Shiv:IsReady() and not E then
         if UnitCanAttack("player", "target") and UnitAffectingCombat("target") and UnitIsDead("target") ~= true then
-            for bh = 0, 40 do
-                local aE, aE, bi, bj, aE, aE, aE, aE, aE, bk = UnitBuff("target", bh)
-                for aE, bl in pairs(F) do
-                    if bl == bk then
+            for bs = 0, 40 do
+                local aE, aE, bt, bu, aE, aE, aE, aE, aE, bv = UnitBuff("target", bs)
+                for aE, bw in pairs(F) do
+                    if bw == bv then
                         if m.Cast(Q.Shiv, nil) then
                             a8 = 5938
                             return "Shiv Enrage"
@@ -1359,27 +1409,27 @@ local function bd()
             end
         end
     end
-    local bm = g:AffectingCombat() and 180 or 900
-    local bn
+    local bx = g:AffectingCombat() and 180 or 900
+    local by
     if i(8679):IsAvailable() and S.Commons.LethalPoison == "Wound Poison" then
-        bn = g:BuffRemains(i(8679))
-        if bn < bm and not g:IsCasting(i(8679)) then
+        by = g:BuffRemains(i(8679))
+        if by < bx and not g:IsCasting(i(8679)) then
             if m.Cast(i(8679)) then
                 a8 = 203
                 return "Wound Poison Refresh"
             end
         end
     elseif i(2823):IsAvailable() and S.Commons.LethalPoison == "Deadly Poison" then
-        bn = g:BuffRemains(i(2823))
-        if bn < bm and not g:IsCasting(i(2823)) then
+        by = g:BuffRemains(i(2823))
+        if by < bx and not g:IsCasting(i(2823)) then
             if m.Cast(i(2823)) then
                 a8 = 208
                 return "Deadly Poison Refresh"
             end
         end
     elseif i(315584):IsAvailable() and S.Commons.LethalPoison == "Instant Poison" then
-        bn = g:BuffRemains(i(315584))
-        if bn < bm and not g:IsCasting(i(315584)) then
+        by = g:BuffRemains(i(315584))
+        if by < bx and not g:IsCasting(i(315584)) then
             if m.Cast(i(315584)) then
                 a8 = 205
                 return "Instant Poison Refresh"
@@ -1387,24 +1437,24 @@ local function bd()
         end
     end
     if i(381637):IsAvailable() and S.Commons.NonLethalPoison == "Atrophic Poison" then
-        bn = g:BuffRemains(i(381637))
-        if bn < bm and not g:IsCasting(i(381637)) then
+        by = g:BuffRemains(i(381637))
+        if by < bx and not g:IsCasting(i(381637)) then
             if m.Cast(i(381637)) then
                 a8 = 381637
                 return "Atropic Poison Refresh"
             end
         end
     elseif i(5761):IsAvailable() and S.Commons.NonLethalPoison == "Numbing Poison" then
-        bn = g:BuffRemains(i(5761))
-        if bn < bm and not g:IsCasting(NumbingPoison) then
+        by = g:BuffRemains(i(5761))
+        if by < bx and not g:IsCasting(NumbingPoison) then
             if m.Cast(i(5761)) then
                 a8 = 204
                 return "Numbing Poison Refresh"
             end
         end
     elseif i(3408):IsAvailable() and S.Commons.NonLethalPoison == "Crippling Poison" then
-        bn = g:BuffRemains(i(3408))
-        if bn < bm and not g:IsCasting(NumbingPoison) then
+        by = g:BuffRemains(i(3408))
+        if by < bx and not g:IsCasting(NumbingPoison) then
             if m.Cast(i(3408)) then
                 a8 = 206
                 return "Crippling Poison Refresh"
@@ -1428,13 +1478,13 @@ local function bd()
                 end
             end
             if g:StealthUp(true, true) and (g:AffectingCombat() or q) then
-                a7 = b7()
+                a7 = be()
                 if a7 then
                     return a7 .. " (1OOC)"
                 end
             elseif ak >= 5 then
                 if g:AffectingCombat() or q then
-                    a7 = b2()
+                    a7 = b7()
                     if a7 then
                         return a7 .. " (2OOC)"
                     end
@@ -1456,14 +1506,14 @@ local function bd()
         if a7 then
             return a7
         end
-        a7 = aZ()
+        a7 = b3()
         if a7 then
             return "CDs: " .. a7
         end
-        local bo, bp, aE = GetSpellCooldown(57934)
+        local bz, bA, aE = GetSpellCooldown(57934)
         if S.Commons.AutoToT and g:AffectingCombat() then
             if
-                bo + bp - GetTime() <= 0 and Q.TricksoftheTrade:IsAvailable() and
+                bz + bA - GetTime() <= 0 and Q.TricksoftheTrade:IsAvailable() and
                     Q.TricksoftheTrade:CooldownRemains() <= 0 and
                     UnitExists("focus") and
                     (UnitInParty("focus") or UnitInRaid("focus")) and
@@ -1486,13 +1536,13 @@ local function bd()
             end
         end
         if g:StealthUp(true, true) and (g:AffectingCombat() or q) then
-            a7 = b7()
+            a7 = be()
             if a7 then
                 return "Stealthed : " .. a7
             end
         end
         if g:EnergyPredicted() >= StealthEnergyRequired then
-            a7 = b6()
+            a7 = bd()
             if a7 then
                 return "Stealth CDs: " .. a7
             end
@@ -1503,16 +1553,16 @@ local function bd()
                     d.BossFilteredFightRemains("<", 2) and EffectiveComboPoints >= 3) or
                 a1 >= 4 - aI(Q.SealFate:IsAvailable()) and EffectiveComboPoints >= 4
          then
-            a7 = b2()
+            a7 = b7()
             if a7 then
                 return "Finish: " .. a7
             end
         else
-            a7 = b6()
+            a7 = bd()
             if a7 then
                 return "Stealth CDs: " .. a7
             end
-            a7 = aX()
+            a7 = b1()
             if a7 then
                 return "Build: " .. a7
             end
@@ -1548,7 +1598,7 @@ local function bd()
         end
     end
 end
-local function bq()
+local function bB()
     if HeroRotationCharDB.Toggles[6] then
         HeroRotationCharDB.Toggles[6] = not HeroRotationCharDB.Toggles[6]
         m.ToggleIconFrame:UpdateButtonText(6)
@@ -1568,4 +1618,4 @@ function ReturnSpellMO()
         return a9
     end
 end
-m.SetAPL(261, bd, bq)
+m.SetAPL(261, bo, bB)
