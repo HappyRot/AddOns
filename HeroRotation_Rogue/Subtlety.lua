@@ -640,9 +640,6 @@ local function b7()
     local ba = ak
     local aS = StealthSpell or g:BuffUp(Q.PremeditationBuff)
     if StealthSpell and StealthSpell:ID() == Q.ShadowDance:ID() then
-        b8 = 8
-    end
-    if StealthSpell and StealthSpell:ID() == Q.ShadowDance:ID() then
         aO = true
         b8 = 8 + Q.ImprovedShadowDance:TalentRank()
         if Q.TheFirstDance:IsAvailable() then
@@ -780,6 +777,122 @@ local function b7()
     end
 end
 local function bd()
+    local aO = g:BuffUp(Q.ShadowDanceBuff)
+    local b8 = g:BuffRemains(Q.ShadowDanceBuff)
+    local aS = StealthSpell or g:BuffUp(Q.PremeditationBuff)
+    local be = g:BuffUp(Q.TheRottenBuff)
+    local bf, bg = ak, al
+    local bh = g:BuffUp(P.StealthSpell()) or StealthSpell and StealthSpell:ID() == P.StealthSpell():ID()
+    local bi = g:BuffUp(P.VanishBuffSpell()) or StealthSpell and StealthSpell:ID() == Q.Vanish:ID()
+    if StealthSpell and StealthSpell:ID() == Q.ShadowDance:ID() then
+        aO = true
+        b8 = 8 + Q.ImprovedShadowDance:TalentRank()
+        if g:HasTier(30, 2) then
+            be = true
+        end
+        if Q.TheFirstDance:IsAvailable() then
+            bf = L(g:ComboPointsMax(), ak + 4)
+            bg = g:ComboPointsMax() - bf
+        end
+    end
+    local bj = P.EffectiveComboPoints(bf)
+    local bk = Q.Shadowstrike:IsCastable() or bh or bi or aO or g:BuffUp(Q.SepsisBuff)
+    if bh or bi then
+        bk = bk and h:IsInRange(25)
+    else
+        bk = bk and a5
+    end
+    if bk and (bh or bi) and (a1 < 4 or am) then
+        if m.Cast(Q.Shadowstrike) then
+            a8 = 185438
+            return "Cast Shadowstrike (Stealth)"
+        end
+    end
+    local bl =
+        g:BuffStack(Q.DanseMacabreBuff) < 5 and (bg == 2 or bg == 3) and (aS or bj < 7) and
+        (a1 <= 8 or Q.LingeringShadow:IsAvailable())
+    if
+        bl and g:BuffUp(Q.SilentStormBuff) and h:DebuffDown(Q.FindWeaknessDebuff) and
+            Q.ImprovedShurikenStorm:IsAvailable() or
+            Q.DanseMacabre:IsAvailable() and bf <= 1 and a1 == 2 and not aT(Q.ShurikenStorm)
+     then
+        if m.Cast(Q.ShurikenStorm) then
+            a8 = 197835
+            return "Cast Shuriken Storm (FW)"
+        end
+    end
+    if Q.Gloomblade:IsCastable() and (bl and (not aT(Q.Gloomblade) or a1 ~= 2) or bf <= 2 and be and a1 <= 3) then
+        if m.Cast(Q.Gloomblade) then
+            a8 = 700
+            return "Cast Gloomblade (Stealth)"
+        end
+    end
+    if
+        Q.Backstab:IsCastable() and bl and Q.DanseMacabre:IsAvailable() and not aT(Q.Backstab) and
+            g:BuffStack(Q.DanseMacabreBuff) <= 2 and
+            a1 <= 2
+     then
+        if m.Cast(Q.Backstab) then
+            a8 = 600
+            return "Cast Backstab (Stealth)"
+        end
+    end
+    if bj >= P.CPMaxSpend() then
+        return b7()
+    end
+    if g:BuffUp(Q.ShurikenTornado) and bg <= 2 then
+        return b7()
+    end
+    if a1 >= 4 - l(Q.SealFate:IsAvailable()) and bj >= 4 then
+        return b7()
+    end
+    if bg <= 1 + aI(Q.SealFate:IsAvailable() or Q.DeeperStratagem:IsAvailable() or Q.SecretStratagem:IsAvailable()) then
+        return b7()
+    end
+    if g:BuffStack(Q.PerforatedVeinsBuff) >= 5 and a1 < 3 then
+        if Q.Gloomblade:IsCastable() then
+            if m.Cast(Q.Gloomblade) then
+                a8 = 7007
+                return "Cast Gloomblade (Stealth PV)"
+            end
+        elseif Q.Backstab:IsCastable() then
+            if m.Cast(Q.Backstab) then
+                a8 = 6006
+                return "Cast Backstab (Stealth PV)"
+            end
+        end
+    end
+    if bk and not g:StealthUp(true, false) and not StealthSpell and g:BuffUp(Q.SepsisBuff) and a1 < 4 then
+        if m.Cast(Q.Shadowstrike) then
+            a8 = 185438
+            return "Cast Shadowstrike (Sepsis)"
+        end
+    end
+    if m.AoEON() and Q.ShurikenStorm:IsCastable() and a1 >= 3 + l(be) and (not aS or a1 >= 7 and not am) then
+        if m.Cast(Q.ShurikenStorm) then
+            a8 = 197835
+            return "Cast Shuriken Storm"
+        end
+    end
+    if
+        bk and
+            (h:DebuffRemains(Q.FindWeaknessDebuff) < 1 or
+                Q.SymbolsofDeath:CooldownRemains() < 18 and
+                    h:DebuffRemains(Q.FindWeaknessDebuff) < Q.SymbolsofDeath:CooldownRemains())
+     then
+        if m.Cast(Q.Shadowstrike) then
+            a8 = 185438
+            return "Cast Shadowstrike (FW Refresh)"
+        end
+    end
+    if bk then
+        if m.Cast(Q.Shadowstrike) then
+            a8 = 185438
+            return "Cast Shadowstrike 2"
+        end
+    end
+end
+local function bm()
     if
         m.CDsON() and Q.ShadowDance:TimeSinceLastDisplay() > 0.3 and Q.Shadowmeld:TimeSinceLastDisplay() > 0.3 and
             not g:IsTanking(h)
@@ -798,12 +911,15 @@ local function bd()
             Q.Shadowmeld:IsCastable() and a5 and not g:IsMoving() and g:EnergyDeficitPredicted() > 10 and not aL() and
                 al > 4
          then
-            if m.CastPooling(Q.Shadowmeld, g:EnergyTimeToX(40)) then
-                a8 = 1000
-                return "Pool for Shadowmeld"
+            if g:Energy() < 40 then
+                if m.CastPooling(Q.Shadowmeld, g:EnergyTimeToX(40)) then
+                    a8 = 1000
+                    return "Pool for Shadowmeld"
+                end
             end
         end
     end
+    af = (4 + EffectiveComboPoints * 4) * 0.3
     if
         a5 and Q.ShadowDance:IsCastable() and Q.ShadowDance:Charges() >= 1 and Q.Vanish:TimeSinceLastDisplay() > 0.3 and
             Q.Shadowmeld:TimeSinceLastDisplay() > 0.3 and
@@ -830,129 +946,12 @@ local function bd()
         if
             T() and
                 (aM() and d.BossFilteredFightRemains("<", Q.SymbolsofDeath:CooldownRemains()) or
-                    not Q.ShadowDanceTalent:IsAvailable() and h:DebuffUp(Q.Rupture) and a1 <= 4 and
-                        g:BuffDown(Q.TheRottenBuff))
+                    not Q.ShadowDanceTalent:IsAvailable() and h:DebuffUp(Q.Rupture) and a1 <= 4 and aQ())
          then
             if m.Cast(Q.ShadowDance) then
                 a8 = 185313
                 return "Shadow Dance Stealth CD 2"
             end
-        end
-    end
-end
-local function be()
-    local aO = g:BuffUp(Q.ShadowDanceBuff)
-    local b8 = g:BuffRemains(Q.ShadowDanceBuff)
-    local aS = StealthSpell or g:BuffUp(Q.PremeditationBuff)
-    local bf = g:BuffUp(Q.TheRottenBuff)
-    local bg, bh = ak, al
-    local bi = g:BuffUp(P.StealthSpell()) or StealthSpell and StealthSpell:ID() == P.StealthSpell():ID()
-    local bj = g:BuffUp(P.VanishBuffSpell()) or StealthSpell and StealthSpell:ID() == Q.Vanish:ID()
-    if StealthSpell and StealthSpell:ID() == Q.ShadowDance:ID() then
-        aO = true
-        b8 = 8 + Q.ImprovedShadowDance:TalentRank()
-        if g:HasTier(30, 2) then
-            bf = true
-        end
-        if Q.TheFirstDance:IsAvailable() then
-            bg = L(g:ComboPointsMax(), ak + 4)
-            bh = g:ComboPointsMax() - bg
-        end
-    end
-    local bk = P.EffectiveComboPoints(bg)
-    local bl = Q.Shadowstrike:IsCastable() or bi or bj or aO or g:BuffUp(Q.SepsisBuff)
-    if bi or bj then
-        bl = bl and h:IsInRange(25)
-    else
-        bl = bl and a5
-    end
-    if bl and (bi or bj) and (a1 < 4 or am) then
-        if m.Cast(Q.Shadowstrike) then
-            a8 = 185438
-            return "Cast Shadowstrike (Stealth)"
-        end
-    end
-    local bm =
-        g:BuffStack(Q.DanseMacabreBuff) < 5 and (bh == 2 or bh == 3) and (aS or bk < 7) and
-        (a1 <= 8 or Q.LingeringShadow:IsAvailable())
-    if
-        bm and g:BuffUp(Q.SilentStormBuff) and h:DebuffDown(Q.FindWeaknessDebuff) and
-            Q.ImprovedShurikenStorm:IsAvailable() or
-            Q.DanseMacabre:IsAvailable() and bg <= 1 and a1 == 2 and not aT(Q.ShurikenStorm)
-     then
-        if m.Cast(Q.ShurikenStorm) then
-            a8 = 197835
-            return "Cast Shuriken Storm (FW)"
-        end
-    end
-    if Q.Gloomblade:IsCastable() and (bm and (not aT(Q.Gloomblade) or a1 ~= 2) or bg <= 2 and bf and a1 <= 3) then
-        if m.Cast(Q.Gloomblade) then
-            a8 = 700
-            return "Cast Gloomblade (Stealth)"
-        end
-    end
-    if
-        Q.Backstab:IsCastable() and bm and Q.DanseMacabre:IsAvailable() and not aT(Q.Backstab) and
-            g:BuffStack(Q.DanseMacabreBuff) <= 2 and
-            a1 <= 2
-     then
-        if m.Cast(Q.Backstab) then
-            a8 = 600
-            return "Cast Backstab (Stealth)"
-        end
-    end
-    if bk >= P.CPMaxSpend() then
-        return b7()
-    end
-    if g:BuffUp(Q.ShurikenTornado) and bh <= 2 then
-        return b7()
-    end
-    if a1 >= 4 - l(Q.SealFate:IsAvailable()) and bk >= 4 then
-        return b7()
-    end
-    if bh <= 1 + aI(Q.SealFate:IsAvailable() or Q.DeeperStratagem:IsAvailable() or Q.SecretStratagem:IsAvailable()) then
-        return b7()
-    end
-    if g:BuffStack(Q.PerforatedVeinsBuff) >= 5 and a1 < 3 then
-        if Q.Gloomblade:IsCastable() then
-            if m.Cast(Q.Gloomblade) then
-                a8 = 7007
-                return "Cast Gloomblade (Stealth PV)"
-            end
-        elseif Q.Backstab:IsCastable() then
-            if m.Cast(Q.Backstab) then
-                a8 = 6006
-                return "Cast Backstab (Stealth PV)"
-            end
-        end
-    end
-    if bl and not g:StealthUp(true, false) and not StealthSpell and g:BuffUp(Q.SepsisBuff) and a1 < 4 then
-        if m.Cast(Q.Shadowstrike) then
-            a8 = 185438
-            return "Cast Shadowstrike (Sepsis)"
-        end
-    end
-    if m.AoEON() and Q.ShurikenStorm:IsCastable() and a1 >= 3 + l(bf) and (not aS or a1 >= 7 and not am) then
-        if m.Cast(Q.ShurikenStorm) then
-            a8 = 197835
-            return "Cast Shuriken Storm"
-        end
-    end
-    if
-        bl and
-            (h:DebuffRemains(Q.FindWeaknessDebuff) < 1 or
-                Q.SymbolsofDeath:CooldownRemains() < 18 and
-                    h:DebuffRemains(Q.FindWeaknessDebuff) < Q.SymbolsofDeath:CooldownRemains())
-     then
-        if m.Cast(Q.Shadowstrike) then
-            a8 = 185438
-            return "Cast Shadowstrike (FW Refresh)"
-        end
-    end
-    if bl then
-        if m.Cast(Q.Shadowstrike) then
-            a8 = 185438
-            return "Cast Shadowstrike 2"
         end
     end
 end
@@ -1478,7 +1477,7 @@ local function bo()
                 end
             end
             if g:StealthUp(true, true) and (g:AffectingCombat() or q) then
-                a7 = be()
+                a7 = bd()
                 if a7 then
                     return a7 .. " (1OOC)"
                 end
@@ -1536,13 +1535,13 @@ local function bo()
             end
         end
         if g:StealthUp(true, true) and (g:AffectingCombat() or q) then
-            a7 = be()
+            a7 = bd()
             if a7 then
                 return "Stealthed : " .. a7
             end
         end
         if g:EnergyPredicted() >= StealthEnergyRequired then
-            a7 = bd()
+            a7 = bm()
             if a7 then
                 return "Stealth CDs: " .. a7
             end
@@ -1558,7 +1557,7 @@ local function bo()
                 return "Finish: " .. a7
             end
         else
-            a7 = bd()
+            a7 = bm()
             if a7 then
                 return "Stealth CDs: " .. a7
             end

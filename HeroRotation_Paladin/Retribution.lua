@@ -51,9 +51,10 @@ d:RegisterForEvent(
 )
 d:RegisterForEvent(
   function()
-    O = A.FinalVerdict:IsAvailable() and A.FinalVerdict or A.TemplarsVerdict
+    O = A.FinalVerdict:IsLearned() and A.FinalVerdict or A.TemplarsVerdict
   end,
-  "PLAYER_TALENT_UPDATE"
+  "SPELLS_CHANGED",
+  "LEARNED_SPELL_IN_TAB"
 )
 local function P()
   local Q = g:GCDRemains()
@@ -247,8 +248,30 @@ local function X()
       return "either verdict finishers 6"
     end
   end
+  ::Y::
+  if z.Retribution.DisableFinisherCDCheck or not n() then
+    if
+      A.DivineStorm:IsReady() and
+        (N and g:BuffDown(A.EmpyreanLegacyBuff) and
+          not (g:BuffUp(A.DivineArbiterBuff) and g:BuffStack(A.DivineArbiterBuff) > 24))
+     then
+      if o(A.DivineStorm, nil, nil, not h:IsInMeleeRange(8)) then
+        return "divine_storm no_cds finishers 8"
+      end
+    end
+    if A.JusticarsVengeance:IsReady() then
+      if o(A.JusticarsVengeance, nil, nil, not h:IsSpellInRange(A.JusticarsVengeance)) then
+        return "justicars_vengeance no_cds finishers 10"
+      end
+    end
+    if O:IsReady() then
+      if o(O, nil, nil, not h:IsSpellInRange(O)) then
+        return "either verdict no_cds finishers 12"
+      end
+    end
+  end
 end
-local function Y()
+local function Z()
   if A.DivineToll:IsCastable() and g:BuffUp(A.AvengingWrathBuff) then
     if o(A.DivineToll, nil, nil, not h:IsInRange(30)) then
       D = 375576
@@ -324,6 +347,16 @@ local function Y()
     if o(A.TemplarSlash, nil, nil, not h:IsInMeleeRange(9)) then
       D = 406647
       return "templar_slash generators 16"
+    end
+  end
+  ::Y::
+  if
+    A.Judgment:IsReady() and
+      (g:BuffDown(A.AvengingWrathBuff) and (g:HolyPower() <= 3 or not A.BoundlessJudgment:IsAvailable()) and
+        A.CrusadingStrikes:IsAvailable())
+   then
+    if o(A.Judgment, nil, nil, not h:IsSpellInRange(A.Judgment)) then
+      return "judgment generators 17"
     end
   end
   if A.BladeofJustice:IsCastable() and (L <= 3 or not A.HolyBlade:IsAvailable()) then
@@ -423,7 +456,7 @@ local function Y()
     end
   end
 end
-local function Z()
+local function _()
   if ShouldReturn then
     return ShouldReturn
   end
@@ -493,7 +526,7 @@ local function Z()
         return ShouldReturn
       end
     end
-    local ShouldReturn = Y()
+    local ShouldReturn = Z()
     if ShouldReturn then
       return ShouldReturn
     end
@@ -516,7 +549,7 @@ function ReturnSpellMO()
     return E
   end
 end
-local function _()
+local function a0()
   l.Print("Retribution Paladin rotation is currently a work in progress, but has been updated for patch 10.0.7.")
 end
-l.SetAPL(70, Z, _)
+l.SetAPL(70, _, a0)
