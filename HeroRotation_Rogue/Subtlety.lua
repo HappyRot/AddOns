@@ -455,7 +455,7 @@ local function b3()
         end
     end
     if
-        Q.ShurikenTornado:IsCastable() and a1 <= 1 and au() and Q.SymbolsofDeath:CooldownUp() and
+        p and Q.ShurikenTornado:IsCastable() and a1 <= 1 and au() and Q.SymbolsofDeath:CooldownUp() and
             Q.ShadowDance:Charges() >= 1 and
             (not Q.Flagellation:IsAvailable() or g:BuffUp(Q.Flagellation) or a1 >= 5) and
             ak <= 2 and
@@ -618,15 +618,17 @@ local function b3()
             end
         end
         local b6 = g:GetUseableTrinkets(Z)
-        if b6 and o() and (g:BuffUp(Q.SymbolsofDeath) or d.BossFilteredFightRemains("<", 20)) then
-            if b6 then
-                if m.Cast(b6, nil, nil) then
-                    if b6:ID() == GetInventoryItemID("player", 13) and S.Commons.Enabled.TopTrinket then
-                        a8 = 24
-                        return "Generic use_items for " .. b6:Name()
-                    elseif b6:ID() == GetInventoryItemID("player", 14) and S.Commons.Enabled.BottomTrinket then
-                        a8 = 25
-                        return "Generic use_items for " .. b6:Name()
+        if b6 and o() then
+            if g:BuffUp(Q.SymbolsofDeath) or d.BossFilteredFightRemains("<", 10) then
+                if b6 then
+                    if m.Cast(b6, nil, nil) then
+                        if b6:ID() == GetInventoryItemID("player", 13) and S.Commons.Enabled.TopTrinket then
+                            a8 = 24
+                            return "Generic use_items for " .. b6:Name()
+                        elseif b6:ID() == GetInventoryItemID("player", 14) and S.Commons.Enabled.BottomTrinket then
+                            a8 = 25
+                            return "Generic use_items for " .. b6:Name()
+                        end
                     end
                 end
             end
@@ -721,7 +723,7 @@ local function b7()
             return "Cast Eviscerate (FunnelAOE)"
         end
     end
-    if Q.ColdBlood:IsReady() and aR(aO, aS) and Q.SecretTechnique:CooldownUp() then
+    if p and Q.ColdBlood:IsReady() and aR(aO, aS) and Q.SecretTechnique:CooldownUp() then
         if m.Cast(Q.ColdBlood) then
             a8 = 382245
             return "Cast Cold Blood (SecTec)"
@@ -1479,13 +1481,13 @@ local function bo()
             if g:StealthUp(true, true) and (g:AffectingCombat() or q) then
                 a7 = bd()
                 if a7 then
-                    return a7 .. " (1OOC)"
+                    return a7 .. " (OOC)"
                 end
             elseif ak >= 5 then
                 if g:AffectingCombat() or q then
                     a7 = b7()
                     if a7 then
-                        return a7 .. " (2OOC)"
+                        return a7 .. " (OOC)"
                     end
                 end
             elseif Q.Backstab:IsCastable() then
