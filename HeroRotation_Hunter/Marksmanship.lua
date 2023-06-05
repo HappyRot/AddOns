@@ -819,6 +819,33 @@ local function ar()
             V = d.FightRemains(Z, false)
         end
     end
+    local function as()
+        r = HeroRotationCharDB.Toggles[5]
+        q = HeroRotationCharDB.Toggles[4]
+        t = HeroRotationCharDB.Toggles[12]
+        s = not HeroRotationCharDB.Toggles[15]
+        u = HeroRotationCharDB.Toggles[60]
+        v = HeroRotationCharDB.Toggles[120]
+        w = HeroRotationCharDB.Toggles[121]
+        x = HeroRotationCharDB.Toggles[122]
+        y = HeroRotationCharDB.Toggles[123]
+        z = HeroRotationCharDB.Toggles[124]
+        A = HeroRotationCharDB.Toggles[171]
+        HoldMD = HeroRotationCharDB.Toggles[125]
+        B = HeroRotationCharDB.Toggles[142]
+        C = HeroRotationCharDB.Toggles[17]
+        N = GetInventoryItemID("player", 13)
+        P = GetInventoryItemID("player", 14)
+        if not a2.Commons.Enabled.TopTrinket and not a2.Commons.Enabled.BotTrinket then
+            J = {N, P}
+        elseif not a2.Commons.Enabled.TopTrinket and a2.Commons.Enabled.BotTrinket then
+            J = {N}
+        elseif not a2.Commons.Enabled.BotTrinket and a2.Commons.Enabled.TopTrinket then
+            J = {P}
+        elseif not a2.Commons.Enabled.BotTrinket and not a2.Commons.Enabled.TopTrinket then
+            J = {}
+        end
+    end
     local function ar()
         a0 = h:IsSpellInRange(G.AimedShot)
         Y = g:GetEnemiesInRange(G.AimedShot.MaximumRange)
@@ -827,6 +854,9 @@ local function ar()
             _ = h:GetEnemiesInSplashRangeCount(10)
         else
             _ = 1
+        end
+        if u then
+            _ = 10
         end
         if a1.TargetIsValid() or g:AffectingCombat() then
             U = d.BossFightRemains(nil, true)
@@ -845,7 +875,7 @@ local function ar()
         if W > 0 then
             W = 0
         end
-        Reset()
+        as()
         if m.GUISettings.General.OpenerReset > 0 and not HeroRotationCharDB.Toggles[6] then
             starttime = GetTime()
             endtime = starttime + m.GUISettings.General.OpenerReset
@@ -981,32 +1011,32 @@ local function ar()
         if a1.TargetIsValid() then
             a6()
             if not g:AffectingCombat() and r then
-                local as = ai()
-                if as then
-                    return as
+                local at = ai()
+                if at then
+                    return at
                 end
             end
             T = G.Trueshot:CooldownUp()
             if o() then
-                local as = aj()
-                if as then
-                    return as
+                local at = aj()
+                if at then
+                    return at
                 end
             end
-            local as = an()
-            if as then
-                return as
+            local at = an()
+            if at then
+                return at
             end
             if _ < 3 or not G.TrickShots:IsAvailable() then
-                local as = al()
-                if as then
-                    return as
+                local at = al()
+                if at then
+                    return at
                 end
             end
             if _ > 2 then
-                local as = am()
-                if as then
-                    return as
+                local at = am()
+                if at then
+                    return at
                 end
             end
             if m.CastAnnotated(G.PoolFocus, false, "WAIT") then
@@ -1017,32 +1047,32 @@ local function ar()
     if a1.TargetIsValid() then
         a6()
         if not g:AffectingCombat() and r then
-            local as = ai()
-            if as then
-                return as
+            local at = ai()
+            if at then
+                return at
             end
         end
         T = G.Trueshot:CooldownUp()
         if o() then
-            local as = aj()
-            if as then
-                return as
+            local at = aj()
+            if at then
+                return at
             end
         end
-        local as = an()
-        if as then
-            return as
+        local at = an()
+        if at then
+            return at
         end
         if _ < 3 or not G.TrickShots:IsAvailable() then
-            local as = al()
-            if as then
-                return as
+            local at = al()
+            if at then
+                return at
             end
         end
         if _ > 2 then
-            local as = am()
-            if as then
-                return as
+            local at = am()
+            if at then
+                return at
             end
         end
         if m.CastAnnotated(G.PoolFocus, false, "WAIT") then
@@ -1064,7 +1094,7 @@ function ReturnSpellMO()
         return X
     end
 end
-local function at()
+local function au()
     m.Print("Marksmanship Hunter rotation is currently a work in progress, but has been updated for patch 10.0.")
 end
-m.SetAPL(254, ar, at)
+m.SetAPL(254, ar, au)
