@@ -1,11 +1,4 @@
-local e, e = ...
-local e = HeroLib
-local t = HeroCache
-local t = e.Unit
-local a = t.Player
-local t = t.Target
-local t = e.Spell
-local e = e.Item
-local e = pairs
-local e = select
+local a,b=...local c=HeroLib;local d=HeroCache;local e=c.Unit;local f=e.Player;local g=e.Target;local h=c.Spell;local i=c.Item;local pairs=pairs;local select=select
+
+
 
