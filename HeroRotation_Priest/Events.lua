@@ -1,11 +1,1 @@
-local e, e = ...
-local e = HeroLib
-local t = HeroRotation
-local t = HeroCache
-local t = e.Unit
-local a = t.Player
-local t = t.Target
-local t = e.Spell
-local e = e.Item
-local e = GetTime
-
+local a,b=...local c=HeroLib;local d=HeroRotation;local e=HeroCache;local f=c.Unit;local g=f.Player;local h=f.Target;local i=c.Spell;local j=c.Item
