@@ -11,3 +11,8 @@
 .idea/*
 .vscode/*
 /.vs
+*.md
+HeroDBC/CHANGES.txt
+HeroDBC/LICENSE
+HeroLib/CHANGES.txt
+HeroLib/LICENSE
