@@ -1,18 +1,1 @@
-local e, e = ...
-local e = HeroDBC.DBC
-local e = HeroLib
-local t = HeroCache
-local t = HeroRotation
-local a = e.Unit
-local o = a.Player
-local a = a.Target
-local a = e.Spell
-local e = e.Item
-t.Commons.Hunter = {  }
-local e = t.Commons.Hunter
-local e = pairs
-local e = select
-local e = wipe
-local e = 0
-local e = a.Hunter.BeastMastery
-
+local a,b=...local c=HeroDBC.DBC;local d=HeroLib;local e=HeroCache;local f=HeroRotation;local g=d.Unit;local h=g.Player;local i=g.Target;local j=g.Pet;local k=d.Spell;local l=d.Item;local m=C_Timer.After;f.Commons.Hunter={}local n=f.Commons.Hunter;n.Pet={}n.Pet.Status=j:IsActive()and 1 or 0;n.Pet.GUID=j:IsActive()and j:GUID()or 0;n.Pet.FeignGUID=0;n.Pet.SummonSpells={883,83242,83243,83244,83245,982}d:RegisterForSelfCombatEvent(function(...)local o,o,o,o,o,o,o,p,o,o,o,q=...for o,k in pairs(n.Pet.SummonSpells)do if q==k then n.Pet.Status=1;n.Pet.GUID=p;n.Pet.FeignGUID=0 end end end,"SPELL_SUMMON")d:RegisterForEvent(function()if n.Pet.Status==0 and j:IsActive()then n.Pet.Status=1;n.Pet.GUID=j:GUID()n.Pet.FeignGUID=0 end end,"SPELLS_CHANGED")d:RegisterForSelfCombatEvent(function(...)local o,o,o,o,o,o,o,o,o,o,o,q=...if q==2641 then m(1,function()n.Pet.Status=0;n.Pet.GUID=0;n.Pet.FeignGUID=0 end)end end,"SPELL_CAST_SUCCESS")d:RegisterForCombatEvent(function(...)local o,o,o,o,o,o,o,p=...if p==n.Pet.GUID then n.Pet.Status=2;n.Pet.GUID=0 elseif p==h:GUID()and n.Pet.Status==1 then n.Pet.Status=3;n.Pet.GUID=0 end end,"UNIT_DIED")d:RegisterForEvent(function(...)local o,r,o,q=...if r~="player"then return end;if q==209997 then n.Pet.FeignGUID=n.Pet.GUID end;if q==210000 and n.Pet.FeignGUID~=0 then n.Pet.GUID=n.Pet.FeignGUID;n.Pet.FeignGUID=0;n.Pet.Status=1 end end,"UNIT_SPELLCAST_SUCCEEDED")d:RegisterForEvent(function(...)n.Pet.GUID=0;n.Pet.FeignGUID=0;n.Pet.Status=0 end,"CHALLENGE_MODE_START")
