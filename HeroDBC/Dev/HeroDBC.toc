@@ -1,9 +1,9 @@
-## Interface: 100002
+## Interface: 100200
 
 ## Title: Hero|cFFA330C9DBC|r
 ## Author: HeroTC, Aethys, KutiKuti
-## Version: 10.0.2.01
-## Notes: Library containing DBC data used by HeroTC Addons. Can be used by others 3rd-Party Addons.
+## Version: 10.2.0.40
+s## Notes: Library containing DBC data used by HeroTC Addons. Can be used by others 3rd-Party Addons.
 
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
