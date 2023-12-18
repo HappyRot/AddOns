@@ -1,10 +1,1 @@
-local a = HeroLib;
-local b = HeroCache;
-local c = a.Unit;
-local d = c.Player;
-local e = c.Pet;
-local f = c.Target;
-local g = a.Spell;
-local h = a.Item;
-local i = HeroRotation;
-local j = g.Paladin.Protection
+local a=HeroLib;local b=HeroCache;local c=a.Unit;local d=c.Player;local e=c.Pet;local f=c.Target;local g=a.Spell;local h=a.Item;local i=HeroRotation;local j=g.Paladin.Protection;ProtPalBuffUp=a.AddCoreOverride("Player.BuffUp",function(self,g,k,l)local m=ProtPalBuffUp(self,g,k,l)if g==j.AvengingWrathBuff and j.Sentinel:IsAvailable()then return d:BuffUp(j.SentinelBuff)else return m end end,66)ProtPalBuffRemains=a.AddCoreOverride("Player.BuffRemains",function(self,g,k,l)local m=ProtPalBuffRemains(self,g,k,l)if g==j.AvengingWrathBuff and j.Sentinel:IsAvailable()then return d:BuffRemains(j.SentinelBuff)else return m end end,66)ProtPalCDRemains=a.AddCoreOverride("Spell.CooldownRemains",function(self,l)local m=ProtPalCDRemains(self,l)if self==j.AvengingWrath and j.Sentinel:IsAvailable()then return j.Sentinel:CooldownRemains()else return m end end,66)ProtPalIsAvail=a.AddCoreOverride("Spell.IsAvailable",function(self,n)local m=ProtPalIsAvail(self,n)if self==j.AvengingWrath and j.Sentinel:IsAvailable()then return j.Sentinel:IsAvailable()else return m end end,66)
