@@ -1,10 +1,1 @@
-local e, e = ...
-local e = HeroLib
-local t = HeroRotation
-local t = HeroCache
-local t = e.Unit
-local a = t.Player
-local t = t.Target
-local t = e.Spell
-local e = e.Item
-
+local a,b=...local c=HeroLib;local d=HeroRotation;local e=HeroCache;local f=c.Unit;local g=f.Player;local h=f.Target;local i=c.Spell;local j=c.Item;local GetTime=GetTime;local C_Timer=C_Timer;d.Commons.Shaman={}local k=d.Commons.Shaman;k.LastSKCast=0;k.LastSKBuff=0;k.LastT302pcBuff=0;k.FeralSpiritCount=0;c:RegisterForSelfCombatEvent(function(...)local l,m,m,m,m,m,m,m,n=select(4,...)if l==g:GUID()and n==191634 then k.LastSKCast=GetTime()end;if g:HasTier(31,2)and l==g:GUID()and n==375982 then k.FeralSpiritCount=k.FeralSpiritCount+1;C_Timer.After(15,function()k.FeralSpiritCount=k.FeralSpiritCount-1 end)end;if l==g:GUID()and n==51533 then k.FeralSpiritCount=k.FeralSpiritCount+2;C_Timer.After(15,function()k.FeralSpiritCount=k.FeralSpiritCount-2 end)end end,"SPELL_CAST_SUCCESS")c:RegisterForSelfCombatEvent(function(...)local o,m,m,m,n=select(8,...)if o==g:GUID()and n==191634 then k.LastSKBuff=GetTime()C_Timer.After(0.1,function()if k.LastSKBuff~=k.LastSKCast then k.LastT302pcBuff=k.LastSKBuff end end)end end,"SPELL_AURA_APPLIED")
